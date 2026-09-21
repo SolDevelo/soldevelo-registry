@@ -194,7 +194,3 @@ pull request that adds your own. Commits follow
 ## License
 
 [MIT](./LICENSE). Copyright SolDevelo.
-
-<p align="center">
-  Built in the open by <a href="https://soldevelo.com">SolDevelo</a>.
-</p>
