@@ -1,7 +1,10 @@
-dist/
-node_modules/
-.next/
-.turbo/
-coverage/
+.next
+node_modules
 pnpm-lock.yaml
-.pnpm-store/
+public/r
+registry.json
+config/blocks.ts
+config/components.ts
+config/templates.ts
+REGISTRY.md
+public/llms.txt

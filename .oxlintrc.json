@@ -1,0 +1,114 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "jsPlugins": ["@shadcn/lint"],
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "nextjs",
+    "oxc",
+    "promise",
+    "react",
+    "typescript",
+    "unicorn"
+  ],
+  "env": {
+    "browser": true,
+    "es2024": true,
+    "node": true
+  },
+  "categories": {
+    "correctness": "error",
+    "perf": "warn",
+    "suspicious": "warn"
+  },
+  "settings": {
+    "shadcn": {
+      "note": "See AGENTS.md > Design system rules."
+    }
+  },
+  "rules": {
+    "eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "separate-type-imports"
+      }
+    ],
+    "typescript/no-explicit-any": "error",
+    "react/jsx-key": "error",
+    "react/no-array-index-key": "warn",
+    "react/react-in-jsx-scope": "off",
+    "import/no-unassigned-import": "off",
+    "unicorn/prefer-node-protocol": "error",
+    "oxc/no-map-spread": "off",
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "shadcn/no-restyle": [
+      "error",
+      {
+        "allow": ["layout", "spacing"],
+        "contracts": [
+          {
+            "pattern": "^Table(Cell|Head|Row)$",
+            "allow": ["layout", "spacing", "tabular-nums", "font-medium"]
+          }
+        ]
+      }
+    ],
+    "shadcn/no-raw-colors": "error",
+    "shadcn/no-unknown-classes": "error",
+    "shadcn/require-static-classes": "error",
+    "shadcn/no-arbitrary-values": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["components/ui/**"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/no-arbitrary-values": "off",
+        "shadcn/no-raw-colors": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "react/no-array-index-key": "off",
+        "shadcn/require-static-classes": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/no-static-element-interactions": "off"
+      }
+    },
+    {
+      "files": [
+        "lib/og.tsx",
+        "app/**/opengraph-image.tsx",
+        "components/package-manager-logo.tsx"
+      ],
+      "rules": {
+        "shadcn/no-raw-colors": "off",
+        "shadcn/no-restyle": "off",
+        "nextjs/no-img-element": "off"
+      }
+    },
+    {
+      "files": ["scripts/**", "**/*.mts"],
+      "rules": {
+        "eslint/no-console": "off",
+        "eslint/no-await-in-loop": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    ".next/**",
+    "next-env.d.ts",
+    "node_modules/**",
+    "public/r/**",
+    "config/blocks.ts",
+    "config/components.ts",
+    "config/templates.ts",
+    "registry.json"
+  ]
+}
