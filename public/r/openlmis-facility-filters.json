@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-facility-filters",
+  "title": "Facility Program Period Selector",
+  "description": "Filter bar for scoping a view to a facility, program, and reporting period, with the active selection summarised beside a search field and a clear-filters action.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "badge",
+    "button",
+    "card",
+    "field",
+    "input",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/facility-filters/facility-filters.tsx",
+      "content": "import { SearchIcon, XIcon } from \"lucide-react\"\n\nimport { Badge } from \"@/components/ui/badge\"\nimport { Button } from \"@/components/ui/button\"\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"\nimport { Field, FieldGroup, FieldLabel } from \"@/components/ui/field\"\nimport { Input } from \"@/components/ui/input\"\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nconst FACILITIES = {\n  \"hf-kankao\": \"Kankao Health Facility\",\n  \"hf-nandumbo\": \"Nandumbo Health Center\",\n  \"hf-kalembo\": \"Kalembo Health Center\",\n  \"wh-balaka\": \"Balaka District Warehouse\",\n}\n\nconst PROGRAMS = {\n  \"essential-meds\": \"Essential Medicines\",\n  \"family-planning\": \"Family Planning\",\n  epi: \"EPI (Vaccines)\",\n  arv: \"ARV\",\n}\n\nconst PERIODS = {\n  \"2026-03\": \"March 2026\",\n  \"2026-02\": \"February 2026\",\n  \"2026-01\": \"January 2026\",\n  \"2025-q4\": \"Q4 2025\",\n}\n\nexport default function FacilityFilters() {\n  return (\n    <section className=\"w-full px-4 py-8\">\n      <Card className=\"mx-auto w-full max-w-5xl\">\n        <CardHeader>\n          <CardTitle>Scope this view</CardTitle>\n        </CardHeader>\n\n        <CardContent className=\"flex flex-col gap-6\">\n          <FieldGroup className=\"grid gap-4 sm:grid-cols-3\">\n            <Field>\n              <FieldLabel htmlFor=\"facility\">Facility</FieldLabel>\n              <Select\n                items={FACILITIES}\n                defaultValue=\"hf-kankao\"\n                name=\"facility\"\n              >\n                <SelectTrigger id=\"facility\" className=\"w-full\">\n                  <SelectValue />\n                </SelectTrigger>\n                <SelectContent>\n                  {Object.entries(FACILITIES).map(([value, label]) => (\n                    <SelectItem key={value} value={value}>\n                      {label}\n                    </SelectItem>\n                  ))}\n                </SelectContent>\n              </Select>\n            </Field>\n\n            <Field>\n              <FieldLabel htmlFor=\"program\">Program</FieldLabel>\n              <Select\n                items={PROGRAMS}\n                defaultValue=\"essential-meds\"\n                name=\"program\"\n              >\n                <SelectTrigger id=\"program\" className=\"w-full\">\n                  <SelectValue />\n                </SelectTrigger>\n                <SelectContent>\n                  {Object.entries(PROGRAMS).map(([value, label]) => (\n                    <SelectItem key={value} value={value}>\n                      {label}\n                    </SelectItem>\n                  ))}\n                </SelectContent>\n              </Select>\n            </Field>\n\n            <Field>\n              <FieldLabel htmlFor=\"period\">Reporting period</FieldLabel>\n              <Select items={PERIODS} defaultValue=\"2026-03\" name=\"period\">\n                <SelectTrigger id=\"period\" className=\"w-full\">\n                  <SelectValue />\n                </SelectTrigger>\n                <SelectContent>\n                  {Object.entries(PERIODS).map(([value, label]) => (\n                    <SelectItem key={value} value={value}>\n                      {label}\n                    </SelectItem>\n                  ))}\n                </SelectContent>\n              </Select>\n            </Field>\n          </FieldGroup>\n\n          <div className=\"flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between\">\n            <div className=\"flex flex-wrap items-center gap-2\">\n              <span className=\"text-sm text-muted-foreground\">Showing</span>\n              <Badge variant=\"secondary\">Kankao Health Facility</Badge>\n              <Badge variant=\"secondary\">Essential Medicines</Badge>\n              <Badge variant=\"secondary\">March 2026</Badge>\n            </div>\n\n            <div className=\"flex items-center gap-2\">\n              <div className=\"relative\">\n                <SearchIcon\n                  className=\"pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground\"\n                  aria-hidden=\"true\"\n                />\n                <Input\n                  type=\"search\"\n                  placeholder=\"Find a product\"\n                  aria-label=\"Find a product\"\n                  className=\"pl-8\"\n                />\n              </div>\n              <Button variant=\"ghost\">\n                <XIcon data-icon=\"inline-start\" aria-hidden=\"true\" />\n                Clear\n              </Button>\n            </div>\n          </div>\n        </CardContent>\n      </Card>\n    </section>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/facility-filters.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "420px"
+  },
+  "categories": [
+    "facility"
+  ],
+  "type": "registry:block"
+}

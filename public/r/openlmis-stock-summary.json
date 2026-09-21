@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-stock-summary",
+  "title": "Stock On Hand Summary Cards",
+  "description": "Stock overview band of four summary cards (total stock on hand, items below minimum, items expiring soon, and stockouts), each with its change against the previous period.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "card",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/stock-summary/stock-summary.tsx",
+      "content": "import {\n  AlertTriangleIcon,\n  ClockIcon,\n  PackageIcon,\n  TrendingDownIcon,\n  TrendingUpIcon,\n} from \"lucide-react\"\n\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"\nimport { cn } from \"@/lib/utils\"\n\ntype Metric = {\n  label: string\n  value: string\n  unit: string\n  change: number\n  // Whether a rise in this metric is good news. Stockouts rising is not.\n  higherIsBetter: boolean\n  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>\n}\n\nconst METRICS: Metric[] = [\n  {\n    label: \"Stock on hand\",\n    value: \"48,120\",\n    unit: \"units across 214 products\",\n    change: 4.2,\n    higherIsBetter: true,\n    icon: PackageIcon,\n  },\n  {\n    label: \"Below minimum\",\n    value: \"17\",\n    unit: \"products under their reorder point\",\n    change: -12.5,\n    higherIsBetter: false,\n    icon: AlertTriangleIcon,\n  },\n  {\n    label: \"Expiring in 90 days\",\n    value: \"2,340\",\n    unit: \"units across 9 lots\",\n    change: 8.1,\n    higherIsBetter: false,\n    icon: ClockIcon,\n  },\n  {\n    label: \"Stockouts\",\n    value: \"3\",\n    unit: \"products with zero stock on hand\",\n    change: -25,\n    higherIsBetter: false,\n    icon: TrendingDownIcon,\n  },\n]\n\nexport default function StockSummary() {\n  return (\n    <section className=\"w-full px-4 py-8\">\n      <div className=\"mx-auto grid w-full max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4\">\n        {METRICS.map((metric) => {\n          const Icon = metric.icon\n          const isGood = metric.change >= 0 === metric.higherIsBetter\n          const TrendIcon =\n            metric.change >= 0 ? TrendingUpIcon : TrendingDownIcon\n\n          return (\n            <Card key={metric.label}>\n              <CardHeader>\n                <CardTitle className=\"flex items-center gap-2\">\n                  <Icon\n                    className=\"size-4 text-muted-foreground\"\n                    aria-hidden=\"true\"\n                  />\n                  {metric.label}\n                </CardTitle>\n              </CardHeader>\n              <CardContent className=\"flex flex-col gap-2\">\n                <p className=\"text-3xl font-semibold tracking-tight tabular-nums\">\n                  {metric.value}\n                </p>\n                <p className=\"text-xs text-muted-foreground\">{metric.unit}</p>\n                <p\n                  className={cn(\n                    \"flex items-center gap-1.5 text-xs font-medium\",\n                    isGood ? \"text-success\" : \"text-destructive\"\n                  )}\n                >\n                  <TrendIcon className=\"size-3.5\" aria-hidden=\"true\" />\n                  {metric.change > 0 ? \"+\" : \"\"}\n                  {metric.change}% vs last period\n                </p>\n              </CardContent>\n            </Card>\n          )\n        })}\n      </div>\n    </section>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/stock-summary.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "success": "oklch(0.596 0.145 163.225)"
+    },
+    "dark": {
+      "success": "oklch(0.696 0.17 162.48)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "340px"
+  },
+  "categories": [
+    "stock"
+  ],
+  "type": "registry:block"
+}

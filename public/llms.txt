@@ -1,0 +1,56 @@
+# SolDevelo Registry
+
+> Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
+
+SolDevelo Registry publishes 5 installable items across 1 open-source project (OpenLMIS): 1 component, 3 blocks, and 1 page template. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+
+Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
+
+## Pages
+
+- [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
+- [Components](https://registry.soldevelo.com/components): 1 component, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 3 blocks, with live previews and full source.
+- [Templates](https://registry.soldevelo.com/templates): 1 template, with live previews and full source.
+- [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
+- [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
+
+## Item names
+
+Every item is prefixed with the project it belongs to, so two projects cannot collide. Each item also declares `meta.project`, which the build checks against the name.
+- OpenLMIS: `openlmis-{item}`, from https://openlmis.org.
+
+## URLs
+
+- Standalone previews: `https://registry.soldevelo.com/preview/{item-name}`.
+- Registry item JSON: `https://registry.soldevelo.com/r/{item-name}.json`.
+- Registry index: `https://registry.soldevelo.com/r/registry.json`.
+
+## Installation
+
+Register the namespace once in `components.json`, then install any item by name:
+
+```json
+{
+  "registries": {
+    "@soldevelo": "https://registry.soldevelo.com/r/{name}.json"
+  }
+}
+```
+
+```sh
+pnpm dlx shadcn@latest add @soldevelo/openlmis-status-pill
+npx shadcn@latest add @soldevelo/openlmis-status-pill
+```
+
+## Catalog
+
+- `@soldevelo/openlmis-status-pill` (component): Requisition Status Pill: Badge that renders an OpenLMIS requisition status with the colour and label matched to its stage, from initiated through to released.
+- `@soldevelo/openlmis-requisition-table` (block): Requisition Line Items Table: Requisition review table listing products with beginning balance, received and consumed quantities, stock on hand, and requested quantity, above a totals row and approve and reject actions.
+- `@soldevelo/openlmis-stock-summary` (block): Stock On Hand Summary Cards: Stock overview band of four summary cards (total stock on hand, items below minimum, items expiring soon, and stockouts), each with its change against the previous period.
+- `@soldevelo/openlmis-facility-filters` (block): Facility Program Period Selector: Filter bar for scoping a view to a facility, program, and reporting period, with the active selection summarised beside a search field and a clear-filters action.
+- `@soldevelo/openlmis-requisition-approval` (template): Requisition Approval Page: Complete requisition approval screen: a facility, program and period filter bar above the line-item review table, with the requisition status summarised in the page header.
+
+## Technology
+
+React 19, Tailwind CSS v4, shadcn/ui on Base UI primitives, and TypeScript. Items target a `base-*` style in components.json (the `shadcn init` default); legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop some items use.
