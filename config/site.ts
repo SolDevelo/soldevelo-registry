@@ -5,7 +5,9 @@ const PRODUCTION_URL = "https://registry.soldevelo.com"
 
 // NEXT_PUBLIC_SITE_URL overrides it for preview deploys, which need their own canonical.
 function resolveSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? PRODUCTION_URL
+  // `||`, not `??`: a host that defines the var with no value yields "", which would crash
+  // every `new URL(siteConfig.URL)` in the metadata layer.
+  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || PRODUCTION_URL
 }
 
 export const siteConfig = {

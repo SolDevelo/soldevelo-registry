@@ -52,7 +52,8 @@ export function createMetadata({
       googleBot: { index: !noIndex, follow: !noIndex },
     },
 
-    alternates: { canonical: noIndex ? null : canonicalUrl },
+    // "" would be dropped rather than resolved, leaving the home page with no canonical at all.
+    alternates: { canonical: noIndex ? null : canonicalUrl || "/" },
   }
 }
 
