@@ -72,6 +72,7 @@ export default async function ProjectPage({
         data={[
           breadcrumbSchema([
             { name: "Home", url: siteConfig.URL },
+            { name: "Projects", url: `${siteConfig.URL}/projects` },
             { name: project.name, url },
           ]),
           collectionSchema({

@@ -72,11 +72,14 @@ export function CatalogHeader({
   heading,
   intro,
   mark = <LogoMark className="size-8 sm:size-9" />,
+  withPicker = true,
   children,
 }: React.PropsWithChildren<{
   heading: string
   intro: string
   mark?: React.ReactNode
+  // Only pages with Install buttons need it.
+  withPicker?: boolean
 }>) {
   return (
     <div className="flex flex-col gap-6 pt-14 sm:pt-20">
@@ -91,7 +94,7 @@ export function CatalogHeader({
             {heading}
           </h1>
           {/* Sets the package manager every Install button on the page copies. */}
-          <PackageManagerPicker />
+          {withPicker && <PackageManagerPicker />}
         </div>
         <p className="max-w-3xl text-sm text-pretty text-muted-foreground">
           {intro}

@@ -120,7 +120,8 @@ of a flat file.
 
 `config/projects.ts` is the list of supported projects, each with a name,
 description, site and square logo under `public/projects/`. Each one gets a
-catalog page at `/projects/{id}`, which the project badges and the footer link to.
+catalog page at `/projects/{id}`, which the project badges and the footer link
+to, and a card on `/projects`.
 
 Every item declares its project twice, and the build enforces that the two
 agree:

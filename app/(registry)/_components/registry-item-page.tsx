@@ -3,20 +3,19 @@ import { notFound } from "next/navigation"
 import { ChevronRightIcon } from "lucide-react"
 
 import { BlockRenderer } from "@/components/block-renderer"
-import { GitHubIcon } from "@/components/icons"
+import { Mono } from "@/components/mono"
 import { PackageManagerPicker } from "@/components/package-manager-picker"
 import {
   JsonLd,
   breadcrumbSchema,
   itemSourceCodeSchema,
 } from "@/components/structured-data"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { getProject, itemSlug } from "@/config/projects"
+import { getProject, itemSlug, projectPath } from "@/config/projects"
 import { siteConfig } from "@/config/site"
 import { createMetadata, notFoundMetadata } from "@/lib/metadata"
 import { createOgImage } from "@/lib/og"
-import { getEntriesByKind } from "@/lib/registry-data"
+import { getAllEntries, getEntriesByKind } from "@/lib/registry-data"
 import {
   KIND_LABEL,
   KIND_PLURAL,
@@ -68,6 +67,103 @@ export function itemOgImage(kind: RegistryKind, name: string) {
     description: entry?.description,
     cta: "Install It",
   })
+}
+
+// Another registry item is published as its /r/ URL; anything else is a shadcn primitive name.
+function registryItemName(dependency: string): string | null {
+  return dependency.match(/\/r\/([^/]+)\.json$/)?.[1] ?? null
+}
+
+function ItemLinks({ entries }: { entries: RegistryEntry[] }) {
+  return entries.map((entry) => (
+    <Link
+      key={entry.name}
+      href={itemPath(entry.kind, entry.name)}
+      className="underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
+    >
+      {entry.title}
+    </Link>
+  ))
+}
+
+function DetailRow({
+  label,
+  children,
+}: React.PropsWithChildren<{ label: string }>) {
+  return (
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:gap-6">
+      <dt className="shrink-0 text-muted-foreground sm:w-40">{label}</dt>
+      <dd className="flex min-w-0 flex-wrap gap-x-3 gap-y-1.5">{children}</dd>
+    </div>
+  )
+}
+
+// What the item is made of and where it is used, derived from the build so it cannot drift.
+function ItemDetails({ entry }: { entry: RegistryEntry }) {
+  const project = getProject(entry.project)
+  const all = getAllEntries()
+  const uses = new Set(
+    entry.registryDependencies.map(registryItemName).filter(Boolean)
+  )
+  const builtWith = all.filter((other) => uses.has(other.name))
+  const primitives = entry.registryDependencies.filter(
+    (dependency) => registryItemName(dependency) === null
+  )
+  const usedIn = all.filter((other) =>
+    other.registryDependencies.some(
+      (dependency) => registryItemName(dependency) === entry.name
+    )
+  )
+  const fileCount = entry.files.filter((file) => file.target !== null).length
+
+  return (
+    <section aria-labelledby="details-heading" className="flex flex-col gap-4">
+      <h2
+        id="details-heading"
+        className="font-heading text-lg font-medium tracking-tight"
+      >
+        Details
+      </h2>
+      <dl className="flex flex-col gap-4 rounded-lg border p-4 text-sm">
+        <DetailRow label="Type">{KIND_LABEL[entry.kind]}</DetailRow>
+        {project && (
+          <DetailRow label="Project">
+            <Link
+              href={projectPath(project.id)}
+              className="underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
+            >
+              {project.name}
+            </Link>
+          </DetailRow>
+        )}
+        <DetailRow label="Files">
+          {fileCount} {fileCount === 1 ? "file" : "files"}
+        </DetailRow>
+        {builtWith.length > 0 && (
+          <DetailRow label="Built With">
+            <ItemLinks entries={builtWith} />
+          </DetailRow>
+        )}
+        {primitives.length > 0 && (
+          <DetailRow label="shadcn/ui">
+            {primitives.map((name) => (
+              <Mono key={name}>{name}</Mono>
+            ))}
+          </DetailRow>
+        )}
+        <DetailRow label="npm Packages">
+          {entry.dependencies.length > 0
+            ? entry.dependencies.map((name) => <Mono key={name}>{name}</Mono>)
+            : "None beyond React"}
+        </DetailRow>
+        {usedIn.length > 0 && (
+          <DetailRow label="Used In">
+            <ItemLinks entries={usedIn} />
+          </DetailRow>
+        )}
+      </dl>
+    </section>
+  )
 }
 
 export function RegistryItemPage({
@@ -129,25 +225,7 @@ export function RegistryItemPage({
               </h1>
               <ProjectBadge project={entry.project} />
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                nativeButton={false}
-                render={
-                  <a
-                    href={sourceUrl(entry)}
-                    aria-label={`${entry.title} source on GitHub`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                }
-              >
-                <GitHubIcon data-icon="inline-start" aria-hidden="true" />
-                Source
-              </Button>
-              <PackageManagerPicker />
-            </div>
+            <PackageManagerPicker />
           </div>
           <p className="max-w-3xl text-sm text-pretty text-muted-foreground">
             {entry.description}
@@ -164,6 +242,8 @@ export function RegistryItemPage({
         files={entry.files}
         priority
       />
+
+      <ItemDetails entry={entry} />
     </article>
   )
 }
