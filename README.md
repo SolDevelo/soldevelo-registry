@@ -177,7 +177,7 @@ Item source must be copy-pasteable: shadcn primitives, declared npm packages
 and its own sibling files, nothing else. A new project is an entry in
 `config/projects.ts` plus a square logo at `public/projects/{id}.png`.
 
-[`AGENTS.md`](./AGENTS.md) has the full conventions, including the design-system
+[`CLAUDE.md`](./CLAUDE.md) has the full conventions, including the design-system
 rules the linter enforces.
 
 ## Stack
