@@ -91,7 +91,7 @@ function DetailRow({
   children,
 }: React.PropsWithChildren<{ label: string }>) {
   return (
-    <div className="flex items-start justify-between gap-6 py-3">
+    <div className="flex items-start justify-between gap-6 px-4 py-3">
       <dt className="shrink-0 text-muted-foreground">{label}</dt>
       <dd className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1.5 text-end">
         {children}
@@ -126,7 +126,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
       >
         Details
       </h2>
-      <dl className="flex flex-col divide-y rounded-lg border px-4 py-1 text-sm">
+      <dl className="flex flex-col divide-y rounded-lg border text-sm">
         <DetailRow label="Type">{KIND_LABEL[entry.kind]}</DetailRow>
         {project && (
           <DetailRow label="Project">
@@ -147,7 +147,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
           </DetailRow>
         )}
         {primitives.length > 0 && (
-          <DetailRow label="Shadcn/UI">
+          <DetailRow label="Shadcn/UI Primitives">
             {primitives.map((name) => (
               <Mono key={name} className="whitespace-nowrap">
                 {name}
@@ -155,7 +155,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
             ))}
           </DetailRow>
         )}
-        <DetailRow label="NPM Packages">
+        <DetailRow label="Dependencies">
           {entry.dependencies.length > 0
             ? entry.dependencies.map((name) => (
                 <Mono key={name} className="whitespace-nowrap">
@@ -165,7 +165,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
             : "None Beyond React"}
         </DetailRow>
         {usedIn.length > 0 && (
-          <DetailRow label="Used In">
+          <DetailRow label="Used By">
             <ItemLinks entries={usedIn} />
           </DetailRow>
         )}
