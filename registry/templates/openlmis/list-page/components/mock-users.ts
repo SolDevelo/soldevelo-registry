@@ -77,18 +77,21 @@ const USERS: UserDetails[] = Array.from({ length: 57 }, (_, index) => {
     (index + Math.floor(index / FIRST_NAMES.length)) % LAST_NAMES.length
   ] as string
   const username = `${firstName[0]}${lastName}${index + 1}`.toLowerCase()
+  const email = index % 3 === 0 ? null : `${username}@example.org`
+  // Only an address can be verified, and notifications need a verified one.
+  const verified = email !== null && index % 2 === 0
   return {
     id: `user-${index + 1}`,
     username,
     firstName,
     lastName,
-    email: index % 3 === 0 ? null : `${username}@example.org`,
-    emailVerified: index % 2 === 0,
+    email,
+    emailVerified: verified,
     jobTitle: null,
     phoneNumber: null,
     active: index % 4 !== 0,
     homeFacilityId: FACILITIES[index % FACILITIES.length]?.id ?? null,
-    allowNotify: index % 2 === 0,
+    allowNotify: verified,
     homeFacilityRoleCount: index % 3,
   }
 })

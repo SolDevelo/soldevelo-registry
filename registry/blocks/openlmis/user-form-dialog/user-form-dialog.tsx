@@ -32,6 +32,7 @@ import {
 import { StatusBadge } from "@/registry/components/openlmis/status-badge/status-badge"
 
 import {
+  canNotify,
   EMPTY_USER_FORM,
   type Facility,
   toSavedValues,
@@ -202,7 +203,16 @@ function UserForm({
             </form.AppField>
           </FieldRow>
 
-          <form.AppField name="email">
+          <form.AppField
+            listeners={{
+              // Notifications go to the verified address, so a new one switches them off.
+              onChange: ({ value }) => {
+                if (isEdit && value.trim() !== savedEmail)
+                  form.setFieldValue("allowNotify", false)
+              },
+            }}
+            name="email"
+          >
             {(field) => (
               <field.TextField
                 autoComplete="off"
@@ -267,19 +277,31 @@ function UserForm({
           </form.AppField>
 
           {isEdit && (
-            <form.AppField name="allowNotify">
-              {(field) => (
-                <field.SwitchField
-                  description={
-                    details.emailVerified
-                      ? "Send every notification this user's roles allow."
-                      : "Available once the email address is verified."
-                  }
-                  disabled={!details.emailVerified}
-                  label="Allow Notifications"
-                />
+            <form.Subscribe
+              selector={(state) =>
+                canNotify(
+                  state.values.email,
+                  details.email,
+                  details.emailVerified
+                )
+              }
+            >
+              {(verified) => (
+                <form.AppField name="allowNotify">
+                  {(field) => (
+                    <field.SwitchField
+                      description={
+                        verified
+                          ? "Send every notification this user's roles allow."
+                          : "Available once the email address is verified."
+                      }
+                      disabled={!verified}
+                      label="Allow Notifications"
+                    />
+                  )}
+                </form.AppField>
               )}
-            </form.AppField>
+            </form.Subscribe>
           )}
         </FieldGroup>
       </FormDialogBody>
