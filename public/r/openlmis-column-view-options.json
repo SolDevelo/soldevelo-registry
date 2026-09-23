@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-column-view-options",
+  "title": "Column View Options",
+  "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button",
+    "dropdown-menu"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/column-view-options/column-view-options.tsx",
+      "content": "\"use client\"\n\nimport { Settings2Icon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\"\n\nexport type ColumnViewOption = {\n  id: string\n  label: string\n}\n\n/** Column id to whether it shows; a column missing from the map shows. */\nexport type ColumnVisibility = Record<string, boolean>\n\nexport type ColumnViewLabels = {\n  view: string\n  toggleColumns: string\n  resetColumns: string\n}\n\nconst defaultLabels: ColumnViewLabels = {\n  view: \"View\",\n  toggleColumns: \"Toggle Columns\",\n  resetColumns: \"Reset Columns\",\n}\n\ntype ColumnViewOptionsProps = {\n  /** The columns a user may hide; leave out the identifying column and actions, which always show. */\n  columns: ColumnViewOption[]\n  visibility: ColumnVisibility\n  onVisibilityChange: (visibility: ColumnVisibility) => void\n  /** Returns every column to its default, e.g. the one that fits the room. */\n  onReset?: () => void\n  labels?: Partial<ColumnViewLabels>\n}\n\nexport function ColumnViewOptions({\n  columns,\n  visibility,\n  onVisibilityChange,\n  onReset,\n  labels: labelOverrides,\n}: ColumnViewOptionsProps) {\n  const labels = { ...defaultLabels, ...labelOverrides }\n  const isVisible = (id: string) => visibility[id] !== false\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger render={<Button variant=\"outline\" />}>\n        <Settings2Icon data-icon=\"inline-start\" />\n        {labels.view}\n      </DropdownMenuTrigger>\n      <DropdownMenuContent align=\"end\" className=\"w-auto\">\n        <DropdownMenuGroup>\n          <DropdownMenuLabel>{labels.toggleColumns}</DropdownMenuLabel>\n          {columns.map((column) => (\n            <DropdownMenuCheckboxItem\n              checked={isVisible(column.id)}\n              key={column.id}\n              onCheckedChange={(checked) =>\n                onVisibilityChange({ ...visibility, [column.id]: checked })\n              }\n            >\n              {column.label}\n            </DropdownMenuCheckboxItem>\n          ))}\n        </DropdownMenuGroup>\n        {onReset && (\n          <>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem onClick={onReset} variant=\"destructive\">\n              {labels.resetColumns}\n            </DropdownMenuItem>\n          </>\n        )}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/column-view-options.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "128px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "data-table"
+  ],
+  "type": "registry:component"
+}

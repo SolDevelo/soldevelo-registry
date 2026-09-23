@@ -2,5 +2,332 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "soldevelo",
   "homepage": "https://registry.soldevelo.com",
-  "items": []
+  "items": [
+    {
+      "name": "openlmis-pagination",
+      "title": "Pagination",
+      "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "select",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/pagination/pagination.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/pagination.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "92px"
+      },
+      "categories": [
+        "navigation",
+        "data-table"
+      ],
+      "type": "registry:component"
+    },
+    {
+      "name": "openlmis-search-input",
+      "title": "Search Input",
+      "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list refetches once per search rather than on every keystroke.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/search-input/search-input.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/search-input/search-input.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/search-input/use-debounced-input.ts",
+          "type": "registry:hook",
+          "target": "components/openlmis/search-input/use-debounced-input.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "128px"
+      },
+      "categories": [
+        "forms",
+        "data-table"
+      ],
+      "type": "registry:component"
+    },
+    {
+      "name": "openlmis-select-filter",
+      "title": "Select Filter",
+      "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/select-filter/select-filter.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/select-filter.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "96px"
+      },
+      "categories": [
+        "forms",
+        "data-table"
+      ],
+      "type": "registry:component"
+    },
+    {
+      "name": "openlmis-column-view-options",
+      "title": "Column View Options",
+      "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/column-view-options/column-view-options.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/column-view-options.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "128px"
+      },
+      "categories": [
+        "data-table"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+    },
+    {
+      "name": "openlmis-status-badge",
+      "title": "Status Badge",
+      "description": "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/status-badge/status-badge.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/status-badge.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "84px"
+      },
+      "categories": [
+        "data-display"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "success": "oklch(0.596 0.145 163.225)"
+        },
+        "dark": {
+          "success": "oklch(0.696 0.17 162.48)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-page-breadcrumbs",
+      "title": "Page Breadcrumbs",
+      "description": "Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/page-breadcrumbs/page-breadcrumbs.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/page-breadcrumbs.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "84px"
+      },
+      "categories": [
+        "navigation"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+    },
+    {
+      "name": "openlmis-data-table",
+      "title": "Data Table",
+      "description": "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty",
+        "skeleton",
+        "table",
+        "@soldevelo/openlmis-pagination"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/data-table/data-table.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/data-table/data-table.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/data-table/data-table-pagination.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/data-table/data-table-pagination.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/data-table/responsive-columns.ts",
+          "type": "registry:hook",
+          "target": "components/blocks/openlmis/data-table/responsive-columns.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "639px"
+      },
+      "categories": [
+        "data-table"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "name": "openlmis-workspace",
+      "title": "Workspace",
+      "description": "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@soldevelo/openlmis-page-breadcrumbs"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/workspace/workspace.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/workspace.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "320px"
+      },
+      "categories": [
+        "layout"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "name": "openlmis-list-toolbar",
+      "title": "List Toolbar",
+      "description": "Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/list-toolbar/list-toolbar.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/list-toolbar.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "96px"
+      },
+      "categories": [
+        "layout",
+        "data-table"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "name": "openlmis-list-page",
+      "title": "List Page",
+      "description": "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "@soldevelo/openlmis-data-table",
+        "@soldevelo/openlmis-workspace",
+        "@soldevelo/openlmis-list-toolbar",
+        "@soldevelo/openlmis-search-input",
+        "@soldevelo/openlmis-select-filter",
+        "@soldevelo/openlmis-column-view-options",
+        "@soldevelo/openlmis-status-badge"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/list-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/list-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/mock-users.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/list-page/mock-users.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/use-user-list.ts",
+          "type": "registry:hook",
+          "target": "components/openlmis/list-page/use-user-list.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/user-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/list-page/user-columns.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "783px"
+      },
+      "categories": [
+        "data-table",
+        "users"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+    }
+  ]
 }

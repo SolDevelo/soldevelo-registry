@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-select-filter",
+  "title": "Select Filter",
+  "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/select-filter/select-filter.tsx",
+      "content": "\"use client\"\n\nimport { XIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectFilterOption = {\n  value: string\n  label: string\n}\n\ntype SelectFilterProps = {\n  /** Shown muted, alone while nothing is picked and before the pick after, e.g. \"Status: Active\". */\n  label: string\n  /** An empty string means no filter. */\n  value: string\n  onValueChange: (value: string) => void\n  options: SelectFilterOption[]\n  /** Accessible name of the clear button; defaults to \"Clear {label}\". */\n  clearLabel?: string\n}\n\n/** A toolbar dropdown that narrows a list to one value, with a button to clear it. */\nexport function SelectFilter({\n  label,\n  value,\n  onValueChange,\n  options,\n  clearLabel = `Clear ${label}`,\n}: SelectFilterProps) {\n  return (\n    <div className=\"relative\">\n      <Select\n        items={options}\n        onValueChange={(next) => onValueChange(next ?? \"\")}\n        value={value || null}\n      >\n        <SelectTrigger className=\"w-full\">\n          <span className=\"flex min-w-0 items-center gap-1 pe-8\">\n            {value ? (\n              <>\n                <span className=\"text-muted-foreground\">{label}:</span>\n                <SelectValue />\n              </>\n            ) : (\n              <span className=\"text-muted-foreground\">{label}</span>\n            )}\n          </span>\n        </SelectTrigger>\n        <SelectContent alignItemWithTrigger={false}>\n          {options.map((option) => (\n            <SelectItem key={option.value} value={option.value}>\n              {option.label}\n            </SelectItem>\n          ))}\n        </SelectContent>\n      </Select>\n      {/* A sibling of the trigger, not inside it, since a button cannot hold another button. */}\n      {value && (\n        <div className=\"absolute inset-y-0 end-7 flex items-center\">\n          <Button\n            aria-label={clearLabel}\n            onClick={() => onValueChange(\"\")}\n            size=\"icon-xs\"\n            variant=\"ghost\"\n          >\n            <XIcon />\n          </Button>\n        </div>\n      )}\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/select-filter.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "96px"
+  },
+  "categories": [
+    "forms",
+    "data-table"
+  ],
+  "type": "registry:component"
+}

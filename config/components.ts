@@ -4,4 +4,194 @@ import "server-only"
 
 import type { RegistryEntry } from "@/lib/types"
 
-export const components: RegistryEntry[] = []
+export const components: RegistryEntry[] = [
+  {
+    "kind": "component",
+    "name": "openlmis-pagination",
+    "project": "openlmis",
+    "title": "Pagination",
+    "height": "92px",
+    "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
+    "registryDependencies": [
+      "button",
+      "select",
+      "skeleton"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Pagination } from \"@/components/openlmis/pagination\"\n\nexport default function Page() {\n  const [pageIndex, setPageIndex] = useState(0)\n  const [pageSize, setPageSize] = useState(10)\n\n  return (\n    <div className=\"w-full max-w-3xl p-8\">\n      <Pagination\n        onPageChange={setPageIndex}\n        onPageSizeChange={(size) => {\n          setPageSize(size)\n          setPageIndex(0)\n        }}\n        pageIndex={pageIndex}\n        pageSize={pageSize}\n        rowCount={1211}\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "pagination.tsx",
+        "code": "\"use client\"\n\nimport {\n  ChevronLeftIcon,\n  ChevronRightIcon,\n  ChevronsLeftIcon,\n  ChevronsRightIcon,\n} from \"lucide-react\"\nimport { type ReactNode, useId } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\nimport { Skeleton } from \"@/components/ui/skeleton\"\n\nexport type PaginationLabels = {\n  rowsPerPage: string\n  /** The rows on screen out of the total, e.g. \"1-10 / 1,211\". */\n  range: (from: number, to: number, total: number) => string\n  firstPage: string\n  previousPage: string\n  nextPage: string\n  lastPage: string\n}\n\nconst defaultLabels: PaginationLabels = {\n  rowsPerPage: \"Rows Per Page\",\n  range: (from, to, total) =>\n    `${from.toLocaleString()}-${to.toLocaleString()} / ${total.toLocaleString()}`,\n  firstPage: \"First Page\",\n  previousPage: \"Previous Page\",\n  nextPage: \"Next Page\",\n  lastPage: \"Last Page\",\n}\n\nexport const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100]\n\ntype PaginationProps = {\n  /** Zero-based. */\n  pageIndex: number\n  pageSize: number\n  /** Total rows across every page. */\n  rowCount: number\n  onPageChange: (pageIndex: number) => void\n  onPageSizeChange: (pageSize: number) => void\n  pageSizeOptions?: number[]\n  labels?: Partial<PaginationLabels>\n}\n\nexport function Pagination({\n  pageIndex,\n  pageSize,\n  rowCount,\n  onPageChange,\n  onPageSizeChange,\n  pageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS,\n  labels: labelOverrides,\n}: PaginationProps) {\n  const labels = { ...defaultLabels, ...labelOverrides }\n  const pageSizeId = useId()\n  const pageCount = Math.max(Math.ceil(rowCount / pageSize), 1)\n  const lastPageIndex = pageCount - 1\n  const from = rowCount === 0 ? 0 : pageIndex * pageSize + 1\n  const to = Math.min((pageIndex + 1) * pageSize, rowCount)\n  const canPrevious = pageIndex > 0\n  const canNext = pageIndex < lastPageIndex\n  const items = pageSizeOptions.map((size) => ({\n    value: size,\n    label: String(size),\n  }))\n\n  const controls = [\n    {\n      label: labels.firstPage,\n      icon: ChevronsLeftIcon,\n      enabled: canPrevious,\n      page: 0,\n    },\n    {\n      label: labels.previousPage,\n      icon: ChevronLeftIcon,\n      enabled: canPrevious,\n      page: pageIndex - 1,\n    },\n    {\n      label: labels.nextPage,\n      icon: ChevronRightIcon,\n      enabled: canNext,\n      page: pageIndex + 1,\n    },\n    {\n      label: labels.lastPage,\n      icon: ChevronsRightIcon,\n      enabled: canNext,\n      page: lastPageIndex,\n    },\n  ]\n\n  return (\n    <PaginationLayout\n      controls={\n        <div className=\"flex items-center gap-1\">\n          {controls.map(({ label, icon: Icon, enabled, page }) => (\n            <Button\n              aria-label={label}\n              disabled={!enabled}\n              key={label}\n              onClick={() => onPageChange(page)}\n              size=\"icon-sm\"\n              variant=\"outline\"\n            >\n              <Icon className=\"rtl:rotate-180\" />\n            </Button>\n          ))}\n        </div>\n      }\n      pageSize={\n        <div className=\"flex items-center gap-2\">\n          {/* Screen readers still get the label when there is no room to show it. */}\n          <label\n            className=\"sr-only text-muted-foreground @md/pagination:not-sr-only\"\n            htmlFor={pageSizeId}\n          >\n            {labels.rowsPerPage}\n          </label>\n          <Select\n            items={items}\n            onValueChange={(value) => {\n              if (value !== null) onPageSizeChange(value)\n            }}\n            value={pageSize}\n          >\n            <SelectTrigger id={pageSizeId} size=\"sm\">\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent alignItemWithTrigger={false}>\n              {items.map((item) => (\n                <SelectItem key={item.value} value={item.value}>\n                  {item.label}\n                </SelectItem>\n              ))}\n            </SelectContent>\n          </Select>\n        </div>\n      }\n      range={\n        // `ltr` keeps \"1-10 / 1,211\" in order inside right-to-left text.\n        <p\n          aria-live=\"polite\"\n          className=\"sr-only whitespace-nowrap text-muted-foreground tabular-nums @md/pagination:not-sr-only\"\n          dir=\"ltr\"\n        >\n          {labels.range(from, to, rowCount)}\n        </p>\n      }\n    />\n  )\n}\n\n/** Placeholder with the pagination's own layout, so its row keeps its height while loading. */\nexport function PaginationSkeleton() {\n  return (\n    <PaginationLayout\n      controls={<Skeleton className=\"h-7 w-32\" />}\n      pageSize={<Skeleton className=\"h-7 w-16 @md/pagination:w-36\" />}\n      range={\n        <div className=\"hidden @md/pagination:block\">\n          <Skeleton className=\"h-5 w-20\" />\n        </div>\n      }\n    />\n  )\n}\n\ntype PaginationLayoutProps = {\n  pageSize: ReactNode\n  range: ReactNode\n  controls: ReactNode\n}\n\n// Sized by its own width, so it adapts wherever it is placed, not only to the window.\nfunction PaginationLayout({\n  pageSize,\n  range,\n  controls,\n}: PaginationLayoutProps) {\n  return (\n    <div className=\"@container/pagination w-full\">\n      <div className=\"flex items-center justify-between gap-3 text-sm\">\n        {pageSize}\n        <div className=\"flex items-center gap-3\">\n          {range}\n          {controls}\n        </div>\n      </div>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/pagination.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-search-input",
+    "project": "openlmis",
+    "title": "Search Input",
+    "height": "128px",
+    "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list refetches once per search rather than on every keystroke.",
+    "registryDependencies": [
+      "input-group"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { SearchInput } from \"@/components/openlmis/search-input/search-input\"\n\nexport default function Page() {\n  const [query, setQuery] = useState(\"\")\n\n  return (\n    <div className=\"flex w-full max-w-sm flex-col gap-3 p-8\">\n      <SearchInput\n        label=\"Search by username, name or email\"\n        onValueChange={setQuery}\n        value={query}\n      />\n      <p className=\"text-sm text-muted-foreground\">\n        Searching for: {query ? `\"${query}\"` : \"nothing yet\"}\n      </p>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "search-input.tsx",
+        "code": "\"use client\"\n\nimport { SearchIcon, XIcon } from \"lucide-react\"\n\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\"\n\nimport { useDebouncedInput } from \"@/components/openlmis/search-input/use-debounced-input\"\n\ntype SearchInputProps = {\n  value: string\n  /** Called once typing pauses, on Enter, on blur, and at once when cleared. */\n  onValueChange: (value: string) => void\n  placeholder?: string\n  /** Accessible name, when the placeholder alone does not say what is searched. */\n  label?: string\n  clearLabel?: string\n  /** Milliseconds of quiet before a value is reported. */\n  delay?: number\n}\n\nexport function SearchInput({\n  value,\n  onValueChange,\n  placeholder = \"Search...\",\n  label,\n  clearLabel = \"Clear Search\",\n  delay,\n}: SearchInputProps) {\n  const { draft, commit, inputProps } = useDebouncedInput(\n    value,\n    onValueChange,\n    delay\n  )\n\n  return (\n    <InputGroup>\n      <InputGroupAddon>\n        <SearchIcon />\n      </InputGroupAddon>\n      <InputGroupInput\n        aria-label={label ?? placeholder}\n        placeholder={placeholder}\n        type=\"text\"\n        {...inputProps}\n      />\n      {draft && (\n        <InputGroupAddon align=\"inline-end\">\n          <InputGroupButton\n            aria-label={clearLabel}\n            onClick={() => commit(\"\")}\n            size=\"icon-xs\"\n          >\n            <XIcon />\n          </InputGroupButton>\n        </InputGroupAddon>\n      )}\n    </InputGroup>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/search-input/search-input.tsx"
+      },
+      {
+        "type": "hook",
+        "name": "use-debounced-input.ts",
+        "code": "\"use client\"\n\nimport {\n  type ChangeEvent,\n  type KeyboardEvent,\n  useEffect,\n  useLayoutEffect,\n  useRef,\n  useState,\n} from \"react\"\n\n/** Draft for a text input that reports after a pause and otherwise follows the upstream value. */\nexport function useDebouncedInput(\n  value: string,\n  onValueChange: (value: string) => void,\n  delay = 300\n) {\n  const [draft, setDraft] = useState(value)\n  const [syncedValue, setSyncedValue] = useState(value)\n  const [isTyping, setIsTyping] = useState(false)\n  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)\n  const pending = useRef<string | undefined>(undefined)\n  const latestOnValueChange = useRef(onValueChange)\n\n  useLayoutEffect(() => {\n    latestOnValueChange.current = onValueChange\n  })\n\n  // Upstream wins unless the user is mid-typing; an echo that only trims the draft keeps it.\n  if (value !== syncedValue) {\n    setSyncedValue(value)\n    if (!isTyping && value !== draft.trim()) setDraft(value)\n  }\n\n  // Leaving the page drops unsent typing; sending it would update a page already gone.\n  useEffect(() => () => clearTimeout(timer.current), [])\n\n  const emit = (next: string) => {\n    clearTimeout(timer.current)\n    pending.current = undefined\n    setIsTyping(false)\n    latestOnValueChange.current(next)\n  }\n\n  const change = (next: string) => {\n    setDraft(next)\n    setIsTyping(true)\n    pending.current = next\n    clearTimeout(timer.current)\n    timer.current = setTimeout(() => emit(next), delay)\n  }\n\n  const commit = (next: string) => {\n    setDraft(next)\n    emit(next)\n  }\n\n  // Leaving the field, e.g. to press Clear Filters, sends what was typed first so nothing arrives after it.\n  const flush = () => {\n    if (pending.current !== undefined) emit(pending.current)\n  }\n\n  const inputProps = {\n    value: draft,\n    onChange: (event: ChangeEvent<HTMLInputElement>) =>\n      change(event.target.value),\n    onBlur: flush,\n    onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => {\n      if (event.key === \"Enter\") commit(event.currentTarget.value)\n    },\n  }\n\n  return { draft, commit, inputProps }\n}",
+        "lang": "ts",
+        "target": "components/openlmis/search-input/use-debounced-input.ts"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-select-filter",
+    "project": "openlmis",
+    "title": "Select Filter",
+    "height": "96px",
+    "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
+    "registryDependencies": [
+      "button",
+      "select"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { SelectFilter } from \"@/components/openlmis/select-filter\"\n\nexport default function Page() {\n  const [status, setStatus] = useState(\"active\")\n\n  return (\n    <div className=\"w-full max-w-60 p-8\">\n      <SelectFilter\n        label=\"Status\"\n        onValueChange={setStatus}\n        options={[\n          { value: \"active\", label: \"Active\" },\n          { value: \"inactive\", label: \"Inactive\" },\n        ]}\n        value={status}\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "select-filter.tsx",
+        "code": "\"use client\"\n\nimport { XIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectFilterOption = {\n  value: string\n  label: string\n}\n\ntype SelectFilterProps = {\n  /** Shown muted, alone while nothing is picked and before the pick after, e.g. \"Status: Active\". */\n  label: string\n  /** An empty string means no filter. */\n  value: string\n  onValueChange: (value: string) => void\n  options: SelectFilterOption[]\n  /** Accessible name of the clear button; defaults to \"Clear {label}\". */\n  clearLabel?: string\n}\n\n/** A toolbar dropdown that narrows a list to one value, with a button to clear it. */\nexport function SelectFilter({\n  label,\n  value,\n  onValueChange,\n  options,\n  clearLabel = `Clear ${label}`,\n}: SelectFilterProps) {\n  return (\n    <div className=\"relative\">\n      <Select\n        items={options}\n        onValueChange={(next) => onValueChange(next ?? \"\")}\n        value={value || null}\n      >\n        <SelectTrigger className=\"w-full\">\n          <span className=\"flex min-w-0 items-center gap-1 pe-8\">\n            {value ? (\n              <>\n                <span className=\"text-muted-foreground\">{label}:</span>\n                <SelectValue />\n              </>\n            ) : (\n              <span className=\"text-muted-foreground\">{label}</span>\n            )}\n          </span>\n        </SelectTrigger>\n        <SelectContent alignItemWithTrigger={false}>\n          {options.map((option) => (\n            <SelectItem key={option.value} value={option.value}>\n              {option.label}\n            </SelectItem>\n          ))}\n        </SelectContent>\n      </Select>\n      {/* A sibling of the trigger, not inside it, since a button cannot hold another button. */}\n      {value && (\n        <div className=\"absolute inset-y-0 end-7 flex items-center\">\n          <Button\n            aria-label={clearLabel}\n            onClick={() => onValueChange(\"\")}\n            size=\"icon-xs\"\n            variant=\"ghost\"\n          >\n            <XIcon />\n          </Button>\n        </div>\n      )}\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/select-filter.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-column-view-options",
+    "project": "openlmis",
+    "title": "Column View Options",
+    "height": "128px",
+    "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
+    "registryDependencies": [
+      "button",
+      "dropdown-menu"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { type ColumnVisibility, ColumnViewOptions } from \"@/components/openlmis/column-view-options\"\n\nconst COLUMNS = [\n  { id: \"name\", label: \"Name\" },\n  { id: \"email\", label: \"Email\" },\n  { id: \"status\", label: \"Status\" },\n]\n\nexport default function Page() {\n  const [visibility, setVisibility] = useState<ColumnVisibility>({})\n  const shown = COLUMNS.filter((column) => visibility[column.id] !== false)\n\n  return (\n    <div className=\"flex w-full max-w-sm flex-col items-start gap-3 p-8\">\n      <ColumnViewOptions\n        columns={COLUMNS}\n        onReset={() => setVisibility({})}\n        onVisibilityChange={setVisibility}\n        visibility={visibility}\n      />\n      <p className=\"text-sm text-muted-foreground\">\n        Showing: {shown.map((column) => column.label).join(\", \") || \"none\"}\n      </p>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "column-view-options.tsx",
+        "code": "\"use client\"\n\nimport { Settings2Icon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\"\n\nexport type ColumnViewOption = {\n  id: string\n  label: string\n}\n\n/** Column id to whether it shows; a column missing from the map shows. */\nexport type ColumnVisibility = Record<string, boolean>\n\nexport type ColumnViewLabels = {\n  view: string\n  toggleColumns: string\n  resetColumns: string\n}\n\nconst defaultLabels: ColumnViewLabels = {\n  view: \"View\",\n  toggleColumns: \"Toggle Columns\",\n  resetColumns: \"Reset Columns\",\n}\n\ntype ColumnViewOptionsProps = {\n  /** The columns a user may hide; leave out the identifying column and actions, which always show. */\n  columns: ColumnViewOption[]\n  visibility: ColumnVisibility\n  onVisibilityChange: (visibility: ColumnVisibility) => void\n  /** Returns every column to its default, e.g. the one that fits the room. */\n  onReset?: () => void\n  labels?: Partial<ColumnViewLabels>\n}\n\nexport function ColumnViewOptions({\n  columns,\n  visibility,\n  onVisibilityChange,\n  onReset,\n  labels: labelOverrides,\n}: ColumnViewOptionsProps) {\n  const labels = { ...defaultLabels, ...labelOverrides }\n  const isVisible = (id: string) => visibility[id] !== false\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger render={<Button variant=\"outline\" />}>\n        <Settings2Icon data-icon=\"inline-start\" />\n        {labels.view}\n      </DropdownMenuTrigger>\n      <DropdownMenuContent align=\"end\" className=\"w-auto\">\n        <DropdownMenuGroup>\n          <DropdownMenuLabel>{labels.toggleColumns}</DropdownMenuLabel>\n          {columns.map((column) => (\n            <DropdownMenuCheckboxItem\n              checked={isVisible(column.id)}\n              key={column.id}\n              onCheckedChange={(checked) =>\n                onVisibilityChange({ ...visibility, [column.id]: checked })\n              }\n            >\n              {column.label}\n            </DropdownMenuCheckboxItem>\n          ))}\n        </DropdownMenuGroup>\n        {onReset && (\n          <>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem onClick={onReset} variant=\"destructive\">\n              {labels.resetColumns}\n            </DropdownMenuItem>\n          </>\n        )}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/column-view-options.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-status-badge",
+    "project": "openlmis",
+    "title": "Status Badge",
+    "height": "84px",
+    "description": "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+    "registryDependencies": [
+      "utils"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { StatusBadge } from \"@/components/openlmis/status-badge\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full items-center justify-center gap-2 p-8\">\n      <StatusBadge tone=\"success\">Active</StatusBadge>\n      <StatusBadge tone=\"destructive\">Inactive</StatusBadge>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "status-badge.tsx",
+        "code": "import { CheckIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONE_CLASSES: Record<StatusTone, string> = {\n  success: \"bg-success/10 text-success\",\n  destructive: \"bg-destructive/10 text-destructive\",\n}\n\nconst TONE_ICON = { success: CheckIcon, destructive: XIcon } as const\n\n/** A yes-or-no state, such as active or inactive, told apart by colour and by icon. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const Icon = TONE_ICON[tone]\n\n  // Its own element rather than Badge, whose stock variants have no success tone.\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        TONE_CLASSES[tone]\n      )}\n      data-slot=\"badge\"\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/status-badge.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-page-breadcrumbs",
+    "project": "openlmis",
+    "title": "Page Breadcrumbs",
+    "height": "84px",
+    "description": "Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.",
+    "registryDependencies": [
+      "breadcrumb"
+    ],
+    "dependencies": [],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { PageBreadcrumbs } from \"@/components/openlmis/page-breadcrumbs\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full justify-center p-8\">\n      <PageBreadcrumbs\n        items={[\n          { label: \"Home\", href: \"#\" },\n          { label: \"Administration\" },\n          { label: \"Users\" },\n        ]}\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "page-breadcrumbs.tsx",
+        "code": "import { Fragment, type ReactElement } from \"react\"\n\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\"\n\nexport type BreadcrumbTrailItem = {\n  label: string\n  /** Leave out for a step with no page of its own, such as a menu section. */\n  href?: string\n}\n\ntype PageBreadcrumbsProps = {\n  /** Outermost first; the last item is the current page. */\n  items: BreadcrumbTrailItem[]\n  /** Renders a link for a step, e.g. a router's Link; a plain anchor by default. */\n  renderLink?: (item: BreadcrumbTrailItem & { href: string }) => ReactElement\n  label?: string\n}\n\nexport function PageBreadcrumbs({\n  items,\n  renderLink,\n  label = \"Breadcrumb\",\n}: PageBreadcrumbsProps) {\n  if (items.length === 0) return null\n\n  return (\n    <Breadcrumb aria-label={label}>\n      <BreadcrumbList>\n        {items.map((item, index) => {\n          const isCurrent = index === items.length - 1\n          const href = item.href\n\n          return (\n            <Fragment key={item.href ?? item.label}>\n              {index > 0 && <BreadcrumbSeparator />}\n              <BreadcrumbItem>\n                {isCurrent ? (\n                  <BreadcrumbPage>{item.label}</BreadcrumbPage>\n                ) : href ? (\n                  <BreadcrumbLink\n                    href={href}\n                    render={renderLink?.({ ...item, href })}\n                  >\n                    {item.label}\n                  </BreadcrumbLink>\n                ) : (\n                  <span>{item.label}</span>\n                )}\n              </BreadcrumbItem>\n            </Fragment>\n          )\n        })}\n      </BreadcrumbList>\n    </Breadcrumb>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/page-breadcrumbs.tsx"
+      }
+    ]
+  }
+]

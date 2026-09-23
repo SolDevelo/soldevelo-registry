@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-list-toolbar",
+  "title": "List Toolbar",
+  "description": "Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/list-toolbar/list-toolbar.tsx",
+      "content": "import type { ReactNode } from \"react\"\n\n// Controls above a list: one row with room, else search on its own row; sized by its own width.\n\ntype ListToolbarProps = {\n  children: ReactNode\n}\n\nexport function ListToolbar({ children }: ListToolbarProps) {\n  return (\n    <div className=\"@container/toolbar w-full\">\n      <div className=\"flex flex-wrap items-center gap-2\">{children}</div>\n    </div>\n  )\n}\n\nexport function ListToolbarSearch({ children }: ListToolbarProps) {\n  return <div className=\"w-full @2xl/toolbar:w-72\">{children}</div>\n}\n\n/** A filter beside the search; it takes the spare width while the toolbar is narrow. */\nexport function ListToolbarFilter({ children }: ListToolbarProps) {\n  return (\n    <div className=\"min-w-0 flex-1 @2xl/toolbar:w-48 @2xl/toolbar:flex-none\">\n      {children}\n    </div>\n  )\n}\n\n/** Pushed to the far end: the View menu, then the create action, which always ends the toolbar. */\nexport function ListToolbarEnd({ children }: ListToolbarProps) {\n  return (\n    <div className=\"flex items-center gap-2 @2xl/toolbar:ms-auto\">\n      {children}\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/list-toolbar.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "96px"
+  },
+  "categories": [
+    "layout",
+    "data-table"
+  ],
+  "type": "registry:block"
+}

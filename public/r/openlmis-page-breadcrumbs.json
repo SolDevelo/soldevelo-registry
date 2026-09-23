@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-page-breadcrumbs",
+  "title": "Page Breadcrumbs",
+  "description": "Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "breadcrumb"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/page-breadcrumbs/page-breadcrumbs.tsx",
+      "content": "import { Fragment, type ReactElement } from \"react\"\n\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\"\n\nexport type BreadcrumbTrailItem = {\n  label: string\n  /** Leave out for a step with no page of its own, such as a menu section. */\n  href?: string\n}\n\ntype PageBreadcrumbsProps = {\n  /** Outermost first; the last item is the current page. */\n  items: BreadcrumbTrailItem[]\n  /** Renders a link for a step, e.g. a router's Link; a plain anchor by default. */\n  renderLink?: (item: BreadcrumbTrailItem & { href: string }) => ReactElement\n  label?: string\n}\n\nexport function PageBreadcrumbs({\n  items,\n  renderLink,\n  label = \"Breadcrumb\",\n}: PageBreadcrumbsProps) {\n  if (items.length === 0) return null\n\n  return (\n    <Breadcrumb aria-label={label}>\n      <BreadcrumbList>\n        {items.map((item, index) => {\n          const isCurrent = index === items.length - 1\n          const href = item.href\n\n          return (\n            <Fragment key={item.href ?? item.label}>\n              {index > 0 && <BreadcrumbSeparator />}\n              <BreadcrumbItem>\n                {isCurrent ? (\n                  <BreadcrumbPage>{item.label}</BreadcrumbPage>\n                ) : href ? (\n                  <BreadcrumbLink\n                    href={href}\n                    render={renderLink?.({ ...item, href })}\n                  >\n                    {item.label}\n                  </BreadcrumbLink>\n                ) : (\n                  <span>{item.label}</span>\n                )}\n              </BreadcrumbItem>\n            </Fragment>\n          )\n        })}\n      </BreadcrumbList>\n    </Breadcrumb>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/page-breadcrumbs.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "84px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "navigation"
+  ],
+  "type": "registry:component"
+}

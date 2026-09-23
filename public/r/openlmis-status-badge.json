@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-status-badge",
+  "title": "Status Badge",
+  "description": "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/status-badge/status-badge.tsx",
+      "content": "import { CheckIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONE_CLASSES: Record<StatusTone, string> = {\n  success: \"bg-success/10 text-success\",\n  destructive: \"bg-destructive/10 text-destructive\",\n}\n\nconst TONE_ICON = { success: CheckIcon, destructive: XIcon } as const\n\n/** A yes-or-no state, such as active or inactive, told apart by colour and by icon. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const Icon = TONE_ICON[tone]\n\n  // Its own element rather than Badge, whose stock variants have no success tone.\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        TONE_CLASSES[tone]\n      )}\n      data-slot=\"badge\"\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/status-badge.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "success": "oklch(0.596 0.145 163.225)"
+    },
+    "dark": {
+      "success": "oklch(0.696 0.17 162.48)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "84px"
+  },
+  "categories": [
+    "data-display"
+  ],
+  "type": "registry:component"
+}
