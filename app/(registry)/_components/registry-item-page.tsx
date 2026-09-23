@@ -108,8 +108,10 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
     entry.registryDependencies.map(registryItemName).filter(Boolean)
   )
   const builtWith = all.filter((other) => uses.has(other.name))
+  // `utils` is shadcn's `cn` helper, not a primitive anyone picks.
   const primitives = entry.registryDependencies.filter(
-    (dependency) => registryItemName(dependency) === null
+    (dependency) =>
+      registryItemName(dependency) === null && dependency !== "utils"
   )
   const usedIn = all.filter((other) =>
     other.registryDependencies.some(
