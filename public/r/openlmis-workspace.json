@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-workspace",
+  "title": "Workspace",
+  "description": "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@soldevelo/openlmis-page-breadcrumbs"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/workspace/workspace.tsx",
+      "content": "import type { ComponentProps, ReactNode } from \"react\"\n\nimport { PageBreadcrumbs } from \"@/components/openlmis/page-breadcrumbs\"\n\n// Page layout. Parts take only `children`, which keeps padding and heading scale equal across pages.\n\ntype WorkspaceProps = {\n  children: ReactNode\n}\n\nexport function Workspace({ children }: WorkspaceProps) {\n  return (\n    <div className=\"@container/main mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6\">\n      {children}\n    </div>\n  )\n}\n\n/** The trail above the heading; the last step is the current page. */\nexport function WorkspaceBreadcrumbs(\n  props: ComponentProps<typeof PageBreadcrumbs>\n) {\n  return <PageBreadcrumbs {...props} />\n}\n\nexport function WorkspaceHeader({ children }: WorkspaceProps) {\n  return (\n    <div className=\"flex flex-col gap-3 @2xl/main:flex-row @2xl/main:items-start @2xl/main:justify-between\">\n      {children}\n    </div>\n  )\n}\n\n// With an icon, the text leaves room for it beside both lines; without one, it starts at the edge.\nexport function WorkspaceHeading({ children }: WorkspaceProps) {\n  return (\n    <div className=\"relative flex min-w-0 flex-col justify-center gap-1 has-data-[slot=workspace-icon]:min-h-10 has-data-[slot=workspace-icon]:ps-13\">\n      {children}\n    </div>\n  )\n}\n\nexport function WorkspaceIcon({ children }: WorkspaceProps) {\n  return (\n    <div\n      className=\"absolute inset-y-0 start-0 my-auto flex size-10 items-center justify-center rounded-lg border bg-card text-muted-foreground shadow-xs [&_svg]:size-5\"\n      data-slot=\"workspace-icon\"\n    >\n      {children}\n    </div>\n  )\n}\n\nexport function WorkspaceTitle({ children }: WorkspaceProps) {\n  return (\n    <h1 className=\"text-xl leading-none font-semibold tracking-tight\">\n      {children}\n    </h1>\n  )\n}\n\nexport function WorkspaceDescription({ children }: WorkspaceProps) {\n  // One line at most, so every header keeps the same height; longer text is cut with an ellipsis.\n  return (\n    <p className=\"min-w-0 truncate text-sm text-muted-foreground\">{children}</p>\n  )\n}\n\nexport function WorkspaceActions({ children }: WorkspaceProps) {\n  return (\n    <div className=\"flex shrink-0 flex-wrap items-center gap-2\">{children}</div>\n  )\n}\n\nexport function WorkspaceContent({ children }: WorkspaceProps) {\n  return <div className=\"flex flex-1 flex-col gap-4 lg:gap-6\">{children}</div>\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/workspace.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "320px"
+  },
+  "categories": [
+    "layout"
+  ],
+  "type": "registry:block"
+}
