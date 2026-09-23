@@ -39,6 +39,7 @@ const MIN_PANEL_SIZE = 30
 
 type BlockRendererProps = {
   name: string
+  title: string
   height: string
   files: RegistryFile[]
   // Load on mount rather than waiting for the card to scroll into view.
@@ -84,6 +85,7 @@ function ToggleRendererMode({
 
 export function BlockRenderer({
   name,
+  title,
   height,
   files,
   priority = false,
@@ -101,6 +103,7 @@ export function BlockRenderer({
     setIframeNode,
     shouldLoadIframe,
     loaded,
+    contentHeight,
     onIframeLoad,
     onRefreshIframe,
     isRefreshing,
@@ -114,7 +117,13 @@ export function BlockRenderer({
     <div
       data-testid={`block-renderer-${name}`}
       className="relative flex min-w-0 flex-col rounded-lg border bg-muted/50"
-      style={{ "--block-height": height } as React.CSSProperties}
+      style={
+        {
+          "--block-height": height,
+          // meta.height holds the first paint; the measured content takes over once loaded.
+          "--preview-height": contentHeight ? `${contentHeight}px` : height,
+        } as React.CSSProperties
+      }
     >
       <div className="flex items-stretch justify-between p-0.5">
         <ToggleRendererMode
@@ -136,7 +145,7 @@ export function BlockRenderer({
         <div className={cn("size-full", isCodeMode && "hidden")}>
           <PanelGroup orientation="horizontal">
             <Panel
-              className="h-(--block-height)"
+              className="h-(--preview-height)"
               defaultSize={`${DEFAULT_PANEL_SIZE}%`}
               minSize={`${MIN_PANEL_SIZE}%`}
             >
@@ -150,9 +159,8 @@ export function BlockRenderer({
                         made that decision, and the attribute is unobservable. */}
                     <iframe
                       ref={setIframeNode}
-                      id={name}
                       src={previewUrl}
-                      title={`Preview of ${name}`}
+                      title={`Preview of ${title}`}
                       className={cn(
                         "absolute inset-0 size-full transition-opacity duration-200 ease-out",
                         loaded ? "opacity-100" : "opacity-0"

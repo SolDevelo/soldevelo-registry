@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next"
 
 import { siteConfig } from "@/config/site"
+import { getAllEntries } from "@/lib/registry-data"
+import { itemPath } from "@/lib/registry-kinds"
 
 // lastModified is deliberately omitted: there is no per-URL change timestamp, and stamping every
 // route with the build time makes the whole sitemap look freshly modified on each deploy, which
@@ -34,5 +36,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    ...getAllEntries().map((entry) => ({
+      url: `${siteConfig.URL}${itemPath(entry.kind, entry.name)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
   ]
 }

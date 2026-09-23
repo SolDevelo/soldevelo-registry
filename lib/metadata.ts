@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
 
+const TWITTER_HANDLE = `@${new URL(siteConfig.SOCIALS.X).pathname.slice(1)}`
+
 type OpenGraphType = "website" | "article"
 
 export type CreateMetadataOptions = {
@@ -44,7 +46,13 @@ export function createMetadata({
       ...(canonicalUrl && { url: canonicalUrl }),
     },
 
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      site: TWITTER_HANDLE,
+      creator: TWITTER_HANDLE,
+    },
 
     robots: {
       index: !noIndex,

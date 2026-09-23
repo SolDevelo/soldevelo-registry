@@ -17,6 +17,11 @@ export const KIND_PLURAL: Record<RegistryKind, string> = {
   template: "templates",
 }
 
+// The item's own catalog page: `/blocks/openlmis-stock-summary`.
+export function itemPath(kind: RegistryKind, name: string): string {
+  return `/${KIND_PLURAL[kind]}/${name}`
+}
+
 const TYPE_TO_KIND: Record<string, RegistryKind> = {
   "registry:ui": "component",
   "registry:component": "component",

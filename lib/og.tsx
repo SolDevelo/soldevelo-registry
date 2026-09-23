@@ -90,6 +90,12 @@ function getBrand(): Promise<{ mark: string; wordmark: string }> {
   return brandPromise
 }
 
+// Cut at a word boundary, so a long description does not end mid-word on the card.
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text
+  return `${text.slice(0, text.lastIndexOf(" ", max)).replace(/[,:;]$/, "")}...`
+}
+
 function Chevron({ color }: { color: string }) {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -169,7 +175,7 @@ export async function createOgImage({
                 color: BRAND,
               }}
             >
-              {eyebrow.slice(0, 40).toUpperCase()}
+              {truncate(eyebrow, 40).toUpperCase()}
             </span>
           </div>
         ) : null}
@@ -194,7 +200,7 @@ export async function createOgImage({
               maxWidth: 820,
             }}
           >
-            {description.slice(0, 120)}
+            {truncate(description, 120)}
           </span>
         ) : null}
       </div>
@@ -219,7 +225,7 @@ export async function createOgImage({
             fontSize: 24,
           }}
         >
-          {cta.slice(0, 36)}
+          {truncate(cta, 36)}
           <Chevron color="#ffffff" />
         </div>
         <span style={{ fontWeight: 500, fontSize: 24, color: MUTED }}>

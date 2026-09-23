@@ -6,6 +6,7 @@ import {
 import { siteConfig } from "@/config/site"
 import { createMetadata } from "@/lib/metadata"
 import { getEntriesByKind } from "@/lib/registry-data"
+import { itemPath } from "@/lib/registry-kinds"
 
 import { RegistryItemList } from "../_components/registry-item-list"
 
@@ -37,7 +38,7 @@ export default function ComponentsPage() {
             url: `${siteConfig.URL}/components`,
             items: entries.map((entry) => ({
               name: entry.title,
-              url: `${siteConfig.URL}/components#${entry.name}`,
+              url: `${siteConfig.URL}${itemPath(entry.kind, entry.name)}`,
             })),
           }),
         ]}

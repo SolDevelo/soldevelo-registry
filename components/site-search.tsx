@@ -14,7 +14,7 @@ import {
   CommandItem,
 } from "@/components/ui/command"
 import { getProject } from "@/config/projects"
-import { KIND_LABEL, KIND_PLURAL, REGISTRY_KINDS } from "@/lib/registry-kinds"
+import { KIND_LABEL, REGISTRY_KINDS, itemPath } from "@/lib/registry-kinds"
 import type { SearchEntry } from "@/lib/registry-data"
 
 export function SiteSearch({
@@ -39,7 +39,7 @@ export function SiteSearch({
 
   function go(entry: SearchEntry) {
     onOpenChange(false)
-    router.push(`/${KIND_PLURAL[entry.kind]}#${entry.name}`)
+    router.push(itemPath(entry.kind, entry.name))
   }
 
   return (

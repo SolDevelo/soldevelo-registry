@@ -16,21 +16,21 @@ export function JsonLd({
   )
 }
 
+// The company is the Organization; the registry is a WebSite it publishes. Its social profiles
+// belong to the company, so they sit here rather than on the registry.
 const publisher = {
   "@type": "Organization",
+  "@id": `${siteConfig.AUTHORS[0].URL}/#organization`,
   name: siteConfig.AUTHORS[0].NAME,
   url: siteConfig.AUTHORS[0].URL,
 }
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteConfig.NAME,
-  url: siteConfig.URL,
-  logo: `${siteConfig.URL}/soldevelo.png`,
-  description: siteConfig.SHORT_DESCRIPTION,
-  parentOrganization: publisher,
-  sameAs: [siteConfig.REPO, ...Object.values(siteConfig.SOCIALS)],
+  ...publisher,
+  // Google wants a logo of at least 112px square; the wordmark is 180x37.
+  logo: `${siteConfig.URL}/icon-512.png`,
+  sameAs: Object.values(siteConfig.SOCIALS),
 }
 
 export const websiteSchema = {
@@ -39,7 +39,7 @@ export const websiteSchema = {
   name: siteConfig.NAME,
   url: siteConfig.URL,
   description: siteConfig.SHORT_DESCRIPTION,
-  publisher,
+  publisher: { "@id": publisher["@id"] },
 }
 
 export const softwareSourceCodeSchema = {
@@ -51,7 +51,40 @@ export const softwareSourceCodeSchema = {
   programmingLanguage: "TypeScript",
   runtimePlatform: "React",
   url: siteConfig.URL,
-  author: publisher,
+  author: { "@id": publisher["@id"] },
+}
+
+export function itemSourceCodeSchema({
+  name,
+  description,
+  url,
+  codeRepository,
+  keywords,
+}: {
+  name: string
+  description: string
+  url: string
+  codeRepository: string
+  keywords: string[]
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name,
+    description,
+    url,
+    codeRepository,
+    keywords: keywords.join(", "),
+    programmingLanguage: "TypeScript",
+    runtimePlatform: "React",
+    license: "https://opensource.org/licenses/MIT",
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.NAME,
+      url: siteConfig.URL,
+    },
+    author: { "@id": publisher["@id"] },
+  }
 }
 
 export function breadcrumbSchema(items: { name: string; url: string }[]) {

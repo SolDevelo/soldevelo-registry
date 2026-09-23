@@ -22,7 +22,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "220px"
+        "height": "84px"
       },
       "categories": [
         "data-display"
@@ -52,7 +52,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "760px"
+        "height": "585px"
       },
       "categories": [
         "requisition"
@@ -79,7 +79,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "340px"
+        "height": "388px"
       },
       "categories": [
         "stock"
@@ -118,7 +118,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "420px"
+        "height": "250px"
       },
       "categories": [
         "facility"
@@ -161,7 +161,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "980px"
+        "height": "842px"
       },
       "categories": [
         "requisition"

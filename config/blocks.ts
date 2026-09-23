@@ -10,7 +10,7 @@ export const blocks: RegistryEntry[] = [
     "name": "openlmis-requisition-table",
     "project": "openlmis",
     "title": "Requisition Line Items Table",
-    "height": "760px",
+    "height": "585px",
     "description": "Requisition review table listing products with beginning balance, received and consumed quantities, stock on hand, and requested quantity, above a totals row and approve and reject actions.",
     "registryDependencies": [
       "badge",
@@ -42,7 +42,7 @@ export const blocks: RegistryEntry[] = [
     "name": "openlmis-stock-summary",
     "project": "openlmis",
     "title": "Stock On Hand Summary Cards",
-    "height": "340px",
+    "height": "388px",
     "description": "Stock overview band of four summary cards (total stock on hand, items below minimum, items expiring soon, and stockouts), each with its change against the previous period.",
     "registryDependencies": [
       "card",
@@ -71,7 +71,7 @@ export const blocks: RegistryEntry[] = [
     "name": "openlmis-facility-filters",
     "project": "openlmis",
     "title": "Facility Program Period Selector",
-    "height": "420px",
+    "height": "250px",
     "description": "Filter bar for scoping a view to a facility, program, and reporting period, with the active selection summarised beside a search field and a clear-filters action.",
     "registryDependencies": [
       "badge",
