@@ -26,7 +26,7 @@ type PreparedItem = Awaited<ReturnType<typeof prepareItems>>[number]
 // The site's copy of the catalog: the same source the published artifact carries, so the two cannot disagree.
 async function buildSiteData(prepared: PreparedItem[]) {
   const entries = await Promise.all(
-    prepared.map(async ({ item, kind, project, files }) => {
+    prepared.map(async ({ item, kind, project, files, shared }) => {
       // Shown in the code view so a consumer can see how to mount the item, never published.
       // Its imports get the same rewrite as the item's own files, or it would show a relative
       // path that does not resolve to where `shadcn add` actually writes the block.
@@ -35,7 +35,12 @@ async function buildSiteData(prepared: PreparedItem[]) {
         type: "page",
         name: "page.tsx",
         code: absolutizeAssets(
-          rewriteItemImports(await loadCode(previewFile), previewFile, files)
+          rewriteItemImports(
+            await loadCode(previewFile),
+            previewFile,
+            files,
+            shared
+          )
         ),
         lang: "tsx",
         target: null,
