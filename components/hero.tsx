@@ -33,6 +33,13 @@ const rise: Variants = {
   },
 }
 
+// The heading and subtitle are the LCP candidates, and an element at opacity 0 has not painted
+// yet, so they move without fading: visible in the server HTML, before any script runs.
+const settle: Variants = {
+  hidden: { y: 12 },
+  show: { y: 0, transition: { duration: 0.6, ease } },
+}
+
 const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
@@ -68,7 +75,7 @@ export function Hero() {
           </motion.p>
 
           <motion.h1
-            variants={rise}
+            variants={settle}
             className="font-heading text-4xl leading-hero font-bold tracking-tighter text-balance sm:text-5xl"
           >
             Every open source project rebuilds the same screens.{" "}
@@ -76,7 +83,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            variants={rise}
+            variants={settle}
             className="max-w-2xl text-pretty text-muted-foreground"
           >
             {siteConfig.DESCRIPTION}
