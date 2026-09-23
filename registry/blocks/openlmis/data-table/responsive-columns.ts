@@ -3,7 +3,7 @@
 import type { ColumnVisibilityState } from "@tanstack/react-table"
 import { useCallback, useRef, useState } from "react"
 
-/** Tailwind's container sizes in px, so defaults switch where `@md:`-style classes do. */
+/** Tailwind's container sizes in px, smallest first, so defaults switch where `@md:`-style classes do. */
 const CONTAINER_WIDTHS = {
   sm: 384,
   md: 448,
@@ -17,78 +17,79 @@ const CONTAINER_WIDTHS = {
 
 export type ContainerSize = keyof typeof CONTAINER_WIDTHS
 
+const SIZES = Object.keys(CONTAINER_WIDTHS) as ContainerSize[]
+
 export type ResponsiveColumn = {
   id: string
   /** The column is hidden by default when the table has less room than this container size. */
   hideBelow?: ContainerSize
 }
 
-/** Width of an element, kept current as it resizes; a sidebar changes it, not just the window. */
-export function useElementWidth<T extends HTMLElement>() {
-  const [width, setWidth] = useState<number | undefined>(undefined)
+/** The largest container size that fits, or "none" when even the smallest does not. */
+type FittingSize = ContainerSize | "none"
+
+function fittingSize(width: number): FittingSize {
+  let fitting: FittingSize = "none"
+  for (const size of SIZES) if (width >= CONTAINER_WIDTHS[size]) fitting = size
+  return fitting
+}
+
+/** The room an element has, as a container size; a sidebar changes it, not just the window. */
+export function useContainerSize<T extends HTMLElement>() {
+  // A size rather than a width, so resizing only re-renders when a size boundary is crossed.
+  const [size, setSize] = useState<FittingSize | undefined>(undefined)
   const observer = useRef<ResizeObserver | null>(null)
 
-  // A ref callback measures during commit, so the first width is in before the browser paints.
+  // A ref callback measures during commit, so the first size is in before the browser paints.
   const ref = useCallback((element: T | null) => {
     observer.current?.disconnect()
     observer.current = null
     if (!element) return
-    setWidth(element.getBoundingClientRect().width)
+    setSize(fittingSize(element.getBoundingClientRect().width))
     observer.current = new ResizeObserver(([entry]) => {
       // The border box, like getBoundingClientRect, so padding never shifts the result.
-      const size = entry?.borderBoxSize[0]?.inlineSize
-      if (size !== undefined) setWidth(size)
+      const width = entry?.borderBoxSize[0]?.inlineSize
+      if (width !== undefined) setSize(fittingSize(width))
     })
     observer.current.observe(element)
   }, [])
 
-  return [ref, width] as const
+  return [ref, size] as const
 }
 
-/** What shows: the user's own choice for a column, otherwise whether there is room for it. */
-export function resolveColumnVisibility(
-  columns: readonly ResponsiveColumn[],
-  choices: ColumnVisibilityState,
-  width: number | undefined
-): ColumnVisibilityState {
+function fits(size: FittingSize | undefined, needed: ContainerSize) {
   // Before the first measurement everything counts as fitting; the ref callback corrects it before paint.
-  const available = width ?? Number.POSITIVE_INFINITY
-  return Object.fromEntries(
-    columns.map((column) => [
-      column.id,
-      choices[column.id] ??
-        (column.hideBelow
-          ? available >= CONTAINER_WIDTHS[column.hideBelow]
-          : true),
-    ])
-  )
+  if (size === undefined) return true
+  return size !== "none" && SIZES.indexOf(size) >= SIZES.indexOf(needed)
 }
 
-/** The columns where `next` differs from what is showing, i.e. the ones the user just toggled. */
-export function changedColumns(
-  showing: ColumnVisibilityState,
-  next: ColumnVisibilityState
-): ColumnVisibilityState {
-  return Object.fromEntries(
-    Object.entries(next).filter(([id, visible]) => showing[id] !== visible)
-  )
-}
-
-/** Visibility that fits the room until the user picks; the caller stores the picks and measures the width. */
+/** Visibility that fits the room until the user picks; the caller stores the picks and measures the room. */
 export function useColumnVisibility(
   columns: readonly ResponsiveColumn[],
   [choices, setChoices]: readonly [
     ColumnVisibilityState,
     (next: ColumnVisibilityState) => void,
   ],
-  width: number | undefined
+  size: FittingSize | undefined
 ) {
-  const visibility = resolveColumnVisibility(columns, choices, width)
+  const visibility: ColumnVisibilityState = Object.fromEntries(
+    columns.map((column) => [
+      column.id,
+      choices[column.id] ??
+        (column.hideBelow ? fits(size, column.hideBelow) : true),
+    ])
+  )
 
   return {
     visibility,
+    // Only the columns the user just toggled are stored, so the rest keep following the room.
     onVisibilityChange: (next: ColumnVisibilityState) =>
-      setChoices({ ...choices, ...changedColumns(visibility, next) }),
+      setChoices({
+        ...choices,
+        ...Object.fromEntries(
+          Object.entries(next).filter(([id, shown]) => visibility[id] !== shown)
+        ),
+      }),
     onReset: () => setChoices({}),
   }
 }

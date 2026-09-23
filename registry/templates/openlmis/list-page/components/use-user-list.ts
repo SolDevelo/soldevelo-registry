@@ -33,15 +33,14 @@ export function useUserList() {
 
   useEffect(() => {
     let current = true
-    const requestKey = `${JSON.stringify(query)}#${attempt}`
 
     const load = async () => {
       try {
         const data = await fetchUsers(query)
-        if (current) setResult({ key: requestKey, data, error: undefined })
+        if (current) setResult({ key, data, error: undefined })
       } catch (error) {
         if (current) {
-          setResult({ key: requestKey, data: undefined, error: error as Error })
+          setResult({ key, data: undefined, error: error as Error })
         }
       }
     }
@@ -51,24 +50,30 @@ export function useUserList() {
     return () => {
       current = false
     }
-  }, [query, attempt])
+  }, [key, query])
 
   const isLoading = result.key !== key
 
   /** A filter or sort starts again from the first page; paging keeps the rest. */
   const update = (patch: Partial<UsersQuery>) =>
-    setQuery((previous) => ({
-      ...previous,
-      ...patch,
-      pageIndex: "pageIndex" in patch ? (patch.pageIndex ?? 0) : 0,
-    }))
+    setQuery((previous) => {
+      const next = {
+        ...previous,
+        ...patch,
+        pageIndex: "pageIndex" in patch ? (patch.pageIndex ?? 0) : 0,
+      }
+      // An update that changes nothing keeps the same query, so it fetches nothing.
+      const changed = (Object.keys(next) as (keyof UsersQuery)[]).some(
+        (field) => next[field] !== previous[field]
+      )
+      return changed ? next : previous
+    })
 
   return {
     query,
     update,
     data: result.data,
     error: isLoading ? undefined : result.error,
-    isLoading,
     /** Rows are on screen from an earlier request while the next one loads. */
     isStale: isLoading && result.data !== undefined,
     retry: () => setAttempt((count) => count + 1),

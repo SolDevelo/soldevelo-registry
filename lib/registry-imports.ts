@@ -20,7 +20,7 @@ function matchFile<T extends ItemFileRef>(candidate: string, files: T[]) {
   )
 }
 
-function aliasFor(file: ItemFileRef): string {
+export function aliasFor(file: { target: string }): string {
   return `@/${file.target.replace(/\.(tsx|ts)$/, "")}`
 }
 

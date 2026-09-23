@@ -50,6 +50,21 @@ export function projectOf(item: { name: string; meta?: unknown }): string {
   return project
 }
 
+// The CLI writes a registry:page only for some frameworks, so the screen must live in a component.
+async function assertTemplateRendersComponent(
+  name: string,
+  files: { path: string; type: string }[]
+) {
+  const page = files.find((file) => file.type === "registry:page")
+  const source = page ? await loadCode(page.path) : ""
+  if (!/from\s+["']\.\/components\//.test(source)) {
+    throw new Error(
+      `${name}: its registry:page must only render a component imported from ./components/, ` +
+        `or a Vite consumer installs the template without its screen.`
+    )
+  }
+}
+
 // One derivation of every item's targets and shipped source, shared by the build and the finalize step.
 export async function prepareItems() {
   const laidOut = registry.items.map((item) => {
@@ -68,7 +83,7 @@ export async function prepareItems() {
     return { item, kind, project, files }
   })
 
-  // Every item's files, so one item can build on another it declares as a dependency.
+  // Every item's files, so one item can build on another.
   const shared: SharedFileRef[] = laidOut.flatMap(({ item, files }) =>
     files.map((file) => ({
       path: file.path,
@@ -79,40 +94,40 @@ export async function prepareItems() {
 
   return Promise.all(
     laidOut.map(async ({ item, kind, project, files }) => {
-      const others = shared.filter((file) => file.item !== item.name)
-      const declaredDependencies = new Set(item.registryDependencies ?? [])
-      const requireDeclared = (dependency: string) => {
-        if (!declaredDependencies.has(registryAddress(dependency))) {
-          throw new Error(
-            `${item.name} imports ${dependency} but does not declare it. ` +
-              `Add "${registryAddress(dependency)}" to its registryDependencies.`
+      const imported = new Set<string>()
+      const ship = async (filePath: string) =>
+        absolutizeAssets(
+          rewriteItemImports(
+            await loadCode(filePath),
+            filePath,
+            files,
+            shared,
+            (name) => imported.add(name)
           )
-        }
-      }
+        )
 
       const withSource = await Promise.all(
-        files.map(async (file) => ({
-          ...file,
-          content: absolutizeAssets(
-            rewriteItemImports(
-              await loadCode(file.path),
-              file.path,
-              files,
-              others,
-              requireDeclared
-            )
-          ),
-        }))
+        files.map(async (file) => ({ ...file, content: await ship(file.path) }))
       )
+      if (kind === "template")
+        await assertTemplateRendersComponent(item.name, files)
+      // The preview is shown as how to mount the item, so what it imports installs with it too.
+      const previewCode = await ship(previewPath(kind, item.name, project))
 
-      // The preview is shown as how to mount the item, so it is held to the same declarations.
+      // Derived from the imports, like cssVars, so the published dependencies cannot drift.
+      const registryDependencies = [
+        ...new Set([
+          ...(item.registryDependencies ?? []),
+          ...[...imported].toSorted().map(registryAddress),
+        ]),
+      ]
+
       return {
-        item,
+        item: { ...item, registryDependencies },
         kind,
         project,
         files: withSource,
-        shared: others,
-        requireDeclared,
+        previewCode,
       }
     })
   )

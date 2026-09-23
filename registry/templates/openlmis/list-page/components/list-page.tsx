@@ -6,20 +6,21 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import { PlusIcon, SearchXIcon, UsersIcon } from "lucide-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { Button } from "@/components/ui/button"
+import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs/page-breadcrumbs"
 import {
   DataTable,
   DataTableEmpty,
   DataTableError,
+  DataTablePagination,
   DataTableSkeleton,
   dataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
-import { DataTablePagination } from "@/registry/blocks/openlmis/data-table/data-table-pagination"
 import {
   useColumnVisibility,
-  useElementWidth,
+  useContainerSize,
 } from "@/registry/blocks/openlmis/data-table/responsive-columns"
 import {
   ListToolbar,
@@ -29,7 +30,6 @@ import {
 } from "@/registry/blocks/openlmis/list-toolbar/list-toolbar"
 import {
   Workspace,
-  WorkspaceBreadcrumbs,
   WorkspaceContent,
   WorkspaceDescription,
   WorkspaceHeader,
@@ -47,27 +47,33 @@ import { useUserList } from "./use-user-list"
 
 const NO_USERS: User[] = []
 
+const getRowId = (user: User) => user.id
+
 /** The whole users list screen; mount it from any route, e.g. the `page.tsx` this template ships. */
 export function ListPage() {
   const list = useUserList()
   const { query, update } = list
-  const [measureContent, contentWidth] = useElementWidth<HTMLDivElement>()
+  const [measureContent, contentSize] = useContainerSize<HTMLDivElement>()
   // Kept for the visit only; store it (e.g. in localStorage) to remember it across visits.
   const columnChoices = useState<ColumnVisibilityState>({})
   const columnView = useColumnVisibility(
     HIDEABLE_COLUMNS,
     columnChoices,
-    contentWidth
+    contentSize
   )
 
   const pagination = { pageIndex: query.pageIndex, pageSize: query.pageSize }
-  const sorting = [{ id: query.sortBy, desc: query.sortDesc }]
+  // Memoized: the table compares controlled state by reference and would reset it every render.
+  const sorting = useMemo(
+    () => [{ id: query.sortBy, desc: query.sortDesc }],
+    [query.sortBy, query.sortDesc]
+  )
 
   const table = useTable({
     features: dataTableFeatures,
     columns: userColumns,
     data: list.data?.rows ?? NO_USERS,
-    getRowId: (user) => user.id,
+    getRowId,
     rowCount: list.data?.total ?? 0,
     manualPagination: true,
     manualSorting: true,
@@ -86,7 +92,7 @@ export function ListPage() {
 
   return (
     <Workspace>
-      <WorkspaceBreadcrumbs
+      <PageBreadcrumbs
         items={[
           { label: "Home", href: "#" },
           { label: "Administration" },
@@ -135,7 +141,6 @@ export function ListPage() {
                 onVisibilityChange={columnView.onVisibilityChange}
                 visibility={columnView.visibility}
               />
-              {/* Open the create screen here; it does nothing in the template. */}
               <Button>
                 <PlusIcon data-icon="inline-start" />
                 Add User

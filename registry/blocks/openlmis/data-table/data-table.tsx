@@ -36,7 +36,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { PaginationSkeleton } from "@/registry/components/openlmis/pagination/pagination"
+import {
+  Pagination,
+  type PaginationLabels,
+  PaginationSkeleton,
+} from "@/registry/components/openlmis/pagination/pagination"
 
 export type DataTableColumnMeta = {
   /** Width classes, e.g. `w-1/5` or `w-16 @xl/table:w-32`. Columns without any share what is left. */
@@ -302,5 +306,29 @@ export function DataTableError({
         title={title}
       />
     </DataTableCard>
+  )
+}
+
+type DataTablePaginationProps<TData extends RowData> = {
+  table: DataTableInstance<TData>
+  labels?: Partial<PaginationLabels>
+}
+
+/** The table's pagination state wired to the Pagination component, for the table's footer. */
+export function DataTablePagination<TData extends RowData>({
+  table,
+  labels,
+}: DataTablePaginationProps<TData>) {
+  const { pageIndex, pageSize } = table.state.pagination
+
+  return (
+    <Pagination
+      labels={labels}
+      onPageChange={table.setPageIndex}
+      onPageSizeChange={table.setPageSize}
+      pageIndex={pageIndex}
+      pageSize={pageSize}
+      rowCount={table.getRowCount()}
+    />
   )
 }

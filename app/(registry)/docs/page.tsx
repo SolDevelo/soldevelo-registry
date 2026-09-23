@@ -10,10 +10,11 @@ import { JsonLd, breadcrumbSchema } from "@/components/structured-data"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { itemSlug, PROJECTS } from "@/config/projects"
+import { PROJECTS } from "@/config/projects"
 import { registryAddress, siteConfig } from "@/config/site"
 import { createMetadata } from "@/lib/metadata"
 import { getCounts, getEntriesByKind, getProjects } from "@/lib/registry-data"
+import { aliasFor } from "@/lib/registry-imports"
 import { KIND_LABEL, KIND_PLURAL, REGISTRY_KINDS } from "@/lib/registry-kinds"
 import { cn } from "@/lib/utils"
 
@@ -118,32 +119,25 @@ function Prose({ children }: { children: React.ReactNode }) {
   )
 }
 
+const EXAMPLE_ITEM = "openlmis-status-badge"
+
 export default function DocsPage() {
   const counts = getCounts()
   const projects = getProjects()
     .map((id) => PROJECTS[id])
     .filter((project) => project !== undefined)
-  // Derived so the examples can never name an item that has been renamed away.
-  const components = getEntriesByKind("component")
-  const exampleEntry =
-    components.find((entry) => entry.name === "openlmis-status-badge") ??
-    components[0]
-  const example = exampleEntry?.name ?? "openlmis-status-badge"
-  const exampleProject = exampleEntry?.project ?? "openlmis"
-  const exampleSlug = itemSlug(example, exampleProject)
-  const exampleComponent = exampleSlug
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("")
-  // Where the CLI writes the item's main file, without the extension, as an import path.
-  const exampleImport = (
-    exampleEntry?.files.find((file) => file.target)?.target ??
-    `components/${exampleProject}/${exampleSlug}.tsx`
-  ).replace(/\.tsx?$/, "")
-  const exampleUsage =
-    example === "openlmis-status-badge"
-      ? `<${exampleComponent} tone="success">Active</${exampleComponent}>`
-      : `<${exampleComponent} />`
+  // Checked here, so renaming the example item fails the build instead of the docs going stale.
+  const exampleEntry = getEntriesByKind("component").find(
+    (entry) => entry.name === EXAMPLE_ITEM
+  )
+  const exampleFile = exampleEntry?.files.find((file) => file.target)
+  if (!exampleEntry || !exampleFile?.target) {
+    throw new Error(
+      `The docs example item ${EXAMPLE_ITEM} is not in the registry.`
+    )
+  }
+  const example = exampleEntry.name
+  const exampleImport = aliasFor({ target: exampleFile.target })
 
   return (
     <>
@@ -245,10 +239,10 @@ export default function DocsPage() {
               <CodePanel
                 fileName="app/page.tsx"
                 lang="tsx"
-                code={`import { ${exampleComponent} } from "@/${exampleImport}"
+                code={`import { StatusBadge } from "${exampleImport}"
 
 export default function Page() {
-  return ${exampleUsage}
+  return <StatusBadge tone="success">Active</StatusBadge>
 }`}
               />
               <Prose>

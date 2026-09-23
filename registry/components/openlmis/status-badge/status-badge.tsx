@@ -10,25 +10,21 @@ type StatusBadgeProps = {
   children: ReactNode
 }
 
-const TONE_CLASSES: Record<StatusTone, string> = {
-  success: "bg-success/10 text-success",
-  destructive: "bg-destructive/10 text-destructive",
-}
+const TONES = {
+  success: { className: "bg-success/10 text-success", icon: CheckIcon },
+  destructive: { className: "bg-destructive/10 text-destructive", icon: XIcon },
+} as const
 
-const TONE_ICON = { success: CheckIcon, destructive: XIcon } as const
-
-/** A yes-or-no state, such as active or inactive, told apart by colour and by icon. */
+/** A yes-or-no state told apart by colour and icon; its own element, as stock Badge has no success tone. */
 export function StatusBadge({ tone, children }: StatusBadgeProps) {
-  const Icon = TONE_ICON[tone]
+  const { className, icon: Icon } = TONES[tone]
 
-  // Its own element rather than Badge, whose stock variants have no success tone.
   return (
     <span
       className={cn(
         "inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap",
-        TONE_CLASSES[tone]
+        className
       )}
-      data-slot="badge"
     >
       <Icon aria-hidden className="size-3" />
       {children}

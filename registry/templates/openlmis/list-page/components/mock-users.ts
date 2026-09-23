@@ -25,7 +25,7 @@ export type UsersPage = {
 }
 
 /** Searching for this shows the error state, so it can be tried without a failing server. */
-export const SIMULATED_FAILURE_SEARCH = "fail"
+const SIMULATED_FAILURE_SEARCH = "fail"
 
 const FIRST_NAMES = [
   "Adora",
