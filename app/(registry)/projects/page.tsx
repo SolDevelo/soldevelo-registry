@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ChevronRightIcon } from "lucide-react"
 
 import { ProjectMark } from "@/components/logo"
+import { ProjectCta } from "@/components/project-cta"
 import { Badge } from "@/components/ui/badge"
 import {
   JsonLd,
@@ -100,6 +101,11 @@ export default function ProjectsPage() {
           </li>
         ))}
       </ul>
+
+      <ProjectCta
+        itemCount={getAllEntries().length}
+        projectCount={projects.length}
+      />
     </section>
   )
 }
