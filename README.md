@@ -71,7 +71,7 @@ your `components.json`:
 Then install any item by name. Names are prefixed with their project:
 
 ```sh
-pnpm dlx shadcn@latest add @soldevelo/openlmis-stock-summary
+pnpm dlx shadcn@latest add @soldevelo/openlmis-status-badge
 ```
 
 The CLI also installs the shadcn primitives and npm packages the item depends
@@ -79,7 +79,7 @@ on. Search and inspect the catalog from the terminal too:
 
 ```sh
 pnpm dlx shadcn@latest search @soldevelo -q "stock"
-pnpm dlx shadcn@latest view @soldevelo/openlmis-stock-summary
+pnpm dlx shadcn@latest view @soldevelo/openlmis-status-badge
 ```
 
 ## What You Can Install

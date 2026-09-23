@@ -90,7 +90,8 @@ export async function fetchUsers(query: UsersQuery): Promise<UsersPage> {
     return status && text.toLowerCase().includes(term)
   })
 
-  const sorted = matches.toSorted((a, b) => {
+  // oxlint-disable-next-line unicorn/no-array-sort -- sorts a copy; toSorted needs the ES2023 lib
+  const sorted = [...matches].sort((a, b) => {
     const order = String(a[query.sortBy]).localeCompare(String(b[query.sortBy]))
     return query.sortDesc ? -order : order
   })

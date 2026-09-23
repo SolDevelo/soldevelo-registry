@@ -68,7 +68,8 @@ export default function Page() {
   // Sorted and sliced here the way a server would, since the table itself does neither.
   const page = useMemo(() => {
     const [sort] = sorting
-    const sorted = PRODUCTS.toSorted((a, b) => {
+    // oxlint-disable-next-line unicorn/no-array-sort -- sorts a copy; toSorted needs the ES2023 lib
+    const sorted = [...PRODUCTS].sort((a, b) => {
       if (!sort) return 0
       const key = sort.id as keyof Product
       const order = String(a[key]).localeCompare(String(b[key]), undefined, {

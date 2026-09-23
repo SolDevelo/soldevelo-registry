@@ -21,13 +21,13 @@ Every item published by `soldevelo`, grouped by kind. 10 items in total.
 | --- | --- | --- | --- | --- |
 | `@soldevelo/openlmis-data-table` | OpenLMIS | Data Table | `components/blocks/openlmis/data-table/data-table.tsx`<br>`components/blocks/openlmis/data-table/data-table-pagination.tsx`<br>`components/blocks/openlmis/data-table/responsive-columns.ts` | Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer. |
 | `@soldevelo/openlmis-workspace` | OpenLMIS | Workspace | `components/blocks/openlmis/workspace.tsx` | Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page. |
-| `@soldevelo/openlmis-list-toolbar` | OpenLMIS | List Toolbar | `components/blocks/openlmis/list-toolbar.tsx` | Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow. |
+| `@soldevelo/openlmis-list-toolbar` | OpenLMIS | List Toolbar | `components/blocks/openlmis/list-toolbar.tsx` | Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow. |
 
 ## Templates (1)
 
 | Item | Project | Title | Installs to | Description |
 | --- | --- | --- | --- | --- |
-| `@soldevelo/openlmis-list-page` | OpenLMIS | List Page | `app/list-page/page.tsx`<br>`components/openlmis/list-page/mock-users.ts`<br>`components/openlmis/list-page/use-user-list.ts`<br>`components/openlmis/list-page/user-columns.tsx` | Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states. |
+| `@soldevelo/openlmis-list-page` | OpenLMIS | List Page | `app/list-page/page.tsx`<br>`components/openlmis/list-page/list-page.tsx`<br>`components/openlmis/list-page/mock-users.ts`<br>`components/openlmis/list-page/use-user-list.ts`<br>`components/openlmis/list-page/user-columns.tsx` | Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states. |
 
 ## Installing
 

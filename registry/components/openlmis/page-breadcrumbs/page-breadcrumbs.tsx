@@ -38,7 +38,7 @@ export function PageBreadcrumbs({
           const href = item.href
 
           return (
-            <Fragment key={item.href ?? item.label}>
+            <Fragment key={item.label}>
               {index > 0 && <BreadcrumbSeparator />}
               <BreadcrumbItem>
                 {isCurrent ? (

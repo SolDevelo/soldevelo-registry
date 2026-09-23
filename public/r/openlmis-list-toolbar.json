@@ -2,9 +2,15 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "openlmis-list-toolbar",
   "title": "List Toolbar",
-  "description": "Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow.",
-  "dependencies": [],
-  "registryDependencies": [],
+  "description": "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "@soldevelo/openlmis-search-input",
+    "@soldevelo/openlmis-select-filter",
+    "@soldevelo/openlmis-column-view-options"
+  ],
   "files": [
     {
       "path": "registry/blocks/openlmis/list-toolbar/list-toolbar.tsx",

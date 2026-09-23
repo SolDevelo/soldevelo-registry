@@ -247,7 +247,7 @@ function OpenLmisBar({ compact = false }: { compact?: boolean }) {
   )
 }
 
-// Mirrors the requisition approval template's data, so the hero and the catalog tell the same story.
+// Illustrative OpenLMIS data for the hero; it is drawn here and imports no registry item.
 const LINE_ITEMS = [
   { code: "C100", product: "Amoxicillin 250mg", soh: 860, requested: 1200 },
   { code: "C200", product: "ORS sachet", soh: 550, requested: 900 },
