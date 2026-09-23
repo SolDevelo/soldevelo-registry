@@ -118,6 +118,68 @@ export const registryItems: RegistryItem[] = [
     categories: ["navigation"],
     meta: { project: "openlmis", height: "84px" },
   },
+  {
+    name: "openlmis-form-fields",
+    title: "Form Fields",
+    type: "registry:component",
+    description:
+      "TanStack Form field components on shadcn Field: text, password with a show button, a type-to-filter combobox, radio and switch choice cards, required marks, inline errors, and skeletons that hold the form's shape while values load.",
+    dependencies: ["@base-ui/react", "@tanstack/react-form@^1", "lucide-react"],
+    registryDependencies: [
+      "combobox",
+      "field",
+      "input",
+      "input-group",
+      "radio-group",
+      "skeleton",
+      "switch",
+    ],
+    files: [
+      {
+        path: "components/openlmis/form-fields/form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/form-fields/form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/form-fields/form-context.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "components/openlmis/form-fields/form-messages.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms"],
+    meta: { project: "openlmis", height: "620px" },
+  },
+  {
+    name: "openlmis-form-dialog",
+    title: "Form Dialog",
+    type: "registry:component",
+    description:
+      "Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["alert", "button", "dialog", "spinner"],
+    files: [
+      {
+        path: "components/openlmis/form-dialog/form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/form-dialog/use-dialog-target.ts",
+        type: "registry:hook",
+      },
+      {
+        path: "components/openlmis/form-dialog/use-dialog-data.ts",
+        type: "registry:hook",
+      },
+    ],
+    categories: ["forms", "overlay"],
+    meta: { project: "openlmis", height: "416px" },
+  },
   // -- Blocks -----------------------------------------------------------------
   {
     name: "openlmis-data-table",
@@ -174,6 +236,48 @@ export const registryItems: RegistryItem[] = [
     categories: ["layout", "data-table"],
     meta: { project: "openlmis", height: "288px" },
   },
+  {
+    name: "openlmis-user-form-dialog",
+    title: "User Form Dialog",
+    type: "registry:block",
+    description:
+      "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes, with a skeleton while the user loads.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["badge", "button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/user-form-dialog/user-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/user-form-dialog/user-form.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "users"],
+    meta: { project: "openlmis", height: "768px" },
+  },
+  {
+    name: "openlmis-reset-password-dialog",
+    title: "Reset Password Dialog",
+    type: "registry:block",
+    description:
+      "Reset Password dialog that emails the user a reset link or sets a password by hand, falls back to a typed password when the user has no email, and opens as Set Password for a user just created.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["field"],
+    files: [
+      {
+        path: "blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/reset-password-dialog/password-form.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "users"],
+    meta: { project: "openlmis", height: "448px" },
+  },
 
   // -- Templates --------------------------------------------------------------
   {
@@ -181,7 +285,7 @@ export const registryItems: RegistryItem[] = [
     title: "List Page",
     type: "registry:page",
     description:
-      "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
+      "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, loading, empty, no-matches and error states, and row actions that open Edit User and Reset Password dialogs.",
     dependencies: ["@tanstack/react-table@^9", "lucide-react"],
     registryDependencies: ["button", "dropdown-menu"],
     files: [
