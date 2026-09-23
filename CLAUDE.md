@@ -32,7 +32,7 @@ pnpm start            # Serve the production build
 pnpm lint             # oxlint (includes the @shadcn/lint design-system rules)
 pnpm lint:fix         # oxlint --fix
 pnpm typecheck        # next typegen && tsc --noEmit (TypeScript 7)
-pnpm format           # prettier --write
+pnpm format           # oxfmt (pnpm format:check to verify only)
 
 pnpm registry:build   # Regenerate every derived artifact. Run after ANY registry/ change.
 pnpm registry:check   # registry:build + fail if the artifacts are out of date (CI gate)
@@ -251,8 +251,9 @@ hand-edit those files, re-add them with the shadcn CLI instead.
 
 ### Formatting
 
-Prettier: double quotes, **no semicolons**, 2-space indent, 80 columns, `es5`
-trailing commas. The repo is normalized; match it.
+Oxfmt (`.oxfmtrc.json`): double quotes, **no semicolons**, 2-space indent, 80
+columns, `es5` trailing commas, Tailwind classes sorted. The repo is normalized;
+match it. Vendored `components/ui/**` and the generated artifacts are ignored.
 
 ## Theme
 

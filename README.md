@@ -137,7 +137,7 @@ pnpm dev
 | `pnpm build`          | Production build, type-checked                           |
 | `pnpm lint`           | oxlint, including the `@shadcn/lint` design-system rules |
 | `pnpm typecheck`      | `next typegen && tsc --noEmit` (TypeScript 7)            |
-| `pnpm format`         | Prettier                                                 |
+| `pnpm format`         | Oxfmt, with Tailwind class sorting                       |
 | `pnpm registry:build` | Regenerate every derived registry artifact               |
 | `pnpm registry:check` | Rebuild and fail if the committed artifacts are stale    |
 
@@ -183,7 +183,7 @@ rules the linter enforces.
 ## Stack
 
 Next.js 16 (App Router) · React 19 · TypeScript 7 · Tailwind CSS v4 ·
-shadcn/ui on Base UI · Motion · oxlint with `@shadcn/lint`
+shadcn/ui on Base UI · Motion · oxlint with `@shadcn/lint` · Oxfmt
 
 ## Contributing
 

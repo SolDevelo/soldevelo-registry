@@ -52,7 +52,9 @@ export function useOptimizedIframe({
     if (!loaded) return
 
     const frameWindow = iframeRef.current?.contentWindow as
-      (Window & typeof globalThis) | null | undefined
+      | (Window & typeof globalThis)
+      | null
+      | undefined
     const content = iframeRef.current?.contentDocument?.querySelector(
       "[data-preview-content]"
     )

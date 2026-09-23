@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "sortPackageJson": false,
+  "sortTailwindcss": {
+    "stylesheet": "app/globals.css",
+    "functions": ["cn", "cva"]
+  },
+  "ignorePatterns": [
+    ".next",
+    "node_modules",
+    "pnpm-lock.yaml",
+    "public/r",
+    "registry.json",
+    "config/blocks.ts",
+    "config/components.ts",
+    "config/templates.ts",
+    "REGISTRY.md",
+    "public/llms.txt",
+    "components/ui"
+  ]
+}
