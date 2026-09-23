@@ -30,6 +30,7 @@ export const siteConfig = {
     "open source",
   ],
   AUTHORS: [{ NAME: "SolDevelo", URL: "https://soldevelo.com" }],
+  CONTACT_URL: "https://soldevelo.com/contact/",
   // SolDevelo's own channels, not the registry's. Also feed `sameAs` in the
   // Organization schema, so the company's profiles resolve to one entity.
   SOCIALS: {
