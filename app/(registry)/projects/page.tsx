@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ChevronRightIcon } from "lucide-react"
 
 import { ProjectMark } from "@/components/logo"
+import { Badge } from "@/components/ui/badge"
 import {
   JsonLd,
   breadcrumbSchema,
@@ -25,16 +26,14 @@ export const metadata = createMetadata({
   keywords: ["open source projects", "shadcn/ui projects"],
 })
 
-// "6 components, 3 blocks, 1 template", leaving out kinds the project has none of.
-function itemCounts(project: string): string {
+// "6 Components", "3 Blocks", "1 Template", leaving out kinds the project has none of.
+function itemCounts(project: string): string[] {
   const entries = getAllEntries().filter((entry) => entry.project === project)
-  return REGISTRY_KINDS.map((kind) => {
+  return REGISTRY_KINDS.flatMap((kind) => {
     const count = entries.filter((entry) => entry.kind === kind).length
-    const label = KIND_LABEL[kind].toLowerCase()
-    return count > 0 ? `${count} ${label}${count === 1 ? "" : "s"}` : null
+    if (count === 0) return []
+    return `${count} ${KIND_LABEL[kind]}${count === 1 ? "" : "s"}`
   })
-    .filter(Boolean)
-    .join(", ")
 }
 
 export default function ProjectsPage() {
@@ -85,9 +84,13 @@ export default function ProjectsPage() {
                 <p className="text-sm text-pretty text-muted-foreground">
                   {project.description}
                 </p>
-                <p className="pt-1 text-xs text-muted-foreground">
-                  {itemCounts(project.id)}
-                </p>
+                <ul className="flex flex-wrap gap-1.5 pt-2">
+                  {itemCounts(project.id).map((count) => (
+                    <li key={count}>
+                      <Badge variant="secondary">{count}</Badge>
+                    </li>
+                  ))}
+                </ul>
               </div>
               <ChevronRightIcon
                 aria-hidden="true"
