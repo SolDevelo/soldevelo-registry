@@ -3,10 +3,11 @@ import path from "node:path"
 import { loadCode } from "@/lib/code"
 import { registry } from "@/registry/index"
 import { absolutizeAssets } from "@/lib/registry-assets"
-import { rewriteItemImports } from "@/lib/registry-imports"
+import { rewriteItemImports, type SharedFileRef } from "@/lib/registry-imports"
 import { installTarget } from "@/lib/registry-targets"
 import { KIND_PLURAL, kindOf, type RegistryKind } from "@/lib/registry-kinds"
 import { getProject, itemSlug } from "@/config/projects"
+import { registryAddress } from "@/config/site"
 
 // Item file paths are relative to `registry/` unless they use the `@/` alias.
 export function resolveFilePath(filePath: string): string {
@@ -51,30 +52,60 @@ export function projectOf(item: { name: string; meta?: unknown }): string {
 
 // One derivation of every item's targets and shipped source, shared by the build and the finalize step.
 export async function prepareItems() {
-  return Promise.all(
-    registry.items.map(async (item) => {
-      const kind = kindOf(item)
-      const project = projectOf(item)
-      const declared = item.files ?? []
+  const laidOut = registry.items.map((item) => {
+    const kind = kindOf(item)
+    const project = projectOf(item)
+    const declared = item.files ?? []
 
-      const files = declared.map((file) => ({
-        ...file,
-        path: resolveFilePath(file.path),
-        target:
-          file.target ??
-          installTarget(kind, item.name, project, file.path, declared.length),
-      }))
+    const files = declared.map((file) => ({
+      ...file,
+      path: resolveFilePath(file.path),
+      target:
+        file.target ??
+        installTarget(kind, item.name, project, file.path, declared.length),
+    }))
+
+    return { item, kind, project, files }
+  })
+
+  // Every item's files, so one item can build on another it declares as a dependency.
+  const shared: SharedFileRef[] = laidOut.flatMap(({ item, files }) =>
+    files.map((file) => ({
+      path: file.path,
+      target: file.target,
+      item: item.name,
+    }))
+  )
+
+  return Promise.all(
+    laidOut.map(async ({ item, kind, project, files }) => {
+      const others = shared.filter((file) => file.item !== item.name)
+      const declaredDependencies = new Set(item.registryDependencies ?? [])
+      const requireDeclared = (dependency: string) => {
+        if (!declaredDependencies.has(registryAddress(dependency))) {
+          throw new Error(
+            `${item.name} imports ${dependency} but does not declare it. ` +
+              `Add "${registryAddress(dependency)}" to its registryDependencies.`
+          )
+        }
+      }
 
       const withSource = await Promise.all(
         files.map(async (file) => ({
           ...file,
           content: absolutizeAssets(
-            rewriteItemImports(await loadCode(file.path), file.path, files)
+            rewriteItemImports(
+              await loadCode(file.path),
+              file.path,
+              files,
+              others,
+              requireDeclared
+            )
           ),
         }))
       )
 
-      return { item, kind, project, files: withSource }
+      return { item, kind, project, files: withSource, shared: others }
     })
   )
 }

@@ -103,10 +103,12 @@ Every kind uses the same layout: one folder per item at
   (a status pill, a quantity cell).
 - A **block** is a complete screen region (a requisition table, a stock summary
   band).
-- A **template** is a whole page. It owns its sections **by value**: editable
-  copies under `registry/templates/{name}/components/`, shipped as its own
-  files. Its `registryDependencies` are shadcn primitives only, never another
-  item from this registry.
+- A **template** is a whole page, assembled from this registry's components and
+  blocks. What is specific to the page (its data, columns, copy) ships as the
+  template's own files under `registry/templates/{project}/{item}/`.
+
+Items build on each other rather than copying: a block uses components, a
+template uses blocks and components. Each installs once and is shared.
 
 Multi-file items install under a folder (`components/blocks/{name}/`) instead
 of a flat file.
@@ -156,9 +158,25 @@ metadata for CLI search; the site does not group by it.
 6. Commit the source and the regenerated artifacts together.
 
 Item source must be **copy-pasteable**: no imports the consumer will not have.
-A block may import shadcn primitives (`@/components/ui/*`), npm packages it
-declares in `dependencies`, and its own sibling files. Nothing else. Sibling
-imports are written relatively and rewritten to install paths by the build.
+An item may import shadcn primitives (`@/components/ui/*`), npm packages it
+declares in `dependencies`, its own sibling files, and other items from this
+registry. Nothing else. The build rewrites all of them to install paths:
+
+- Sibling imports are written relatively (`./data-table-labels`).
+- Another item's files are imported through the alias
+  (`@/registry/components/openlmis/pagination/pagination`), and the item must
+  list it in `registryDependencies` as `@soldevelo/openlmis-pagination`. The
+  build fails on an undeclared one, so `shadcn add` always pulls in what the code
+  imports.
+
+**Items are framework-neutral React.** No router, no data layer, no project API:
+state is React state and data is mocked in the item's own files, so the same
+source runs in a Next.js app and in a Vite + TanStack Router app. A consumer
+swaps the mock for its own fetching.
+
+Variants added to `components/ui/*` do not ship: a consumer gets stock shadcn
+primitives. Express an item's look with layout and spacing classes, or with
+plain elements styled by theme tokens, never by relying on a local variant.
 
 ## Code conventions
 

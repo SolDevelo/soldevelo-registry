@@ -26,7 +26,7 @@ export default function HomePage() {
   const entries = getAllEntries()
   const growth = projectGrowth(entries.length)
   // Derived, so the install example cannot name an item that has been renamed away.
-  const example = getEntriesByKind("block")[0]?.name ?? "openlmis-stock-summary"
+  const example = getEntriesByKind("block")[0]?.name ?? "openlmis-data-table"
 
   return (
     // One plain top-level node, deliberately: on a route change Next calls

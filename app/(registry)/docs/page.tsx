@@ -125,7 +125,7 @@ export default function DocsPage() {
     .filter((project) => project !== undefined)
   // Derived so the examples can never name an item that has been renamed away.
   const exampleEntry = getEntriesByKind("block")[0]
-  const example = exampleEntry?.name ?? "openlmis-stock-summary"
+  const example = exampleEntry?.name ?? "openlmis-data-table"
   const exampleProject = exampleEntry?.project ?? "openlmis"
   const exampleSlug = itemSlug(example, exampleProject)
   const exampleComponent = exampleSlug

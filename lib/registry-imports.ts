@@ -7,11 +7,14 @@ export type ItemFileRef = {
   target: string
 }
 
+// A file that belongs to another registry item, which an item may import by declaring it.
+export type SharedFileRef = ItemFileRef & { item: string }
+
 const IMPORT_SPECIFIER = /(from\s*|import\s*\(\s*)(["'])([^"']+)\2/g
 
 const EXTENSIONS = ["", ".tsx", ".ts", "/index.tsx", "/index.ts"]
 
-function matchFile(candidate: string, files: ItemFileRef[]) {
+function matchFile<T extends ItemFileRef>(candidate: string, files: T[]) {
   return files.find((file) =>
     EXTENSIONS.some((extension) => file.path === `${candidate}${extension}`)
   )
@@ -21,18 +24,21 @@ function aliasFor(file: ItemFileRef): string {
   return `@/${file.target.replace(/\.(tsx|ts)$/, "")}`
 }
 
-// Rewrites an item's imports of its own files to the paths they install to; leaves everything else alone.
+// Rewrites imports of the item's own files, and of other items' files, to the paths they install to.
 export function rewriteItemImports(
   source: string,
   filePath: string,
-  files: ItemFileRef[]
+  files: ItemFileRef[],
+  shared: SharedFileRef[] = [],
+  onShared?: (item: string) => void
 ): string {
   const dir = path.dirname(filePath)
 
   return source.replace(
     IMPORT_SPECIFIER,
     (match, prefix: string, quote: string, specifier: string) => {
-      const candidate = specifier.startsWith(".")
+      const isRelative = specifier.startsWith(".")
+      const candidate = isRelative
         ? path.posix.normalize(path.posix.join(dir, specifier))
         : specifier.startsWith("@/registry/")
           ? specifier.slice(2)
@@ -40,15 +46,21 @@ export function rewriteItemImports(
 
       if (!candidate) return match
 
-      const file = matchFile(candidate, files)
-      if (!file) {
-        throw new Error(
-          `Unresolved import "${specifier}" in ${filePath}. ` +
-            `A registry item may only import its own files or an external package.`
-        )
+      const own = matchFile(candidate, files)
+      if (own) return `${prefix}${quote}${aliasFor(own)}${quote}`
+
+      // Another item is reached through the `@/registry/` alias, never a relative path.
+      const other = isRelative ? undefined : matchFile(candidate, shared)
+      if (other) {
+        onShared?.(other.item)
+        return `${prefix}${quote}${aliasFor(other)}${quote}`
       }
 
-      return `${prefix}${quote}${aliasFor(file)}${quote}`
+      throw new Error(
+        `Unresolved import "${specifier}" in ${filePath}. ` +
+          `A registry item may import its own files, another item's files through ` +
+          `"@/registry/...", or an external package.`
+      )
     }
   )
 }
