@@ -79,7 +79,16 @@ export function toUserFormValues(user: UserDetails): UserFormValues {
   }
 }
 
-/** The values to save: trimmed, and removing roles only counts while the facility actually changed. */
+/** Notifications need a verified address, and only the saved one can be verified yet. */
+export function canNotify(
+  email: string,
+  savedEmail: string | null,
+  emailVerified: boolean
+) {
+  return emailVerified && savedEmail !== null && email.trim() === savedEmail
+}
+
+/** The values to save: trimmed, notifications only to a verified address, and roles removed only if the facility changed. */
 export function toSavedValues(
   values: UserFormValues,
   existing?: UserDetails
@@ -92,6 +101,10 @@ export function toSavedValues(
     lastName: values.lastName.trim(),
     jobTitle: values.jobTitle.trim(),
     phoneNumber: values.phoneNumber.trim(),
+    allowNotify:
+      values.allowNotify &&
+      existing !== undefined &&
+      canNotify(values.email, existing.email, existing.emailVerified),
     removeHomeFacilityRoles:
       values.removeHomeFacilityRoles &&
       values.homeFacilityId !== (existing?.homeFacilityId ?? null),
