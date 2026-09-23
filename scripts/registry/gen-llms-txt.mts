@@ -70,7 +70,7 @@ p()
 p("## URLs")
 p()
 p(
-  `- Item pages: \`${url}/{components|blocks|templates}/{item-name}\`, with the preview, install command, files and dependencies.`
+  `- Item pages: \`${url}/{components|blocks|templates}/{item-name}\`, with a short intro, the install command and the preview.`
 )
 p(`- Standalone previews: \`${url}/preview/{item-name}\`.`)
 p(`- Registry item JSON: \`${url}/r/{item-name}.json\`.`)

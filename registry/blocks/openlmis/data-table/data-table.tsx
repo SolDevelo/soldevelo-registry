@@ -319,16 +319,19 @@ export function DataTablePagination<TData extends RowData>({
   table,
   labels,
 }: DataTablePaginationProps<TData>) {
-  const { pageIndex, pageSize } = table.state.pagination
-
+  // Subscribed here, so it still updates when the caller's useTable selector leaves pagination out.
   return (
-    <Pagination
-      labels={labels}
-      onPageChange={table.setPageIndex}
-      onPageSizeChange={table.setPageSize}
-      pageIndex={pageIndex}
-      pageSize={pageSize}
-      rowCount={table.getRowCount()}
-    />
+    <table.Subscribe selector={(state) => state.pagination}>
+      {({ pageIndex, pageSize }) => (
+        <Pagination
+          labels={labels}
+          onPageChange={table.setPageIndex}
+          onPageSizeChange={table.setPageSize}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          rowCount={table.getRowCount()}
+        />
+      )}
+    </table.Subscribe>
   )
 }

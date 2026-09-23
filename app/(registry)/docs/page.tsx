@@ -231,10 +231,10 @@ export default function DocsPage() {
                 lines={`shadcn@latest add ${registryAddress(example)}`}
               />
               <Prose>
-                The CLI installs the shadcn primitives and npm packages the item
-                declares, then writes its source into your repository. Pass{" "}
-                <Mono>--dry-run</Mono> to see the files it would write first.
-                Import it like any other component:
+                The CLI installs the shadcn primitives, npm packages and other
+                registry items the item needs, then writes its source into your
+                repository. Pass <Mono>--dry-run</Mono> to see the files it
+                would write first. Import it like any other component:
               </Prose>
               <CodePanel
                 fileName="app/page.tsx"

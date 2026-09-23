@@ -7,7 +7,7 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
-    "@soldevelo/openlmis-page-breadcrumbs"
+    "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json"
   ],
   "files": [
     {

@@ -28,10 +28,13 @@ export type PaginationLabels = {
   lastPage: string
 }
 
+// One fixed locale, so a server render and the browser print the same digits.
+const count = new Intl.NumberFormat("en-US")
+
 const defaultLabels: PaginationLabels = {
   rowsPerPage: "Rows Per Page",
   range: (from, to, total) =>
-    `${from.toLocaleString()}-${to.toLocaleString()} / ${total.toLocaleString()}`,
+    `${count.format(from)}-${count.format(to)} / ${count.format(total)}`,
   firstPage: "First Page",
   previousPage: "Previous Page",
   nextPage: "Next Page",

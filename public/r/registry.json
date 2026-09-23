@@ -199,7 +199,7 @@
         "empty",
         "skeleton",
         "table",
-        "@soldevelo/openlmis-pagination"
+        "https://registry.soldevelo.com/r/openlmis-pagination.json"
       ],
       "files": [
         {
@@ -230,7 +230,7 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@soldevelo/openlmis-page-breadcrumbs"
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json"
       ],
       "files": [
         {
@@ -256,9 +256,9 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "@soldevelo/openlmis-column-view-options",
-        "@soldevelo/openlmis-search-input",
-        "@soldevelo/openlmis-select-filter"
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-select-filter.json"
       ],
       "files": [
         {
@@ -289,14 +289,14 @@
       "registryDependencies": [
         "button",
         "dropdown-menu",
-        "@soldevelo/openlmis-column-view-options",
-        "@soldevelo/openlmis-data-table",
-        "@soldevelo/openlmis-list-toolbar",
-        "@soldevelo/openlmis-page-breadcrumbs",
-        "@soldevelo/openlmis-search-input",
-        "@soldevelo/openlmis-select-filter",
-        "@soldevelo/openlmis-status-badge",
-        "@soldevelo/openlmis-workspace"
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-select-filter.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
         {

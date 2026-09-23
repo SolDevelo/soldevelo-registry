@@ -1,6 +1,7 @@
 "use client"
 
 import { SearchIcon, XIcon } from "lucide-react"
+import { useRef } from "react"
 
 import {
   InputGroup,
@@ -36,6 +37,7 @@ export function SearchInput({
     onValueChange,
     delay
   )
+  const input = useRef<HTMLInputElement>(null)
 
   return (
     <InputGroup>
@@ -45,6 +47,7 @@ export function SearchInput({
       <InputGroupInput
         aria-label={label ?? placeholder}
         placeholder={placeholder}
+        ref={input}
         type="text"
         {...inputProps}
       />
@@ -52,7 +55,13 @@ export function SearchInput({
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             aria-label={clearLabel}
-            onClick={() => commit("")}
+            onClick={() => {
+              commit("")
+              // The button goes away once the field is empty, so focus returns to the field.
+              input.current?.focus()
+            }}
+            // Keeps the field focused, so its blur never sends the text being cleared.
+            onMouseDown={(event) => event.preventDefault()}
             size="icon-xs"
           >
             <XIcon />
