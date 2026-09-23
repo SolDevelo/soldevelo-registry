@@ -91,9 +91,11 @@ function DetailRow({
   children,
 }: React.PropsWithChildren<{ label: string }>) {
   return (
-    <div className="flex flex-col gap-1.5 sm:flex-row sm:gap-6">
-      <dt className="shrink-0 text-muted-foreground sm:w-40">{label}</dt>
-      <dd className="flex min-w-0 flex-wrap gap-x-3 gap-y-1.5">{children}</dd>
+    <div className="flex items-start justify-between gap-6 py-3">
+      <dt className="shrink-0 text-muted-foreground">{label}</dt>
+      <dd className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1.5 text-end">
+        {children}
+      </dd>
     </div>
   )
 }
@@ -124,7 +126,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
       >
         Details
       </h2>
-      <dl className="flex flex-col gap-4 rounded-lg border p-4 text-sm">
+      <dl className="flex flex-col divide-y rounded-lg border px-4 py-1 text-sm">
         <DetailRow label="Type">{KIND_LABEL[entry.kind]}</DetailRow>
         {project && (
           <DetailRow label="Project">
@@ -137,7 +139,7 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
           </DetailRow>
         )}
         <DetailRow label="Files">
-          {fileCount} {fileCount === 1 ? "file" : "files"}
+          {fileCount} {fileCount === 1 ? "File" : "Files"}
         </DetailRow>
         {builtWith.length > 0 && (
           <DetailRow label="Built With">
@@ -145,16 +147,22 @@ function ItemDetails({ entry }: { entry: RegistryEntry }) {
           </DetailRow>
         )}
         {primitives.length > 0 && (
-          <DetailRow label="shadcn/ui">
+          <DetailRow label="Shadcn/UI">
             {primitives.map((name) => (
-              <Mono key={name}>{name}</Mono>
+              <Mono key={name} className="whitespace-nowrap">
+                {name}
+              </Mono>
             ))}
           </DetailRow>
         )}
-        <DetailRow label="npm Packages">
+        <DetailRow label="NPM Packages">
           {entry.dependencies.length > 0
-            ? entry.dependencies.map((name) => <Mono key={name}>{name}</Mono>)
-            : "None beyond React"}
+            ? entry.dependencies.map((name) => (
+                <Mono key={name} className="whitespace-nowrap">
+                  {name}
+                </Mono>
+              ))
+            : "None Beyond React"}
         </DetailRow>
         {usedIn.length > 0 && (
           <DetailRow label="Used In">
