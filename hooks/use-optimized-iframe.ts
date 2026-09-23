@@ -25,6 +25,8 @@ export function useOptimizedIframe({
   const [shouldLoadIframe, setShouldLoadIframe] = useState(eager)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  // The rendered content's height, so the frame fits it at any width. Null until measured.
+  const [contentHeight, setContentHeight] = useState<number | null>(null)
 
   // An eager frame is server-rendered, so its document can fire `load` before
   // React attaches onLoad. Reading readyState at commit catches up on that.
@@ -44,6 +46,26 @@ export function useOptimizedIframe({
   }, [])
 
   const onIframeLoad = useCallback(() => setLoaded(true), [])
+
+  // Re-attached on every load, since a refresh replaces the document being observed.
+  useEffect(() => {
+    if (!loaded) return
+
+    const frameWindow = iframeRef.current?.contentWindow as
+      (Window & typeof globalThis) | null | undefined
+    const content = iframeRef.current?.contentDocument?.querySelector(
+      "[data-preview-content]"
+    )
+    if (!frameWindow || !content) return
+
+    // The frame's own ResizeObserver, so it keeps firing for its document's layout.
+    const observer = new frameWindow.ResizeObserver(() => {
+      setContentHeight(Math.ceil(content.getBoundingClientRect().height))
+    })
+    observer.observe(content)
+
+    return () => observer.disconnect()
+  }, [loaded])
 
   useEffect(() => {
     if (eager) return
@@ -97,6 +119,7 @@ export function useOptimizedIframe({
     setIframeNode,
     shouldLoadIframe,
     loaded,
+    contentHeight,
     onIframeLoad,
     onRefreshIframe,
     isRefreshing,

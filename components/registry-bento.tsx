@@ -17,6 +17,7 @@ import {
   type Variants,
 } from "motion/react"
 import { FileJsonIcon, ListTreeIcon, PlugIcon } from "lucide-react"
+import Link from "next/link"
 
 import { ProjectMark } from "@/components/logo"
 import { registryAddress } from "@/config/site"
@@ -29,6 +30,7 @@ import {
 } from "@/components/ui/chart"
 import {
   KIND_LABEL,
+  itemPath,
   REGISTRY_KINDS,
   type RegistryKind,
 } from "@/lib/registry-kinds"
@@ -256,18 +258,23 @@ function CatalogMock({
               hidden: { opacity: 0, x: 8 },
               show: { opacity: 1, x: 0, transition: { duration: 0.45, ease } },
             }}
-            className="flex items-center gap-3 py-3 first:pt-0"
+            className="py-3 first:pt-0"
           >
-            <ProjectMark project={item.project} className="size-5" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-medium">{item.title}</p>
-              <p className="truncate font-mono text-3xs text-muted-foreground">
-                {registryAddress(item.name)}
-              </p>
-            </div>
-            <span className="shrink-0 text-3xs text-muted-foreground">
-              {KIND_LABEL[item.kind]}
-            </span>
+            <Link
+              href={itemPath(item.kind, item.name)}
+              className="flex items-center gap-3"
+            >
+              <ProjectMark project={item.project} className="size-5" />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-medium">{item.title}</p>
+                <p className="truncate font-mono text-3xs text-muted-foreground">
+                  {registryAddress(item.name)}
+                </p>
+              </div>
+              <span className="shrink-0 text-3xs text-muted-foreground">
+                {KIND_LABEL[item.kind]}
+              </span>
+            </Link>
           </motion.li>
         ))}
       </motion.ul>

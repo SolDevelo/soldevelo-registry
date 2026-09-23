@@ -10,7 +10,7 @@ export const templates: RegistryEntry[] = [
     "name": "openlmis-requisition-approval",
     "project": "openlmis",
     "title": "Requisition Approval Page",
-    "height": "980px",
+    "height": "842px",
     "description": "Complete requisition approval screen: a facility, program and period filter bar above the line-item review table, with the requisition status summarised in the page header.",
     "registryDependencies": [
       "badge",

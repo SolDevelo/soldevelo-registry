@@ -1,9 +1,12 @@
+import Link from "next/link"
+
 import { BlockRenderer } from "@/components/block-renderer"
 import { LogoMark, ProjectMark } from "@/components/logo"
 import { PackageManagerPicker } from "@/components/package-manager-picker"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { getProject } from "@/config/projects"
+import { itemPath } from "@/lib/registry-kinds"
 import type { RegistryEntry } from "@/lib/types"
 
 // A flat catalog puts the item title at h2; a grouped page pushes it to h3.
@@ -47,7 +50,7 @@ export function RegistryItemEntry({
         <div className="flex flex-wrap items-center gap-2">
           {/* The registry title is the heading: it carries the keywords, where the slug does not. */}
           <Heading className="text-base font-semibold tracking-tight">
-            {entry.title}
+            <Link href={itemPath(entry.kind, entry.name)}>{entry.title}</Link>
           </Heading>
           <ProjectBadge project={entry.project} />
         </div>
@@ -58,6 +61,7 @@ export function RegistryItemEntry({
 
       <BlockRenderer
         name={entry.name}
+        title={entry.title}
         height={entry.height}
         files={entry.files}
         priority={priority}

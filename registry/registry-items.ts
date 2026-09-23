@@ -9,7 +9,7 @@ import type { RegistryItem } from "shadcn/schema"
 // - Source lives at `registry/{kind-plural}/{project}/{item}/`, one folder per item.
 // - `files[].path` is relative to `registry/`.
 // - `categories` is shadcn metadata for CLI search; the site does not group by it.
-// - `meta.height` is the catalog iframe height. Measure it, do not guess.
+// - `meta.height` is the preview's first-paint height at desktop width. Measure it, do not guess.
 export const registryItems: RegistryItem[] = [
   // -- Components -------------------------------------------------------------
   {
@@ -27,7 +27,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["data-display"],
-    meta: { project: "openlmis", height: "220px" },
+    meta: { project: "openlmis", height: "84px" },
   },
 
   // -- Blocks -----------------------------------------------------------------
@@ -46,7 +46,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["requisition"],
-    meta: { project: "openlmis", height: "760px" },
+    meta: { project: "openlmis", height: "585px" },
   },
   {
     name: "openlmis-stock-summary",
@@ -63,7 +63,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["stock"],
-    meta: { project: "openlmis", height: "340px" },
+    meta: { project: "openlmis", height: "388px" },
   },
   {
     name: "openlmis-facility-filters",
@@ -87,7 +87,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["facility"],
-    meta: { project: "openlmis", height: "420px" },
+    meta: { project: "openlmis", height: "250px" },
   },
 
   // -- Templates --------------------------------------------------------------
@@ -125,6 +125,6 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["requisition"],
-    meta: { project: "openlmis", height: "980px" },
+    meta: { project: "openlmis", height: "842px" },
   },
 ]

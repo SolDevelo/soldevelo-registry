@@ -69,6 +69,9 @@ for (const id of projectIds) {
 p()
 p("## URLs")
 p()
+p(
+  `- Item pages: \`${url}/{components|blocks|templates}/{item-name}\`, with the preview, install command, files and dependencies.`
+)
 p(`- Standalone previews: \`${url}/preview/{item-name}\`.`)
 p(`- Registry item JSON: \`${url}/r/{item-name}.json\`.`)
 p(`- Registry index: \`${url}/r/registry.json\`.`)
@@ -98,7 +101,7 @@ p("## Catalog")
 p()
 for (const item of items) {
   p(
-    `- \`${registryAddress(item.name)}\` (${KIND_LABEL[kindOf(item)].toLowerCase()}): ${item.title}: ${item.description}`
+    `- [${item.title}](${url}/${KIND_PLURAL[kindOf(item)]}/${item.name}) \`${registryAddress(item.name)}\` (${KIND_LABEL[kindOf(item)].toLowerCase()}): ${item.description}`
   )
 }
 p()

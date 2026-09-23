@@ -10,7 +10,7 @@ export const components: RegistryEntry[] = [
     "name": "openlmis-status-pill",
     "project": "openlmis",
     "title": "Requisition Status Pill",
-    "height": "220px",
+    "height": "84px",
     "description": "Badge that renders an OpenLMIS requisition status with the colour and label matched to its stage, from initiated through to released.",
     "registryDependencies": [
       "badge"

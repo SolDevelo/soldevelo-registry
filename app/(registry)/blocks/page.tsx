@@ -6,6 +6,7 @@ import {
 import { siteConfig } from "@/config/site"
 import { createMetadata } from "@/lib/metadata"
 import { getEntriesByKind } from "@/lib/registry-data"
+import { itemPath } from "@/lib/registry-kinds"
 
 import { RegistryItemList } from "../_components/registry-item-list"
 
@@ -33,7 +34,7 @@ export default function BlocksPage() {
             url: `${siteConfig.URL}/blocks`,
             items: entries.map((entry) => ({
               name: entry.title,
-              url: `${siteConfig.URL}/blocks#${entry.name}`,
+              url: `${siteConfig.URL}${itemPath(entry.kind, entry.name)}`,
             })),
           }),
         ]}
