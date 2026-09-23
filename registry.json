@@ -208,11 +208,6 @@
           "target": "components/blocks/openlmis/data-table/data-table.tsx"
         },
         {
-          "path": "registry/blocks/openlmis/data-table/data-table-pagination.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/data-table/data-table-pagination.tsx"
-        },
-        {
           "path": "registry/blocks/openlmis/data-table/responsive-columns.ts",
           "type": "registry:hook",
           "target": "components/blocks/openlmis/data-table/responsive-columns.ts"
@@ -261,9 +256,9 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
+        "@soldevelo/openlmis-column-view-options",
         "@soldevelo/openlmis-search-input",
-        "@soldevelo/openlmis-select-filter",
-        "@soldevelo/openlmis-column-view-options"
+        "@soldevelo/openlmis-select-filter"
       ],
       "files": [
         {
@@ -294,13 +289,14 @@
       "registryDependencies": [
         "button",
         "dropdown-menu",
+        "@soldevelo/openlmis-column-view-options",
         "@soldevelo/openlmis-data-table",
-        "@soldevelo/openlmis-workspace",
         "@soldevelo/openlmis-list-toolbar",
+        "@soldevelo/openlmis-page-breadcrumbs",
         "@soldevelo/openlmis-search-input",
         "@soldevelo/openlmis-select-filter",
-        "@soldevelo/openlmis-column-view-options",
-        "@soldevelo/openlmis-status-badge"
+        "@soldevelo/openlmis-status-badge",
+        "@soldevelo/openlmis-workspace"
       ],
       "files": [
         {

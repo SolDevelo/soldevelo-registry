@@ -19,7 +19,6 @@ export function useDebouncedInput(
   const [syncedValue, setSyncedValue] = useState(value)
   const [isTyping, setIsTyping] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const pending = useRef<string | undefined>(undefined)
   const latestOnValueChange = useRef(onValueChange)
 
   useLayoutEffect(() => {
@@ -37,7 +36,6 @@ export function useDebouncedInput(
 
   const emit = (next: string) => {
     clearTimeout(timer.current)
-    pending.current = undefined
     setIsTyping(false)
     latestOnValueChange.current(next)
   }
@@ -45,7 +43,6 @@ export function useDebouncedInput(
   const change = (next: string) => {
     setDraft(next)
     setIsTyping(true)
-    pending.current = next
     clearTimeout(timer.current)
     timer.current = setTimeout(() => emit(next), delay)
   }
@@ -57,7 +54,7 @@ export function useDebouncedInput(
 
   // Leaving the field, e.g. to press Clear Filters, sends what was typed first so nothing arrives after it.
   const flush = () => {
-    if (pending.current !== undefined) emit(pending.current)
+    if (isTyping) emit(draft)
   }
 
   const inputProps = {

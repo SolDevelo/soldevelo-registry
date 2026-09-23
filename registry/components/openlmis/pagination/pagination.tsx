@@ -38,7 +38,7 @@ const defaultLabels: PaginationLabels = {
   lastPage: "Last Page",
 }
 
-export const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
 
 type PaginationProps = {
   /** Zero-based. */

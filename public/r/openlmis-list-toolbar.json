@@ -7,9 +7,9 @@
     "@base-ui/react"
   ],
   "registryDependencies": [
+    "@soldevelo/openlmis-column-view-options",
     "@soldevelo/openlmis-search-input",
-    "@soldevelo/openlmis-select-filter",
-    "@soldevelo/openlmis-column-view-options"
+    "@soldevelo/openlmis-select-filter"
   ],
   "files": [
     {

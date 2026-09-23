@@ -10,66 +10,49 @@ import path from "node:path"
 import { rimraf } from "rimraf"
 
 const { registry } = await import("@/registry/index")
-const { loadCode } = await import("@/lib/code")
 const { assertRegistryInvariants } = await import("@/lib/registry-invariants")
-const { absolutizeAssets } = await import("@/lib/registry-assets")
 const { baseUiDocs, withBaseUiRuntime } = await import("@/lib/registry-runtime")
 const { cssVarsForTokens, detectStateTokens } =
   await import("@/registry/tokens")
 const { KIND_PLURAL, REGISTRY_KINDS } = await import("@/lib/registry-kinds")
 const { prettifySlug } = await import("@/lib/utils")
-const { rewriteItemImports } = await import("@/lib/registry-imports")
-const { getLang, prepareItems, previewPath } =
-  await import("@/lib/registry-source")
+const { getLang, prepareItems } = await import("@/lib/registry-source")
 type PreparedItem = Awaited<ReturnType<typeof prepareItems>>[number]
 
 // The site's copy of the catalog: the same source the published artifact carries, so the two cannot disagree.
 async function buildSiteData(prepared: PreparedItem[]) {
   const entries = await Promise.all(
-    prepared.map(
-      async ({ item, kind, project, files, shared, requireDeclared }) => {
-        // Shown in the code view so a consumer can see how to mount the item, never published.
-        // Its imports get the same rewrite as the item's own files, or it would show a relative
-        // path that does not resolve to where `shadcn add` actually writes the block.
-        const previewFile = previewPath(kind, item.name, project)
-        const preview = {
-          type: "page",
-          name: "page.tsx",
-          code: absolutizeAssets(
-            rewriteItemImports(
-              await loadCode(previewFile),
-              previewFile,
-              files,
-              shared,
-              requireDeclared
-            )
-          ),
-          lang: "tsx",
-          target: null,
-        }
-
-        const itemFiles = files.map((file) => ({
-          type: file.type.replace("registry:", ""),
-          name: file.path.split("/").pop() ?? "",
-          code: file.content,
-          lang: getLang(file.path),
-          target: file.target,
-        }))
-
-        return {
-          kind,
-          name: item.name,
-          project,
-          title: item.title ?? prettifySlug(item.name),
-          height: (item.meta?.height as string) || "100vh",
-          description: item.description ?? "",
-          registryDependencies: item.registryDependencies ?? [],
-          dependencies: item.dependencies ?? [],
-          // A template ships its own page, so the preview entry would just be a duplicate.
-          files: kind === "template" ? itemFiles : [preview, ...itemFiles],
-        }
+    prepared.map(async ({ item, kind, project, files, previewCode }) => {
+      // Shown in the code view as how to mount the item, never published.
+      const preview = {
+        type: "page",
+        name: "page.tsx",
+        code: previewCode,
+        lang: "tsx",
+        target: null,
       }
-    )
+
+      const itemFiles = files.map((file) => ({
+        type: file.type.replace("registry:", ""),
+        name: file.path.split("/").pop() ?? "",
+        code: file.content,
+        lang: getLang(file.path),
+        target: file.target,
+      }))
+
+      return {
+        kind,
+        name: item.name,
+        project,
+        title: item.title ?? prettifySlug(item.name),
+        height: (item.meta?.height as string) || "100vh",
+        description: item.description ?? "",
+        registryDependencies: item.registryDependencies ?? [],
+        dependencies: item.dependencies ?? [],
+        // A template ships its own page, so the preview entry would just be a duplicate.
+        files: kind === "template" ? itemFiles : [preview, ...itemFiles],
+      }
+    })
   )
 
   // loadCode returns a marker for a missing file so the UI degrades; generation refuses to ship one.

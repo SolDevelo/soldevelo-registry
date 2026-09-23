@@ -13,9 +13,9 @@ import {
   DataTable,
   DataTableColumnHeader,
   type DataTableFeatures,
+  DataTablePagination,
   dataTableFeatures,
 } from "./data-table"
-import { DataTablePagination } from "./data-table-pagination"
 
 type Product = { id: string; name: string; code: string; stock: number }
 

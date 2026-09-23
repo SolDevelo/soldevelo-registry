@@ -167,10 +167,11 @@ registry. Nothing else. The build rewrites all of them to install paths:
 
 - Sibling imports are written relatively (`./data-table-labels`).
 - Another item's files are imported through the alias
-  (`@/registry/components/openlmis/pagination/pagination`), and the item must
-  list it in `registryDependencies` as `@soldevelo/openlmis-pagination`. The
-  build fails on an undeclared one, so `shadcn add` always pulls in what the code
-  imports.
+  (`@/registry/components/openlmis/pagination/pagination`). The build adds that
+  item to `registryDependencies` as `@soldevelo/openlmis-pagination`, derived
+  from the imports of the item and its preview like `cssVars`, so leave
+  `@soldevelo/*` out of `registry-items.ts` and `shadcn add` still pulls in what
+  the code imports.
 
 **Items are framework-neutral React.** No router, no data layer, no project API:
 state is React state and data is mocked in the item's own files, so the same

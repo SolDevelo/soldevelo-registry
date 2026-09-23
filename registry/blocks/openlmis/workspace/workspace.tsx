@@ -1,6 +1,4 @@
-import type { ComponentProps, ReactNode } from "react"
-
-import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs/page-breadcrumbs"
+import type { ReactNode } from "react"
 
 // Page layout. Parts take only `children`, which keeps padding and heading scale equal across pages.
 
@@ -14,13 +12,6 @@ export function Workspace({ children }: WorkspaceProps) {
       {children}
     </div>
   )
-}
-
-/** The trail above the heading; the last step is the current page. */
-export function WorkspaceBreadcrumbs(
-  props: ComponentProps<typeof PageBreadcrumbs>
-) {
-  return <PageBreadcrumbs {...props} />
 }
 
 export function WorkspaceHeader({ children }: WorkspaceProps) {

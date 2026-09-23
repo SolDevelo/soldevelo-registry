@@ -126,20 +126,10 @@ export const registryItems: RegistryItem[] = [
     description:
       "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
     dependencies: ["@tanstack/react-table@^9", "lucide-react"],
-    registryDependencies: [
-      "button",
-      "empty",
-      "skeleton",
-      "table",
-      "@soldevelo/openlmis-pagination",
-    ],
+    registryDependencies: ["button", "empty", "skeleton", "table"],
     files: [
       {
         path: "blocks/openlmis/data-table/data-table.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/data-table/data-table-pagination.tsx",
         type: "registry:component",
       },
       {
@@ -157,7 +147,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page.",
     dependencies: [],
-    registryDependencies: ["@soldevelo/openlmis-page-breadcrumbs"],
+    registryDependencies: [],
     files: [
       {
         path: "blocks/openlmis/workspace/workspace.tsx",
@@ -174,11 +164,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
     dependencies: [],
-    registryDependencies: [
-      "@soldevelo/openlmis-search-input",
-      "@soldevelo/openlmis-select-filter",
-      "@soldevelo/openlmis-column-view-options",
-    ],
+    registryDependencies: [],
     files: [
       {
         path: "blocks/openlmis/list-toolbar/list-toolbar.tsx",
@@ -197,17 +183,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
     dependencies: ["@tanstack/react-table@^9", "lucide-react"],
-    registryDependencies: [
-      "button",
-      "dropdown-menu",
-      "@soldevelo/openlmis-data-table",
-      "@soldevelo/openlmis-workspace",
-      "@soldevelo/openlmis-list-toolbar",
-      "@soldevelo/openlmis-search-input",
-      "@soldevelo/openlmis-select-filter",
-      "@soldevelo/openlmis-column-view-options",
-      "@soldevelo/openlmis-status-badge",
-    ],
+    registryDependencies: ["button", "dropdown-menu"],
     files: [
       {
         path: "templates/openlmis/list-page/page.tsx",

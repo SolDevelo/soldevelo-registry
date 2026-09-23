@@ -1,11 +1,11 @@
 import { UsersIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs/page-breadcrumbs"
 
 import {
   Workspace,
   WorkspaceActions,
-  WorkspaceBreadcrumbs,
   WorkspaceContent,
   WorkspaceDescription,
   WorkspaceHeader,
@@ -17,7 +17,7 @@ import {
 export default function Page() {
   return (
     <Workspace>
-      <WorkspaceBreadcrumbs
+      <PageBreadcrumbs
         items={[
           { label: "Home", href: "#" },
           { label: "Administration" },
