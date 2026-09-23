@@ -25,6 +25,11 @@ export function getProject(id: string): Project | null {
   return PROJECTS[id] ?? null
 }
 
+// The project's catalog page on this site, listing every item it publishes.
+export function projectPath(id: string): string {
+  return `/projects/${id}`
+}
+
 // The item's own slug: `openlmis-stock-summary` in project `openlmis` is `stock-summary`.
 export function itemSlug(itemName: string, project: string): string {
   return itemName.startsWith(`${project}-`)

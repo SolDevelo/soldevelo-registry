@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { ImageResponse } from "next/og"
 
 import { siteConfig } from "@/config/site"
+import { truncateAtWord } from "@/lib/utils"
 
 export const OG_SIZE = { width: 1200, height: 630 }
 export const OG_CONTENT_TYPE = "image/png"
@@ -90,12 +91,6 @@ function getBrand(): Promise<{ mark: string; wordmark: string }> {
   return brandPromise
 }
 
-// Cut at a word boundary, so a long description does not end mid-word on the card.
-function truncate(text: string, max: number): string {
-  if (text.length <= max) return text
-  return `${text.slice(0, text.lastIndexOf(" ", max)).replace(/[,:;]$/, "")}...`
-}
-
 function Chevron({ color }: { color: string }) {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -175,7 +170,7 @@ export async function createOgImage({
                 color: BRAND,
               }}
             >
-              {truncate(eyebrow, 40).toUpperCase()}
+              {truncateAtWord(eyebrow, 40).toUpperCase()}
             </span>
           </div>
         ) : null}
@@ -200,7 +195,7 @@ export async function createOgImage({
               maxWidth: 820,
             }}
           >
-            {truncate(description, 120)}
+            {truncateAtWord(description, 120)}
           </span>
         ) : null}
       </div>
@@ -225,7 +220,7 @@ export async function createOgImage({
             fontSize: 24,
           }}
         >
-          {truncate(cta, 36)}
+          {truncateAtWord(cta, 36)}
           <Chevron color="#ffffff" />
         </div>
         <span style={{ fontWeight: 500, fontSize: 24, color: MUTED }}>

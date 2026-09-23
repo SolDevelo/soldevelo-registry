@@ -11,10 +11,10 @@ import { itemPath } from "@/lib/registry-kinds"
 import { RegistryItemList } from "../_components/registry-item-list"
 
 const DESCRIPTION =
-  "Small React primitives from the projects in this registry: status pills, badges and labels that render a domain value with consistent wording and colour wherever it appears."
+  "Small React components for shadcn/ui apps, taken from real open-source projects. Each is previewed live and installs into your codebase with one command."
 
 export const metadata = createMetadata({
-  title: "Components",
+  title: "React Components For shadcn/ui",
   description: DESCRIPTION,
   canonicalUrl: "components",
   keywords: [

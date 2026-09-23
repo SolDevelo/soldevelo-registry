@@ -46,7 +46,8 @@ export function itemMetadata(kind: RegistryKind, name: string) {
 
   const project = getProject(entry.project)
   return createMetadata({
-    title: entry.title,
+    // The bare title competes with every generic item of that name, so it says whose and for what.
+    title: `${entry.title}: ${project ? `${project.name} ` : ""}React ${KIND_LABEL[kind]} For shadcn/ui`,
     description: entry.description,
     canonicalUrl: itemPath(kind, name).slice(1),
     keywords: [

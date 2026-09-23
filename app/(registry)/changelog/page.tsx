@@ -8,7 +8,7 @@ import { formatReleaseDate, getReleases } from "@/lib/changelog"
 import { createMetadata } from "@/lib/metadata"
 
 const DESCRIPTION =
-  "What changed in the registry, release by release: what was added, what was reworked, and anything worth a second look before you take a newer copy of an item."
+  "What changed in the registry, release by release: what was added, what was reworked, and what to check before you take a newer copy of an item."
 
 export const metadata = createMetadata({
   title: "Changelog",

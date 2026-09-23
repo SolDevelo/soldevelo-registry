@@ -5,7 +5,7 @@ import { LogoMark, ProjectMark } from "@/components/logo"
 import { PackageManagerPicker } from "@/components/package-manager-picker"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { getProject } from "@/config/projects"
+import { getProject, projectPath } from "@/config/projects"
 import { itemPath } from "@/lib/registry-kinds"
 import type { RegistryEntry } from "@/lib/types"
 
@@ -20,11 +20,9 @@ export function ProjectBadge({ project }: { project: string }) {
     <Badge
       variant="secondary"
       render={
-        <a
-          href={entry.url}
-          aria-label={entry.name}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href={projectPath(entry.id)}
+          aria-label={`All ${entry.name} items`}
           title={entry.description}
         />
       }
@@ -73,10 +71,12 @@ export function RegistryItemEntry({
 export function CatalogHeader({
   heading,
   intro,
+  mark = <LogoMark className="size-8 sm:size-9" />,
   children,
 }: React.PropsWithChildren<{
   heading: string
   intro: string
+  mark?: React.ReactNode
 }>) {
   return (
     <div className="flex flex-col gap-6 pt-14 sm:pt-20">
@@ -87,7 +87,7 @@ export function CatalogHeader({
             className="flex items-center gap-3 text-3xl leading-tight font-semibold tracking-tighter text-balance sm:text-4xl"
           >
             {/* Decorative: the heading text alone is what a screen reader should announce. */}
-            <LogoMark className="size-8 sm:size-9" />
+            {mark}
             {heading}
           </h1>
           {/* Sets the package manager every Install button on the page copies. */}

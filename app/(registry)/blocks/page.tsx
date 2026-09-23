@@ -11,10 +11,10 @@ import { itemPath } from "@/lib/registry-kinds"
 import { RegistryItemList } from "../_components/registry-item-list"
 
 const DESCRIPTION =
-  "Every block in the registry, previewed live. A block is a whole screen region, ready to install into your own codebase with one shadcn command."
+  "Whole screen regions for React and shadcn/ui apps, built for real open-source projects and previewed live. Install any block with one command."
 
 export const metadata = createMetadata({
-  title: "Blocks",
+  title: "React Blocks For shadcn/ui",
   description: DESCRIPTION,
   canonicalUrl: "blocks",
   keywords: ["shadcn blocks", "React UI blocks", "open source UI"],
