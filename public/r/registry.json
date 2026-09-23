@@ -190,7 +190,7 @@
       "title": "Data Table",
       "description": "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
       "dependencies": [
-        "@tanstack/react-table",
+        "@tanstack/react-table@^9",
         "lucide-react",
         "@base-ui/react"
       ],
@@ -256,9 +256,15 @@
     {
       "name": "openlmis-list-toolbar",
       "title": "List Toolbar",
-      "description": "Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow.",
-      "dependencies": [],
-      "registryDependencies": [],
+      "description": "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "@soldevelo/openlmis-search-input",
+        "@soldevelo/openlmis-select-filter",
+        "@soldevelo/openlmis-column-view-options"
+      ],
       "files": [
         {
           "path": "registry/blocks/openlmis/list-toolbar/list-toolbar.tsx",
@@ -281,7 +287,7 @@
       "title": "List Page",
       "description": "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
       "dependencies": [
-        "@tanstack/react-table",
+        "@tanstack/react-table@^9",
         "lucide-react",
         "@base-ui/react"
       ],
@@ -301,6 +307,11 @@
           "path": "registry/templates/openlmis/list-page/page.tsx",
           "type": "registry:page",
           "target": "app/list-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/list-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/list-page/list-page.tsx"
         },
         {
           "path": "registry/templates/openlmis/list-page/components/mock-users.ts",

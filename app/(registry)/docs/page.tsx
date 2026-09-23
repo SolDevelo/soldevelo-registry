@@ -124,14 +124,26 @@ export default function DocsPage() {
     .map((id) => PROJECTS[id])
     .filter((project) => project !== undefined)
   // Derived so the examples can never name an item that has been renamed away.
-  const exampleEntry = getEntriesByKind("block")[0]
-  const example = exampleEntry?.name ?? "openlmis-data-table"
+  const components = getEntriesByKind("component")
+  const exampleEntry =
+    components.find((entry) => entry.name === "openlmis-status-badge") ??
+    components[0]
+  const example = exampleEntry?.name ?? "openlmis-status-badge"
   const exampleProject = exampleEntry?.project ?? "openlmis"
   const exampleSlug = itemSlug(example, exampleProject)
   const exampleComponent = exampleSlug
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("")
+  // Where the CLI writes the item's main file, without the extension, as an import path.
+  const exampleImport = (
+    exampleEntry?.files.find((file) => file.target)?.target ??
+    `components/${exampleProject}/${exampleSlug}.tsx`
+  ).replace(/\.tsx?$/, "")
+  const exampleUsage =
+    example === "openlmis-status-badge"
+      ? `<${exampleComponent} tone="success">Active</${exampleComponent}>`
+      : `<${exampleComponent} />`
 
   return (
     <>
@@ -233,10 +245,10 @@ export default function DocsPage() {
               <CodePanel
                 fileName="app/page.tsx"
                 lang="tsx"
-                code={`import ${exampleComponent} from "@/components/blocks/${exampleProject}/${exampleSlug}"
+                code={`import { ${exampleComponent} } from "@/${exampleImport}"
 
 export default function Page() {
-  return <${exampleComponent} />
+  return ${exampleUsage}
 }`}
               />
               <Prose>

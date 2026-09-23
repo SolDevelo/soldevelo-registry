@@ -105,7 +105,10 @@ Every kind uses the same layout: one folder per item at
   band).
 - A **template** is a whole page, assembled from this registry's components and
   blocks. What is specific to the page (its data, columns, copy) ships as the
-  template's own files under `registry/templates/{project}/{item}/`.
+  template's own files under `registry/templates/{project}/{item}/`. The screen
+  itself is a `registry:component` in `components/`; `page.tsx` only renders it,
+  because the CLI writes a `registry:page` for Next.js, React Router and Laravel
+  alone and skips it in a Vite app.
 
 Items build on each other rather than copying: a block uses components, a
 template uses blocks and components. Each installs once and is shared.

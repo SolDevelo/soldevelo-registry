@@ -125,7 +125,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:block",
     description:
       "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
-    dependencies: ["@tanstack/react-table", "lucide-react"],
+    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
     registryDependencies: [
       "button",
       "empty",
@@ -172,9 +172,13 @@ export const registryItems: RegistryItem[] = [
     title: "List Toolbar",
     type: "registry:block",
     description:
-      "Layout for the controls above a list: search, filters, the View menu and the create action in one row, with the search on a row of its own once the toolbar is narrow.",
+      "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
     dependencies: [],
-    registryDependencies: [],
+    registryDependencies: [
+      "@soldevelo/openlmis-search-input",
+      "@soldevelo/openlmis-select-filter",
+      "@soldevelo/openlmis-column-view-options",
+    ],
     files: [
       {
         path: "blocks/openlmis/list-toolbar/list-toolbar.tsx",
@@ -192,7 +196,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
-    dependencies: ["@tanstack/react-table", "lucide-react"],
+    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
     registryDependencies: [
       "button",
       "dropdown-menu",
@@ -210,6 +214,10 @@ export const registryItems: RegistryItem[] = [
         type: "registry:page",
         // registry:page requires an explicit target; the shadcn schema rejects the item without one.
         target: "app/list-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/list-page/components/list-page.tsx",
+        type: "registry:component",
       },
       {
         path: "templates/openlmis/list-page/components/mock-users.ts",

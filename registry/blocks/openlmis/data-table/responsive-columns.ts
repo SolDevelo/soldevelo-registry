@@ -1,7 +1,7 @@
 "use client"
 
 import type { ColumnVisibilityState } from "@tanstack/react-table"
-import { useCallback, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 
 /** Tailwind's container sizes in px, so defaults switch where `@md:`-style classes do. */
 const CONTAINER_WIDTHS = {
@@ -26,16 +26,20 @@ export type ResponsiveColumn = {
 /** Width of an element, kept current as it resizes; a sidebar changes it, not just the window. */
 export function useElementWidth<T extends HTMLElement>() {
   const [width, setWidth] = useState<number | undefined>(undefined)
+  const observer = useRef<ResizeObserver | null>(null)
 
   // A ref callback measures during commit, so the first width is in before the browser paints.
   const ref = useCallback((element: T | null) => {
+    observer.current?.disconnect()
+    observer.current = null
     if (!element) return
     setWidth(element.getBoundingClientRect().width)
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry) setWidth(entry.contentRect.width)
+    observer.current = new ResizeObserver(([entry]) => {
+      // The border box, like getBoundingClientRect, so padding never shifts the result.
+      const size = entry?.borderBoxSize[0]?.inlineSize
+      if (size !== undefined) setWidth(size)
     })
-    observer.observe(element)
-    return () => observer.disconnect()
+    observer.current.observe(element)
   }, [])
 
   return [ref, width] as const
@@ -47,7 +51,7 @@ export function resolveColumnVisibility(
   choices: ColumnVisibilityState,
   width: number | undefined
 ): ColumnVisibilityState {
-  // Before the first measurement everything counts as fitting; the layout effect corrects it before paint.
+  // Before the first measurement everything counts as fitting; the ref callback corrects it before paint.
   const available = width ?? Number.POSITIVE_INFINITY
   return Object.fromEntries(
     columns.map((column) => [

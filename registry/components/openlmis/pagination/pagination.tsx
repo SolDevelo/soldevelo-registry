@@ -65,10 +65,12 @@ export function Pagination({
   const pageSizeId = useId()
   const pageCount = Math.max(Math.ceil(rowCount / pageSize), 1)
   const lastPageIndex = pageCount - 1
-  const from = rowCount === 0 ? 0 : pageIndex * pageSize + 1
-  const to = Math.min((pageIndex + 1) * pageSize, rowCount)
-  const canPrevious = pageIndex > 0
-  const canNext = pageIndex < lastPageIndex
+  // A total that shrank under the current page still reads as the last page, not "51-47 / 47".
+  const current = Math.min(pageIndex, lastPageIndex)
+  const from = rowCount === 0 ? 0 : current * pageSize + 1
+  const to = Math.min((current + 1) * pageSize, rowCount)
+  const canPrevious = current > 0
+  const canNext = current < lastPageIndex
   const items = pageSizeOptions.map((size) => ({
     value: size,
     label: String(size),
@@ -85,13 +87,13 @@ export function Pagination({
       label: labels.previousPage,
       icon: ChevronLeftIcon,
       enabled: canPrevious,
-      page: pageIndex - 1,
+      page: current - 1,
     },
     {
       label: labels.nextPage,
       icon: ChevronRightIcon,
       enabled: canNext,
-      page: pageIndex + 1,
+      page: current + 1,
     },
     {
       label: labels.lastPage,

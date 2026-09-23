@@ -105,7 +105,15 @@ export async function prepareItems() {
         }))
       )
 
-      return { item, kind, project, files: withSource, shared: others }
+      // The preview is shown as how to mount the item, so it is held to the same declarations.
+      return {
+        item,
+        kind,
+        project,
+        files: withSource,
+        shared: others,
+        requireDeclared,
+      }
     })
   )
 }
