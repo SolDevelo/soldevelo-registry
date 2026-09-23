@@ -16,8 +16,9 @@ const fontSans = Geist({ subsets: ["latin"], variable: "--font-sans" })
 const fontMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata = createMetadata({
-  title: siteConfig.NAME,
-  description: siteConfig.DESCRIPTION,
+  title: `${siteConfig.NAME}: shadcn/ui Components For Open Source`,
+  description:
+    "React components, blocks and page templates for shadcn/ui, from the open-source projects SolDevelo builds. Preview each live, install it with one command.",
   canonicalUrl: "",
 })
 

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import type { Project } from "@/config/projects"
+import { projectPath, type Project } from "@/config/projects"
 import { siteConfig } from "@/config/site"
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -99,8 +99,7 @@ export function SiteFooter({ projects }: { projects: Project[] }) {
       title: "Projects",
       links: projects.map((project) => ({
         label: project.name,
-        href: project.url,
-        external: true,
+        href: projectPath(project.id),
       })),
     },
   ]

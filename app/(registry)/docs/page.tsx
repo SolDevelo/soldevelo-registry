@@ -19,10 +19,10 @@ import { KIND_LABEL, KIND_PLURAL, REGISTRY_KINDS } from "@/lib/registry-kinds"
 import { cn } from "@/lib/utils"
 
 const DESCRIPTION =
-  "Install components, blocks and page templates from this registry with the shadcn CLI: what you need, how to register the namespace, where each kind lands in your project, and how to point a coding agent at the catalog."
+  "Install components, blocks and page templates with the shadcn CLI: requirements, registering the namespace, where files land and using a coding agent."
 
 export const metadata = createMetadata({
-  title: "Docs",
+  title: "Install Items With The shadcn CLI",
   description: DESCRIPTION,
   canonicalUrl: "docs",
   keywords: [

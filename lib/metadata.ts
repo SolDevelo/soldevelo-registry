@@ -1,8 +1,24 @@
 import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
+import { truncateAtWord } from "@/lib/utils"
 
 const TWITTER_HANDLE = `@${new URL(siteConfig.SOCIALS.X).pathname.slice(1)}`
+
+// Roughly what a search result shows before it cuts the text off.
+const TITLE_LIMIT = 60
+const DESCRIPTION_LIMIT = 155
+
+// The brand goes last, in the longest form that still fits; a title that fits no form goes bare.
+function pageTitle(title: string): string {
+  if (title.startsWith(siteConfig.NAME)) return title
+  const brands = [siteConfig.NAME, siteConfig.AUTHORS[0].NAME]
+  return (
+    brands
+      .map((brand) => `${title} - ${brand}`)
+      .find((branded) => branded.length <= TITLE_LIMIT) ?? title
+  )
+}
 
 type OpenGraphType = "website" | "article"
 
@@ -24,9 +40,13 @@ export function createMetadata({
   keywords = [],
   type = "website",
 }: CreateMetadataOptions): Metadata {
+  const fullTitle = pageTitle(title)
+  // Pages show the full description; results get it cut where they would cut it anyway.
+  const snippet = truncateAtWord(description, DESCRIPTION_LIMIT)
+
   return {
-    title: title === siteConfig.NAME ? title : `${title} - ${siteConfig.NAME}`,
-    description,
+    title: fullTitle,
+    description: snippet,
     keywords: [...siteConfig.KEYWORDS, ...keywords],
     authors: siteConfig.AUTHORS.map((author) => ({
       name: author.NAME,
@@ -37,8 +57,8 @@ export function createMetadata({
     metadataBase: new URL(siteConfig.URL),
 
     openGraph: {
-      title,
-      description,
+      title: fullTitle,
+      description: snippet,
       type,
       locale: "en_US",
       siteName: siteConfig.NAME,
@@ -48,8 +68,8 @@ export function createMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: fullTitle,
+      description: snippet,
       site: TWITTER_HANDLE,
       creator: TWITTER_HANDLE,
     },

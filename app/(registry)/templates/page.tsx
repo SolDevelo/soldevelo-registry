@@ -11,10 +11,10 @@ import { itemPath } from "@/lib/registry-kinds"
 import { RegistryItemList } from "../_components/registry-item-list"
 
 const DESCRIPTION =
-  "Complete pages you can install in one command. Each template ships its route plus editable copies of every section it is built from, so nothing is hidden behind a package."
+  "Complete React pages for shadcn/ui, installed in one command. Each template ships editable copies of every part it is built from."
 
 export const metadata = createMetadata({
-  title: "Page Templates",
+  title: "React Page Templates For shadcn/ui",
   description: DESCRIPTION,
   canonicalUrl: "templates",
   keywords: ["page templates", "shadcn templates", "open source UI"],

@@ -176,7 +176,8 @@ override it with `NEXT_PUBLIC_SITE_URL`.
 Item source must be copy-pasteable: shadcn primitives, declared npm packages,
 its own sibling files and other items imported through `@/registry/...`,
 nothing else. A new project is an entry in
-`config/projects.ts` plus a square logo at `public/projects/{id}.png`.
+`config/projects.ts` plus a square logo at `public/projects/{id}.png`, and gets
+its own page at `/projects/{id}`.
 
 [`CLAUDE.md`](./CLAUDE.md) has the full conventions, including the design-system
 rules the linter enforces.

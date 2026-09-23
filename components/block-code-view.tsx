@@ -281,7 +281,7 @@ export function BlockCodeView({ files }: { files: RegistryFile[] }) {
 
   if (files.length === 0) {
     return (
-      <Empty className="h-(--block-height)">
+      <Empty className="h-(--code-height)">
         <EmptyHeader>
           <EmptyMedia variant="icon">
             <CodeXmlIcon aria-hidden="true" />
@@ -296,7 +296,7 @@ export function BlockCodeView({ files }: { files: RegistryFile[] }) {
   }
 
   return (
-    <div className="flex h-(--block-height)">
+    <div className="flex h-(--code-height)">
       <aside className="w-64 shrink-0 overflow-auto">
         <TreeProvider
           key={treeKey}

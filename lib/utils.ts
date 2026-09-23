@@ -29,3 +29,9 @@ export function prettifySlug(slug: string): string {
     )
     .join(" ")
 }
+
+// Cut at a word boundary, so a long text does not end mid-word.
+export function truncateAtWord(text: string, max: number): string {
+  if (text.length <= max) return text
+  return `${text.slice(0, text.lastIndexOf(" ", max)).replace(/[,:;]$/, "")}...`
+}

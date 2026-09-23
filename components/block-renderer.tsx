@@ -27,7 +27,7 @@ const BlockCodeView = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-(--block-height) items-center justify-center">
+      <div className="flex h-(--code-height) items-center justify-center">
         <BlockLoader />
       </div>
     ),
@@ -119,7 +119,8 @@ export function BlockRenderer({
       className="relative flex min-w-0 flex-col rounded-lg border bg-muted/50"
       style={
         {
-          "--block-height": height,
+          // A short preview would leave the file tree and source a few lines tall.
+          "--code-height": `max(${height}, 28rem)`,
           // meta.height holds the first paint; the measured content takes over once loaded.
           "--preview-height": contentHeight ? `${contentHeight}px` : height,
         } as React.CSSProperties

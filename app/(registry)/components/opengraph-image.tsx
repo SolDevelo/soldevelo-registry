@@ -9,7 +9,7 @@ export default function Image() {
     title: "Components",
     eyebrow: "Catalog",
     description:
-      "Primitives that render a domain value consistently everywhere it appears.",
+      "Small React components from real open-source projects, installed with one command.",
     cta: "Browse Components",
   })
 }

@@ -72,6 +72,9 @@ p()
 p(
   `- Item pages: \`${url}/{components|blocks|templates}/{item-name}\`, with a short intro, the install command and the preview.`
 )
+p(
+  `- Project pages: \`${url}/projects/{project-id}\`, every item one project publishes, grouped by kind.`
+)
 p(`- Standalone previews: \`${url}/preview/{item-name}\`.`)
 p(`- Registry item JSON: \`${url}/r/{item-name}.json\`.`)
 p(`- Registry index: \`${url}/r/registry.json\`.`)
