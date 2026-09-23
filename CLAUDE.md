@@ -168,10 +168,10 @@ registry. Nothing else. The build rewrites all of them to install paths:
 - Sibling imports are written relatively (`./data-table-labels`).
 - Another item's files are imported through the alias
   (`@/registry/components/openlmis/pagination/pagination`). The build adds that
-  item to `registryDependencies` as `@soldevelo/openlmis-pagination`, derived
-  from the imports of the item and its preview like `cssVars`, so leave
-  `@soldevelo/*` out of `registry-items.ts` and `shadcn add` still pulls in what
-  the code imports.
+  item to `registryDependencies` as its full `/r/openlmis-pagination.json` URL, derived
+  from the imports of the item and its preview like `cssVars`, so leave them out
+  of `registry-items.ts`. A URL rather than `@soldevelo/...` works whether or not
+  the consumer has registered the namespace.
 
 **Items are framework-neutral React.** No router, no data layer, no project API:
 state is React state and data is mocked in the item's own files, so the same

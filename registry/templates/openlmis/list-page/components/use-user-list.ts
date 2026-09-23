@@ -16,6 +16,7 @@ const INITIAL_QUERY: UsersQuery = {
 // Each answer records the request it belongs to, so loading is derived rather than stored.
 type ListResult = {
   key: string | undefined
+  query: UsersQuery | undefined
   data: UsersPage | undefined
   error: Error | undefined
 }
@@ -26,6 +27,7 @@ export function useUserList() {
   const [attempt, setAttempt] = useState(0)
   const [result, setResult] = useState<ListResult>({
     key: undefined,
+    query: undefined,
     data: undefined,
     error: undefined,
   })
@@ -37,10 +39,10 @@ export function useUserList() {
     const load = async () => {
       try {
         const data = await fetchUsers(query)
-        if (current) setResult({ key, data, error: undefined })
+        if (current) setResult({ key, query, data, error: undefined })
       } catch (error) {
         if (current) {
-          setResult({ key, data: undefined, error: error as Error })
+          setResult({ key, query, data: undefined, error: error as Error })
         }
       }
     }
@@ -73,6 +75,8 @@ export function useUserList() {
     query,
     update,
     data: result.data,
+    /** Whether the rows on screen came from a filtered request, which picks the empty state. */
+    isFiltered: Boolean(result.query?.search || result.query?.status),
     error: isLoading ? undefined : result.error,
     /** Rows are on screen from an earlier request while the next one loads. */
     isStale: isLoading && result.data !== undefined,

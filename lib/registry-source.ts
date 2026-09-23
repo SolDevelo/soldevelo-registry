@@ -7,7 +7,7 @@ import { rewriteItemImports, type SharedFileRef } from "@/lib/registry-imports"
 import { installTarget } from "@/lib/registry-targets"
 import { KIND_PLURAL, kindOf, type RegistryKind } from "@/lib/registry-kinds"
 import { getProject, itemSlug } from "@/config/projects"
-import { registryAddress } from "@/config/site"
+import { siteConfig } from "@/config/site"
 
 // Item file paths are relative to `registry/` unless they use the `@/` alias.
 export function resolveFilePath(filePath: string): string {
@@ -114,11 +114,13 @@ export async function prepareItems() {
       // The preview is shown as how to mount the item, so what it imports installs with it too.
       const previewCode = await ship(previewPath(kind, item.name, project))
 
-      // Derived from the imports, like cssVars, so the published dependencies cannot drift.
+      // Derived from the imports, like cssVars; full URLs, so installing by URL needs no namespace.
       const registryDependencies = [
         ...new Set([
           ...(item.registryDependencies ?? []),
-          ...[...imported].toSorted().map(registryAddress),
+          ...[...imported]
+            .toSorted()
+            .map((name) => `${siteConfig.URL}/r/${name}.json`),
         ]),
       ]
 

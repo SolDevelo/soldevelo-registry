@@ -63,7 +63,10 @@ export function useDebouncedInput(
       change(event.target.value),
     onBlur: flush,
     onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") commit(event.currentTarget.value)
+      // Enter that confirms an IME candidate is part of typing, not a search.
+      if (event.key === "Enter" && !event.nativeEvent.isComposing) {
+        commit(event.currentTarget.value)
+      }
     },
   }
 

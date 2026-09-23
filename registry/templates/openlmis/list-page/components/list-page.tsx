@@ -88,8 +88,6 @@ export function ListPage() {
     },
   })
 
-  const hasFilters = Boolean(query.search || query.status)
-
   return (
     <Workspace>
       <PageBreadcrumbs
@@ -159,7 +157,7 @@ export function ListPage() {
           ) : (
             <DataTable
               empty={
-                hasFilters ? (
+                list.isFiltered ? (
                   <DataTableEmpty
                     action={
                       <Button onClick={list.clearFilters} variant="destructive">

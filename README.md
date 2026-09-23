@@ -173,8 +173,9 @@ override it with `NEXT_PUBLIC_SITE_URL`.
 4. Load the preview, measure its height, and set `meta.height` to it.
 5. Commit the source together with the regenerated artifacts.
 
-Item source must be copy-pasteable: shadcn primitives, declared npm packages
-and its own sibling files, nothing else. A new project is an entry in
+Item source must be copy-pasteable: shadcn primitives, declared npm packages,
+its own sibling files and other items imported through `@/registry/...`,
+nothing else. A new project is an entry in
 `config/projects.ts` plus a square logo at `public/projects/{id}.png`.
 
 [`CLAUDE.md`](./CLAUDE.md) has the full conventions, including the design-system
