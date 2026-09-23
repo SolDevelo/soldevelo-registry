@@ -23,7 +23,7 @@
   },
   "settings": {
     "shadcn": {
-      "note": "See AGENTS.md > Design system rules."
+      "note": "See CLAUDE.md > Design system rules."
     }
   },
   "rules": {
