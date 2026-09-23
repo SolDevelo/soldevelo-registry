@@ -9,6 +9,7 @@ import { JsonLd, faqPageSchema } from "@/components/structured-data"
 import { FAQS } from "@/config/faqs"
 import { resolveProjects } from "@/config/projects"
 import { SiteHeader } from "@/components/site-header"
+import { REGISTRY_KINDS } from "@/lib/registry-kinds"
 import {
   getAllEntries,
   getCounts,
@@ -55,7 +56,7 @@ export default function HomePage() {
         <RegistryBento
           counts={counts}
           totalItems={entries.length}
-          items={entries.map((entry) => ({
+          items={catalogSample().map((entry) => ({
             name: entry.name,
             kind: entry.kind,
             project: entry.project,
@@ -72,6 +73,20 @@ export default function HomePage() {
       <SiteFooter projects={resolveProjects(getProjects())} />
     </div>
   )
+}
+
+// The bento card fits about eight rows; the Total Items line below it carries the full count.
+const CATALOG_SAMPLE_SIZE = 8
+
+// Taken a kind at a time, so blocks and templates show even when components outnumber them.
+function catalogSample() {
+  const byKind = REGISTRY_KINDS.map((kind) => getEntriesByKind(kind))
+  const longest = Math.max(...byKind.map((list) => list.length))
+  return Array.from({ length: longest }, (_, index) =>
+    byKind.flatMap((list) => list[index] ?? [])
+  )
+    .flat()
+    .slice(0, CATALOG_SAMPLE_SIZE)
 }
 
 // Illustrative target: 100 items by a fixed month, approached on an ease-in curve so the
