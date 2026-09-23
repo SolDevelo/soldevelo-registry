@@ -10,7 +10,7 @@ export const components: RegistryEntry[] = [
     "name": "openlmis-pagination",
     "project": "openlmis",
     "title": "Pagination",
-    "height": "92px",
+    "height": "236px",
     "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
     "registryDependencies": [
       "button",
@@ -24,7 +24,7 @@ export const components: RegistryEntry[] = [
       {
         "type": "page",
         "name": "page.tsx",
-        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Pagination } from \"@/components/openlmis/pagination\"\n\nexport default function Page() {\n  const [pageIndex, setPageIndex] = useState(0)\n  const [pageSize, setPageSize] = useState(10)\n\n  return (\n    <div className=\"w-full max-w-3xl p-8\">\n      <Pagination\n        onPageChange={setPageIndex}\n        onPageSizeChange={(size) => {\n          setPageSize(size)\n          setPageIndex(0)\n        }}\n        pageIndex={pageIndex}\n        pageSize={pageSize}\n        rowCount={1211}\n      />\n    </div>\n  )\n}",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Pagination } from \"@/components/openlmis/pagination\"\n\nexport default function Page() {\n  const [pageIndex, setPageIndex] = useState(0)\n  const [pageSize, setPageSize] = useState(10)\n\n  return (\n    <div className=\"w-full max-w-3xl p-8 pb-44\">\n      <Pagination\n        onPageChange={setPageIndex}\n        onPageSizeChange={(size) => {\n          setPageSize(size)\n          setPageIndex(0)\n        }}\n        pageIndex={pageIndex}\n        pageSize={pageSize}\n        rowCount={1211}\n      />\n    </div>\n  )\n}",
         "lang": "tsx",
         "target": null
       },
@@ -79,7 +79,7 @@ export const components: RegistryEntry[] = [
     "name": "openlmis-select-filter",
     "project": "openlmis",
     "title": "Select Filter",
-    "height": "96px",
+    "height": "176px",
     "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
     "registryDependencies": [
       "button",
@@ -92,7 +92,7 @@ export const components: RegistryEntry[] = [
       {
         "type": "page",
         "name": "page.tsx",
-        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { SelectFilter } from \"@/components/openlmis/select-filter\"\n\nexport default function Page() {\n  const [status, setStatus] = useState(\"active\")\n\n  return (\n    <div className=\"w-full max-w-60 p-8\">\n      <SelectFilter\n        label=\"Status\"\n        onValueChange={setStatus}\n        options={[\n          { value: \"active\", label: \"Active\" },\n          { value: \"inactive\", label: \"Inactive\" },\n        ]}\n        value={status}\n      />\n    </div>\n  )\n}",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { SelectFilter } from \"@/components/openlmis/select-filter\"\n\nexport default function Page() {\n  const [status, setStatus] = useState(\"active\")\n\n  return (\n    <div className=\"w-full max-w-60 p-8 pb-28\">\n      <SelectFilter\n        label=\"Status\"\n        onValueChange={setStatus}\n        options={[\n          { value: \"active\", label: \"Active\" },\n          { value: \"inactive\", label: \"Inactive\" },\n        ]}\n        value={status}\n      />\n    </div>\n  )\n}",
         "lang": "tsx",
         "target": null
       },
@@ -110,7 +110,7 @@ export const components: RegistryEntry[] = [
     "name": "openlmis-column-view-options",
     "project": "openlmis",
     "title": "Column View Options",
-    "height": "128px",
+    "height": "320px",
     "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
     "registryDependencies": [
       "button",
@@ -123,7 +123,7 @@ export const components: RegistryEntry[] = [
       {
         "type": "page",
         "name": "page.tsx",
-        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { type ColumnVisibility, ColumnViewOptions } from \"@/components/openlmis/column-view-options\"\n\nconst COLUMNS = [\n  { id: \"name\", label: \"Name\" },\n  { id: \"email\", label: \"Email\" },\n  { id: \"status\", label: \"Status\" },\n]\n\nexport default function Page() {\n  const [visibility, setVisibility] = useState<ColumnVisibility>({})\n  const shown = COLUMNS.filter((column) => visibility[column.id] !== false)\n\n  return (\n    <div className=\"flex w-full max-w-sm flex-col items-start gap-3 p-8\">\n      <ColumnViewOptions\n        columns={COLUMNS}\n        onReset={() => setVisibility({})}\n        onVisibilityChange={setVisibility}\n        visibility={visibility}\n      />\n      <p className=\"text-sm text-muted-foreground\">\n        Showing: {shown.map((column) => column.label).join(\", \") || \"none\"}\n      </p>\n    </div>\n  )\n}",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { type ColumnVisibility, ColumnViewOptions } from \"@/components/openlmis/column-view-options\"\n\nconst COLUMNS = [\n  { id: \"name\", label: \"Name\" },\n  { id: \"email\", label: \"Email\" },\n  { id: \"status\", label: \"Status\" },\n]\n\nexport default function Page() {\n  const [visibility, setVisibility] = useState<ColumnVisibility>({})\n  const shown = COLUMNS.filter((column) => visibility[column.id] !== false)\n\n  return (\n    <div className=\"flex w-full max-w-sm flex-col items-start gap-3 p-8 pb-56\">\n      <ColumnViewOptions\n        columns={COLUMNS}\n        onReset={() => setVisibility({})}\n        onVisibilityChange={setVisibility}\n        visibility={visibility}\n      />\n      <p className=\"text-sm text-muted-foreground\">\n        Showing: {shown.map((column) => column.label).join(\", \") || \"none\"}\n      </p>\n    </div>\n  )\n}",
         "lang": "tsx",
         "target": null
       },

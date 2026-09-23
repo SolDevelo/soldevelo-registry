@@ -15,7 +15,7 @@ export default function Page() {
   const shown = COLUMNS.filter((column) => visibility[column.id] !== false)
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-start gap-3 p-8">
+    <div className="flex w-full max-w-sm flex-col items-start gap-3 p-8 pb-56">
       <ColumnViewOptions
         columns={COLUMNS}
         onReset={() => setVisibility({})}

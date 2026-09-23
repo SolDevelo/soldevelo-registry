@@ -25,7 +25,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "92px"
+        "height": "236px"
       },
       "categories": [
         "navigation",
@@ -87,7 +87,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "96px"
+        "height": "176px"
       },
       "categories": [
         "forms",
@@ -116,7 +116,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "128px"
+        "height": "320px"
       },
       "categories": [
         "data-table"
@@ -268,7 +268,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "96px"
+        "height": "288px"
       },
       "categories": [
         "layout",

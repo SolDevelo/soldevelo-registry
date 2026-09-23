@@ -21,7 +21,7 @@
   ],
   "meta": {
     "project": "openlmis",
-    "height": "128px"
+    "height": "320px"
   },
   "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
   "categories": [

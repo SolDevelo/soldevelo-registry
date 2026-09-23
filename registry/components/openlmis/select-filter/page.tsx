@@ -8,7 +8,7 @@ export default function Page() {
   const [status, setStatus] = useState("active")
 
   return (
-    <div className="w-full max-w-60 p-8">
+    <div className="w-full max-w-60 p-8 pb-28">
       <SelectFilter
         label="Status"
         onValueChange={setStatus}
