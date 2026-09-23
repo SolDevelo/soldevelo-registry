@@ -33,53 +33,69 @@ export const HIDEABLE_COLUMNS: (ResponsiveColumn & { label: string })[] = [
 
 const columnHelper = createColumnHelper<DataTableFeatures, User>()
 
-export const userColumns = columnHelper.columns([
-  // Shows the full name but sorts by last name, the usual order for a list of people.
-  columnHelper.accessor("lastName", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
-    ),
-    cell: ({ row }) => `${row.original.firstName} ${row.original.lastName}`,
-    meta: { className: "@xl/table:w-2/5 @4xl/table:w-1/5" },
-  }),
-  columnHelper.accessor("username", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Username" />
-    ),
-    cell: ({ getValue }) => <span className="font-medium">{getValue()}</span>,
-    // No width below 4xl, so the username takes the room the hidden columns leave.
-    meta: { className: "@4xl/table:w-1/6" },
-  }),
-  columnHelper.accessor("email", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
-    ),
-    cell: ({ getValue }) =>
-      getValue() ?? <span className="text-muted-foreground">-</span>,
-    enableSorting: false,
-  }),
-  columnHelper.accessor("active", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ getValue }) =>
-      getValue() ? (
-        <StatusBadge tone="success">Active</StatusBadge>
-      ) : (
-        <StatusBadge tone="destructive">Inactive</StatusBadge>
-      ),
-    meta: { className: "w-32" },
-  }),
-  columnHelper.display({
-    id: "actions",
-    header: () => <span className="sr-only">Actions</span>,
-    cell: ({ row }) => <UserActions username={row.original.username} />,
-    meta: { className: "w-16" },
-  }),
-])
+/** What the row menu does; Roles is left for you to wire to a screen of your own. */
+export type UserRowActions = {
+  onEdit: (userId: string) => void
+  onResetPassword: (userId: string) => void
+}
 
-// Wire these to real screens; they do nothing in the template.
-function UserActions({ username }: { username: string }) {
+export const createUserColumns = (actions: UserRowActions) =>
+  columnHelper.columns([
+    // Shows the full name but sorts by last name, the usual order for a list of people.
+    columnHelper.accessor("lastName", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Name" />
+      ),
+      cell: ({ row }) => `${row.original.firstName} ${row.original.lastName}`,
+      meta: { className: "@xl/table:w-2/5 @4xl/table:w-1/5" },
+    }),
+    columnHelper.accessor("username", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Username" />
+      ),
+      cell: ({ getValue }) => <span className="font-medium">{getValue()}</span>,
+      // No width below 4xl, so the username takes the room the hidden columns leave.
+      meta: { className: "@4xl/table:w-1/6" },
+    }),
+    columnHelper.accessor("email", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Email" />
+      ),
+      cell: ({ getValue }) =>
+        getValue() ?? <span className="text-muted-foreground">-</span>,
+      enableSorting: false,
+    }),
+    columnHelper.accessor("active", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Status" />
+      ),
+      cell: ({ getValue }) =>
+        getValue() ? (
+          <StatusBadge tone="success">Active</StatusBadge>
+        ) : (
+          <StatusBadge tone="destructive">Inactive</StatusBadge>
+        ),
+      meta: { className: "w-32" },
+    }),
+    columnHelper.display({
+      id: "actions",
+      header: () => <span className="sr-only">Actions</span>,
+      cell: ({ row }) => (
+        <UserActions
+          onEdit={() => actions.onEdit(row.original.id)}
+          onResetPassword={() => actions.onResetPassword(row.original.id)}
+          username={row.original.username}
+        />
+      ),
+      meta: { className: "w-16" },
+    }),
+  ])
+
+function UserActions({
+  username,
+  onEdit,
+  onResetPassword,
+}: { username: string } & Record<"onEdit" | "onResetPassword", () => void>) {
   return (
     <div className="flex justify-end">
       <DropdownMenu>
@@ -95,7 +111,7 @@ function UserActions({ username }: { username: string }) {
           <EllipsisIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-auto">
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={onEdit}>
             <PencilIcon />
             Edit
           </DropdownMenuItem>
@@ -103,7 +119,7 @@ function UserActions({ username }: { username: string }) {
             <ShieldIcon />
             Roles
           </DropdownMenuItem>
-          <DropdownMenuItem variant="destructive">
+          <DropdownMenuItem onClick={onResetPassword} variant="destructive">
             <KeyRoundIcon />
             Reset Password
           </DropdownMenuItem>

@@ -186,6 +186,99 @@
       "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
     },
     {
+      "name": "openlmis-form-fields",
+      "title": "Form Fields",
+      "description": "TanStack Form field components on shadcn Field: text, password with a show button, a type-to-filter combobox, radio and switch choice cards, required marks, inline errors, and skeletons that hold the form's shape while values load.",
+      "dependencies": [
+        "@base-ui/react",
+        "@tanstack/react-form@^1",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "combobox",
+        "field",
+        "input",
+        "input-group",
+        "radio-group",
+        "skeleton",
+        "switch"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/form-fields/form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-fields/form.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/form-fields/form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-fields/form-fields.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/form-fields/form-context.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/form-fields/form-context.ts"
+        },
+        {
+          "path": "registry/components/openlmis/form-fields/form-messages.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-fields/form-messages.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "620px"
+      },
+      "categories": [
+        "forms"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+    },
+    {
+      "name": "openlmis-form-dialog",
+      "title": "Form Dialog",
+      "description": "Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "dialog",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/form-dialog/form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-dialog/form-dialog.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/form-dialog/use-dialog-target.ts",
+          "type": "registry:hook",
+          "target": "components/openlmis/form-dialog/use-dialog-target.ts"
+        },
+        {
+          "path": "registry/components/openlmis/form-dialog/use-dialog-data.ts",
+          "type": "registry:hook",
+          "target": "components/openlmis/form-dialog/use-dialog-data.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "416px"
+      },
+      "categories": [
+        "forms",
+        "overlay"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+    },
+    {
       "name": "openlmis-data-table",
       "title": "Data Table",
       "description": "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
@@ -278,9 +371,86 @@
       "type": "registry:block"
     },
     {
+      "name": "openlmis-user-form-dialog",
+      "title": "User Form Dialog",
+      "description": "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes, with a skeleton while the user loads.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/user-form-dialog/user-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/user-form-dialog/user-form-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/user-form-dialog/user-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/user-form-dialog/user-form.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "768px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "users"
+      ],
+      "type": "registry:block"
+    },
+    {
+      "name": "openlmis-reset-password-dialog",
+      "title": "Reset Password Dialog",
+      "description": "Reset Password dialog that emails the user a reset link or sets a password by hand, falls back to a typed password when the user has no email, and opens as Set Password for a user just created.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/reset-password-dialog/password-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/reset-password-dialog/password-form.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "448px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "users"
+      ],
+      "type": "registry:block"
+    },
+    {
       "name": "openlmis-list-page",
       "title": "List Page",
-      "description": "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.",
+      "description": "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, loading, empty, no-matches and error states, and row actions that open Edit User and Reset Password dialogs.",
       "dependencies": [
         "@tanstack/react-table@^9",
         "lucide-react",
@@ -293,9 +463,11 @@
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-reset-password-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json",
         "https://registry.soldevelo.com/r/openlmis-status-badge.json",
+        "https://registry.soldevelo.com/r/openlmis-user-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [

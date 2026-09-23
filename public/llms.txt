@@ -2,15 +2,15 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 10 installable items across 1 open-source project (OpenLMIS): 6 components, 3 blocks, and 1 page template. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 14 installable items across 1 open-source project (OpenLMIS): 8 components, 5 blocks, and 1 page template. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
 ## Pages
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
-- [Components](https://registry.soldevelo.com/components): 6 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 3 blocks, with live previews and full source.
+- [Components](https://registry.soldevelo.com/components): 8 components, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 5 blocks, with live previews and full source.
 - [Templates](https://registry.soldevelo.com/templates): 1 template, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
@@ -53,10 +53,14 @@ npx shadcn@latest add @soldevelo/openlmis-pagination
 - [Column View Options](https://registry.soldevelo.com/components/openlmis-column-view-options) `@soldevelo/openlmis-column-view-options` (component): View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.
 - [Status Badge](https://registry.soldevelo.com/components/openlmis-status-badge) `@soldevelo/openlmis-status-badge` (component): Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.
 - [Page Breadcrumbs](https://registry.soldevelo.com/components/openlmis-page-breadcrumbs) `@soldevelo/openlmis-page-breadcrumbs` (component): Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.
+- [Form Fields](https://registry.soldevelo.com/components/openlmis-form-fields) `@soldevelo/openlmis-form-fields` (component): TanStack Form field components on shadcn Field: text, password with a show button, a type-to-filter combobox, radio and switch choice cards, required marks, inline errors, and skeletons that hold the form's shape while values load.
+- [Form Dialog](https://registry.soldevelo.com/components/openlmis-form-dialog) `@soldevelo/openlmis-form-dialog` (component): Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.
 - [Data Table](https://registry.soldevelo.com/blocks/openlmis-data-table) `@soldevelo/openlmis-data-table` (block): Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.
 - [Workspace](https://registry.soldevelo.com/blocks/openlmis-workspace) `@soldevelo/openlmis-workspace` (block): Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page.
 - [List Toolbar](https://registry.soldevelo.com/blocks/openlmis-list-toolbar) `@soldevelo/openlmis-list-toolbar` (block): Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.
-- [List Page](https://registry.soldevelo.com/templates/openlmis-list-page) `@soldevelo/openlmis-list-page` (template): Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, and a table with sorting, paging, loading, empty, no-matches and error states.
+- [User Form Dialog](https://registry.soldevelo.com/blocks/openlmis-user-form-dialog) `@soldevelo/openlmis-user-form-dialog` (block): Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes, with a skeleton while the user loads.
+- [Reset Password Dialog](https://registry.soldevelo.com/blocks/openlmis-reset-password-dialog) `@soldevelo/openlmis-reset-password-dialog` (block): Reset Password dialog that emails the user a reset link or sets a password by hand, falls back to a typed password when the user has no email, and opens as Set Password for a user just created.
+- [List Page](https://registry.soldevelo.com/templates/openlmis-list-page) `@soldevelo/openlmis-list-page` (template): Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, loading, empty, no-matches and error states, and row actions that open Edit User and Reset Password dialogs.
 
 ## Technology
 

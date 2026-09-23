@@ -6,7 +6,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import { PlusIcon, SearchXIcon, UsersIcon } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs/page-breadcrumbs"
@@ -40,19 +40,56 @@ import {
 import { ColumnViewOptions } from "@/registry/components/openlmis/column-view-options/column-view-options"
 import { SearchInput } from "@/registry/components/openlmis/search-input/search-input"
 import { SelectFilter } from "@/registry/components/openlmis/select-filter/select-filter"
+import {
+  type PasswordDialogTarget,
+  ResetPasswordDialog,
+} from "@/registry/blocks/openlmis/reset-password-dialog/reset-password-dialog"
+import {
+  UserFormDialog,
+  type UserFormDialogTarget,
+} from "@/registry/blocks/openlmis/user-form-dialog/user-form-dialog"
 
-import type { User, UsersQuery } from "./mock-users"
-import { HIDEABLE_COLUMNS, userColumns } from "./user-columns"
+import {
+  fetchFacilities,
+  fetchUser,
+  saveUser,
+  sendResetEmail,
+  setPassword,
+  type User,
+  type UsersQuery,
+} from "./mock-users"
+import { createUserColumns, HIDEABLE_COLUMNS } from "./user-columns"
 import { useUserList } from "./use-user-list"
 
 const NO_USERS: User[] = []
 
 const getRowId = (user: User) => user.id
 
+// One dialog at a time: adding a user hands over to Set Password rather than stacking a second dialog.
+type OpenDialog =
+  | { kind: "user"; target: UserFormDialogTarget }
+  | { kind: "password"; target: PasswordDialogTarget }
+
 /** The whole users list screen; mount it from any route, e.g. the `page.tsx` this template ships. */
 export function ListPage() {
   const list = useUserList()
-  const { query, update } = list
+  const { query, update, retry: refresh } = list
+  const [dialog, setDialog] = useState<OpenDialog>()
+  const closeDialog = () => setDialog(undefined)
+  // Stable, so the columns built from them keep their identity between renders.
+  const onEdit = useCallback(
+    (userId: string) => setDialog({ kind: "user", target: userId }),
+    []
+  )
+  const onResetPassword = useCallback(
+    (userId: string) =>
+      setDialog({ kind: "password", target: { userId, created: false } }),
+    []
+  )
+  const columns = useMemo(
+    () => createUserColumns({ onEdit, onResetPassword }),
+    [onEdit, onResetPassword]
+  )
   const [measureContent, contentSize] = useContainerSize<HTMLDivElement>()
   // Kept for the visit only; store it (e.g. in localStorage) to remember it across visits.
   const columnChoices = useState<ColumnVisibilityState>({})
@@ -71,7 +108,7 @@ export function ListPage() {
 
   const table = useTable({
     features: dataTableFeatures,
-    columns: userColumns,
+    columns,
     data: list.data?.rows ?? NO_USERS,
     getRowId,
     rowCount: list.data?.total ?? 0,
@@ -139,7 +176,9 @@ export function ListPage() {
                 onVisibilityChange={columnView.onVisibilityChange}
                 visibility={columnView.visibility}
               />
-              <Button>
+              <Button
+                onClick={() => setDialog({ kind: "user", target: "new" })}
+              >
                 <PlusIcon data-icon="inline-start" />
                 Add User
               </Button>
@@ -185,6 +224,28 @@ export function ListPage() {
           )}
         </div>
       </WorkspaceContent>
+
+      <UserFormDialog
+        loadFacilities={fetchFacilities}
+        loadUser={fetchUser}
+        onClose={closeDialog}
+        onCreated={(userId) =>
+          setDialog({ kind: "password", target: { userId, created: true } })
+        }
+        saveUser={async (values, existing) => {
+          const userId = await saveUser(values, existing)
+          refresh()
+          return userId
+        }}
+        target={dialog?.kind === "user" ? dialog.target : undefined}
+      />
+      <ResetPasswordDialog
+        loadUser={fetchUser}
+        onClose={closeDialog}
+        sendResetEmail={sendResetEmail}
+        setPassword={setPassword}
+        target={dialog?.kind === "password" ? dialog.target : undefined}
+      />
     </Workspace>
   )
 }
