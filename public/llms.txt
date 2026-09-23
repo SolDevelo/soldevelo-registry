@@ -23,7 +23,7 @@ Every item is prefixed with the project it belongs to, so two projects cannot co
 ## URLs
 
 - Item pages: `https://registry.soldevelo.com/{components|blocks|templates}/{item-name}`, with a short intro, the install command and the preview.
-- Project pages: `https://registry.soldevelo.com/projects/{project-id}`, every item one project publishes, grouped by kind.
+- Projects: `https://registry.soldevelo.com/projects`. Each project's page, `https://registry.soldevelo.com/projects/{project-id}`, lists every item it publishes, grouped by kind.
 - Standalone previews: `https://registry.soldevelo.com/preview/{item-name}`.
 - Registry item JSON: `https://registry.soldevelo.com/r/{item-name}.json`.
 - Registry index: `https://registry.soldevelo.com/r/registry.json`.

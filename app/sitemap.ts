@@ -37,6 +37,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${siteConfig.URL}/projects`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     ...getProjects().map((project) => ({
       url: `${siteConfig.URL}${projectPath(project)}`,
       changeFrequency: "weekly" as const,
