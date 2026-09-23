@@ -9,7 +9,7 @@ export default function Page() {
   const [pageSize, setPageSize] = useState(10)
 
   return (
-    <div className="w-full max-w-3xl p-8">
+    <div className="w-full max-w-3xl p-8 pb-44">
       <Pagination
         onPageChange={setPageIndex}
         onPageSizeChange={(size) => {

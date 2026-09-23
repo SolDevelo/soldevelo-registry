@@ -27,7 +27,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["navigation", "data-table"],
-    meta: { project: "openlmis", height: "92px" },
+    meta: { project: "openlmis", height: "236px" },
   },
   {
     name: "openlmis-search-input",
@@ -65,7 +65,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms", "data-table"],
-    meta: { project: "openlmis", height: "96px" },
+    meta: { project: "openlmis", height: "176px" },
   },
   {
     name: "openlmis-column-view-options",
@@ -82,7 +82,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["data-table"],
-    meta: { project: "openlmis", height: "128px" },
+    meta: { project: "openlmis", height: "320px" },
   },
   {
     name: "openlmis-status-badge",
@@ -182,7 +182,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["layout", "data-table"],
-    meta: { project: "openlmis", height: "96px" },
+    meta: { project: "openlmis", height: "288px" },
   },
 
   // -- Templates --------------------------------------------------------------

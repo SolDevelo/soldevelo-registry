@@ -30,7 +30,7 @@ export default function Page() {
   const [visibility, setVisibility] = useState<ColumnVisibility>({})
 
   return (
-    <div className="w-full max-w-5xl p-8">
+    <div className="w-full max-w-5xl p-8 pb-56">
       <ListToolbar>
         <ListToolbarSearch>
           <SearchInput onValueChange={setQuery} value={query} />
