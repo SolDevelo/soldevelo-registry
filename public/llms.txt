@@ -2,14 +2,14 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 28 installable items across 1 open-source project (OpenLMIS): 11 components, 13 blocks, and 4 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 29 installable items across 1 open-source project (OpenLMIS): 12 components, 13 blocks, and 4 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
 ## Pages
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
-- [Components](https://registry.soldevelo.com/components): 11 components, with live previews and full source.
+- [Components](https://registry.soldevelo.com/components): 12 components, with live previews and full source.
 - [Blocks](https://registry.soldevelo.com/blocks): 13 blocks, with live previews and full source.
 - [Templates](https://registry.soldevelo.com/templates): 4 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
@@ -58,6 +58,7 @@ npx shadcn@latest add @soldevelo/openlmis-pagination
 - [Dashboard Card](https://registry.soldevelo.com/components/openlmis-dashboard-card) `@soldevelo/openlmis-dashboard-card` (component): Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.
 - [Stat Strip](https://registry.soldevelo.com/components/openlmis-stat-strip) `@soldevelo/openlmis-stat-strip` (component): One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.
 - [Discard Changes Dialog](https://registry.soldevelo.com/components/openlmis-discard-changes-dialog) `@soldevelo/openlmis-discard-changes-dialog` (component): Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.
+- [Callout](https://registry.soldevelo.com/components/openlmis-callout) `@soldevelo/openlmis-callout` (component): Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.
 - [Data Table](https://registry.soldevelo.com/blocks/openlmis-data-table) `@soldevelo/openlmis-data-table` (block): Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.
 - [Workspace](https://registry.soldevelo.com/blocks/openlmis-workspace) `@soldevelo/openlmis-workspace` (block): Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.
 - [List Toolbar](https://registry.soldevelo.com/blocks/openlmis-list-toolbar) `@soldevelo/openlmis-list-toolbar` (block): Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.

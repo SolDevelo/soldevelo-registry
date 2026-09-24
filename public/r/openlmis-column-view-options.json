@@ -19,6 +19,28 @@
       "target": "components/openlmis/column-view-options.tsx"
     }
   ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
   "meta": {
     "project": "openlmis",
     "height": "320px"

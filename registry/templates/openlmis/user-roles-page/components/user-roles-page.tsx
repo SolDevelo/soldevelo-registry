@@ -1,14 +1,8 @@
 "use client"
 
-import { CheckIcon, CopyPlusIcon, InfoIcon, ShieldIcon } from "lucide-react"
+import { CopyPlusIcon, ShieldIcon } from "lucide-react"
 import { useCallback, useMemo, useState } from "react"
 
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -44,6 +38,7 @@ import {
   WorkspaceIcon,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
+import { Callout } from "@/registry/components/openlmis/callout/callout"
 import { DiscardChangesDialog } from "@/registry/components/openlmis/discard-changes-dialog/discard-changes-dialog"
 import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs/page-breadcrumbs"
 
@@ -354,33 +349,22 @@ function NoticeAlert({
 }) {
   if (notice.kind === "saved") {
     return (
-      <Alert>
-        <CheckIcon />
-        <AlertTitle>Roles Saved</AlertTitle>
-        <AlertDescription>The changes are saved.</AlertDescription>
-      </Alert>
+      <Callout title="Roles Saved" tone="success">
+        The changes are saved.
+      </Callout>
     )
   }
   if (notice.kind === "imported") {
     return (
-      <Alert>
-        <InfoIcon />
-        <AlertTitle>Roles Imported</AlertTitle>
-        <AlertDescription>
-          {notice.added === 1 ? "1 role" : `${notice.added} roles`} added from{" "}
-          {notice.from}. Save to keep them.
-        </AlertDescription>
-      </Alert>
+      <Callout title="Roles Imported" tone="info">
+        {notice.added === 1 ? "1 role" : `${notice.added} roles`} added from{" "}
+        {notice.from}. Save to keep them.
+      </Callout>
     )
   }
   return (
-    <Alert>
-      <InfoIcon />
-      <AlertTitle>Role Removed</AlertTitle>
-      <AlertDescription>
-        {notice.row.role ?? "The role"} is removed. Save to keep the change.
-      </AlertDescription>
-      <AlertAction>
+    <Callout
+      action={
         <Button
           onClick={() => onUndo(notice.row)}
           size="sm"
@@ -389,7 +373,11 @@ function NoticeAlert({
         >
           Undo
         </Button>
-      </AlertAction>
-    </Alert>
+      }
+      title="Role Removed"
+      tone="info"
+    >
+      {notice.row.role ?? "The role"} is removed. Save to keep the change.
+    </Callout>
   )
 }

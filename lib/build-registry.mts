@@ -12,8 +12,7 @@ import { rimraf } from "rimraf"
 const { registry } = await import("@/registry/index")
 const { assertRegistryInvariants } = await import("@/lib/registry-invariants")
 const { baseUiDocs, withBaseUiRuntime } = await import("@/lib/registry-runtime")
-const { cssVarsForTokens, detectStateTokens } =
-  await import("@/registry/tokens")
+const { STATE_CSS_VARS } = await import("@/registry/tokens")
 const { KIND_PLURAL, REGISTRY_KINDS } = await import("@/lib/registry-kinds")
 const { prettifySlug } = await import("@/lib/utils")
 const { getLang, prepareItems } = await import("@/lib/registry-source")
@@ -88,12 +87,11 @@ async function buildRegistryJsonFile(prepared: PreparedItem[]) {
   const items = prepared.map(({ item, files }) => {
     const source = files.map((file) => file.content).join("\n")
     const docs = baseUiDocs(source)
-    const cssVars = cssVarsForTokens(detectStateTokens(source))
 
     return {
       ...item,
       ...(docs ? { docs } : {}),
-      ...(cssVars ? { cssVars } : {}),
+      cssVars: STATE_CSS_VARS,
       dependencies: withBaseUiRuntime(
         item.dependencies,
         item.registryDependencies

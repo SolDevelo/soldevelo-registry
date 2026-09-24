@@ -385,5 +385,35 @@ export const components: RegistryEntry[] = [
         "target": "components/openlmis/discard-changes-dialog.tsx"
       }
     ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-callout",
+    "project": "openlmis",
+    "title": "Callout",
+    "height": "308px",
+    "description": "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
+    "registryDependencies": [
+      "utils"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { Button } from \"@/components/ui/button\"\n\nimport { Callout } from \"@/components/openlmis/callout\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full max-w-lg flex-col gap-3 p-8\">\n      <Callout title=\"No Home Facility\" tone=\"warning\">\n        Without a supervisory node this role applies at the home facility, and\n        divo1 has none, so it grants nothing until one is set.\n      </Callout>\n      <Callout\n        action={\n          <Button size=\"sm\" variant=\"outline\">\n            Undo\n          </Button>\n        }\n        title=\"Role Removed\"\n        tone=\"info\"\n      >\n        Storeroom Manager is removed. Save to keep the change.\n      </Callout>\n      <Callout title=\"Roles Saved\" tone=\"success\">\n        The changes are saved.\n      </Callout>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "callout.tsx",
+        "code": "import {\n  CircleCheckIcon,\n  InfoIcon,\n  type LucideIcon,\n  TriangleAlertIcon,\n} from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type CalloutTone = \"info\" | \"warning\" | \"success\"\n\n// Tinted by tone while the text keeps the foreground colours, which read on every tint.\nconst TONES = {\n  info: {\n    className: \"border-info/30 bg-info/10\",\n    iconClass: \"text-info\",\n    icon: InfoIcon,\n  },\n  warning: {\n    className: \"border-warning/30 bg-warning/10\",\n    iconClass: \"text-warning\",\n    icon: TriangleAlertIcon,\n  },\n  success: {\n    className: \"border-success/30 bg-success/10\",\n    iconClass: \"text-success\",\n    icon: CircleCheckIcon,\n  },\n} as const satisfies Record<\n  CalloutTone,\n  { className: string; iconClass: string; icon: LucideIcon }\n>\n\ntype CalloutProps = {\n  tone: CalloutTone\n  title: ReactNode\n  children?: ReactNode\n  /** A button at the end, such as Undo. */\n  action?: ReactNode\n}\n\n/** A message in a state's colour, with its own icon so it reads without relying on colour; its own element, as stock Alert has no warning, info or success tone. */\nexport function Callout({ tone, title, children, action }: CalloutProps) {\n  const { className, iconClass, icon: Icon } = TONES[tone]\n\n  return (\n    <div\n      className={cn(\n        \"flex w-full items-start gap-2 rounded-lg border px-2.5 py-2 text-sm\",\n        className\n      )}\n      role=\"status\"\n    >\n      <Icon\n        aria-hidden=\"true\"\n        className={cn(\"mt-0.5 size-4 shrink-0\", iconClass)}\n      />\n      <div className=\"flex min-w-0 flex-1 flex-col gap-0.5\">\n        <p className=\"font-medium text-foreground\">{title}</p>\n        {children && (\n          <div className=\"text-balance text-muted-foreground\">{children}</div>\n        )}\n      </div>\n      {action && <div className=\"shrink-0\">{action}</div>}\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/callout.tsx"
+      }
+    ]
   }
 ]

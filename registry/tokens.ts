@@ -1,6 +1,14 @@
 // State colours this registry owns. A consumer's shadcn theme has no --success/--warning/--info,
-// so an item that uses one must ship it or it renders unstyled in their project.
+// and newer ones no --destructive-foreground, so every item ships them or it can render unstyled.
 export const STATE_TOKENS = {
+  destructive: {
+    light: "oklch(0.577 0.245 27.325)",
+    dark: "oklch(0.704 0.191 22.216)",
+  },
+  "destructive-foreground": {
+    light: "oklch(0.985 0 0)",
+    dark: "oklch(0.21 0.04 25)",
+  },
   success: {
     light: "oklch(0.596 0.145 163.225)",
     dark: "oklch(0.696 0.17 162.48)",
@@ -26,41 +34,15 @@ export const STATE_TOKENS = {
 
 export type StateToken = keyof typeof STATE_TOKENS
 
-const BASE_TOKENS = ["success", "warning", "info"] as const
+const TOKENS = Object.keys(STATE_TOKENS) as StateToken[]
 
-// Matches `bg-success`, `text-info/70`, `border-warning`, `hover:bg-success-foreground`, …
-const tokenPattern = (token: string) =>
-  new RegExp(
-    `\\b(?:bg|text|border|ring|fill|stroke|from|via|to)-${token}(?![a-z-])`
-  )
-
-// Derived from the source rather than declared per item, which would drift the moment an item changed.
-export function detectStateTokens(source: string): StateToken[] {
-  const found = new Set<StateToken>()
-
-  for (const base of BASE_TOKENS) {
-    const foreground = `${base}-foreground` as StateToken
-    if (tokenPattern(foreground).test(source)) {
-      found.add(base)
-      found.add(foreground)
-    } else if (tokenPattern(base).test(source)) {
-      found.add(base)
-    }
-  }
-
-  return [...found]
-}
-
-// `registry:*` items apply cssVars additively, so this fills gaps without overwriting a consumer's theme.
-export function cssVarsForTokens(tokens: StateToken[]) {
-  if (tokens.length === 0) return undefined
-
-  return {
-    light: Object.fromEntries(
-      tokens.map((token) => [token, STATE_TOKENS[token].light])
-    ),
-    dark: Object.fromEntries(
-      tokens.map((token) => [token, STATE_TOKENS[token].dark])
-    ),
-  }
+// The whole set on every item, so a consumer's own code can use them too once anything is installed.
+// The CLI applies cssVars additively and maps each into @theme inline, so a consumer's own values win.
+export const STATE_CSS_VARS = {
+  light: Object.fromEntries(
+    TOKENS.map((token) => [token, STATE_TOKENS[token].light])
+  ),
+  dark: Object.fromEntries(
+    TOKENS.map((token) => [token, STATE_TOKENS[token].dark])
+  ),
 }
