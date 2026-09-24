@@ -38,16 +38,9 @@ export default function Page() {
 }
 
 function ProgramForm({ onDone }: { onDone: () => void }) {
-  const [saving, setSaving] = useState(false)
   const form = useAppForm({
     defaultValues: { code: "", name: "", active: true },
-    onSubmit: async () => {
-      setSaving(true)
-      // Stands in for a save request.
-      await new Promise((resolve) => setTimeout(resolve, 800))
-      setSaving(false)
-      onDone()
-    },
+    onSubmit: () => onDone(),
   })
 
   return (
@@ -77,8 +70,8 @@ function ProgramForm({ onDone }: { onDone: () => void }) {
         </FieldGroup>
       </FormDialogBody>
       <FormDialogFooter>
-        <FormDialogCancel disabled={saving} />
-        <FormDialogSubmit pending={saving}>Add Program</FormDialogSubmit>
+        <FormDialogCancel />
+        <FormDialogSubmit>Add Program</FormDialogSubmit>
       </FormDialogFooter>
     </FormDialogForm>
   )

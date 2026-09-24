@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-import-roles-dialog",
+  "title": "Import Roles Dialog",
+  "description": "Dialog that copies another user's roles into the ones being edited, with a searchable list of users and a preview of how many roles are new before anything is added.",
+  "dependencies": [
+    "@tanstack/react-form@^1",
+    "zod@^4",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "field",
+    "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+    "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+    "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/import-roles-dialog/import-roles-dialog.tsx",
+      "content": "\"use client\"\n\nimport { revalidateLogic, useStore } from \"@tanstack/react-form\"\nimport { useMemo } from \"react\"\nimport { z } from \"zod\"\n\nimport { FieldDescription, FieldGroup } from \"@/components/ui/field\"\nimport {\n  mergeAssignments,\n  type RoleAssignment,\n} from \"@/components/blocks/openlmis/role-assignments-table/role-assignments\"\nimport {\n  FormDialog,\n  FormDialogBody,\n  FormDialogCancel,\n  FormDialogDescription,\n  FormDialogFooter,\n  FormDialogForm,\n  FormDialogHeader,\n  FormDialogSubmit,\n  FormDialogTitle,\n} from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\nimport {\n  ComboboxField,\n  FieldSkeleton,\n} from \"@/components/openlmis/form-fields/form-fields\"\n\nexport type ImportSourceUser = {\n  id: string\n  username: string\n  firstName?: string | null\n  lastName?: string | null\n  roleAssignments: RoleAssignment[]\n}\n\nconst importSchema = z.object({\n  userId: z\n    .string()\n    .nullable()\n    .refine(Boolean, \"Choose a user to copy roles from.\"),\n})\n\ntype ImportRolesDialogProps = {\n  open: boolean\n  /** The user being edited, left out of the list. */\n  userId: string\n  username: string\n  /** The roles being edited now, to count which ones are new. */\n  draft: readonly RoleAssignment[]\n  /** Who roles can be copied from; the field shows a skeleton until it is set. */\n  users: readonly ImportSourceUser[] | undefined\n  onImport: (assignments: RoleAssignment[], fromUsername: string) => void\n  onClose: () => void\n}\n\n/** Copies another user's roles into the draft; nothing is saved until the page is. */\nexport function ImportRolesDialog({\n  open,\n  onClose,\n  ...props\n}: ImportRolesDialogProps) {\n  const { shown, dialogProps } = useDialogTarget(open || undefined, onClose)\n  return (\n    <FormDialog {...dialogProps()}>\n      {shown && <ImportRolesForm onDone={onClose} {...props} />}\n    </FormDialog>\n  )\n}\n\nfunction ImportRolesForm({\n  userId,\n  username,\n  draft,\n  users,\n  onImport,\n  onDone,\n}: Omit<ImportRolesDialogProps, \"open\" | \"onClose\"> & { onDone: () => void }) {\n  const form = useAppForm({\n    defaultValues: { userId: null as string | null },\n    validationLogic: revalidateLogic({\n      mode: \"submit\",\n      modeAfterSubmission: \"change\",\n    }),\n    validators: { onDynamic: importSchema },\n    onSubmit: ({ value }) => {\n      const from = users?.find((user) => user.id === value.userId)\n      if (!from) return\n      onImport(from.roleAssignments, from.username)\n      onDone()\n    },\n  })\n  const sourceId = useStore(form.store, (state) => state.values.userId)\n  const source = users?.find((user) => user.id === sourceId)\n\n  return (\n    <FormDialogForm onSubmit={() => void form.handleSubmit()}>\n      <FormDialogHeader>\n        <FormDialogTitle>Import Roles</FormDialogTitle>\n        <FormDialogDescription>\n          Copy another user's roles to {username}. They are added to the roles\n          on this page and saved with them.\n        </FormDialogDescription>\n      </FormDialogHeader>\n      <FormDialogBody>\n        <FieldGroup>\n          <form.AppField name=\"userId\">\n            {() =>\n              users ? (\n                <UserField excludeId={userId} users={users} />\n              ) : (\n                <FieldSkeleton label=\"User\" required />\n              )\n            }\n          </form.AppField>\n          {source && (\n            <ImportPreview draft={draft} roles={source.roleAssignments} />\n          )}\n        </FieldGroup>\n      </FormDialogBody>\n      <FormDialogFooter>\n        <FormDialogCancel />\n        <FormDialogSubmit>Import Roles</FormDialogSubmit>\n      </FormDialogFooter>\n    </FormDialogForm>\n  )\n}\n\n/** Reads its field from the surrounding `AppField`. */\nfunction UserField({\n  users,\n  excludeId,\n}: {\n  users: readonly ImportSourceUser[]\n  excludeId: string\n}) {\n  const items = useMemo(\n    () =>\n      users\n        .filter((user) => user.id !== excludeId)\n        .map((user) => {\n          const name = [user.firstName, user.lastName].filter(Boolean).join(\" \")\n          return {\n            value: user.id,\n            label: name ? `${user.username} (${name})` : user.username,\n          }\n        }),\n    [users, excludeId]\n  )\n  return (\n    <ComboboxField\n      clearLabel=\"Clear User\"\n      description={`Type to search ${items.length} users.`}\n      emptyMessage=\"No users found.\"\n      items={items}\n      label=\"User\"\n      placeholder=\"Search Users...\"\n      required\n    />\n  )\n}\n\nconst count = (n: number) => (n === 1 ? \"1 role\" : `${n} roles`)\n\n/** How many of the chosen user's roles are new here, before anything is added. */\nfunction ImportPreview({\n  draft,\n  roles,\n}: {\n  draft: readonly RoleAssignment[]\n  roles: readonly RoleAssignment[]\n}) {\n  const { added, skipped } = mergeAssignments(draft, roles)\n  return (\n    <FieldDescription>\n      {added === 0\n        ? \"They have no roles this user does not already have.\"\n        : skipped === 0\n          ? `Adds ${count(added)}.`\n          : `Adds ${count(added)}; ${count(skipped)} this user already has.`}\n    </FieldDescription>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/import-roles-dialog.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "384px"
+  },
+  "categories": [
+    "forms",
+    "overlay",
+    "roles"
+  ],
+  "type": "registry:block"
+}

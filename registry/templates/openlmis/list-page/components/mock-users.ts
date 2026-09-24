@@ -1,4 +1,4 @@
-// Stand-in data and server, so the page runs with no backend. Replace each function with a real call.
+// Mock users and the rules the list applies to them, so the page runs with no backend.
 
 import type {
   Facility,
@@ -30,9 +30,6 @@ export type UsersPage = {
   total: number
 }
 
-/** Searching for this shows the error state, so it can be tried without a failing server. */
-const SIMULATED_FAILURE_SEARCH = "fail"
-
 const FIRST_NAMES = [
   "Adora",
   "Alan",
@@ -62,7 +59,7 @@ const LAST_NAMES = [
   "Zulu",
 ]
 
-const FACILITIES: Facility[] = [
+export const MOCK_FACILITIES: Facility[] = [
   { id: "facility-1", code: "HC01", name: "Balaka District Hospital" },
   { id: "facility-2", code: "HC02", name: "Comfort Health Clinic" },
   { id: "facility-3", code: "HC03", name: "Kankao Health Facility" },
@@ -70,35 +67,35 @@ const FACILITIES: Facility[] = [
   { id: "facility-5", code: "W001", name: "Ntcheu District Warehouse" },
 ]
 
-const USERS: UserDetails[] = Array.from({ length: 57 }, (_, index) => {
-  const firstName = FIRST_NAMES[index % FIRST_NAMES.length] as string
-  // Offset each round of first names, so no two users share a full name.
-  const lastName = LAST_NAMES[
-    (index + Math.floor(index / FIRST_NAMES.length)) % LAST_NAMES.length
-  ] as string
-  const username = `${firstName[0]}${lastName}${index + 1}`.toLowerCase()
-  const email = index % 3 === 0 ? null : `${username}@example.org`
-  // Only an address can be verified, and notifications need a verified one.
-  const verified = email !== null && index % 2 === 0
-  return {
-    id: `user-${index + 1}`,
-    username,
-    firstName,
-    lastName,
-    email,
-    emailVerified: verified,
-    jobTitle: null,
-    phoneNumber: null,
-    active: index % 4 !== 0,
-    homeFacilityId: FACILITIES[index % FACILITIES.length]?.id ?? null,
-    allowNotify: verified,
-    homeFacilityRoleCount: index % 3,
+export const MOCK_USERS: UserDetails[] = Array.from(
+  { length: 57 },
+  (_, index) => {
+    const firstName = FIRST_NAMES[index % FIRST_NAMES.length] as string
+    // Offset each round of first names, so no two users share a full name.
+    const lastName = LAST_NAMES[
+      (index + Math.floor(index / FIRST_NAMES.length)) % LAST_NAMES.length
+    ] as string
+    const username = `${firstName[0]}${lastName}${index + 1}`.toLowerCase()
+    const email = index % 3 === 0 ? null : `${username}@example.org`
+    // Only an address can be verified, and notifications need a verified one.
+    const verified = email !== null && index % 2 === 0
+    return {
+      id: `user-${index + 1}`,
+      username,
+      firstName,
+      lastName,
+      email,
+      emailVerified: verified,
+      jobTitle: null,
+      phoneNumber: null,
+      active: index % 4 !== 0,
+      homeFacilityId:
+        MOCK_FACILITIES[index % MOCK_FACILITIES.length]?.id ?? null,
+      allowNotify: verified,
+      homeFacilityRoleCount: index % 3,
+    }
   }
-})
-
-const DELAY_MS = 450
-
-const wait = () => new Promise<void>((resolve) => setTimeout(resolve, DELAY_MS))
+)
 
 const toRow = ({ id, username, firstName, lastName, email, active }: User) => ({
   id,
@@ -109,15 +106,13 @@ const toRow = ({ id, username, firstName, lastName, email, active }: User) => ({
   active,
 })
 
-export async function fetchUsers(query: UsersQuery): Promise<UsersPage> {
-  await wait()
-
+/** One page of `users` for the list's search, filter, sort and paging. */
+export function queryUsers(
+  users: readonly UserDetails[],
+  query: UsersQuery
+): UsersPage {
   const term = query.search.trim().toLowerCase()
-  if (term === SIMULATED_FAILURE_SEARCH) {
-    throw new Error("The server could not be reached.")
-  }
-
-  const matches = USERS.filter((user) => {
+  const matches = users.filter((user) => {
     const text = `${user.username} ${user.firstName} ${user.lastName} ${user.email ?? ""}`
     const status =
       query.status === "" || user.active === (query.status === "active")
@@ -137,31 +132,14 @@ export async function fetchUsers(query: UsersQuery): Promise<UsersPage> {
   }
 }
 
-export async function fetchUser(userId: string): Promise<UserDetails> {
-  await wait()
-  const user = USERS.find((candidate) => candidate.id === userId)
-  if (!user) throw new Error("This user no longer exists.")
-  return user
-}
-
-export async function fetchFacilities(): Promise<Facility[]> {
-  await wait()
-  return FACILITIES
-}
-
-/** Creates the user, or updates `existing`; resolves to its id, as the dialog expects. */
-export async function saveUser(
+/** The user the form describes, created or updated from `existing`. */
+export function toSavedUser(
   values: UserFormValues,
+  id: string,
   existing?: UserDetails
-): Promise<string> {
-  await wait()
-  const taken = USERS.some(
-    (user) => user.username === values.username && user.id !== existing?.id
-  )
-  if (taken) throw new Error(`Username ${values.username} is already taken.`)
-
-  const saved: UserDetails = {
-    id: existing?.id ?? `user-${USERS.length + 1}`,
+): UserDetails {
+  return {
+    id,
     username: values.username,
     firstName: values.firstName,
     lastName: values.lastName,
@@ -180,19 +158,4 @@ export async function saveUser(
       ? 0
       : (existing?.homeFacilityRoleCount ?? 0),
   }
-  const index = USERS.findIndex((user) => user.id === saved.id)
-  if (index === -1) USERS.push(saved)
-  else USERS[index] = saved
-  return saved.id
-}
-
-export async function sendResetEmail(_email: string): Promise<void> {
-  await wait()
-}
-
-export async function setPassword(
-  _username: string,
-  _password: string
-): Promise<void> {
-  await wait()
 }

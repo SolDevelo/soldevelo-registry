@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "openlmis-search-input",
   "title": "Search Input",
-  "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list refetches once per search rather than on every keystroke.",
+  "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list updates once per search rather than on every keystroke.",
   "dependencies": [
     "lucide-react",
     "@base-ui/react"

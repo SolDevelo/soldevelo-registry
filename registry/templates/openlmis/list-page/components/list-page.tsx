@@ -13,9 +13,7 @@ import { PageBreadcrumbs } from "@/registry/components/openlmis/page-breadcrumbs
 import {
   DataTable,
   DataTableEmpty,
-  DataTableError,
   DataTablePagination,
-  DataTableSkeleton,
   dataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
 import {
@@ -49,19 +47,9 @@ import {
   type UserFormDialogTarget,
 } from "@/registry/blocks/openlmis/user-form-dialog/user-form-dialog"
 
-import {
-  fetchFacilities,
-  fetchUser,
-  saveUser,
-  sendResetEmail,
-  setPassword,
-  type User,
-  type UsersQuery,
-} from "./mock-users"
+import { MOCK_FACILITIES, type User, type UsersQuery } from "./mock-users"
 import { createUserColumns, HIDEABLE_COLUMNS } from "./user-columns"
 import { useUserList } from "./use-user-list"
-
-const NO_USERS: User[] = []
 
 const getRowId = (user: User) => user.id
 
@@ -73,9 +61,17 @@ type OpenDialog =
 /** The whole users list screen; mount it from any route, e.g. the `page.tsx` this template ships. */
 export function ListPage() {
   const list = useUserList()
-  const { query, update, retry: refresh } = list
+  const { query, update, page } = list
   const [dialog, setDialog] = useState<OpenDialog>()
-  const closeDialog = () => setDialog(undefined)
+  const [saveError, setSaveError] = useState<string>()
+  const closeDialog = () => {
+    setDialog(undefined)
+    setSaveError(undefined)
+  }
+  const userTarget = dialog?.kind === "user" ? dialog.target : undefined
+  const passwordTarget = dialog?.kind === "password" ? dialog.target : undefined
+  const findUser = (userId: string | undefined) =>
+    list.users.find((user) => user.id === userId)
   // Stable, so the columns built from them keep their identity between renders.
   const onEdit = useCallback(
     (userId: string) => setDialog({ kind: "user", target: userId }),
@@ -109,9 +105,9 @@ export function ListPage() {
   const table = useTable({
     features: dataTableFeatures,
     columns,
-    data: list.data?.rows ?? NO_USERS,
+    data: page.rows,
     getRowId,
-    rowCount: list.data?.total ?? 0,
+    rowCount: page.total,
     manualPagination: true,
     manualSorting: true,
     enableSortingRemoval: false,
@@ -185,66 +181,60 @@ export function ListPage() {
             </ListToolbarEnd>
           </ListToolbar>
 
-          {list.error ? (
-            <DataTableError
-              description="Check your connection and try again."
-              onRetry={list.retry}
-              title="Could Not Load Users"
-            />
-          ) : list.data === undefined ? (
-            <DataTableSkeleton rowCount={query.pageSize} table={table} />
-          ) : (
-            <DataTable
-              empty={
-                list.isFiltered ? (
-                  <DataTableEmpty
-                    action={
-                      <Button onClick={list.clearFilters} variant="destructive">
-                        Clear Filters
-                      </Button>
-                    }
-                    description="Try a different search or clear the filters."
-                    icon={<SearchXIcon />}
-                    title="No Matching Users"
-                  />
-                ) : (
-                  <DataTableEmpty
-                    description="Users added to OpenLMIS appear here."
-                    icon={<UsersIcon />}
-                    title="No Users Yet"
-                  />
-                )
-              }
-              footer={
-                list.data.total > 0 && <DataTablePagination table={table} />
-              }
-              isStale={list.isStale}
-              table={table}
-            />
-          )}
+          <DataTable
+            empty={
+              list.isFiltered ? (
+                <DataTableEmpty
+                  action={
+                    <Button onClick={list.clearFilters} variant="destructive">
+                      Clear Filters
+                    </Button>
+                  }
+                  description="Try a different search or clear the filters."
+                  icon={<SearchXIcon />}
+                  title="No Matching Users"
+                />
+              ) : (
+                <DataTableEmpty
+                  description="Users added to OpenLMIS appear here."
+                  icon={<UsersIcon />}
+                  title="No Users Yet"
+                />
+              )
+            }
+            footer={page.total > 0 && <DataTablePagination table={table} />}
+            table={table}
+          />
         </div>
       </WorkspaceContent>
 
       <UserFormDialog
-        loadFacilities={fetchFacilities}
-        loadUser={fetchUser}
+        error={saveError}
+        facilities={MOCK_FACILITIES}
         onClose={closeDialog}
-        onCreated={(userId) =>
-          setDialog({ kind: "password", target: { userId, created: true } })
-        }
-        saveUser={async (values, existing) => {
-          const userId = await saveUser(values, existing)
-          refresh()
-          return userId
+        onSubmit={(values, existing) => {
+          const result = list.saveUser(values, existing)
+          if ("error" in result) return setSaveError(result.error)
+          setSaveError(undefined)
+          // A new user has no password yet, so setting one comes next.
+          setDialog(
+            existing
+              ? undefined
+              : {
+                  kind: "password",
+                  target: { userId: result.id, created: true },
+                }
+          )
         }}
-        target={dialog?.kind === "user" ? dialog.target : undefined}
+        target={userTarget}
+        user={userTarget === "new" ? undefined : findUser(userTarget)}
       />
       <ResetPasswordDialog
-        loadUser={fetchUser}
         onClose={closeDialog}
-        sendResetEmail={sendResetEmail}
-        setPassword={setPassword}
-        target={dialog?.kind === "password" ? dialog.target : undefined}
+        // Wire this to your own call that emails a reset link or sets the password.
+        onSubmit={closeDialog}
+        target={passwordTarget}
+        user={findUser(passwordTarget?.userId)}
       />
     </Workspace>
   )

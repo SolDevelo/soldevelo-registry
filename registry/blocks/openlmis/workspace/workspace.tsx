@@ -57,12 +57,26 @@ export function WorkspaceDescription({ children }: WorkspaceProps) {
   )
 }
 
+// Under a stacked header the actions share the full width; beside it they take their own.
 export function WorkspaceActions({ children }: WorkspaceProps) {
   return (
-    <div className="flex shrink-0 flex-wrap items-center gap-2">{children}</div>
+    <div className="flex w-full shrink-0 flex-wrap items-center gap-2 *:flex-1 @2xl/main:w-auto @2xl/main:*:flex-none">
+      {children}
+    </div>
   )
 }
 
 export function WorkspaceContent({ children }: WorkspaceProps) {
   return <div className="flex flex-1 flex-col gap-4 lg:gap-6">{children}</div>
+}
+
+/** Rendered after `Workspace`: full width, stuck to the bottom, its buttons in line with the page. */
+export function WorkspaceFooter({ children }: WorkspaceProps) {
+  return (
+    <div className="sticky bottom-0 z-10 border-t bg-muted/80 backdrop-blur-sm">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-2 px-4 py-3 lg:px-6">
+        {children}
+      </div>
+    </div>
+  )
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { revalidateLogic } from "@tanstack/react-form"
-import { type ReactNode, useState } from "react"
+import type { ReactNode } from "react"
 
 import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import {
@@ -13,11 +13,9 @@ import {
   FormDialogFooter,
   FormDialogForm,
   FormDialogHeader,
-  FormDialogLoadError,
   FormDialogSubmit,
   FormDialogTitle,
 } from "@/registry/components/openlmis/form-dialog/form-dialog"
-import { useDialogData } from "@/registry/components/openlmis/form-dialog/use-dialog-data"
 import { useDialogTarget } from "@/registry/components/openlmis/form-dialog/use-dialog-target"
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
 import {
@@ -38,90 +36,76 @@ export type PasswordDialogTarget = {
 }
 
 export type PasswordUser = {
+  id: string
   username: string
   email: string | null
 }
 
+/** What the user chose: email a reset link, or set this password now. */
+export type PasswordChange =
+  | { method: "email"; email: string }
+  | { method: "manual"; password: string }
+
 type ResetPasswordDialogProps = {
   /** Opens the dialog while set; keep the object's identity while it stays open. */
   target: PasswordDialogTarget | undefined
+  /** The target's user; the form shows a skeleton until it is set. */
+  user?: PasswordUser | undefined
+  /** Called with the choice; carry it out, then clear `target` to close. */
+  onSubmit: (change: PasswordChange, user: PasswordUser) => void
+  /** Keeps the dialog open and shows a spinner while the change is sent. */
+  pending?: boolean
+  /** Shown above the choice, e.g. why the change failed. */
+  error?: ReactNode
   onClose: () => void
-  loadUser: (userId: string) => Promise<PasswordUser>
-  sendResetEmail: (email: string) => Promise<void>
-  setPassword: (username: string, password: string) => Promise<void>
 }
 
 export function ResetPasswordDialog({
   target,
+  user,
+  onSubmit,
+  pending = false,
+  error,
   onClose,
-  loadUser,
-  sendResetEmail,
-  setPassword,
 }: ResetPasswordDialogProps) {
   const { shown, dialogProps } = useDialogTarget(target, onClose)
-  const [saving, setSaving] = useState(false)
+  const title = shown?.created ? "Set Password" : "Reset Password"
 
   return (
-    <FormDialog {...dialogProps(saving)}>
-      {shown && (
-        <LoadedPasswordForm
-          key={shown.userId}
-          loadUser={loadUser}
-          onDone={onClose}
-          onSavingChange={setSaving}
-          sendResetEmail={sendResetEmail}
-          setPassword={setPassword}
-          target={shown}
-        />
-      )}
+    <FormDialog {...dialogProps(pending)}>
+      {shown &&
+        (user?.id === shown.userId ? (
+          <PasswordForm
+            error={error}
+            key={user.id}
+            onSubmit={onSubmit}
+            pending={pending}
+            target={shown}
+            title={title}
+            user={user}
+          />
+        ) : (
+          <PasswordFormSkeleton title={title} />
+        ))}
     </FormDialog>
   )
-}
-
-type PasswordFormProps = Omit<
-  ResetPasswordDialogProps,
-  "target" | "onClose"
-> & {
-  target: PasswordDialogTarget
-  onDone: () => void
-  onSavingChange: (saving: boolean) => void
-}
-
-function LoadedPasswordForm({ loadUser, ...props }: PasswordFormProps) {
-  const title = props.target.created ? "Set Password" : "Reset Password"
-  const user = useDialogData(`user:${props.target.userId}`, () =>
-    loadUser(props.target.userId)
-  )
-
-  if (user.error) {
-    return (
-      <FormDialogLoadError
-        errorTitle="Could Not Load User"
-        onRetry={user.retry}
-        title={title}
-      />
-    )
-  }
-  if (!user.data) return <PasswordFormSkeleton title={title} />
-  return <PasswordForm {...props} title={title} user={user.data} />
 }
 
 function PasswordForm({
   target,
   title,
   user,
-  sendResetEmail,
-  setPassword,
-  onSavingChange,
-  onDone,
-}: Omit<PasswordFormProps, "loadUser"> & {
+  onSubmit,
+  pending,
+  error,
+}: Pick<ResetPasswordDialogProps, "onSubmit" | "error"> & {
+  target: PasswordDialogTarget
   title: string
   user: PasswordUser
+  pending: boolean
 }) {
   const { username } = user
   const email = resetEmail(user.email)
-  const [saveError, setSaveError] = useState<unknown>()
-  const [saving, setSaving] = useState(false)
 
   const form = useAppForm({
     defaultValues: defaultPasswordForm(email),
@@ -130,21 +114,13 @@ function PasswordForm({
       modeAfterSubmission: "change",
     }),
     validators: { onDynamic: passwordFormSchema },
-    onSubmit: async ({ value }) => {
-      setSaveError(undefined)
-      setSaving(true)
-      onSavingChange(true)
-      try {
-        if (value.method === "email" && email) await sendResetEmail(email)
-        else await setPassword(username, value.password)
-        onDone()
-      } catch (error) {
-        setSaveError(error)
-      } finally {
-        setSaving(false)
-        onSavingChange(false)
-      }
-    },
+    onSubmit: ({ value }) =>
+      onSubmit(
+        value.method === "email" && email
+          ? { method: "email", email }
+          : { method: "manual", password: value.password },
+        user
+      ),
   })
 
   const description = target.created
@@ -162,13 +138,9 @@ function PasswordForm({
       </PasswordDialogHeader>
       <FormDialogBody>
         <FieldGroup>
-          {saveError !== undefined && (
+          {error && (
             <FormDialogError
-              description={
-                saveError instanceof Error && saveError.message
-                  ? saveError.message
-                  : "Something went wrong. Check your connection and try again."
-              }
+              description={error}
               title="Could Not Reset Password"
             />
           )}
@@ -213,10 +185,10 @@ function PasswordForm({
         </FieldGroup>
       </FormDialogBody>
       <FormDialogFooter>
-        <FormDialogCancel disabled={saving} />
+        <FormDialogCancel disabled={pending} />
         <form.Subscribe selector={(state) => state.values.method}>
           {(method) => (
-            <FormDialogSubmit pending={saving}>
+            <FormDialogSubmit pending={pending}>
               {method === "email" ? "Send Email" : "Set Password"}
             </FormDialogSubmit>
           )}

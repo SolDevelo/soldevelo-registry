@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-discard-changes-dialog",
+  "title": "Discard Changes Dialog",
+  "description": "Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "alert-dialog",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/discard-changes-dialog/discard-changes-dialog.tsx",
+      "content": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport {\n  AlertDialog,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n} from \"@/components/ui/alert-dialog\"\nimport { Button } from \"@/components/ui/button\"\n\ntype DiscardChangesDialogProps = {\n  open: boolean\n  /** How many unsaved changes would be lost. */\n  changes: number\n  /** Whose changes, e.g. the user being edited; left out of the sentence when missing. */\n  subject?: string\n  /** What discarding leads to, e.g. \"Discard and Sign Out\". */\n  confirmLabel?: ReactNode\n  keepEditingLabel?: ReactNode\n  onKeepEditing: () => void\n  onDiscard: () => void\n}\n\n/** Asked before leaving a page with unsaved changes; Escape and Keep Editing both stay. */\nexport function DiscardChangesDialog({\n  open,\n  changes,\n  subject,\n  confirmLabel = \"Discard Changes\",\n  keepEditingLabel = \"Keep Editing\",\n  onKeepEditing,\n  onDiscard,\n}: DiscardChangesDialogProps) {\n  const counted =\n    changes === 1 ? \"1 unsaved change\" : `${changes} unsaved changes`\n\n  return (\n    <AlertDialog onOpenChange={(next) => !next && onKeepEditing()} open={open}>\n      <AlertDialogContent>\n        <AlertDialogHeader>\n          <AlertDialogTitle>Discard Unsaved Changes?</AlertDialogTitle>\n          <AlertDialogDescription>\n            {subject\n              ? `You have ${counted} to ${subject}. Leaving now loses them.`\n              : `You have ${counted}. Leaving now loses them.`}\n          </AlertDialogDescription>\n        </AlertDialogHeader>\n        <AlertDialogFooter>\n          <AlertDialogCancel>{keepEditingLabel}</AlertDialogCancel>\n          <Button onClick={onDiscard} variant=\"destructive\">\n            {confirmLabel}\n          </Button>\n        </AlertDialogFooter>\n      </AlertDialogContent>\n    </AlertDialog>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/discard-changes-dialog.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "288px"
+  },
+  "categories": [
+    "overlay",
+    "forms"
+  ],
+  "type": "registry:component"
+}

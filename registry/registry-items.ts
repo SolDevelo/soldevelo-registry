@@ -34,7 +34,7 @@ export const registryItems: RegistryItem[] = [
     title: "Search Input",
     type: "registry:component",
     description:
-      "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list refetches once per search rather than on every keystroke.",
+      "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list updates once per search rather than on every keystroke.",
     dependencies: ["lucide-react"],
     registryDependencies: ["input-group"],
     files: [
@@ -89,7 +89,7 @@ export const registryItems: RegistryItem[] = [
     title: "Status Badge",
     type: "registry:component",
     description:
-      "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+      "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
     dependencies: ["lucide-react"],
     registryDependencies: ["utils"],
     files: [
@@ -172,13 +172,60 @@ export const registryItems: RegistryItem[] = [
         path: "components/openlmis/form-dialog/use-dialog-target.ts",
         type: "registry:hook",
       },
-      {
-        path: "components/openlmis/form-dialog/use-dialog-data.ts",
-        type: "registry:hook",
-      },
     ],
     categories: ["forms", "overlay"],
     meta: { project: "openlmis", height: "416px" },
+  },
+  {
+    name: "openlmis-dashboard-card",
+    title: "Dashboard Card",
+    type: "registry:component",
+    description:
+      "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["badge", "button", "card", "skeleton"],
+    files: [
+      {
+        path: "components/openlmis/dashboard-card/dashboard-card.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["dashboard", "layout"],
+    meta: { project: "openlmis", height: "254px" },
+  },
+  {
+    name: "openlmis-stat-strip",
+    title: "Stat Strip",
+    type: "registry:component",
+    description:
+      "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
+    dependencies: [],
+    registryDependencies: ["skeleton", "utils"],
+    files: [
+      {
+        path: "components/openlmis/stat-strip/stat-strip.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["dashboard", "data-display"],
+    meta: { project: "openlmis", height: "152px" },
+  },
+  {
+    name: "openlmis-discard-changes-dialog",
+    title: "Discard Changes Dialog",
+    type: "registry:component",
+    description:
+      "Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.",
+    dependencies: [],
+    registryDependencies: ["alert-dialog", "button"],
+    files: [
+      {
+        path: "components/openlmis/discard-changes-dialog/discard-changes-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["overlay", "forms"],
+    meta: { project: "openlmis", height: "288px" },
   },
   // -- Blocks -----------------------------------------------------------------
   {
@@ -207,7 +254,7 @@ export const registryItems: RegistryItem[] = [
     title: "Workspace",
     type: "registry:block",
     description:
-      "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions, and a content area, with the same padding and heading scale on every page.",
+      "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.",
     dependencies: [],
     registryDependencies: [],
     files: [
@@ -241,7 +288,7 @@ export const registryItems: RegistryItem[] = [
     title: "User Form Dialog",
     type: "registry:block",
     description:
-      "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes, with a skeleton while the user loads.",
+      "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes. It takes the user, facilities and save state as props.",
     dependencies: ["@tanstack/react-form@^1", "zod@^4"],
     registryDependencies: ["badge", "button", "field"],
     files: [
@@ -278,6 +325,154 @@ export const registryItems: RegistryItem[] = [
     categories: ["forms", "overlay", "users"],
     meta: { project: "openlmis", height: "448px" },
   },
+  {
+    name: "openlmis-requisitions-by-period",
+    title: "Requisitions By Period",
+    type: "registry:block",
+    description:
+      "Stacked bar chart of sent requisitions over the latest six months, in progress against approved, grouped by the month their period starts, with two-line month ticks, totals on each bar and a table for screen readers.",
+    dependencies: ["lucide-react", "recharts"],
+    registryDependencies: ["chart", "empty", "skeleton"],
+    files: [
+      {
+        path: "blocks/openlmis/requisitions-by-period/requisitions-by-period.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/requisitions-by-period/periods.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["dashboard", "charts", "requisitions"],
+    meta: { project: "openlmis", height: "414px" },
+  },
+  {
+    name: "openlmis-requisition-status-meter",
+    title: "Requisition Status Meter",
+    type: "registry:block",
+    description:
+      "Where sent requisitions stand, from submitted to released, as one segmented bar in the chart ramp with a legend of counts and shares.",
+    dependencies: ["recharts"],
+    registryDependencies: ["chart", "skeleton"],
+    files: [
+      {
+        path: "blocks/openlmis/requisition-status-meter/requisition-status-meter.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["dashboard", "charts", "requisitions"],
+    meta: { project: "openlmis", height: "310px" },
+  },
+  {
+    name: "openlmis-equipment-status",
+    title: "Equipment Status",
+    type: "registry:block",
+    description:
+      "Cold chain equipment by functional status, each with its own icon, count and meter in a success, warning or destructive tone, so the state reads without relying on colour.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["skeleton", "utils"],
+    files: [
+      {
+        path: "blocks/openlmis/equipment-status/equipment-status.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["dashboard", "cold-chain"],
+    meta: { project: "openlmis", height: "314px" },
+  },
+  {
+    name: "openlmis-approvals-table",
+    title: "Approvals Table",
+    type: "registry:block",
+    description:
+      "Requisitions waiting on the user, emergencies flagged: a table when the card has room and two lines per requisition on a narrow card, with loading, empty and error states.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["badge", "empty", "skeleton", "table"],
+    files: [
+      {
+        path: "blocks/openlmis/approvals-table/approvals-table.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["dashboard", "requisitions"],
+    meta: { project: "openlmis", height: "357px" },
+  },
+  {
+    name: "openlmis-role-assignments-table",
+    title: "Role Assignments Table",
+    type: "registry:block",
+    description:
+      "One role type's assignments for a user: search, sort and paging in the browser, program and supervisory node or facility columns that fold under the role when narrow, Unsaved and Ignored badges, names that show a placeholder until they load, and View Rights and Remove row actions.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
+    registryDependencies: ["button", "dropdown-menu", "skeleton"],
+    files: [
+      {
+        path: "blocks/openlmis/role-assignments-table/role-assignments-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/role-assignments-table/role-assignments.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["data-table", "users", "roles"],
+    meta: { project: "openlmis", height: "403px" },
+  },
+  {
+    name: "openlmis-add-role-dialog",
+    title: "Add Role Dialog",
+    type: "registry:block",
+    description:
+      "Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react", "zod@^4"],
+    registryDependencies: ["alert", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/add-role-dialog/add-role-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/add-role-dialog/role-form.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "roles"],
+    meta: { project: "openlmis", height: "528px" },
+  },
+  {
+    name: "openlmis-import-roles-dialog",
+    title: "Import Roles Dialog",
+    type: "registry:block",
+    description:
+      "Dialog that copies another user's roles into the ones being edited, with a searchable list of users and a preview of how many roles are new before anything is added.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["field"],
+    files: [
+      {
+        path: "blocks/openlmis/import-roles-dialog/import-roles-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "roles"],
+    meta: { project: "openlmis", height: "384px" },
+  },
+  {
+    name: "openlmis-role-rights-dialog",
+    title: "Role Rights Dialog",
+    type: "registry:block",
+    description:
+      "Dialog listing what a role lets its holder do, each right named in words, scrolling inside the viewport when the list is long.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "dialog"],
+    files: [
+      {
+        path: "blocks/openlmis/role-rights-dialog/role-rights-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["overlay", "roles"],
+    meta: { project: "openlmis", height: "384px" },
+  },
 
   // -- Templates --------------------------------------------------------------
   {
@@ -285,7 +480,7 @@ export const registryItems: RegistryItem[] = [
     title: "List Page",
     type: "registry:page",
     description:
-      "Complete server-paged list screen, shown with OpenLMIS users on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, loading, empty, no-matches and error states, and row actions that open Edit User and Reset Password dialogs.",
+      "Complete users list screen on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, empty and no-matches states, and row actions that open Edit User and Reset Password, with Add User going on to Set Password.",
     dependencies: ["@tanstack/react-table@^9", "lucide-react"],
     registryDependencies: ["button", "dropdown-menu"],
     files: [
@@ -314,5 +509,86 @@ export const registryItems: RegistryItem[] = [
     ],
     categories: ["data-table", "users"],
     meta: { project: "openlmis", height: "783px" },
+  },
+  {
+    name: "openlmis-home-dashboard",
+    title: "Home Dashboard",
+    type: "registry:page",
+    description:
+      "OpenLMIS home screen on mock data: a greeting with what is waiting, Add User, system notices, a stat strip, requisitions by period and by status, cold chain equipment and the approvals queue, each shown only when the user's rights allow.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["alert", "button", "empty"],
+    files: [
+      {
+        path: "templates/openlmis/home-dashboard/page.tsx",
+        type: "registry:page",
+        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
+        target: "app/home-dashboard/page.tsx",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/components/home-dashboard.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/components/mock-dashboard.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["dashboard"],
+    meta: { project: "openlmis", height: "1024px" },
+  },
+  {
+    name: "openlmis-user-roles-page",
+    title: "User Roles Page",
+    type: "registry:page",
+    description:
+      "Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["alert", "badge", "button", "tabs"],
+    files: [
+      {
+        path: "templates/openlmis/user-roles-page/page.tsx",
+        type: "registry:page",
+        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
+        target: "app/user-roles-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/user-roles-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/mock-roles.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/use-role-draft.ts",
+        type: "registry:hook",
+      },
+    ],
+    categories: ["users", "roles"],
+    meta: { project: "openlmis", height: "561px" },
+  },
+  {
+    name: "openlmis-not-found-page",
+    title: "Not Found Page",
+    type: "registry:page",
+    description:
+      "A 404 page that shows the address that was asked for, with Go Back and Back Home, ready to render inside an app shell so the navigation stays.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "empty"],
+    files: [
+      {
+        path: "templates/openlmis/not-found-page/page.tsx",
+        type: "registry:page",
+        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
+        target: "app/not-found-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/not-found-page/components/not-found-page.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["errors", "navigation"],
+    meta: { project: "openlmis", height: "278px" },
   },
 ]
