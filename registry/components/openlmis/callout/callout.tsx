@@ -50,7 +50,8 @@ export function Callout({ tone, title, children, action }: CalloutProps) {
         "flex w-full items-start gap-2 rounded-lg border px-2.5 py-2 text-sm",
         className
       )}
-      role="status"
+      // Like the stock Alert, so a callout that appears after an action is announced.
+      role="alert"
     >
       <Icon
         aria-hidden="true"
