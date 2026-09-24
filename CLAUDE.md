@@ -56,6 +56,9 @@ installed. Never edit a skill's files by hand; reinstall instead.
 
 Installed: `shadcn`, `vercel-react-best-practices`, `vercel-composition-patterns`.
 
+Authored here: `port-to-registry`, the workflow for porting UI a project shipped
+into the registry. It is not in `skills-lock.json`, so edit it in place.
+
 ## Registry pipeline
 
 ```
@@ -260,8 +263,8 @@ or two sentences. Hyphens in compound words are fine. The only exception is the
   `text-destructive`), never `bg-pink-500` or a hex literal. Declare
   `--color-<name>` in `app/globals.css` for anything genuinely new. Brand marks
   (package-manager logos, the OG card) are exempt in `.oxlintrc.json`.
-- **State tokens**: `success`, `warning`, `info`, each with a `-foreground`
-  pair, alongside `destructive`. Use them for status meaning rather than
+- **State tokens**: `success`, `warning`, `info` and `destructive`, each with a
+  `-foreground` pair. Use them for status meaning rather than
   reaching for a palette green or amber. They are defined in `app/globals.css`
   and mirrored in `registry/tokens.ts`. See below.
 - **No manual `dark:` colour overrides.** The tokens already handle both.
@@ -292,11 +295,13 @@ would paint a permanent scrollbar in every preview iframe.
 
 ### Shipping tokens with an item
 
-A consumer's shadcn theme has no `--success`/`--warning`/`--info`, so an item
-that uses one must carry it or it installs unstyled. `registry/tokens.ts`
-detects which state tokens an item's source references and the build attaches
-them as `cssVars`. That is additive, filling gaps without overwriting the
-consumer's own theme, and it is derived from the source, so it cannot drift.
+A consumer's shadcn theme has no `--success`/`--warning`/`--info`, and newer
+ones no `--destructive-foreground`, so an item that uses one would install
+unstyled. The build attaches the whole set in `registry/tokens.ts` (the four
+state colours and their foregrounds, light and dark) to **every** item as
+`cssVars`, so one install is enough for any block, and for the consumer's own
+code, to use `text-warning` and the rest. The CLI applies them additively,
+keeping a value the consumer already has, and maps each into `@theme inline`.
 Add a token to both `registry/tokens.ts` and `app/globals.css`.
 
 ## SEO

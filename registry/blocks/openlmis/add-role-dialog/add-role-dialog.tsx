@@ -1,10 +1,8 @@
 "use client"
 
 import { revalidateLogic } from "@tanstack/react-form"
-import { TriangleAlertIcon } from "lucide-react"
 import { useMemo } from "react"
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { FieldGroup } from "@/components/ui/field"
 import {
   type Facility,
@@ -27,6 +25,7 @@ import {
   FormDialogSubmit,
   FormDialogTitle,
 } from "@/registry/components/openlmis/form-dialog/form-dialog"
+import { Callout } from "@/registry/components/openlmis/callout/callout"
 import { useDialogTarget } from "@/registry/components/openlmis/form-dialog/use-dialog-target"
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
 import {
@@ -197,15 +196,11 @@ function AddRoleForm({
             >
               {(nodeId) =>
                 !nodeId && (
-                  <Alert>
-                    <TriangleAlertIcon />
-                    <AlertTitle>No Home Facility</AlertTitle>
-                    <AlertDescription>
-                      Without a supervisory node this role applies at the home
-                      facility, and {username} has none, so it grants nothing
-                      until one is set.
-                    </AlertDescription>
-                  </Alert>
+                  <Callout title="No Home Facility" tone="warning">
+                    Without a supervisory node this role applies at the home
+                    facility, and {username} has none, so it grants nothing
+                    until one is set.
+                  </Callout>
                 )
               }
             </form.Subscribe>

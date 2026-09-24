@@ -227,6 +227,23 @@ export const registryItems: RegistryItem[] = [
     categories: ["overlay", "forms"],
     meta: { project: "openlmis", height: "288px" },
   },
+  {
+    name: "openlmis-callout",
+    title: "Callout",
+    type: "registry:component",
+    description:
+      "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/openlmis/callout/callout.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["feedback"],
+    meta: { project: "openlmis", height: "308px" },
+  },
   // -- Blocks -----------------------------------------------------------------
   {
     name: "openlmis-data-table",
@@ -424,8 +441,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:block",
     description:
       "Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react", "zod@^4"],
-    registryDependencies: ["alert", "field"],
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["field"],
     files: [
       {
         path: "blocks/openlmis/add-role-dialog/add-role-dialog.tsx",
@@ -544,7 +561,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["alert", "badge", "button", "tabs"],
+    registryDependencies: ["badge", "button", "tabs"],
     files: [
       {
         path: "templates/openlmis/user-roles-page/page.tsx",

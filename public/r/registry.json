@@ -31,7 +31,29 @@
         "navigation",
         "data-table"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-search-input",
@@ -64,7 +86,29 @@
         "forms",
         "data-table"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-select-filter",
@@ -93,7 +137,29 @@
         "forms",
         "data-table"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-column-view-options",
@@ -122,7 +188,29 @@
         "data-table"
       ],
       "type": "registry:component",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-status-badge",
@@ -151,14 +239,24 @@
       "type": "registry:component",
       "cssVars": {
         "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
           "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
           "warning": "oklch(0.666 0.179 58.318)",
-          "info": "oklch(0.55 0.13 237)"
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
         },
         "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
           "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
           "warning": "oklch(0.769 0.188 70.08)",
-          "info": "oklch(0.7 0.14 237)"
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
         }
       }
     },
@@ -187,7 +285,29 @@
         "navigation"
       ],
       "type": "registry:component",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-form-fields",
@@ -237,7 +357,29 @@
         "forms"
       ],
       "type": "registry:component",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-form-dialog",
@@ -275,7 +417,29 @@
         "overlay"
       ],
       "type": "registry:component",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-dashboard-card",
@@ -306,7 +470,29 @@
         "dashboard",
         "layout"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-stat-strip",
@@ -335,7 +521,29 @@
         "dashboard",
         "data-display"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-discard-changes-dialog",
@@ -363,7 +571,77 @@
         "overlay",
         "forms"
       ],
-      "type": "registry:component"
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-callout",
+      "title": "Callout",
+      "description": "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/callout/callout.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/callout.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "308px"
+      },
+      "categories": [
+        "feedback"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-data-table",
@@ -400,7 +678,29 @@
       "categories": [
         "data-table"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-workspace",
@@ -426,7 +726,29 @@
       "categories": [
         "layout"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-list-toolbar",
@@ -455,7 +777,29 @@
         "layout",
         "data-table"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-user-form-dialog",
@@ -495,7 +839,29 @@
         "overlay",
         "users"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-reset-password-dialog",
@@ -532,7 +898,29 @@
         "overlay",
         "users"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-requisitions-by-period",
@@ -570,7 +958,29 @@
         "charts",
         "requisitions"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-requisition-status-meter",
@@ -601,7 +1011,29 @@
         "charts",
         "requisitions"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-equipment-status",
@@ -634,12 +1066,24 @@
       "type": "registry:block",
       "cssVars": {
         "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
           "success": "oklch(0.596 0.145 163.225)",
-          "warning": "oklch(0.666 0.179 58.318)"
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
         },
         "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
           "success": "oklch(0.696 0.17 162.48)",
-          "warning": "oklch(0.769 0.188 70.08)"
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
         }
       }
     },
@@ -673,7 +1117,29 @@
         "dashboard",
         "requisitions"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-role-assignments-table",
@@ -714,7 +1180,29 @@
         "roles"
       ],
       "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-add-role-dialog",
@@ -722,13 +1210,12 @@
       "description": "Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.",
       "dependencies": [
         "@tanstack/react-form@^1",
-        "lucide-react",
         "zod@^4",
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "alert",
         "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
@@ -754,7 +1241,29 @@
         "overlay",
         "roles"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-import-roles-dialog",
@@ -787,7 +1296,29 @@
         "overlay",
         "roles"
       ],
-      "type": "registry:block"
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-role-rights-dialog",
@@ -822,10 +1353,24 @@
       "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
-          "success": "oklch(0.596 0.145 163.225)"
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
         },
         "dark": {
-          "success": "oklch(0.696 0.17 162.48)"
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
         }
       }
     },
@@ -888,7 +1433,29 @@
         "users"
       ],
       "type": "registry:page",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-home-dashboard",
@@ -934,7 +1501,29 @@
       "categories": [
         "dashboard"
       ],
-      "type": "registry:page"
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-user-roles-page",
@@ -945,11 +1534,11 @@
         "@base-ui/react"
       ],
       "registryDependencies": [
-        "alert",
         "badge",
         "button",
         "tabs",
         "https://registry.soldevelo.com/r/openlmis-add-role-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-import-roles-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
@@ -987,7 +1576,29 @@
         "users",
         "roles"
       ],
-      "type": "registry:page"
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     },
     {
       "name": "openlmis-not-found-page",
@@ -1022,7 +1633,29 @@
         "navigation"
       ],
       "type": "registry:page",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses."
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     }
   ]
 }
