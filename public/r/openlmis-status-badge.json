@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "openlmis-status-badge",
   "title": "Status Badge",
-  "description": "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+  "description": "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
   "dependencies": [
     "lucide-react"
   ],
@@ -12,17 +12,21 @@
   "files": [
     {
       "path": "registry/components/openlmis/status-badge/status-badge.tsx",
-      "content": "import { CheckIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONES = {\n  success: { className: \"bg-success/10 text-success\", icon: CheckIcon },\n  destructive: { className: \"bg-destructive/10 text-destructive\", icon: XIcon },\n} as const\n\n/** A yes-or-no state told apart by colour and icon; its own element, as stock Badge has no success tone. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const { className, icon: Icon } = TONES[tone]\n\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        className\n      )}\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
+      "content": "import { CheckIcon, InfoIcon, TriangleAlertIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"warning\" | \"info\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONES = {\n  success: { className: \"bg-success/10 text-success\", icon: CheckIcon },\n  warning: { className: \"bg-warning/10 text-warning\", icon: TriangleAlertIcon },\n  info: { className: \"bg-info/10 text-info\", icon: InfoIcon },\n  destructive: { className: \"bg-destructive/10 text-destructive\", icon: XIcon },\n} as const\n\n/** A state told apart by colour and icon; its own element, as stock Badge has no success, warning or info tone. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const { className, icon: Icon } = TONES[tone]\n\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        className\n      )}\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
       "type": "registry:component",
       "target": "components/openlmis/status-badge.tsx"
     }
   ],
   "cssVars": {
     "light": {
-      "success": "oklch(0.596 0.145 163.225)"
+      "success": "oklch(0.596 0.145 163.225)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "info": "oklch(0.55 0.13 237)"
     },
     "dark": {
-      "success": "oklch(0.696 0.17 162.48)"
+      "success": "oklch(0.696 0.17 162.48)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "info": "oklch(0.7 0.14 237)"
     }
   },
   "meta": {

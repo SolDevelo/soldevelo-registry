@@ -1,8 +1,18 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo, useState } from "react"
 
-import { fetchUsers, type UsersPage, type UsersQuery } from "./mock-users"
+import type {
+  UserDetails,
+  UserFormValues,
+} from "@/registry/blocks/openlmis/user-form-dialog/user-form"
+
+import {
+  MOCK_USERS,
+  queryUsers,
+  toSavedUser,
+  type UsersQuery,
+} from "./mock-users"
 
 const INITIAL_QUERY: UsersQuery = {
   pageIndex: 0,
@@ -13,74 +23,48 @@ const INITIAL_QUERY: UsersQuery = {
   status: "",
 }
 
-// Each answer records the request it belongs to, so loading is derived rather than stored.
-type ListResult = {
-  key: string | undefined
-  query: UsersQuery | undefined
-  data: UsersPage | undefined
-  error: Error | undefined
-}
-
-/** List state and its data in plain React; swap in URL search params or React Query as needed. */
+/** The list's users and state in plain React; swap `users` for your own data and `saveUser` for your save. */
 export function useUserList() {
+  const [users, setUsers] = useState(MOCK_USERS)
   const [query, setQuery] = useState(INITIAL_QUERY)
-  const [attempt, setAttempt] = useState(0)
-  const [result, setResult] = useState<ListResult>({
-    key: undefined,
-    query: undefined,
-    data: undefined,
-    error: undefined,
-  })
-  const key = `${JSON.stringify(query)}#${attempt}`
-
-  useEffect(() => {
-    let current = true
-
-    const load = async () => {
-      try {
-        const data = await fetchUsers(query)
-        if (current) setResult({ key, query, data, error: undefined })
-      } catch (error) {
-        if (current) {
-          setResult({ key, query, data: undefined, error: error as Error })
-        }
-      }
-    }
-    void load()
-
-    // A newer request supersedes this one, so its late answer is ignored.
-    return () => {
-      current = false
-    }
-  }, [key, query])
-
-  const isLoading = result.key !== key
+  const page = useMemo(() => queryUsers(users, query), [users, query])
 
   /** A filter or sort starts again from the first page; paging keeps the rest. */
   const update = (patch: Partial<UsersQuery>) =>
-    setQuery((previous) => {
-      const next = {
-        ...previous,
-        ...patch,
-        pageIndex: "pageIndex" in patch ? (patch.pageIndex ?? 0) : 0,
-      }
-      // An update that changes nothing keeps the same query, so it fetches nothing.
-      const changed = (Object.keys(next) as (keyof UsersQuery)[]).some(
-        (field) => next[field] !== previous[field]
-      )
-      return changed ? next : previous
-    })
+    setQuery((previous) => ({
+      ...previous,
+      ...patch,
+      pageIndex: "pageIndex" in patch ? (patch.pageIndex ?? 0) : 0,
+    }))
+
+  /** Creates the user, or updates `existing`; returns its id, or why it could not be saved. */
+  const saveUser = (
+    values: UserFormValues,
+    existing?: UserDetails
+  ): { id: string } | { error: string } => {
+    const taken = users.some(
+      (user) => user.username === values.username && user.id !== existing?.id
+    )
+    if (taken) return { error: `Username ${values.username} is already taken.` }
+
+    const id = existing?.id ?? `user-${users.length + 1}`
+    const saved = toSavedUser(values, id, existing)
+    setUsers((current) =>
+      existing
+        ? current.map((user) => (user.id === id ? saved : user))
+        : [...current, saved]
+    )
+    return { id }
+  }
 
   return {
     query,
     update,
-    data: result.data,
-    /** Whether the rows on screen came from a filtered request, which picks the empty state. */
-    isFiltered: Boolean(result.query?.search || result.query?.status),
-    error: isLoading ? undefined : result.error,
-    /** Rows are on screen from an earlier request while the next one loads. */
-    isStale: isLoading && result.data !== undefined,
-    retry: () => setAttempt((count) => count + 1),
+    page,
+    users,
+    saveUser,
+    /** Whether the rows come from a search or filter, which picks the empty state. */
+    isFiltered: Boolean(query.search || query.status),
     clearFilters: () => update({ search: "", status: "" }),
   }
 }

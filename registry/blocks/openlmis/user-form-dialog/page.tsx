@@ -29,15 +29,16 @@ const USER: UserDetails = {
   homeFacilityRoleCount: 3,
 }
 
-// Stand-ins for your API, with a delay so the loading states show.
-const wait = (ms: number) =>
-  new Promise<void>((resolve) => setTimeout(resolve, ms))
-
 export default function Page() {
   // Open on load, so the catalog shows the dialog rather than its triggers.
   const [target, setTarget] = useState<UserFormDialogTarget | undefined>(
     USER.id
   )
+  const [error, setError] = useState<string>()
+  const close = () => {
+    setTarget(undefined)
+    setError(undefined)
+  }
 
   return (
     // Tall enough for the open dialog, which is fixed and so adds nothing to the frame's height.
@@ -47,23 +48,19 @@ export default function Page() {
         Edit User
       </Button>
       <UserFormDialog
-        loadFacilities={async () => {
-          await wait(600)
-          return FACILITIES
-        }}
-        loadUser={async () => {
-          await wait(400)
-          return USER
-        }}
-        onClose={() => setTarget(undefined)}
-        saveUser={async (values) => {
-          await wait(800)
-          // The OpenLMIS server refuses a taken username; try "administrator" to see it.
-          if (values.username === "administrator")
-            throw new Error("Username administrator is already taken.")
-          return USER.id
+        error={error}
+        facilities={FACILITIES}
+        onClose={close}
+        onSubmit={(values) => {
+          // Stands in for a save; a taken username shows how an error reads.
+          if (values.username === "administrator") {
+            setError("Username administrator is already taken.")
+            return
+          }
+          close()
         }}
         target={target}
+        user={USER}
       />
     </div>
   )

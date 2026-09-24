@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-requisition-status-meter",
+  "title": "Requisition Status Meter",
+  "description": "Where sent requisitions stand, from submitted to released, as one segmented bar in the chart ramp with a legend of counts and shares.",
+  "dependencies": [
+    "recharts",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "chart",
+    "skeleton",
+    "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/requisition-status-meter/requisition-status-meter.tsx",
+      "content": "\"use client\"\n\nimport { Bar, BarChart, XAxis, YAxis } from \"recharts\"\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\"\nimport { Skeleton } from \"@/components/ui/skeleton\"\nimport {\n  DashboardCard,\n  DashboardCardCount,\n  DashboardCardError,\n  formatCount,\n} from \"@/components/openlmis/dashboard-card\"\n\n/** A sent requisition's steps, in the order it takes them. */\nexport const REQUISITION_PIPELINE = [\n  \"SUBMITTED\",\n  \"AUTHORIZED\",\n  \"IN_APPROVAL\",\n  \"APPROVED\",\n  \"RELEASED\",\n] as const\n\nexport type PipelineStatus = (typeof REQUISITION_PIPELINE)[number]\n\n/** One step of the chart ramp per status, lightest first, so the order of the pipeline reads in the colour. */\nconst STATUSES = {\n  SUBMITTED: { label: \"Submitted\", fill: \"var(--chart-1)\", dot: \"bg-chart-1\" },\n  AUTHORIZED: {\n    label: \"Authorized\",\n    fill: \"var(--chart-2)\",\n    dot: \"bg-chart-2\",\n  },\n  IN_APPROVAL: {\n    label: \"In Approval\",\n    fill: \"var(--chart-3)\",\n    dot: \"bg-chart-3\",\n  },\n  APPROVED: { label: \"Approved\", fill: \"var(--chart-4)\", dot: \"bg-chart-4\" },\n  RELEASED: { label: \"Released\", fill: \"var(--chart-5)\", dot: \"bg-chart-5\" },\n} as const satisfies Record<\n  PipelineStatus,\n  { label: string; fill: string; dot: string }\n>\n\nconst config = Object.fromEntries(\n  REQUISITION_PIPELINE.map((status) => [\n    status,\n    { label: STATUSES[status].label, color: STATUSES[status].fill },\n  ])\n) satisfies ChartConfig\n\ntype RequisitionStatusMeterProps = {\n  /** How many requisitions stand at each step; a placeholder shows until it is set. */\n  counts: Record<PipelineStatus, number> | undefined\n  failed?: boolean\n  onRetry?: () => void\n  /** Fills the meter from the right on a right-to-left page. */\n  dir?: \"ltr\" | \"rtl\"\n}\n\n/** Where sent requisitions stand, from submitted to released, as one segmented bar with a legend. */\nexport function RequisitionStatusMeter({\n  counts,\n  failed = false,\n  onRetry,\n  dir = \"ltr\",\n}: RequisitionStatusMeterProps) {\n  const total = counts\n    ? REQUISITION_PIPELINE.reduce((sum, status) => sum + counts[status], 0)\n    : undefined\n\n  return (\n    <DashboardCard\n      badge={<DashboardCardCount failed={failed} value={total} />}\n      description=\"Where sent requisitions stand today.\"\n      title=\"Requisitions By Status\"\n    >\n      {failed && onRetry ? (\n        <DashboardCardError onRetry={onRetry} />\n      ) : counts === undefined || total === undefined ? (\n        <Skeleton className=\"h-36 w-full\" />\n      ) : (\n        <StatusMeter counts={counts} dir={dir} total={total} />\n      )}\n    </DashboardCard>\n  )\n}\n\nfunction StatusMeter({\n  counts,\n  total,\n  dir,\n}: {\n  counts: Record<PipelineStatus, number>\n  total: number\n  dir: \"ltr\" | \"rtl\"\n}) {\n  const share = (count: number) =>\n    total === 0 ? 0 : Math.round((count / total) * 100)\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ChartContainer className=\"aspect-auto h-3 w-full\" config={config}>\n        <BarChart\n          accessibilityLayer\n          barCategoryGap={0}\n          data={[counts]}\n          layout=\"vertical\"\n          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}\n        >\n          <XAxis\n            domain={[0, Math.max(total, 1)]}\n            hide\n            reversed={dir === \"rtl\"}\n            type=\"number\"\n          />\n          <YAxis hide type=\"category\" />\n          <ChartTooltip\n            content={<ChartTooltipContent hideLabel />}\n            cursor={false}\n          />\n          {REQUISITION_PIPELINE.map((status) => (\n            <Bar\n              dataKey={status}\n              fill={`var(--color-${status})`}\n              key={status}\n              stackId=\"statuses\"\n              stroke=\"var(--card)\"\n              strokeWidth={2}\n            />\n          ))}\n        </BarChart>\n      </ChartContainer>\n      <ul className=\"flex flex-col gap-1.5\">\n        {REQUISITION_PIPELINE.map((status) => (\n          <li className=\"flex items-center gap-2 text-sm\" key={status}>\n            <span\n              aria-hidden=\"true\"\n              className={`size-2.5 shrink-0 rounded-full ${STATUSES[status].dot}`}\n            />\n            <span className=\"min-w-0 flex-1 truncate text-muted-foreground\">\n              {STATUSES[status].label}\n            </span>\n            <span className=\"font-medium tabular-nums\">\n              {formatCount(counts[status])}\n            </span>\n            <span className=\"w-10 text-end text-muted-foreground tabular-nums\">\n              {share(counts[status])}%\n            </span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/requisition-status-meter.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "310px"
+  },
+  "categories": [
+    "dashboard",
+    "charts",
+    "requisitions"
+  ],
+  "type": "registry:block"
+}

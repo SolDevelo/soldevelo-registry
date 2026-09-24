@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-not-found-page",
+  "title": "Not Found Page",
+  "description": "A 404 page that shows the address that was asked for, with Go Back and Back Home, ready to render inside an app shell so the navigation stays.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button",
+    "empty"
+  ],
+  "files": [
+    {
+      "path": "registry/templates/openlmis/not-found-page/page.tsx",
+      "content": "import { NotFoundPage } from \"@/components/openlmis/not-found-page/not-found-page\"\n\n// In Next.js, render NotFoundPage from app/not-found.tsx instead; this route shows it on its own.\nexport default function Page() {\n  return <NotFoundPage path=\"/administration/users/unknown/roles\" />\n}",
+      "type": "registry:page",
+      "target": "app/not-found-page/page.tsx"
+    },
+    {
+      "path": "registry/templates/openlmis/not-found-page/components/not-found-page.tsx",
+      "content": "\"use client\"\n\nimport { FileQuestionIcon, HouseIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\"\n\ntype NotFoundPageProps = {\n  /** The address that was asked for, shown so the reader can spot a typo. */\n  path?: string\n  /** Where Back Home goes. */\n  homeHref?: string\n  /** Defaults to the browser's Back; pass your router's instead. */\n  onBack?: () => void\n}\n\nconst goBack = () => window.history.back()\n\n/** A page that does not exist: what was asked for, and a way back. Render it inside your app shell to keep the sidebar. */\nexport function NotFoundPage({\n  path,\n  homeHref = \"/\",\n  onBack = goBack,\n}: NotFoundPageProps) {\n  return (\n    <Empty>\n      <EmptyHeader>\n        <EmptyMedia variant=\"icon\">\n          <FileQuestionIcon />\n        </EmptyMedia>\n        <p className=\"text-xs font-medium tracking-wide text-muted-foreground uppercase\">\n          Error 404\n        </p>\n        <EmptyTitle>\n          <h1>Page Not Found</h1>\n        </EmptyTitle>\n        <EmptyDescription>\n          This page does not exist, or it has moved. Check the address, or head\n          back.\n        </EmptyDescription>\n        {path && (\n          <code className=\"max-w-full truncate rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground\">\n            {path}\n          </code>\n        )}\n      </EmptyHeader>\n      <EmptyContent>\n        <div className=\"flex flex-wrap justify-center gap-2\">\n          <Button onClick={onBack} size=\"lg\" variant=\"outline\">\n            Go Back\n          </Button>\n          <Button\n            nativeButton={false}\n            // oxlint-disable-next-line jsx-a11y/control-has-associated-label -- Base UI renders the Button's text into the link\n            render={<a href={homeHref} />}\n            size=\"lg\"\n          >\n            <HouseIcon data-icon=\"inline-start\" />\n            Back Home\n          </Button>\n        </div>\n      </EmptyContent>\n    </Empty>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/not-found-page/not-found-page.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "278px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "errors",
+    "navigation"
+  ],
+  "type": "registry:page"
+}

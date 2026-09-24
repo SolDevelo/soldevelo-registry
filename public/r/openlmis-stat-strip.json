@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-stat-strip",
+  "title": "Stat Strip",
+  "description": "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "skeleton",
+    "utils",
+    "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/stat-strip/stat-strip.tsx",
+      "content": "import { Children, type ReactNode } from \"react\"\n\nimport { Skeleton } from \"@/components/ui/skeleton\"\nimport { cn } from \"@/lib/utils\"\nimport {\n  DashboardCardError,\n  formatCount,\n} from \"@/components/openlmis/dashboard-card\"\n\n/** As many columns as there are stats, so a user who sees fewer never gets an empty cell. */\nconst COLUMNS = [\n  \"grid-cols-1\",\n  \"grid-cols-1\",\n  \"grid-cols-2\",\n  \"grid-cols-1 @2xl/stat-strip:grid-cols-3\",\n  \"grid-cols-2 @4xl/stat-strip:grid-cols-4\",\n] as const\n\n/** One panel of headline numbers split by hairlines; the gaps let the border colour show through. */\nexport function StatStrip({ children }: { children: ReactNode }) {\n  const count = Math.min(Children.toArray(children).length, COLUMNS.length - 1)\n  return (\n    <div className=\"@container/stat-strip\">\n      <div\n        className={cn(\n          \"grid gap-px overflow-hidden rounded-xl bg-border ring-1 ring-foreground/10\",\n          COLUMNS[count]\n        )}\n      >\n        {children}\n      </div>\n    </div>\n  )\n}\n\ntype StatProps = {\n  label: ReactNode\n  /** A placeholder shows until it is set. */\n  value: number | undefined\n  /** Shows the error with Try Again in place of the value. */\n  onRetry?: () => void\n  failed?: boolean\n}\n\nexport function Stat({ label, value, failed = false, onRetry }: StatProps) {\n  return (\n    <div className=\"flex flex-col gap-1 bg-card px-4 py-3\">\n      <span className=\"text-sm text-muted-foreground\">{label}</span>\n      {failed && onRetry ? (\n        <DashboardCardError onRetry={onRetry} />\n      ) : value === undefined ? (\n        <Skeleton className=\"my-1 h-6 w-16\" />\n      ) : (\n        <span className=\"text-2xl leading-8 font-semibold tracking-tight tabular-nums\">\n          {formatCount(value)}\n        </span>\n      )}\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/stat-strip.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "152px"
+  },
+  "categories": [
+    "dashboard",
+    "data-display"
+  ],
+  "type": "registry:component"
+}

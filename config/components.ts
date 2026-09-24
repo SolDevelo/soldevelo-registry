@@ -43,7 +43,7 @@ export const components: RegistryEntry[] = [
     "project": "openlmis",
     "title": "Search Input",
     "height": "128px",
-    "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list refetches once per search rather than on every keystroke.",
+    "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list updates once per search rather than on every keystroke.",
     "registryDependencies": [
       "input-group"
     ],
@@ -142,7 +142,7 @@ export const components: RegistryEntry[] = [
     "project": "openlmis",
     "title": "Status Badge",
     "height": "84px",
-    "description": "Badge for a yes-or-no state such as active or inactive, in a success or destructive tone with a check or cross icon, so the state reads without relying on colour.",
+    "description": "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
     "registryDependencies": [
       "utils"
     ],
@@ -153,14 +153,14 @@ export const components: RegistryEntry[] = [
       {
         "type": "page",
         "name": "page.tsx",
-        "code": "import { StatusBadge } from \"@/components/openlmis/status-badge\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full items-center justify-center gap-2 p-8\">\n      <StatusBadge tone=\"success\">Active</StatusBadge>\n      <StatusBadge tone=\"destructive\">Inactive</StatusBadge>\n    </div>\n  )\n}",
+        "code": "import { StatusBadge } from \"@/components/openlmis/status-badge\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full flex-wrap items-center justify-center gap-2 p-8\">\n      <StatusBadge tone=\"success\">Active</StatusBadge>\n      <StatusBadge tone=\"warning\">Ignored</StatusBadge>\n      <StatusBadge tone=\"info\">Unsaved</StatusBadge>\n      <StatusBadge tone=\"destructive\">Inactive</StatusBadge>\n    </div>\n  )\n}",
         "lang": "tsx",
         "target": null
       },
       {
         "type": "component",
         "name": "status-badge.tsx",
-        "code": "import { CheckIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONES = {\n  success: { className: \"bg-success/10 text-success\", icon: CheckIcon },\n  destructive: { className: \"bg-destructive/10 text-destructive\", icon: XIcon },\n} as const\n\n/** A yes-or-no state told apart by colour and icon; its own element, as stock Badge has no success tone. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const { className, icon: Icon } = TONES[tone]\n\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        className\n      )}\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
+        "code": "import { CheckIcon, InfoIcon, TriangleAlertIcon, XIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusTone = \"success\" | \"warning\" | \"info\" | \"destructive\"\n\ntype StatusBadgeProps = {\n  tone: StatusTone\n  children: ReactNode\n}\n\nconst TONES = {\n  success: { className: \"bg-success/10 text-success\", icon: CheckIcon },\n  warning: { className: \"bg-warning/10 text-warning\", icon: TriangleAlertIcon },\n  info: { className: \"bg-info/10 text-info\", icon: InfoIcon },\n  destructive: { className: \"bg-destructive/10 text-destructive\", icon: XIcon },\n} as const\n\n/** A state told apart by colour and icon; its own element, as stock Badge has no success, warning or info tone. */\nexport function StatusBadge({ tone, children }: StatusBadgeProps) {\n  const { className, icon: Icon } = TONES[tone]\n\n  return (\n    <span\n      className={cn(\n        \"inline-flex h-5 w-fit shrink-0 items-center gap-1 rounded-4xl px-2 text-xs font-medium whitespace-nowrap\",\n        className\n      )}\n    >\n      <Icon aria-hidden className=\"size-3\" />\n      {children}\n    </span>\n  )\n}",
         "lang": "tsx",
         "target": "components/openlmis/status-badge.tsx"
       }
@@ -274,7 +274,7 @@ export const components: RegistryEntry[] = [
       {
         "type": "page",
         "name": "page.tsx",
-        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { FieldGroup } from \"@/components/ui/field\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\n\nimport {\n  FormDialog,\n  FormDialogBody,\n  FormDialogCancel,\n  FormDialogDescription,\n  FormDialogFooter,\n  FormDialogForm,\n  FormDialogHeader,\n  FormDialogSubmit,\n  FormDialogTitle,\n} from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\n\nexport default function Page() {\n  // Open on load, so the catalog shows the dialog rather than its trigger.\n  const [target, setTarget] = useState<\"new\" | undefined>(\"new\")\n  const { shown, dialogProps } = useDialogTarget(target, () =>\n    setTarget(undefined)\n  )\n\n  return (\n    // Tall enough for the open dialog, which is fixed and so adds nothing to the frame's height.\n    <div className=\"min-h-104 w-full p-8\">\n      <Button onClick={() => setTarget(\"new\")}>Add Program</Button>\n      <FormDialog {...dialogProps()}>\n        {shown && <ProgramForm onDone={() => setTarget(undefined)} />}\n      </FormDialog>\n    </div>\n  )\n}\n\nfunction ProgramForm({ onDone }: { onDone: () => void }) {\n  const [saving, setSaving] = useState(false)\n  const form = useAppForm({\n    defaultValues: { code: \"\", name: \"\", active: true },\n    onSubmit: async () => {\n      setSaving(true)\n      // Stands in for a save request.\n      await new Promise((resolve) => setTimeout(resolve, 800))\n      setSaving(false)\n      onDone()\n    },\n  })\n\n  return (\n    <FormDialogForm onSubmit={() => void form.handleSubmit()}>\n      <FormDialogHeader>\n        <FormDialogTitle>Add Program</FormDialogTitle>\n        <FormDialogDescription>\n          A program groups the products a facility orders together.\n        </FormDialogDescription>\n      </FormDialogHeader>\n      <FormDialogBody>\n        <FieldGroup>\n          <form.AppField name=\"code\">\n            {(field) => <field.TextField label=\"Code\" required />}\n          </form.AppField>\n          <form.AppField name=\"name\">\n            {(field) => <field.TextField label=\"Name\" required />}\n          </form.AppField>\n          <form.AppField name=\"active\">\n            {(field) => (\n              <field.SwitchField\n                description=\"Only active programs can be requisitioned.\"\n                label=\"Active\"\n              />\n            )}\n          </form.AppField>\n        </FieldGroup>\n      </FormDialogBody>\n      <FormDialogFooter>\n        <FormDialogCancel disabled={saving} />\n        <FormDialogSubmit pending={saving}>Add Program</FormDialogSubmit>\n      </FormDialogFooter>\n    </FormDialogForm>\n  )\n}",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { FieldGroup } from \"@/components/ui/field\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\n\nimport {\n  FormDialog,\n  FormDialogBody,\n  FormDialogCancel,\n  FormDialogDescription,\n  FormDialogFooter,\n  FormDialogForm,\n  FormDialogHeader,\n  FormDialogSubmit,\n  FormDialogTitle,\n} from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\n\nexport default function Page() {\n  // Open on load, so the catalog shows the dialog rather than its trigger.\n  const [target, setTarget] = useState<\"new\" | undefined>(\"new\")\n  const { shown, dialogProps } = useDialogTarget(target, () =>\n    setTarget(undefined)\n  )\n\n  return (\n    // Tall enough for the open dialog, which is fixed and so adds nothing to the frame's height.\n    <div className=\"min-h-104 w-full p-8\">\n      <Button onClick={() => setTarget(\"new\")}>Add Program</Button>\n      <FormDialog {...dialogProps()}>\n        {shown && <ProgramForm onDone={() => setTarget(undefined)} />}\n      </FormDialog>\n    </div>\n  )\n}\n\nfunction ProgramForm({ onDone }: { onDone: () => void }) {\n  const form = useAppForm({\n    defaultValues: { code: \"\", name: \"\", active: true },\n    onSubmit: () => onDone(),\n  })\n\n  return (\n    <FormDialogForm onSubmit={() => void form.handleSubmit()}>\n      <FormDialogHeader>\n        <FormDialogTitle>Add Program</FormDialogTitle>\n        <FormDialogDescription>\n          A program groups the products a facility orders together.\n        </FormDialogDescription>\n      </FormDialogHeader>\n      <FormDialogBody>\n        <FieldGroup>\n          <form.AppField name=\"code\">\n            {(field) => <field.TextField label=\"Code\" required />}\n          </form.AppField>\n          <form.AppField name=\"name\">\n            {(field) => <field.TextField label=\"Name\" required />}\n          </form.AppField>\n          <form.AppField name=\"active\">\n            {(field) => (\n              <field.SwitchField\n                description=\"Only active programs can be requisitioned.\"\n                label=\"Active\"\n              />\n            )}\n          </form.AppField>\n        </FieldGroup>\n      </FormDialogBody>\n      <FormDialogFooter>\n        <FormDialogCancel />\n        <FormDialogSubmit>Add Program</FormDialogSubmit>\n      </FormDialogFooter>\n    </FormDialogForm>\n  )\n}",
         "lang": "tsx",
         "target": null
       },
@@ -291,13 +291,98 @@ export const components: RegistryEntry[] = [
         "code": "\"use client\"\n\nimport { useState } from \"react\"\n\n/** Open while `target` is set, showing the last target until the close animation ends; an object target must keep its identity. */\nexport function useDialogTarget<T>(target: T | undefined, onClose: () => void) {\n  const [shown, setShown] = useState(target)\n  if (target !== undefined && target !== shown) setShown(target)\n\n  return {\n    shown,\n    /** The `FormDialog` props; `locked` keeps it open, e.g. while a save runs. */\n    dialogProps: (locked = false) => ({\n      open: target !== undefined,\n      onOpenChange: (open: boolean) => {\n        if (!open && !locked) onClose()\n      },\n      onOpenChangeComplete: (open: boolean) => {\n        if (!open) setShown(undefined)\n      },\n    }),\n  }\n}",
         "lang": "ts",
         "target": "components/openlmis/form-dialog/use-dialog-target.ts"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-dashboard-card",
+    "project": "openlmis",
+    "title": "Dashboard Card",
+    "height": "254px",
+    "description": "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
+    "registryDependencies": [
+      "badge",
+      "button",
+      "card",
+      "skeleton"
+    ],
+    "dependencies": [
+      "lucide-react"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport {\n  DashboardCard,\n  DashboardCardCount,\n  DashboardCardDescriptionSkeleton,\n  DashboardCardError,\n  DashboardRow,\n} from \"@/components/openlmis/dashboard-card\"\n\nexport default function Page() {\n  const [attempts, setAttempts] = useState(0)\n\n  return (\n    <div className=\"w-full max-w-5xl p-8\">\n      <DashboardRow\n        narrow={\n          <DashboardCard\n            badge={<DashboardCardCount value={undefined} />}\n            description={<DashboardCardDescriptionSkeleton />}\n            title=\"Loading Card\"\n          >\n            <div className=\"h-24 animate-pulse rounded-lg bg-muted\" />\n          </DashboardCard>\n        }\n        wide={\n          <DashboardCard\n            badge={<DashboardCardCount value={1204} />}\n            description=\"A wide card beside a narrow one when the row has room.\"\n            title=\"Stock On Hand\"\n          >\n            {attempts === 0 ? (\n              <DashboardCardError onRetry={() => setAttempts(1)} />\n            ) : (\n              <p className=\"text-sm text-muted-foreground\">\n                Loaded after Try Again.\n              </p>\n            )}\n          </DashboardCard>\n        }\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
       },
       {
-        "type": "hook",
-        "name": "use-dialog-data.ts",
-        "code": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\n\ntype Result<T> = {\n  key: string\n  data: T | undefined\n  error: unknown\n}\n\n/** Loads what a dialog shows, keyed so a new target never shows the last one's data; swap in your data layer. */\nexport function useDialogData<T>(key: string, load: () => Promise<T>) {\n  const [attempt, setAttempt] = useState(0)\n  const [result, setResult] = useState<Result<T> | undefined>(undefined)\n  const current = `${key}#${attempt}`\n\n  useEffect(() => {\n    let active = true\n    load().then(\n      (data) => active && setResult({ key: current, data, error: undefined }),\n      (error: unknown) =>\n        active && setResult({ key: current, data: undefined, error })\n    )\n    // A newer target or retry supersedes this load, so its late answer is ignored.\n    return () => {\n      active = false\n    }\n    // `load` is left out: callers pass a fresh closure every render, and `key` says when it changes.\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [current])\n\n  const settled = result?.key === current ? result : undefined\n\n  return {\n    data: settled?.data,\n    error: settled?.error,\n    isPending: settled === undefined,\n    retry: () => setAttempt((count) => count + 1),\n  }\n}",
-        "lang": "ts",
-        "target": "components/openlmis/form-dialog/use-dialog-data.ts"
+        "type": "component",
+        "name": "dashboard-card.tsx",
+        "code": "import { AlertCircleIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { Badge } from \"@/components/ui/badge\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\"\nimport { Skeleton } from \"@/components/ui/skeleton\"\n\n/** Counts in the reader's locale, e.g. 1,204. */\nexport const formatCount = (value: number) =>\n  new Intl.NumberFormat().format(value)\n\ntype DashboardCardProps = {\n  title: ReactNode\n  /** Beside the title, usually a `DashboardCardCount`. */\n  badge?: ReactNode\n  /** One line on what the card shows; pass a `Skeleton` while it loads. */\n  description: ReactNode\n  children: ReactNode\n}\n\n/** A dashboard card's chrome: title with its count, a line on what it shows, then the body. */\nexport function DashboardCard({\n  title,\n  badge,\n  description,\n  children,\n}: DashboardCardProps) {\n  return (\n    <Card>\n      <CardHeader>\n        <CardTitle>\n          <span className=\"flex items-center gap-2\">\n            {title}\n            {badge}\n          </span>\n        </CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <CardContent>{children}</CardContent>\n    </Card>\n  )\n}\n\n/** The card's total beside its title; a placeholder while it loads, nothing when it failed. */\nexport function DashboardCardCount({\n  value,\n  failed = false,\n}: {\n  value: number | undefined\n  failed?: boolean\n}) {\n  if (failed) return null\n  if (value === undefined) {\n    // A plain element, since Skeleton owns its corner radius and a badge is a pill.\n    return (\n      <span className=\"block h-5 w-8 animate-pulse rounded-full bg-muted\" />\n    )\n  }\n  return <Badge variant=\"secondary\">{formatCount(value)}</Badge>\n}\n\ntype DashboardCardErrorProps = {\n  onRetry: () => void\n  message?: ReactNode\n  retryLabel?: ReactNode\n}\n\n/** A card body that failed to load, with a Try Again of its own so the rest of the page stays. */\nexport function DashboardCardError({\n  onRetry,\n  message = \"This could not be loaded.\",\n  retryLabel = \"Try Again\",\n}: DashboardCardErrorProps) {\n  return (\n    <div\n      className=\"flex items-center gap-2 text-sm text-muted-foreground\"\n      role=\"alert\"\n    >\n      <AlertCircleIcon\n        aria-hidden=\"true\"\n        className=\"size-4 shrink-0 text-destructive\"\n      />\n      <span className=\"min-w-0 flex-1\">{message}</span>\n      <Button onClick={onRetry} size=\"sm\" type=\"button\" variant=\"outline\">\n        {retryLabel}\n      </Button>\n    </div>\n  )\n}\n\n/** The description's placeholder while a card's data loads. */\nexport function DashboardCardDescriptionSkeleton() {\n  return <Skeleton className=\"my-0.5 h-4 w-48\" />\n}\n\n/** A wide card beside a narrow one when the row has room, stacked otherwise; each fills the row's height. */\nexport function DashboardRow({\n  wide,\n  narrow,\n}: {\n  wide?: ReactNode\n  narrow?: ReactNode\n}) {\n  return (\n    // Its own container, so the split follows the room the row has, not the window.\n    <div className=\"@container/dashboard-row\">\n      <div className=\"grid grid-cols-1 gap-4 @4xl/dashboard-row:grid-cols-3\">\n        {wide && (\n          <div className=\"grid @4xl/dashboard-row:col-span-2\">{wide}</div>\n        )}\n        {narrow && <div className=\"grid\">{narrow}</div>}\n      </div>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/dashboard-card.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-stat-strip",
+    "project": "openlmis",
+    "title": "Stat Strip",
+    "height": "152px",
+    "description": "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
+    "registryDependencies": [
+      "skeleton",
+      "utils",
+      "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
+    ],
+    "dependencies": [],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Stat, StatStrip } from \"@/components/openlmis/stat-strip\"\n\nexport default function Page() {\n  const [retried, setRetried] = useState(false)\n\n  return (\n    <div className=\"w-full max-w-5xl p-8\">\n      <StatStrip>\n        <Stat label=\"Requisitions To Approve\" value={4} />\n        <Stat label=\"Requisitions To Convert\" value={2} />\n        <Stat label=\"Orders Not Received\" value={undefined} />\n        <Stat\n          failed={!retried}\n          label=\"Equipment Not Functioning\"\n          onRetry={() => setRetried(true)}\n          value={5}\n        />\n      </StatStrip>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "stat-strip.tsx",
+        "code": "import { Children, type ReactNode } from \"react\"\n\nimport { Skeleton } from \"@/components/ui/skeleton\"\nimport { cn } from \"@/lib/utils\"\nimport {\n  DashboardCardError,\n  formatCount,\n} from \"@/components/openlmis/dashboard-card\"\n\n/** As many columns as there are stats, so a user who sees fewer never gets an empty cell. */\nconst COLUMNS = [\n  \"grid-cols-1\",\n  \"grid-cols-1\",\n  \"grid-cols-2\",\n  \"grid-cols-1 @2xl/stat-strip:grid-cols-3\",\n  \"grid-cols-2 @4xl/stat-strip:grid-cols-4\",\n] as const\n\n/** One panel of headline numbers split by hairlines; the gaps let the border colour show through. */\nexport function StatStrip({ children }: { children: ReactNode }) {\n  const count = Math.min(Children.toArray(children).length, COLUMNS.length - 1)\n  return (\n    <div className=\"@container/stat-strip\">\n      <div\n        className={cn(\n          \"grid gap-px overflow-hidden rounded-xl bg-border ring-1 ring-foreground/10\",\n          COLUMNS[count]\n        )}\n      >\n        {children}\n      </div>\n    </div>\n  )\n}\n\ntype StatProps = {\n  label: ReactNode\n  /** A placeholder shows until it is set. */\n  value: number | undefined\n  /** Shows the error with Try Again in place of the value. */\n  onRetry?: () => void\n  failed?: boolean\n}\n\nexport function Stat({ label, value, failed = false, onRetry }: StatProps) {\n  return (\n    <div className=\"flex flex-col gap-1 bg-card px-4 py-3\">\n      <span className=\"text-sm text-muted-foreground\">{label}</span>\n      {failed && onRetry ? (\n        <DashboardCardError onRetry={onRetry} />\n      ) : value === undefined ? (\n        <Skeleton className=\"my-1 h-6 w-16\" />\n      ) : (\n        <span className=\"text-2xl leading-8 font-semibold tracking-tight tabular-nums\">\n          {formatCount(value)}\n        </span>\n      )}\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/stat-strip.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-discard-changes-dialog",
+    "project": "openlmis",
+    "title": "Discard Changes Dialog",
+    "height": "288px",
+    "description": "Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.",
+    "registryDependencies": [
+      "alert-dialog",
+      "button"
+    ],
+    "dependencies": [],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\n\nimport { DiscardChangesDialog } from \"@/components/openlmis/discard-changes-dialog\"\n\nexport default function Page() {\n  // Open on load, so the catalog shows the dialog rather than its trigger.\n  const [open, setOpen] = useState(true)\n  const [left, setLeft] = useState(false)\n\n  return (\n    // Tall enough for the open dialog, which is fixed and so adds nothing to the frame's height.\n    <div className=\"flex min-h-72 w-full flex-col items-start gap-3 p-8\">\n      <Button onClick={() => setOpen(true)} variant=\"outline\">\n        Cancel\n      </Button>\n      {left && (\n        <p className=\"text-sm text-muted-foreground\">Changes discarded.</p>\n      )}\n      <DiscardChangesDialog\n        changes={3}\n        onDiscard={() => {\n          setOpen(false)\n          setLeft(true)\n        }}\n        onKeepEditing={() => setOpen(false)}\n        open={open}\n        subject=\"the roles of divo1\"\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "discard-changes-dialog.tsx",
+        "code": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport {\n  AlertDialog,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n} from \"@/components/ui/alert-dialog\"\nimport { Button } from \"@/components/ui/button\"\n\ntype DiscardChangesDialogProps = {\n  open: boolean\n  /** How many unsaved changes would be lost. */\n  changes: number\n  /** Whose changes, e.g. the user being edited; left out of the sentence when missing. */\n  subject?: string\n  /** What discarding leads to, e.g. \"Discard and Sign Out\". */\n  confirmLabel?: ReactNode\n  keepEditingLabel?: ReactNode\n  onKeepEditing: () => void\n  onDiscard: () => void\n}\n\n/** Asked before leaving a page with unsaved changes; Escape and Keep Editing both stay. */\nexport function DiscardChangesDialog({\n  open,\n  changes,\n  subject,\n  confirmLabel = \"Discard Changes\",\n  keepEditingLabel = \"Keep Editing\",\n  onKeepEditing,\n  onDiscard,\n}: DiscardChangesDialogProps) {\n  const counted =\n    changes === 1 ? \"1 unsaved change\" : `${changes} unsaved changes`\n\n  return (\n    <AlertDialog onOpenChange={(next) => !next && onKeepEditing()} open={open}>\n      <AlertDialogContent>\n        <AlertDialogHeader>\n          <AlertDialogTitle>Discard Unsaved Changes?</AlertDialogTitle>\n          <AlertDialogDescription>\n            {subject\n              ? `You have ${counted} to ${subject}. Leaving now loses them.`\n              : `You have ${counted}. Leaving now loses them.`}\n          </AlertDialogDescription>\n        </AlertDialogHeader>\n        <AlertDialogFooter>\n          <AlertDialogCancel>{keepEditingLabel}</AlertDialogCancel>\n          <Button onClick={onDiscard} variant=\"destructive\">\n            {confirmLabel}\n          </Button>\n        </AlertDialogFooter>\n      </AlertDialogContent>\n    </AlertDialog>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/discard-changes-dialog.tsx"
       }
     ]
   }

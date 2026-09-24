@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-dashboard-card",
+  "title": "Dashboard Card",
+  "description": "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "badge",
+    "button",
+    "card",
+    "skeleton"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/dashboard-card/dashboard-card.tsx",
+      "content": "import { AlertCircleIcon } from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { Badge } from \"@/components/ui/badge\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\"\nimport { Skeleton } from \"@/components/ui/skeleton\"\n\n/** Counts in the reader's locale, e.g. 1,204. */\nexport const formatCount = (value: number) =>\n  new Intl.NumberFormat().format(value)\n\ntype DashboardCardProps = {\n  title: ReactNode\n  /** Beside the title, usually a `DashboardCardCount`. */\n  badge?: ReactNode\n  /** One line on what the card shows; pass a `Skeleton` while it loads. */\n  description: ReactNode\n  children: ReactNode\n}\n\n/** A dashboard card's chrome: title with its count, a line on what it shows, then the body. */\nexport function DashboardCard({\n  title,\n  badge,\n  description,\n  children,\n}: DashboardCardProps) {\n  return (\n    <Card>\n      <CardHeader>\n        <CardTitle>\n          <span className=\"flex items-center gap-2\">\n            {title}\n            {badge}\n          </span>\n        </CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <CardContent>{children}</CardContent>\n    </Card>\n  )\n}\n\n/** The card's total beside its title; a placeholder while it loads, nothing when it failed. */\nexport function DashboardCardCount({\n  value,\n  failed = false,\n}: {\n  value: number | undefined\n  failed?: boolean\n}) {\n  if (failed) return null\n  if (value === undefined) {\n    // A plain element, since Skeleton owns its corner radius and a badge is a pill.\n    return (\n      <span className=\"block h-5 w-8 animate-pulse rounded-full bg-muted\" />\n    )\n  }\n  return <Badge variant=\"secondary\">{formatCount(value)}</Badge>\n}\n\ntype DashboardCardErrorProps = {\n  onRetry: () => void\n  message?: ReactNode\n  retryLabel?: ReactNode\n}\n\n/** A card body that failed to load, with a Try Again of its own so the rest of the page stays. */\nexport function DashboardCardError({\n  onRetry,\n  message = \"This could not be loaded.\",\n  retryLabel = \"Try Again\",\n}: DashboardCardErrorProps) {\n  return (\n    <div\n      className=\"flex items-center gap-2 text-sm text-muted-foreground\"\n      role=\"alert\"\n    >\n      <AlertCircleIcon\n        aria-hidden=\"true\"\n        className=\"size-4 shrink-0 text-destructive\"\n      />\n      <span className=\"min-w-0 flex-1\">{message}</span>\n      <Button onClick={onRetry} size=\"sm\" type=\"button\" variant=\"outline\">\n        {retryLabel}\n      </Button>\n    </div>\n  )\n}\n\n/** The description's placeholder while a card's data loads. */\nexport function DashboardCardDescriptionSkeleton() {\n  return <Skeleton className=\"my-0.5 h-4 w-48\" />\n}\n\n/** A wide card beside a narrow one when the row has room, stacked otherwise; each fills the row's height. */\nexport function DashboardRow({\n  wide,\n  narrow,\n}: {\n  wide?: ReactNode\n  narrow?: ReactNode\n}) {\n  return (\n    // Its own container, so the split follows the room the row has, not the window.\n    <div className=\"@container/dashboard-row\">\n      <div className=\"grid grid-cols-1 gap-4 @4xl/dashboard-row:grid-cols-3\">\n        {wide && (\n          <div className=\"grid @4xl/dashboard-row:col-span-2\">{wide}</div>\n        )}\n        {narrow && <div className=\"grid\">{narrow}</div>}\n      </div>\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/dashboard-card.tsx"
+    }
+  ],
+  "meta": {
+    "project": "openlmis",
+    "height": "254px"
+  },
+  "categories": [
+    "dashboard",
+    "layout"
+  ],
+  "type": "registry:component"
+}
