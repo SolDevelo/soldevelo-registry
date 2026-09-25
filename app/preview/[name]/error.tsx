@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { AlertTriangleIcon, RefreshCwIcon } from "lucide-react"
+import { posthog } from "posthog-js"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -22,6 +23,7 @@ export default function PreviewError({
 }) {
   useEffect(() => {
     console.error(error)
+    posthog.captureException(error, { digest: error.digest })
   }, [error])
 
   return (

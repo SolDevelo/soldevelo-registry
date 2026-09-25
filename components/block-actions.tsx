@@ -7,6 +7,7 @@ import {
   RefreshCwIcon,
   TerminalIcon,
 } from "lucide-react"
+import { posthog } from "posthog-js"
 
 import { usePackageManager } from "@/components/package-manager-picker"
 import { Button, type buttonVariants } from "@/components/ui/button"
@@ -85,12 +86,19 @@ function IconButtonWithTooltip({
   )
 }
 
-export function OpenInNewTabButton({ previewUrl }: { previewUrl: string }) {
+export function OpenInNewTabButton({
+  name,
+  previewUrl,
+}: {
+  name: string
+  previewUrl: string
+}) {
   return (
     <IconButtonWithTooltip
       tooltip="Fullscreen preview"
       ariaLabel="Open preview in a new tab"
       href={previewUrl}
+      onClick={() => posthog.capture("preview_opened", { item: name })}
     >
       <ExternalLinkIcon aria-hidden="true" className="size-3.5" />
     </IconButtonWithTooltip>
@@ -126,6 +134,15 @@ export function InstallCommandButton({ name }: { name: string }) {
   const { copied, copy } = useCopyToClipboard()
   const command = getInstallCommand(packageManager, name)
 
+  async function copyCommand() {
+    if (await copy(command)) {
+      posthog.capture("install_command_copied", {
+        item: name,
+        package_manager: packageManager,
+      })
+    }
+  }
+
   return (
     <TooltipProvider>
       <Tooltip>
@@ -137,7 +154,7 @@ export function InstallCommandButton({ name }: { name: string }) {
               type="button"
               size="sm"
               aria-label="Copy the shadcn install command"
-              onClick={() => void copy(command)}
+              onClick={() => void copyCommand()}
             />
           }
         >

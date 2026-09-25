@@ -2,6 +2,7 @@
 
 import { CodeIcon, EyeIcon } from "lucide-react"
 import dynamic from "next/dynamic"
+import { posthog } from "posthog-js"
 import * as React from "react"
 import {
   Group as PanelGroup,
@@ -129,7 +130,12 @@ export function BlockRenderer({
       <div className="flex items-stretch justify-between p-0.5">
         <ToggleRendererMode
           rendererMode={rendererMode}
-          setRendererMode={setRendererMode}
+          setRendererMode={(mode) => {
+            if (mode === "code" && rendererMode !== "code") {
+              posthog.capture("source_viewed", { item: name })
+            }
+            setRendererMode(mode)
+          }}
         />
 
         <div className="flex items-center gap-1">
@@ -137,7 +143,7 @@ export function BlockRenderer({
             onRefresh={onRefreshIframe}
             isRefreshing={isRefreshing}
           />
-          <OpenInNewTabButton previewUrl={previewUrl} />
+          <OpenInNewTabButton name={name} previewUrl={previewUrl} />
           <InstallCommandButton name={name} />
         </div>
       </div>
@@ -197,7 +203,7 @@ export function BlockRenderer({
           </PanelGroup>
         </div>
 
-        {isCodeMode && <BlockCodeView key={name} files={files} />}
+        {isCodeMode && <BlockCodeView key={name} name={name} files={files} />}
       </div>
     </div>
   )
