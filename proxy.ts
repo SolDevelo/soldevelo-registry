@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto"
+import { isIPv4, isIPv6 } from "node:net"
 import { PostHog } from "posthog-node"
 import type { NextRequest } from "next/server"
 
@@ -45,11 +46,25 @@ export async function proxy(request: NextRequest) {
   await client.shutdown(2000).catch(() => {})
 }
 
-// The /24 of an IPv4 address or the /48 of an IPv6 one.
+// The /24 of an IPv4 address (IPv4-mapped IPv6 included) or the /48 of an IPv6 one.
 function networkOf(ip: string | undefined): string {
   if (!ip) return "unknown"
-  if (ip.includes(":")) return ip.split(":").slice(0, 3).join(":")
-  return ip.split(".").slice(0, 3).join(".")
+
+  const v4 = ip.replace(/^::ffff:/i, "")
+  if (isIPv4(v4)) return v4.split(".").slice(0, 3).join(".")
+  if (!isIPv6(ip)) return "unknown"
+
+  // Expand "::" so a shortened and a full form of the same address share a prefix.
+  const [head = "", tail = ""] = ip.split("::")
+  const left = head ? head.split(":") : []
+  const right = tail ? tail.split(":") : []
+  const groups = ip.includes("::")
+    ? [...left, ...Array(8 - left.length - right.length).fill("0"), ...right]
+    : left
+  return groups
+    .slice(0, 3)
+    .map((group) => parseInt(group, 16).toString(16))
+    .join(":")
 }
 
 export const config = {
