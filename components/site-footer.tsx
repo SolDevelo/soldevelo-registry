@@ -1,5 +1,6 @@
 "use client"
 
+import { ExternalLinkIcon } from "lucide-react"
 import Link from "next/link"
 import { MotionConfig, motion, type Variants } from "motion/react"
 
@@ -21,6 +22,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { projectPath, type Project } from "@/config/projects"
 import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/utils"
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -76,6 +78,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: "Item Names", href: "/docs#naming" },
       { label: "Theme Tokens", href: "/docs#theme-tokens" },
       { label: "Changelog", href: "/changelog" },
+      { label: "Privacy Policy", href: siteConfig.PRIVACY_URL, external: true },
     ],
   },
   {
@@ -231,9 +234,13 @@ function FooterAnchor({ link }: { link: FooterLink }) {
         href={link.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={className}
+        className={cn(className, "inline-flex items-center gap-1")}
       >
         {link.label}
+        <ExternalLinkIcon
+          aria-hidden="true"
+          className="size-3 text-muted-foreground"
+        />
       </a>
     )
   }

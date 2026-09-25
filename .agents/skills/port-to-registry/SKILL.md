@@ -109,6 +109,7 @@ Run these on every drop, and fix what they find:
 ## 7. Ship
 
 - Branch off `master`, Conventional Commit (`feat:`), no attribution lines.
+- Add the new items to `CHANGELOG.md` in the same PR; it feeds the `/changelog` page.
 - PR body follows the project's format: optional ticket link, `## Changes` with one line per
   change, screenshots for visible changes. No testing essays.
 - Link the source PRs it ports (e.g. `OpenLMIS/openlmis-ui#13`).

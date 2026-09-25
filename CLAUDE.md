@@ -165,7 +165,8 @@ metadata for CLI search; the site does not group by it.
 5. Load the page and **measure** the preview height at desktop width, then set
    `meta.height` to it. The catalog resizes each frame to its content once it
    loads; `meta.height` is the first paint, so a wrong one makes the card jump.
-6. Commit the source and the regenerated artifacts together.
+6. Add the item to `CHANGELOG.md` (see Changelog below).
+7. Commit the source and the regenerated artifacts together.
 
 Item source must be **copy-pasteable**: no imports the consumer will not have.
 An item may import shadcn primitives (`@/components/ui/*`), npm packages it
@@ -328,6 +329,16 @@ never hand-written, so they cannot drift from what is actually installable.
 `/preview/*` is `noindex` and disallowed in `robots.ts`: those pages exist to
 be framed by the catalog, and crawling them spends budget on pages that cannot
 rank.
+
+## Changelog
+
+`CHANGELOG.md` is the source of the `/changelog` page, so **every PR with a
+change a visitor or consumer would notice adds to it**: new or removed items,
+changed item behaviour, site features, privacy. Refactors, tooling and internal
+docs do not. Releases count up one patch at a time (`0.0.4`, `0.0.5`, ...):
+add `## [0.0.N] - YYYY-MM-DD` with the next number, or extend today's release,
+with `### Added`, `### Changed`, `### Fixed` or `### Removed`, and write for the
+people who use the registry, not in commit-message terms.
 
 ## Deployment
 
