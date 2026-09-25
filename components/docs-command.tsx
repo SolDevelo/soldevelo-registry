@@ -1,5 +1,6 @@
 "use client"
 
+import { posthog } from "posthog-js"
 import type { BundledLanguage } from "shiki/bundle/web"
 
 import { CodeBlock, CopyButton } from "@/components/block-code-view"
@@ -25,6 +26,12 @@ export function CodePanel({
         <CopyButton
           text={code}
           label={`Copy ${fileName} to clipboard`}
+          onCopied={() =>
+            posthog.capture("docs_snippet_copied", {
+              file_name: fileName,
+              snippet: code.split("\n")[0],
+            })
+          }
           className="ml-auto"
         />
       </header>

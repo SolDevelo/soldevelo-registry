@@ -1,6 +1,7 @@
 "use client"
 
 import { CheckIcon } from "lucide-react"
+import { posthog } from "posthog-js"
 
 import { PackageManagerLogo } from "@/components/package-manager-logo"
 import { Button } from "@/components/ui/button"
@@ -59,7 +60,15 @@ export function PackageManagerPicker({ className }: { className?: string }) {
           {PACKAGE_MANAGERS.map((manager) => (
             <DropdownMenuItem
               key={manager}
-              onClick={() => setPackageManager(manager)}
+              onClick={() => {
+                if (manager !== packageManager) {
+                  posthog.capture("package_manager_changed", {
+                    from: packageManager,
+                    to: manager,
+                  })
+                }
+                setPackageManager(manager)
+              }}
               className="gap-2"
             >
               <CheckIcon

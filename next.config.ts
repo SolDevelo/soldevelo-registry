@@ -23,6 +23,30 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  // PostHog's API paths end in a slash, which the default redirect would strip.
+  // The redirect below restores it for every other path.
+  skipTrailingSlashRedirect: true,
+  async redirects() {
+    return [
+      {
+        source: "/:path((?!ingest(?:/|$)).+)/",
+        destination: "/:path",
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://eu-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://eu.i.posthog.com/:path*",
+      },
+    ]
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

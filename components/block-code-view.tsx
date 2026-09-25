@@ -3,6 +3,7 @@
 import { toJsxRuntime } from "hast-util-to-jsx-runtime"
 import { CheckIcon, CodeXmlIcon, CopyIcon } from "lucide-react"
 import { useTheme } from "next-themes"
+import { posthog } from "posthog-js"
 import {
   Fragment,
   useCallback,
@@ -130,10 +131,12 @@ export function CopyButton({
   text,
   label = "Copy to clipboard",
   className,
+  onCopied,
 }: {
   text: string
   label?: string
   className?: string
+  onCopied?: () => void
 }) {
   const { copied, copy } = useCopyToClipboard()
 
@@ -145,7 +148,9 @@ export function CopyButton({
       disabled={!text}
       aria-label={copied ? "Copied" : label}
       className={className}
-      onClick={() => void copy(text)}
+      onClick={async () => {
+        if (await copy(text)) onCopied?.()
+      }}
     >
       {copied ? (
         <CheckIcon aria-hidden="true" />
@@ -156,7 +161,13 @@ export function CopyButton({
   )
 }
 
-function CopyCodeButton({ text }: { text: string }) {
+function CopyCodeButton({
+  text,
+  onCopied,
+}: {
+  text: string
+  onCopied: () => void
+}) {
   const { copied, copy } = useCopyToClipboard()
 
   return (
@@ -169,7 +180,9 @@ function CopyCodeButton({ text }: { text: string }) {
               size="sm"
               disabled={!text}
               aria-label={copied ? "Copied" : "Copy source to clipboard"}
-              onClick={() => void copy(text)}
+              onClick={async () => {
+                if (await copy(text)) onCopied()
+              }}
             />
           }
         >
@@ -221,7 +234,13 @@ function FileTreeFolder({
   )
 }
 
-export function BlockCodeView({ files }: { files: RegistryFile[] }) {
+export function BlockCodeView({
+  name,
+  files,
+}: {
+  name: string
+  files: RegistryFile[]
+}) {
   const defaultFile = useMemo(
     () => files.find((file) => file.name === DEFAULT_FILE_NAME) ?? files[0],
     [files]
@@ -324,7 +343,15 @@ export function BlockCodeView({ files }: { files: RegistryFile[] }) {
             {currentFile?.target ?? currentFile?.name}
           </p>
           <div className="ml-auto">
-            <CopyCodeButton text={currentFile?.code ?? ""} />
+            <CopyCodeButton
+              text={currentFile?.code ?? ""}
+              onCopied={() =>
+                posthog.capture("source_copied", {
+                  item: name,
+                  file: currentFile?.target ?? currentFile?.name,
+                })
+              }
+            />
           </div>
         </header>
 

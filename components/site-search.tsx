@@ -3,6 +3,7 @@
 import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { posthog } from "posthog-js"
 import * as React from "react"
 
 import { ProjectMark } from "@/components/logo"
@@ -38,6 +39,10 @@ export function SiteSearch({
   )
 
   function go(entry: SearchEntry) {
+    posthog.capture("search_result_selected", {
+      item: entry.name,
+      kind: entry.kind,
+    })
     onOpenChange(false)
     router.push(itemPath(entry.kind, entry.name))
   }
