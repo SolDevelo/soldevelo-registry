@@ -34,7 +34,7 @@ import {
   DashboardCardCount,
   DashboardCardError,
   formatCount,
-} from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+} from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 
 import {
   type MonthTotals,

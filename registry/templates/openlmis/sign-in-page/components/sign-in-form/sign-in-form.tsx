@@ -14,7 +14,7 @@ import {
   AuthLink,
   AuthSubmit,
   AuthTitle,
-} from "@/registry/components/openlmis/auth-card/auth-card"
+} from "@/registry/blocks/openlmis/auth-card/auth-card"
 
 export type SignInCredentials = { username: string; password: string }
 

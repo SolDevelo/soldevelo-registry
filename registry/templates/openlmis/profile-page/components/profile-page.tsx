@@ -33,6 +33,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
@@ -108,8 +109,7 @@ export function ProfilePage() {
     )
 
   return (
-    // One column, so the footer sits under the page wherever this renders.
-    <div className="flex w-full flex-1 flex-col">
+    <WorkspaceLayout>
       <Workspace width="narrow">
         <PageBreadcrumbs
           items={[{ label: "Home", href: "#" }, { label: "Profile" }]}
@@ -241,7 +241,7 @@ export function ProfilePage() {
         open={leaving !== undefined}
         subject="your profile"
       />
-    </div>
+    </WorkspaceLayout>
   )
 }
 

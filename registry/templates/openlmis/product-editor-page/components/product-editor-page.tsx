@@ -48,6 +48,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { FormActions } from "@/registry/components/openlmis/form-actions/form-actions"
@@ -291,8 +292,7 @@ export function ProductEditorPage({
   }
 
   return (
-    // One column, so the bar sits under the page wherever this renders.
-    <div className="flex w-full flex-1 flex-col">
+    <WorkspaceLayout>
       <Workspace>
         <WorkspaceHeader>
           <WorkspaceHeading>
@@ -445,7 +445,7 @@ export function ProductEditorPage({
         open={leaving !== undefined}
         subject={tab === "kit-unpack-list" ? "the kit unpack list" : name}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }
 

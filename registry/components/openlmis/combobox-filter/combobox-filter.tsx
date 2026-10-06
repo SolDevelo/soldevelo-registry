@@ -2,6 +2,7 @@
 
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
 import { XIcon } from "lucide-react"
+import { useState } from "react"
 
 import {
   Combobox,
@@ -12,6 +13,8 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox"
 import { InputGroupAddon, InputGroupButton } from "@/components/ui/input-group"
+
+import { narrowOptions } from "./narrow-options"
 
 export type ComboboxFilterOption = {
   value: string
@@ -27,9 +30,12 @@ type ComboboxFilterProps = {
   value: string
   onValueChange: (value: string) => void
   options: ComboboxFilterOption[]
+  /** Most options listed at once; past it the user is asked to type to narrow the list. */
   limit?: number
   /** Called with what the user types; the caller narrows `options` and they are listed as given. */
   onSearch?: (text: string) => void
+  /** With `onSearch`, how many options match in all when `options` holds only some of them. */
+  total?: number
   /** Shown when there is nothing to list. */
   emptyMessage?: string
   clearLabel?: string
@@ -46,28 +52,43 @@ export function ComboboxFilter({
   options,
   limit = 50,
   onSearch,
+  total,
   emptyMessage = "No Matches",
   clearLabel = `Clear ${label}`,
   status,
   onOpenChange,
 }: ComboboxFilterProps) {
-  const selected = options.find((option) => option.value === value) ?? null
+  const [query, setQuery] = useState("")
+  // Kept so the input still shows the pick once a search's results leave it out.
+  const [picked, setPicked] = useState<ComboboxFilterOption | null>(null)
+  const selected =
+    options.find((option) => option.value === value) ??
+    (picked?.value === value ? picked : null)
+  const { items, hint } = narrowOptions(options, {
+    query,
+    limit,
+    searched: Boolean(onSearch),
+    total: onSearch ? total : undefined,
+  })
 
   return (
     <Combobox
-      // With `onSearch` the caller already narrowed the options, so they are not filtered again.
-      filter={onSearch ? null : undefined}
-      isItemEqualToValue={(item, picked) => item.value === picked.value}
+      // Options are narrowed above, so Base UI does not filter them again.
+      filter={null}
+      isItemEqualToValue={(item, option) => item.value === option.value}
       itemToStringLabel={(item) => item.label}
-      items={options}
-      limit={limit}
-      onInputValueChange={
-        onSearch &&
-        ((text, details) =>
-          onSearch(details.reason === "input-change" ? text : ""))
-      }
+      items={items}
+      onInputValueChange={(text, details) => {
+        // Only typing counts as a search, not the selected label filling the input.
+        const typed = details.reason === "input-change" ? text : ""
+        setQuery(typed)
+        onSearch?.(typed)
+      }}
       onOpenChange={onOpenChange && ((open) => onOpenChange(open))}
-      onValueChange={(item) => onValueChange(item?.value ?? "")}
+      onValueChange={(item) => {
+        setPicked(item)
+        onValueChange(item?.value ?? "")
+      }}
       value={selected}
     >
       <ComboboxInput aria-label={label} className="w-full" placeholder={label}>
@@ -86,10 +107,10 @@ export function ComboboxFilter({
       <ComboboxContent>
         {onSearch && (
           <ComboboxPrimitive.Status className="px-3 pt-2 text-xs text-muted-foreground empty:hidden">
-            {options.length > 0 && status}
+            {items.length > 0 && status}
           </ComboboxPrimitive.Status>
         )}
-        <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
+        <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
         <ComboboxList>
           {(option: ComboboxFilterOption) => (
             <ComboboxItem key={option.value} value={option}>

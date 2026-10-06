@@ -4,7 +4,7 @@ import { revalidateLogic, useStore } from "@tanstack/react-form"
 import { type ReactNode, useEffect, useState } from "react"
 
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
-import { SettingsList } from "@/registry/components/openlmis/settings-list/settings-list"
+import { SettingsList } from "@/registry/blocks/openlmis/settings-list/settings-list"
 
 import { BrandingPreview } from "./branding-preview"
 import {

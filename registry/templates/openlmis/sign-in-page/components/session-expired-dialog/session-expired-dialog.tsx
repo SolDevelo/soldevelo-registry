@@ -6,7 +6,7 @@ import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { FieldGroup } from "@/components/ui/field"
-import { AuthLink } from "@/registry/components/openlmis/auth-card/auth-card"
+import { AuthLink } from "@/registry/blocks/openlmis/auth-card/auth-card"
 import {
   FormDialog,
   FormDialogBody,

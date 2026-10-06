@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import type { ReactNode, Ref } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -14,6 +14,18 @@ type WorkspaceWidthProps = WorkspaceProps & {
 }
 
 const MAX_WIDTH = { default: "max-w-6xl", narrow: "max-w-4xl" } as const
+
+// The host supplies the height; the content grows above the bottom action bar.
+export function WorkspaceLayout({
+  children,
+  ref,
+}: WorkspaceProps & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div className="flex min-h-full w-full flex-1 flex-col" ref={ref}>
+      {children}
+    </div>
+  )
+}
 
 export function Workspace({
   children,
@@ -87,7 +99,7 @@ export function WorkspaceContent({ children }: WorkspaceProps) {
   return <div className="flex flex-1 flex-col gap-4 lg:gap-6">{children}</div>
 }
 
-/** Rendered after `Workspace`: full width, stuck to the bottom, its buttons in line with the page. */
+// Place after Workspace inside WorkspaceLayout.
 export function WorkspaceFooter({
   children,
   width = "default",
@@ -99,7 +111,7 @@ export function WorkspaceFooter({
     >
       <div
         className={cn(
-          "mx-auto flex w-full items-center justify-between gap-2 px-4 py-3 lg:px-6",
+          "mx-auto flex w-full items-center justify-end gap-2 px-4 py-3 lg:px-6",
           MAX_WIDTH[width]
         )}
       >

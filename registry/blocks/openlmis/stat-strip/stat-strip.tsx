@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import {
   DashboardCardError,
   formatCount,
-} from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+} from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 
 /** As many columns as there are stats, so a user who sees fewer never gets an empty cell. */
 const COLUMNS = [

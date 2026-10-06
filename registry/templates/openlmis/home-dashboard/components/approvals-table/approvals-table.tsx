@@ -21,7 +21,7 @@ import {
   DashboardCard,
   DashboardCardCount,
   DashboardCardError,
-} from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+} from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 
 /** A requisition waiting on the user; map your API's requisitions onto it. */
 export type ApprovalRequisition = {

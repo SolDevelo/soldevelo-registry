@@ -16,7 +16,7 @@ import {
 import { DataTableEmpty } from "@/registry/blocks/openlmis/data-table/data-table"
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
 import { SearchInput } from "@/registry/components/openlmis/search-input/search-input"
-import { SettingsList } from "@/registry/components/openlmis/settings-list/settings-list"
+import { SettingsList } from "@/registry/blocks/openlmis/settings-list/settings-list"
 
 import {
   buildFlagOverrides,

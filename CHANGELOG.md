@@ -19,7 +19,7 @@ and edits update local state.
 - Mock page templates for role administration, profiles, valid sources and
   destinations, system settings, products, facilities, stock reasons, lots,
   service accounts, programs and facility types.
-- Sign-in, forgot-password, reset-password and no-access page templates,
+- Sign-in, forgot-password and reset-password page templates,
   including validation, result states and a session-expired dialog example.
 - Shared form actions, bordered settings rows, a calendar date picker,
   password requirements and pure text-number validation helpers.
@@ -32,6 +32,10 @@ and edits update local state.
 
 ### Changed
 
+- Auth Card, Dashboard Card, Settings List and Stat Strip are now blocks,
+  alongside Data Table, List Toolbar and Workspace.
+- Filter and form comboboxes ask users to type when more than 50 options
+  match, rather than showing a partial list. The limit is configurable.
 - Domain-specific columns, forms, dialogs and dashboard widgets now ship
   inside their page templates. Shared UI remains separately installable.
 - Form fields support stacked, row and inline layouts, shared password
@@ -53,6 +57,10 @@ and edits update local state.
 
 ### Fixed
 
+- Label Popover examples are centered and have room for open panels.
+  Date Picker previews have enough height for an open calendar.
+- Workspace actions stay together at the bottom of a column layout,
+  including when the page scrolls.
 - Discarding profile changes after a password change clears the unsaved
   form values as well as the change count.
 - Copy feedback clears when focus or the pointer leaves the control,
@@ -60,6 +68,8 @@ and edits update local state.
 
 ### Removed
 
+- The duplicate No Access Page template. Use the reusable No Access component
+  inside a workspace or another page layout.
 - Standalone domain-specific table, form and dialog catalog entries. Install
   their page template to obtain the complete mocked example, or compose a
   new workflow from Data Table, Form Fields, Form Dialog and the shared controls.

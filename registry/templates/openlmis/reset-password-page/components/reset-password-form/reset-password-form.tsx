@@ -12,7 +12,7 @@ import {
   AuthLink,
   AuthSubmit,
   AuthTitle,
-} from "@/registry/components/openlmis/auth-card/auth-card"
+} from "@/registry/blocks/openlmis/auth-card/auth-card"
 import { FormDialogError } from "@/registry/components/openlmis/form-dialog/form-dialog"
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
 import { PasswordRequirements } from "@/registry/components/openlmis/password-requirements/password-requirements"

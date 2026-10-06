@@ -35,6 +35,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
@@ -181,8 +182,7 @@ function RolesEditor({
   const name = [user.firstName, user.lastName].filter(Boolean).join(" ")
 
   return (
-    // One column, so the bar sits under the page wherever this renders.
-    <div className="flex w-full flex-1 flex-col">
+    <WorkspaceLayout>
       <Workspace>
         <PageBreadcrumbs
           items={[
@@ -321,7 +321,7 @@ function RolesEditor({
         open={dialog?.kind === "discard"}
         subject={`the roles of ${user.username}`}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }
 

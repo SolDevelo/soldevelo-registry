@@ -10,7 +10,7 @@ import { FieldGroup, FieldSeparator } from "@/components/ui/field"
 import {
   SettingsItem,
   SettingsList,
-} from "@/registry/components/openlmis/settings-list/settings-list"
+} from "@/registry/blocks/openlmis/settings-list/settings-list"
 
 import { useAppForm } from "./form"
 

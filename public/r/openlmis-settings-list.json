@@ -11,10 +11,10 @@
   ],
   "files": [
     {
-      "path": "registry/components/openlmis/settings-list/settings-list.tsx",
+      "path": "registry/blocks/openlmis/settings-list/settings-list.tsx",
       "content": "import type { ReactNode } from \"react\"\n\n/** Bordered rows of settings: fields with `layout=\"row\"` and `SettingsItem`s. */\nexport function SettingsList({ children }: { children: ReactNode }) {\n  return (\n    <div className=\"divide-y rounded-xl border bg-card *:px-4 *:py-3\">\n      {children}\n    </div>\n  )\n}\n\ntype SettingsRowFrameProps = {\n  label: ReactNode\n  /** Beside the label, such as a status badge. */\n  badge?: ReactNode\n  /** Under the label. */\n  description?: ReactNode\n  /** `control` gives an input half the row; `fit` lets a switch or a value take its own width. */\n  value?: \"control\" | \"fit\"\n  children: ReactNode\n}\n\n/** The label at the start of a row and its value at the end. */\nexport function SettingsRowFrame({\n  label,\n  badge,\n  description,\n  value = \"fit\",\n  children,\n}: SettingsRowFrameProps) {\n  return (\n    <div className=\"flex items-start justify-between gap-4\">\n      <div className=\"flex min-h-8 min-w-0 flex-1 flex-col justify-center gap-0.5\">\n        <div className=\"flex min-w-0 flex-wrap items-center gap-2\">\n          {label}\n          {badge}\n        </div>\n        {description}\n      </div>\n      <div\n        className={\n          value === \"control\"\n            ? \"flex w-1/2 max-w-sm shrink-0 flex-col gap-1\"\n            : \"flex min-h-8 max-w-1/2 min-w-0 items-center justify-end\"\n        }\n      >\n        {children}\n      </div>\n    </div>\n  )\n}\n\n/** A row that only shows its value, such as one only an administrator can change. */\nexport function SettingsItem({\n  label,\n  children,\n}: {\n  label: ReactNode\n  children: ReactNode\n}) {\n  return (\n    <SettingsRowFrame label={<span className=\"text-sm\">{label}</span>}>\n      <span className=\"min-w-0 text-end text-sm font-medium wrap-break-word\">\n        {children}\n      </span>\n    </SettingsRowFrame>\n  )\n}",
       "type": "registry:component",
-      "target": "components/openlmis/settings-list.tsx"
+      "target": "components/blocks/openlmis/settings-list.tsx"
     }
   ],
   "cssVars": {
@@ -47,5 +47,5 @@
     "settings",
     "forms"
   ],
-  "type": "registry:component"
+  "type": "registry:block"
 }

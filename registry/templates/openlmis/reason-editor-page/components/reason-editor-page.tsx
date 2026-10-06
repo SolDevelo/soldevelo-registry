@@ -26,6 +26,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
@@ -217,7 +218,7 @@ export function ReasonEditorPage({
   }
 
   return (
-    <div className="flex w-full flex-1 flex-col" ref={container}>
+    <WorkspaceLayout ref={container}>
       <Workspace width="narrow">
         <PageBreadcrumbs
           items={[
@@ -336,6 +337,6 @@ export function ReasonEditorPage({
         open={discarding}
         subject={adding ? "the new reason" : saved.values.name}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }

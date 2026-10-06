@@ -8,7 +8,7 @@ import {
   AuthHeader,
   AuthPage,
   AuthTitle,
-} from "@/registry/components/openlmis/auth-card/auth-card"
+} from "@/registry/blocks/openlmis/auth-card/auth-card"
 import {
   type SignInCredentials,
   SignInForm,

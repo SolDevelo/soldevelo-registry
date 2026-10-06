@@ -26,14 +26,13 @@ type LotsToolbarProps = {
   onFiltersChange: (patch: Partial<LotsFilters>) => void
   /** The products found for what was typed, with the picked one first. */
   productOptions: ComboboxFilterOption[]
+  productTotal?: number
   /** Called with what is typed in the product filter; debounce before searching. */
   onProductSearch?: (text: string) => void
   /** While a search runs, the list says so instead of showing no matches. */
   searching?: boolean
   /** Shown in the list when the product search failed. */
   searchError?: string | undefined
-  /** Shown above the options, such as `productSearchStatus`'s count of those left out. */
-  searchStatus?: string | undefined
   columnView: {
     visibility: ColumnVisibility
     onVisibilityChange: (visibility: ColumnVisibility) => void
@@ -47,10 +46,10 @@ export function LotsToolbar({
   filters,
   onFiltersChange,
   productOptions,
+  productTotal,
   onProductSearch,
   searching = false,
   searchError,
-  searchStatus,
   columnView,
   dateLanguage,
 }: LotsToolbarProps) {
@@ -65,7 +64,7 @@ export function LotsToolbar({
           onSearch={onProductSearch}
           onValueChange={(product) => onFiltersChange({ product })}
           options={productOptions}
-          status={searching ? undefined : searchStatus}
+          total={productTotal}
           value={filters.product}
         />
       </div>

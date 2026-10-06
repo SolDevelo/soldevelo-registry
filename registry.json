@@ -66,9 +66,9 @@
       ],
       "files": [
         {
-          "path": "registry/components/openlmis/settings-list/settings-list.tsx",
+          "path": "registry/blocks/openlmis/settings-list/settings-list.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/settings-list.tsx"
+          "target": "components/blocks/openlmis/settings-list.tsx"
         }
       ],
       "meta": {
@@ -79,7 +79,7 @@
         "settings",
         "forms"
       ],
-      "type": "registry:component",
+      "type": "registry:block",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -130,7 +130,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "240px"
+        "height": "512px"
       },
       "categories": [
         "forms"
@@ -292,7 +292,12 @@
         {
           "path": "registry/components/openlmis/combobox-filter/combobox-filter.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/combobox-filter.tsx"
+          "target": "components/openlmis/combobox-filter/combobox-filter.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/combobox-filter/narrow-options.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/combobox-filter/narrow-options.ts"
         }
       ],
       "meta": {
@@ -709,6 +714,7 @@
         "textarea",
         "tooltip",
         "utils",
+        "https://registry.soldevelo.com/r/openlmis-combobox-filter.json",
         "https://registry.soldevelo.com/r/openlmis-date-picker.json",
         "https://registry.soldevelo.com/r/openlmis-settings-list.json"
       ],
@@ -848,9 +854,9 @@
       ],
       "files": [
         {
-          "path": "registry/components/openlmis/dashboard-card/dashboard-card.tsx",
+          "path": "registry/blocks/openlmis/dashboard-card/dashboard-card.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/dashboard-card.tsx"
+          "target": "components/blocks/openlmis/dashboard-card.tsx"
         }
       ],
       "meta": {
@@ -861,7 +867,7 @@
         "dashboard",
         "layout"
       ],
-      "type": "registry:component",
+      "type": "registry:block",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -899,9 +905,9 @@
       ],
       "files": [
         {
-          "path": "registry/components/openlmis/stat-strip/stat-strip.tsx",
+          "path": "registry/blocks/openlmis/stat-strip/stat-strip.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/stat-strip.tsx"
+          "target": "components/blocks/openlmis/stat-strip.tsx"
         }
       ],
       "meta": {
@@ -912,7 +918,7 @@
         "dashboard",
         "data-display"
       ],
-      "type": "registry:component",
+      "type": "registry:block",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -1117,7 +1123,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "320px"
+        "height": "512px"
       },
       "categories": [
         "layout"
@@ -2478,9 +2484,9 @@
       ],
       "files": [
         {
-          "path": "registry/components/openlmis/auth-card/auth-card.tsx",
+          "path": "registry/blocks/openlmis/auth-card/auth-card.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/auth-card.tsx"
+          "target": "components/blocks/openlmis/auth-card.tsx"
         }
       ],
       "meta": {
@@ -2491,7 +2497,7 @@
         "auth",
         "forms"
       ],
-      "type": "registry:component",
+      "type": "registry:block",
       "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
@@ -2738,60 +2744,6 @@
       },
       "categories": [
         "auth"
-      ],
-      "type": "registry:page",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-no-access-page",
-      "title": "No Access Page",
-      "description": "Workspace page for a permission-denied empty state with Back Home.",
-      "dependencies": [
-        "@base-ui/react@^1"
-      ],
-      "registryDependencies": [
-        "https://registry.soldevelo.com/r/openlmis-no-access.json",
-        "https://registry.soldevelo.com/r/openlmis-workspace.json"
-      ],
-      "files": [
-        {
-          "path": "registry/templates/openlmis/no-access-page/components/no-access-page.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/no-access-page/no-access-page.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/no-access-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/no-access-page/page.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "266px"
-      },
-      "categories": [
-        "feedback"
       ],
       "type": "registry:page",
       "cssVars": {
@@ -3073,7 +3025,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "124px"
+        "height": "384px"
       },
       "categories": [
         "feedback"

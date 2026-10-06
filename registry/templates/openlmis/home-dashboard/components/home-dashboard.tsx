@@ -24,11 +24,11 @@ import {
   WorkspaceHeading,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
-import { DashboardRow } from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+import { DashboardRow } from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 import {
   Stat,
   StatStrip,
-} from "@/registry/components/openlmis/stat-strip/stat-strip"
+} from "@/registry/blocks/openlmis/stat-strip/stat-strip"
 
 import {
   type DashboardAccess,

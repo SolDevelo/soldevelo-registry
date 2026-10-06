@@ -73,8 +73,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { narrowOptions } from "@/registry/components/openlmis/combobox-filter/narrow-options"
 import { DatePicker } from "@/registry/components/openlmis/date-picker/date-picker"
-import { SettingsRowFrame } from "@/registry/components/openlmis/settings-list/settings-list"
+import { SettingsRowFrame } from "@/registry/blocks/openlmis/settings-list/settings-list"
 
 import { useFieldContext } from "./form-context"
 import { useAboutLabel, useDateMessages, useFormatError } from "./form-messages"
@@ -911,7 +912,7 @@ type ComboboxFieldProps = FieldProps & {
   emptyMessage?: ReactNode
   /** Names the button that empties the field, for screen readers. */
   clearLabel?: string
-  /** Most matches rendered at once, so a list of thousands stays quick to type into. */
+  /** Most matches listed at once; past it the user is asked to type to narrow the list. */
   limit?: number
 }
 
@@ -929,6 +930,8 @@ export function ComboboxField({
   limit = 50,
 }: ComboboxFieldProps) {
   const field = useFieldContext<string | null>()
+  const [query, setQuery] = useState("")
+  const { items: listed, hint } = narrowOptions(items, { query, limit })
   const state = useFieldErrors(description)
   const { isInvalid, describedBy: ariaDescribedBy } = state
   const selected = useMemo(
@@ -948,9 +951,13 @@ export function ComboboxField({
       <Combobox
         disabled={disabled}
         isItemEqualToValue={(item, value) => item.value === value.value}
+        filter={null}
         itemToStringLabel={(item) => item.label}
-        items={items}
-        limit={limit}
+        items={listed}
+        // Only typing counts as a search, not the selected label filling the input.
+        onInputValueChange={(text, details) =>
+          setQuery(details.reason === "input-change" ? text : "")
+        }
         onValueChange={(item, details) => {
           // Base UI clears the field on Escape once the list is closed; let Escape close the dialog instead.
           if (details.reason === "escape-key" && !item)
@@ -984,7 +991,7 @@ export function ComboboxField({
           )}
         </ComboboxInput>
         <ComboboxContent>
-          <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
+          <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
           <ComboboxList>
             {(item: ComboboxFieldItem) => (
               <ComboboxItem key={item.value} value={item}>
@@ -1010,7 +1017,12 @@ type MultiComboboxFieldProps = FieldProps & {
   placeholder?: string
   emptyMessage: ReactNode
   removeLabel: (label: string) => string
+  /** Called with what the user types; the caller narrows `items` and they are listed as given. */
   onSearch?: (text: string) => void
+  /** With `onSearch`, how many items match in all when `items` holds only some of them. */
+  total?: number
+  /** Most matches listed at once; past it the user is asked to type to narrow the list. */
+  limit?: number
 }
 
 export function MultiComboboxField({
@@ -1024,6 +1036,8 @@ export function MultiComboboxField({
   emptyMessage,
   removeLabel,
   onSearch,
+  total,
+  limit = 50,
 }: MultiComboboxFieldProps) {
   const field = useFieldContext<string[]>()
   const state = useFieldErrors(description)
@@ -1040,6 +1054,13 @@ export function MultiComboboxField({
     const chosen = new Set(field.state.value)
     return items.filter((item) => chosen.has(item.value))
   }, [items, picked, field.state.value, onSearch])
+  const [query, setQuery] = useState("")
+  const { items: listed, hint } = narrowOptions(items, {
+    query,
+    limit,
+    searched: Boolean(onSearch),
+    total: onSearch ? total : undefined,
+  })
 
   return (
     <FieldFrame
@@ -1054,10 +1075,14 @@ export function MultiComboboxField({
         disabled={disabled}
         isItemEqualToValue={(item, value) => item.value === value.value}
         itemToStringLabel={(item) => item.label}
-        filter={onSearch ? null : undefined}
-        items={items}
+        filter={null}
+        items={listed}
         multiple
-        onInputValueChange={onSearch}
+        onInputValueChange={(text, details) => {
+          const typed = details.reason === "input-change" ? text : ""
+          setQuery(typed)
+          onSearch?.(typed)
+        }}
         onOpenChange={(_, details) => {
           if (onSearch && details.reason === "item-press") details.cancel()
         }}
@@ -1095,7 +1120,7 @@ export function MultiComboboxField({
           </ComboboxValue>
         </ComboboxChips>
         <ComboboxContent anchor={anchor}>
-          <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
+          <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
           <ComboboxList>
             {(item: ComboboxFieldItem) => (
               <ComboboxItem key={item.value} value={item}>

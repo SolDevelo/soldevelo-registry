@@ -22,7 +22,7 @@ import {
   SettingsItem,
   SettingsList,
   SettingsRowFrame,
-} from "@/registry/components/openlmis/settings-list/settings-list"
+} from "@/registry/blocks/openlmis/settings-list/settings-list"
 import { StatusBadge } from "@/registry/components/openlmis/status-badge/status-badge"
 
 import {

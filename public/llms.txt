@@ -2,16 +2,16 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 48 installable items across 1 open-source project (OpenLMIS): 26 components, 3 blocks, and 19 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 47 installable items across 1 open-source project (OpenLMIS): 22 components, 7 blocks, and 18 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
 ## Pages
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
-- [Components](https://registry.soldevelo.com/components): 26 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 3 blocks, with live previews and full source.
-- [Templates](https://registry.soldevelo.com/templates): 19 templates, with live previews and full source.
+- [Components](https://registry.soldevelo.com/components): 22 components, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 7 blocks, with live previews and full source.
+- [Templates](https://registry.soldevelo.com/templates): 18 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
 
@@ -48,7 +48,7 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 ## Catalog
 
 - [Form Actions](https://registry.soldevelo.com/components/openlmis-form-actions) `@soldevelo/openlmis-form-actions` (component): Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.
-- [Settings List](https://registry.soldevelo.com/components/openlmis-settings-list) `@soldevelo/openlmis-settings-list` (component): Bordered setting rows with labels, descriptions, badges and editable or read-only values.
+- [Settings List](https://registry.soldevelo.com/blocks/openlmis-settings-list) `@soldevelo/openlmis-settings-list` (block): Bordered setting rows with labels, descriptions, badges and editable or read-only values.
 - [Date Picker](https://registry.soldevelo.com/components/openlmis-date-picker) `@soldevelo/openlmis-date-picker` (component): A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.
 - [Password Requirements](https://registry.soldevelo.com/components/openlmis-password-requirements) `@soldevelo/openlmis-password-requirements` (component): A live checklist of password rules with pure validation helpers.
 - [Table Selection](https://registry.soldevelo.com/components/openlmis-table-selection) `@soldevelo/openlmis-table-selection` (component): A page selection checkbox column and a floating selected-count bar with Clear and actions.
@@ -62,8 +62,8 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 - [Page Breadcrumbs](https://registry.soldevelo.com/components/openlmis-page-breadcrumbs) `@soldevelo/openlmis-page-breadcrumbs` (component): Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.
 - [Form Fields](https://registry.soldevelo.com/components/openlmis-form-fields) `@soldevelo/openlmis-form-fields` (component): Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.
 - [Form Dialog](https://registry.soldevelo.com/components/openlmis-form-dialog) `@soldevelo/openlmis-form-dialog` (component): Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.
-- [Dashboard Card](https://registry.soldevelo.com/components/openlmis-dashboard-card) `@soldevelo/openlmis-dashboard-card` (component): Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.
-- [Stat Strip](https://registry.soldevelo.com/components/openlmis-stat-strip) `@soldevelo/openlmis-stat-strip` (component): One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.
+- [Dashboard Card](https://registry.soldevelo.com/blocks/openlmis-dashboard-card) `@soldevelo/openlmis-dashboard-card` (block): Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.
+- [Stat Strip](https://registry.soldevelo.com/blocks/openlmis-stat-strip) `@soldevelo/openlmis-stat-strip` (block): One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.
 - [Discard Changes Dialog](https://registry.soldevelo.com/components/openlmis-discard-changes-dialog) `@soldevelo/openlmis-discard-changes-dialog` (component): Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.
 - [Callout](https://registry.soldevelo.com/components/openlmis-callout) `@soldevelo/openlmis-callout` (component): Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.
 - [Data Table](https://registry.soldevelo.com/blocks/openlmis-data-table) `@soldevelo/openlmis-data-table` (block): Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.
@@ -81,12 +81,11 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 - [Product Editor Page](https://registry.soldevelo.com/templates/openlmis-product-editor-page) `@soldevelo/openlmis-product-editor-page` (template): Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.
 - [Facility Editor Page](https://registry.soldevelo.com/templates/openlmis-facility-editor-page) `@soldevelo/openlmis-facility-editor-page` (template): Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.
 - [Reason Editor Page](https://registry.soldevelo.com/templates/openlmis-reason-editor-page) `@soldevelo/openlmis-reason-editor-page` (template): Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.
-- [Auth Card](https://registry.soldevelo.com/components/openlmis-auth-card) `@soldevelo/openlmis-auth-card` (component): Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.
+- [Auth Card](https://registry.soldevelo.com/blocks/openlmis-auth-card) `@soldevelo/openlmis-auth-card` (block): Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.
 - [No Access](https://registry.soldevelo.com/components/openlmis-no-access) `@soldevelo/openlmis-no-access` (component): No-access empty state with a heading-level choice and optional Back Home link.
 - [Sign In Page](https://registry.soldevelo.com/templates/openlmis-sign-in-page) `@soldevelo/openlmis-sign-in-page` (template): Mock sign-in page with credentials, refused feedback and a signed-in result.
 - [Forgot Password Page](https://registry.soldevelo.com/templates/openlmis-forgot-password-page) `@soldevelo/openlmis-forgot-password-page` (template): Mock email reset request page with a neutral confirmation.
 - [Reset Password Page](https://registry.soldevelo.com/templates/openlmis-reset-password-page) `@soldevelo/openlmis-reset-password-page` (template): Mock password reset page with validation and link-status presentation.
-- [No Access Page](https://registry.soldevelo.com/templates/openlmis-no-access-page) `@soldevelo/openlmis-no-access-page` (template): Workspace page for a permission-denied empty state with Back Home.
 - [Lots Page](https://registry.soldevelo.com/templates/openlmis-lots-page) `@soldevelo/openlmis-lots-page` (template): Mock lot list with product/expiry filters, paging and editable lot dialogs.
 - [Service Accounts Page](https://registry.soldevelo.com/templates/openlmis-service-accounts-page) `@soldevelo/openlmis-service-accounts-page` (template): Mock service-key list with sorting, paging, add/delete dialogs and copy-state presentation.
 - [Copyable Value](https://registry.soldevelo.com/components/openlmis-copyable-value) `@soldevelo/openlmis-copyable-value` (component): A value display and controlled copy button, with caller-owned copy behavior and feedback.

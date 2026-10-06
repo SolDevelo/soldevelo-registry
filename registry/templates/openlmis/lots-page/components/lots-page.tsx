@@ -14,7 +14,7 @@ import {
 import type { Lot, LotFormValues } from "./lot-form-dialog/lot-form"
 import { toLot } from "./lot-form-dialog/lot-form"
 import { LotFormDialog } from "./lot-form-dialog/lot-form-dialog"
-import { LOT_HIDEABLE_COLUMNS, productSearchStatus } from "./lots-table/lots"
+import { LOT_HIDEABLE_COLUMNS } from "./lots-table/lots"
 import { LotsTable } from "./lots-table/lots-table"
 import { type LotsFilters, LotsToolbar } from "./lots-table/lots-toolbar"
 import {
@@ -31,9 +31,6 @@ import { Callout } from "@/registry/components/openlmis/callout/callout"
 import { MOCK_LOTS, MOCK_PRODUCTS } from "./mock-lots"
 
 const NO_FILTERS: LotsFilters = { product: "", expiryFrom: "", expiryTo: "" }
-
-// The product search lists this many, like a server page, and says how many it left out.
-const SEARCH_PAGE = 5
 
 type Notice = { title: string; description: string }
 
@@ -100,12 +97,11 @@ export function LotsPage() {
       product.fullProductName.toLowerCase().includes(query) ||
       product.productCode.toLowerCase().includes(query)
   )
-  const listed = found.slice(0, SEARCH_PAGE)
   // The picked product stays first, so the filter can show its name.
   const picked = MOCK_PRODUCTS.find((product) => product.id === filters.product)
   const options = [
     ...(picked ? [picked] : []),
-    ...listed.filter((product) => product.id !== picked?.id),
+    ...found.filter((product) => product.id !== picked?.id),
   ].map((product) => ({
     value: product.id,
     label: product.fullProductName,
@@ -177,11 +173,7 @@ export function LotsPage() {
             onFiltersChange={updateFilters}
             onProductSearch={setTyped}
             productOptions={options}
-            searchStatus={productSearchStatus({
-              listed: options.length,
-              total: found.length,
-              typed: query !== "",
-            })}
+            productTotal={found.length}
           />
           <LotsTable
             columnVisibility={columnView.visibility}

@@ -10,7 +10,7 @@ export default function Page() {
   const [due, setDue] = useState("2026-10-15")
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-4 p-8">
+    <div className="flex min-h-128 w-full max-w-md flex-col gap-4 p-8">
       <DatePicker
         clearLabel="Clear Start Date"
         id="from"

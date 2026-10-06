@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { AuthPage } from "@/registry/components/openlmis/auth-card/auth-card"
+import { AuthPage } from "@/registry/blocks/openlmis/auth-card/auth-card"
 import { ForgotPasswordForm } from "@/registry/templates/openlmis/forgot-password-page/components/forgot-password-form/forgot-password-form"
 
 // oxlint-disable-next-line next/no-img-element -- items are framework-neutral

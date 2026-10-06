@@ -5,7 +5,7 @@ import {
   DashboardCard,
   DashboardCardCount,
   DashboardCardError,
-} from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+} from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 import { SegmentedMeter } from "@/registry/components/openlmis/segmented-meter/segmented-meter"
 
 /** A sent requisition's steps, in the order it takes them. */

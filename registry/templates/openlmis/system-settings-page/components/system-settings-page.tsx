@@ -29,6 +29,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { DiscardChangesDialog } from "@/registry/components/openlmis/discard-changes-dialog/discard-changes-dialog"
@@ -200,7 +201,7 @@ export function SystemSettingsPage({
   )
 
   return (
-    <div className="flex w-full flex-1 flex-col">
+    <WorkspaceLayout>
       <Workspace width="narrow">
         <WorkspaceHeader>
           <WorkspaceHeading>
@@ -303,6 +304,6 @@ export function SystemSettingsPage({
         onKeepEditing={() => setLeavingTo(undefined)}
         open={leavingTo !== undefined}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }

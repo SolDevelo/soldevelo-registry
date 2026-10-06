@@ -35,14 +35,14 @@ export const registryItems: RegistryItem[] = [
   {
     name: "openlmis-settings-list",
     title: "Settings List",
-    type: "registry:component",
+    type: "registry:block",
     description:
       "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
     dependencies: [],
     registryDependencies: ["badge"],
     files: [
       {
-        path: "components/openlmis/settings-list/settings-list.tsx",
+        path: "blocks/openlmis/settings-list/settings-list.tsx",
         type: "registry:component",
       },
     ],
@@ -73,7 +73,7 @@ export const registryItems: RegistryItem[] = [
     categories: ["forms"],
     meta: {
       project: "openlmis",
-      height: "240px",
+      height: "512px",
     },
   },
   {
@@ -136,6 +136,10 @@ export const registryItems: RegistryItem[] = [
       {
         path: "components/openlmis/combobox-filter/combobox-filter.tsx",
         type: "registry:component",
+      },
+      {
+        path: "components/openlmis/combobox-filter/narrow-options.ts",
+        type: "registry:lib",
       },
     ],
     categories: ["forms", "data-table"],
@@ -371,14 +375,14 @@ export const registryItems: RegistryItem[] = [
   {
     name: "openlmis-dashboard-card",
     title: "Dashboard Card",
-    type: "registry:component",
+    type: "registry:block",
     description:
       "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
     dependencies: ["lucide-react@^1"],
     registryDependencies: ["badge", "button", "card", "skeleton"],
     files: [
       {
-        path: "components/openlmis/dashboard-card/dashboard-card.tsx",
+        path: "blocks/openlmis/dashboard-card/dashboard-card.tsx",
         type: "registry:component",
       },
     ],
@@ -391,14 +395,14 @@ export const registryItems: RegistryItem[] = [
   {
     name: "openlmis-stat-strip",
     title: "Stat Strip",
-    type: "registry:component",
+    type: "registry:block",
     description:
       "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
     dependencies: [],
     registryDependencies: ["skeleton", "utils"],
     files: [
       {
-        path: "components/openlmis/stat-strip/stat-strip.tsx",
+        path: "blocks/openlmis/stat-strip/stat-strip.tsx",
         type: "registry:component",
       },
     ],
@@ -489,7 +493,7 @@ export const registryItems: RegistryItem[] = [
     categories: ["layout"],
     meta: {
       project: "openlmis",
-      height: "320px",
+      height: "512px",
     },
   },
   {
@@ -1256,14 +1260,14 @@ export const registryItems: RegistryItem[] = [
   {
     name: "openlmis-auth-card",
     title: "Auth Card",
-    type: "registry:component",
+    type: "registry:block",
     description:
       "Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.",
     dependencies: [],
     registryDependencies: ["button", "card", "field", "spinner"],
     files: [
       {
-        path: "components/openlmis/auth-card/auth-card.tsx",
+        path: "blocks/openlmis/auth-card/auth-card.tsx",
         type: "registry:component",
       },
     ],
@@ -1381,31 +1385,6 @@ export const registryItems: RegistryItem[] = [
     meta: {
       project: "openlmis",
       height: "603px",
-    },
-  },
-  {
-    name: "openlmis-no-access-page",
-    title: "No Access Page",
-    type: "registry:page",
-    description:
-      "Workspace page for a permission-denied empty state with Back Home.",
-    dependencies: [],
-    registryDependencies: [],
-    files: [
-      {
-        path: "templates/openlmis/no-access-page/components/no-access-page.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "templates/openlmis/no-access-page/page.tsx",
-        type: "registry:page",
-        target: "app/no-access-page/page.tsx",
-      },
-    ],
-    categories: ["feedback"],
-    meta: {
-      project: "openlmis",
-      height: "266px",
     },
   },
   {
@@ -1538,7 +1517,7 @@ export const registryItems: RegistryItem[] = [
     categories: ["feedback"],
     meta: {
       project: "openlmis",
-      height: "124px",
+      height: "384px",
     },
     dependencies: ["lucide-react@^1"],
     registryDependencies: ["button", "popover"],

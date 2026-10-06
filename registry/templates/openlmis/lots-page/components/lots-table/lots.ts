@@ -11,20 +11,3 @@ export const LOT_HIDEABLE_COLUMNS: (ResponsiveColumn & { label: string })[] = [
   { id: "expirationDate", label: "Expiry Date", hideBelow: "lg" },
   { id: "manufactureDate", label: "Manufacture Date", hideBelow: "2xl" },
 ]
-
-/** The line above a product search's results when only some are listed, or none when all are. */
-export function productSearchStatus({
-  listed,
-  total,
-  typed,
-}: {
-  listed: number
-  total: number
-  typed: boolean
-}) {
-  if (total <= listed) return undefined
-  const count = total.toLocaleString()
-  return typed
-    ? `Showing ${listed} of ${count}. Type more to narrow.`
-    : `Showing ${listed} of ${count}. Type to search.`
-}

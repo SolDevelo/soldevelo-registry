@@ -6,7 +6,7 @@ import {
   type ResetLinkStatus,
   ResetPasswordForm,
 } from "@/registry/templates/openlmis/reset-password-page/components/reset-password-form/reset-password-form"
-import { AuthPage } from "@/registry/components/openlmis/auth-card/auth-card"
+import { AuthPage } from "@/registry/blocks/openlmis/auth-card/auth-card"
 
 // oxlint-disable-next-line next/no-img-element -- items are framework-neutral
 const logo = <img alt="OpenLMIS" src="/projects/openlmis.png" />

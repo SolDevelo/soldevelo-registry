@@ -26,6 +26,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
@@ -201,7 +202,7 @@ export function FacilityEditorPage({
   }
 
   return (
-    <div className="flex w-full flex-1 flex-col" ref={container}>
+    <WorkspaceLayout ref={container}>
       <Workspace width="narrow">
         <PageBreadcrumbs
           items={[
@@ -328,6 +329,6 @@ export function FacilityEditorPage({
         open={discarding}
         subject={adding ? "the new facility" : name}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }
