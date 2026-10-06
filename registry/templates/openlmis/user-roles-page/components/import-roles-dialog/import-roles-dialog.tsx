@@ -8,7 +8,7 @@ import { FieldDescription, FieldGroup } from "@/components/ui/field"
 import {
   mergeAssignments,
   type RoleAssignment,
-} from "../role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import {
   FormDialog,
   FormDialogBody,

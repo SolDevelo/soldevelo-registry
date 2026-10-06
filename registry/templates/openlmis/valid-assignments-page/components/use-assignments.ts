@@ -124,11 +124,13 @@ export function useAssignments(
       })
       return
     }
-    added.current += 1
-    const assignment: ValidAssignment = {
-      ...draft,
-      id: `${kind}-new-${added.current}`,
-    }
+    // The counter restarts when the tab remounts, so skip ids already taken.
+    let id: string
+    do {
+      added.current += 1
+      id = `${kind}-new-${added.current}`
+    } while (assignments.some((assignment) => assignment.id === id))
+    const assignment: ValidAssignment = { ...draft, id }
     onAssignmentsChange([assignment, ...assignments])
     setNotice({
       tone: "success",

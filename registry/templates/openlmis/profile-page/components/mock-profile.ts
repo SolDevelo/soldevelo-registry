@@ -11,7 +11,7 @@ import type {
   Role,
   RoleAssignment,
   SupervisoryNode,
-} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 
 export const MOCK_PROFILE: Profile = {
   user: {

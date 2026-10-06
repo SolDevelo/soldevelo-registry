@@ -27,7 +27,7 @@ import {
   type Role,
   rightLabel,
   roleTypeOf,
-} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
 import {
   FormDialog,

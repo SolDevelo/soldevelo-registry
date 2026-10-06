@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-/** Counts in the reader's locale, e.g. 1,204. */
-export const formatCount = (value: number) =>
-  new Intl.NumberFormat().format(value)
+/** Counts like 1,204, in one fixed locale so a server render and the browser agree. */
+export const formatCount = new Intl.NumberFormat("en-US").format
 
 type DashboardCardProps = {
   title: ReactNode

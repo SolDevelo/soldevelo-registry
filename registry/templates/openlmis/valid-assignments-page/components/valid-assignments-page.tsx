@@ -351,13 +351,16 @@ function AssignmentsList({
         kind={kind}
         onClose={closeDelete}
         onConfirm={(ids) => {
-          const { deleted } = list.remove(ids)
+          const { deleted, failed } = list.remove(ids)
           if (deleted.length > 0) {
             setDeletedCount(deleted.length)
             return closeDelete()
           }
+          // The server refused every one, so retrying the same request will not help.
           setDeleteError(
-            "Nothing was deleted. Check your connection and try again."
+            failed.length === 1
+              ? "The server refused to delete it, probably because it is still in use."
+              : `The server refused to delete all ${failed.length}, probably because they are still in use.`
           )
         }}
         targets={deleting}

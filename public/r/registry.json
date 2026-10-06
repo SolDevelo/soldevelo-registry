@@ -1068,6 +1068,11 @@
           "path": "registry/blocks/openlmis/data-table/responsive-columns.ts",
           "type": "registry:lib",
           "target": "components/blocks/openlmis/data-table/responsive-columns.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/data-table/row-actions.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/data-table/row-actions.ts"
         }
       ],
       "meta": {
@@ -1078,6 +1083,74 @@
         "data-table"
       ],
       "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-role-assignments",
+      "title": "Role Assignments",
+      "description": "One role type's assignments for a user: search, sortable columns that fold into one on a narrow card, a role's rights in a popover, unsaved and ignored badges, removal and Add Role, plus the role types and helpers the user, roles and profile pages share.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "skeleton",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-label-popover.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/role-assignments/role-assignments.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/role-assignments/role-assignments.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/role-assignments/role-assignments-table.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/role-assignments/role-assignments-table.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/role-assignments/role-rights-popover.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/role-assignments/role-rights-popover.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "354px"
+      },
+      "categories": [
+        "administration",
+        "data-table"
+      ],
+      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -1234,10 +1307,9 @@
         "https://registry.soldevelo.com/r/openlmis-form-actions.json",
         "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-label-popover.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
         "https://registry.soldevelo.com/r/openlmis-password-requirements.json",
-        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments.json",
         "https://registry.soldevelo.com/r/openlmis-settings-list.json",
         "https://registry.soldevelo.com/r/openlmis-status-badge.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json",
@@ -1283,21 +1355,6 @@
           "path": "registry/templates/openlmis/profile-page/page.tsx",
           "type": "registry:page",
           "target": "app/profile-page/page.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-          "type": "registry:lib",
-          "target": "components/openlmis/profile-page/role-assignments.ts"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/profile-page/role-assignments-table.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/profile-page/role-rights-popover.tsx"
         }
       ],
       "meta": {
@@ -1308,7 +1365,6 @@
         "profile"
       ],
       "type": "registry:page",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -1358,6 +1414,7 @@
         "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
@@ -1384,6 +1441,11 @@
           "target": "components/openlmis/roles-page/role-form.ts"
         },
         {
+          "path": "registry/templates/openlmis/roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/role-rights-dialog.tsx"
+        },
+        {
           "path": "registry/templates/openlmis/roles-page/components/roles-list.ts",
           "type": "registry:lib",
           "target": "components/openlmis/roles-page/roles-list.ts"
@@ -1397,16 +1459,6 @@
           "path": "registry/templates/openlmis/roles-page/page.tsx",
           "type": "registry:page",
           "target": "app/roles-page/page.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-          "type": "registry:lib",
-          "target": "components/openlmis/roles-page/role-assignments.ts"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/roles-page/role-rights-dialog.tsx"
         }
       ],
       "meta": {
@@ -1666,14 +1718,11 @@
         "skeleton",
         "tabs",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-label-popover.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-search-input.json",
-        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
@@ -1696,26 +1745,6 @@
           "path": "registry/templates/openlmis/user-roles-page/components/mock-roles.ts",
           "type": "registry:lib",
           "target": "components/openlmis/user-roles-page/mock-roles.ts"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/user-roles-page/role-assignments-table.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-          "type": "registry:lib",
-          "target": "components/openlmis/user-roles-page/role-assignments.ts"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/user-roles-page/role-rights-popover.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/user-roles-page/role-rights-dialog.tsx"
         },
         {
           "path": "registry/templates/openlmis/user-roles-page/components/use-role-draft.ts",
@@ -1742,7 +1771,6 @@
         "roles"
       ],
       "type": "registry:page",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",

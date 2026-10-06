@@ -2,7 +2,7 @@ import {
   type RightType,
   type Role,
   roleTypeOf,
-} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import { ROLE_TYPES } from "./role-form-dialog/role-form"
 
 import type { ListedRole } from "./mock-roles"

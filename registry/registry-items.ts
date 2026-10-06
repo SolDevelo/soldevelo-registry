@@ -469,11 +469,43 @@ export const registryItems: RegistryItem[] = [
         path: "blocks/openlmis/data-table/responsive-columns.ts",
         type: "registry:lib",
       },
+      {
+        path: "blocks/openlmis/data-table/row-actions.ts",
+        type: "registry:lib",
+      },
     ],
     categories: ["data-table"],
     meta: {
       project: "openlmis",
       height: "639px",
+    },
+  },
+  {
+    name: "openlmis-role-assignments",
+    title: "Role Assignments",
+    type: "registry:block",
+    description:
+      "One role type's assignments for a user: search, sortable columns that fold into one on a narrow card, a role's rights in a popover, unsaved and ignored badges, removal and Add Role, plus the role types and helpers the user, roles and profile pages share.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: ["button", "dropdown-menu", "skeleton"],
+    files: [
+      {
+        path: "blocks/openlmis/role-assignments/role-assignments.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/role-assignments/role-assignments-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/role-assignments/role-rights-popover.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["administration", "data-table"],
+    meta: {
+      project: "openlmis",
+      height: "354px",
     },
   },
   {
@@ -575,18 +607,6 @@ export const registryItems: RegistryItem[] = [
         type: "registry:page",
         target: "app/profile-page/page.tsx",
       },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
-        type: "registry:component",
-      },
     ],
     categories: ["profile"],
     meta: {
@@ -633,6 +653,10 @@ export const registryItems: RegistryItem[] = [
         type: "registry:lib",
       },
       {
+        path: "templates/openlmis/roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+        type: "registry:component",
+      },
+      {
         path: "templates/openlmis/roles-page/components/roles-list.ts",
         type: "registry:lib",
       },
@@ -644,14 +668,6 @@ export const registryItems: RegistryItem[] = [
         path: "templates/openlmis/roles-page/page.tsx",
         type: "registry:page",
         target: "app/roles-page/page.tsx",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
-        type: "registry:component",
       },
     ],
     categories: ["administration"],
@@ -812,22 +828,6 @@ export const registryItems: RegistryItem[] = [
       {
         path: "templates/openlmis/user-roles-page/components/mock-roles.ts",
         type: "registry:lib",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
-        type: "registry:component",
       },
       {
         path: "templates/openlmis/user-roles-page/components/use-role-draft.ts",

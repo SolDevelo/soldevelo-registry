@@ -2,7 +2,7 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 47 installable items across 1 open-source project (OpenLMIS): 22 components, 7 blocks, and 18 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 48 installable items across 1 open-source project (OpenLMIS): 22 components, 8 blocks, and 18 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
@@ -10,7 +10,7 @@ Items are consumed with the shadcn CLI, which copies the source into the consume
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
 - [Components](https://registry.soldevelo.com/components): 22 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 7 blocks, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 8 blocks, with live previews and full source.
 - [Templates](https://registry.soldevelo.com/templates): 18 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
@@ -67,6 +67,7 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 - [Discard Changes Dialog](https://registry.soldevelo.com/components/openlmis-discard-changes-dialog) `@soldevelo/openlmis-discard-changes-dialog` (component): Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.
 - [Callout](https://registry.soldevelo.com/components/openlmis-callout) `@soldevelo/openlmis-callout` (component): Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.
 - [Data Table](https://registry.soldevelo.com/blocks/openlmis-data-table) `@soldevelo/openlmis-data-table` (block): Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.
+- [Role Assignments](https://registry.soldevelo.com/blocks/openlmis-role-assignments) `@soldevelo/openlmis-role-assignments` (block): One role type's assignments for a user: search, sortable columns that fold into one on a narrow card, a role's rights in a popover, unsaved and ignored badges, removal and Add Role, plus the role types and helpers the user, roles and profile pages share.
 - [Workspace](https://registry.soldevelo.com/blocks/openlmis-workspace) `@soldevelo/openlmis-workspace` (block): Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.
 - [List Toolbar](https://registry.soldevelo.com/blocks/openlmis-list-toolbar) `@soldevelo/openlmis-list-toolbar` (block): Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.
 - [Profile Page](https://registry.soldevelo.com/templates/openlmis-profile-page) `@soldevelo/openlmis-profile-page` (template): A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.

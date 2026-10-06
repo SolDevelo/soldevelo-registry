@@ -85,10 +85,11 @@ export function FormDialog({
   )
 }
 
+// Skips helpers marked `data-no-initial-focus`, such as a field's info button.
 function firstField(popup: HTMLElement | null) {
   const body = popup?.querySelector("[data-slot='form-dialog-body']")
   return body?.querySelector<HTMLElement>(
-    ":is(input:not([type='hidden']), textarea, select, button, [tabindex]):not([disabled]):not([hidden]):not([tabindex='-1']):not([aria-disabled='true'])"
+    ":is(input:not([type='hidden']), textarea, select, button, [tabindex]):not([disabled]):not([hidden]):not([tabindex='-1']):not([aria-disabled='true']):not([data-no-initial-focus])"
   )
 }
 

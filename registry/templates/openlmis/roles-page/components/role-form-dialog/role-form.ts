@@ -5,7 +5,7 @@ import {
   type RightType,
   type Role,
   roleTypeOf,
-} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 
 /** The four role types, in the order OpenLMIS shows them, with what each one is for. */
 export const ROLE_TYPES = [

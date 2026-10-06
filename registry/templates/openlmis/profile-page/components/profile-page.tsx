@@ -22,8 +22,8 @@ import {
   ROLE_TABS,
   type RoleTab,
   toRoleRows,
-} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
-import { RoleAssignmentsTable } from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
+import { RoleAssignmentsTable } from "@/registry/blocks/openlmis/role-assignments/role-assignments-table"
 import {
   Workspace,
   WorkspaceActions,

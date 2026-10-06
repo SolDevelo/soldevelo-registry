@@ -7,7 +7,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import { EllipsisIcon, KeyRoundIcon, PlusIcon, Trash2Icon } from "lucide-react"
-import { useCallback, useMemo, useRef } from "react"
+import { useMemo } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -26,6 +26,7 @@ import {
   DataTableSkeleton,
   dataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
+import { useMenuOpensDialog } from "@/registry/blocks/openlmis/data-table/row-actions"
 import { ListToolbar } from "@/registry/blocks/openlmis/list-toolbar/list-toolbar"
 import { CopyButton } from "@/registry/components/openlmis/copyable-value/copyable-value"
 
@@ -90,25 +91,6 @@ function createColumns(
         ]
       : []),
   ])
-}
-
-/** Keeps a closing menu from taking focus back to its trigger when an item opened a dialog, which then owns focus. */
-function useMenuOpensDialog() {
-  const opened = useRef(false)
-
-  const onOpenChange = useCallback((open: boolean) => {
-    if (open) opened.current = false
-  }, [])
-  const finalFocus = useCallback(() => !opened.current, [])
-  const opensDialog = useCallback(
-    (open: () => void) => () => {
-      opened.current = true
-      open()
-    },
-    []
-  )
-
-  return { onOpenChange, finalFocus, opensDialog }
 }
 
 function KeyActions({

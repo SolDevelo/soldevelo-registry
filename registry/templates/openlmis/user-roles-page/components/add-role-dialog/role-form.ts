@@ -5,7 +5,7 @@ import {
   type RightType,
   type RoleAssignment,
   toSavedAssignment,
-} from "../role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 
 const roleFormFields = z.object({
   roleId: z.string().nullable(),

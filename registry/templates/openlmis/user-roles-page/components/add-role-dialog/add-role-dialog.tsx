@@ -13,7 +13,7 @@ import {
   rightLabel,
   roleTypeOf,
   type SupervisoryNode,
-} from "../role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import {
   FormDialog,
   FormDialogBody,

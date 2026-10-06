@@ -25,14 +25,14 @@ import {
   ListToolbarFilter,
   ListToolbarSearch,
 } from "@/registry/blocks/openlmis/list-toolbar/list-toolbar"
-import type { RightType } from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+import type { RightType } from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import {
   RoleFormDialog,
   type RoleFormDialogTarget,
 } from "./role-form-dialog/role-form-dialog"
 import type { RoleFormResult } from "./role-form-dialog/role-form"
 import { ROLE_TYPES } from "./role-form-dialog/role-form"
-import { RoleRightsDialog } from "@/registry/templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog"
+import { RoleRightsDialog } from "./role-rights-dialog/role-rights-dialog"
 import {
   Workspace,
   WorkspaceContent,

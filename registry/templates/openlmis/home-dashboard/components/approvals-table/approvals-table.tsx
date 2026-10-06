@@ -43,8 +43,11 @@ type ApprovalsTableProps = {
   onRetry?: () => void
 }
 
-const formatDate = new Intl.DateTimeFormat(undefined, { dateStyle: "medium" })
-  .format
+// A fixed locale and time zone, so a server render and the browser print the same date.
+const formatDate = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "medium",
+  timeZone: "UTC",
+}).format
 
 /** The requisitions waiting on this user: a table with room, two lines each on a narrow card. */
 export function ApprovalsTable({

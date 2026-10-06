@@ -91,7 +91,7 @@ export function selectionColumn<TData extends RowData>(
     cell: ({ row }) => (
       <SelectRowCheckbox label={selectRow(rowLabel(row.original))} row={row} />
     ),
-    meta: { className: "w-10" },
+    meta: { className: "w-10", skeleton: "checkbox" },
   })
 }
 

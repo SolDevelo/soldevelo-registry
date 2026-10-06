@@ -46,6 +46,8 @@ import {
 export type DataTableColumnMeta = {
   /** Width classes, e.g. `w-1/5` or `w-16 @xl/table:w-32`. Columns without any share what is left. */
   className?: string
+  /** The loading placeholder's size: `text` (default) is a bar, `checkbox` a small square. */
+  skeleton?: "text" | "checkbox"
 }
 
 // Sorting and paging are left to the data source, so no client row models are registered.
@@ -248,10 +250,11 @@ export function DataTableSkeleton<TData extends RowData>({
               <TableRow key={row}>
                 {columns.map((column) => (
                   <TableCell key={column.id}>
-                    {/* The selection column gets a checkbox-sized square. */}
                     <Skeleton
                       className={
-                        column.id === "select" ? "size-4" : "h-4 w-3/4"
+                        column.columnDef.meta?.skeleton === "checkbox"
+                          ? "size-4"
+                          : "h-4 w-3/4"
                       }
                     />
                   </TableCell>

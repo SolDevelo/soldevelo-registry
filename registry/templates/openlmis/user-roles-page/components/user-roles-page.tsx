@@ -21,11 +21,11 @@ import {
   type SupervisoryNode,
   toRoleRows,
   assignmentKey,
-} from "./role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import {
   type LookupStatus,
   RoleAssignmentsTable,
-} from "./role-assignments-table/role-assignments-table"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments-table"
 import {
   Workspace,
   WorkspaceActions,

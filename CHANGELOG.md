@@ -29,6 +29,9 @@ and edits update local state.
   a segmented meter and a composable list of status meters.
 - Number, decimal, textarea, select, multiple-choice combobox, tags, image
   and date controls in the form fields kit.
+- A Role Assignments block, shared by the user roles, roles and profile
+  templates so each installs it once. Data Table also ships the row-menu
+  helper the list templates use to hand focus to the dialog an action opens.
 
 ### Changed
 
@@ -60,10 +63,19 @@ and edits update local state.
 
 - Dashboard previews keep positioned chart content inside the preview frame,
   avoiding a second vertical scrollbar on short screens.
-
 - The Select Filter preview gives Supplying Facility more room for the
   selected name, while keeping Status compact and fitting narrow screens.
-
+- The pagination range reads in order on right-to-left pages again.
+- Dashboard dates and counts use one fixed locale, so they no longer change
+  after the page loads in a browser set to another language.
+- A dialog opens on its first field rather than that field's info button.
+- The multiple-choice combobox keeps selected values that are missing from
+  its options instead of dropping them on the next change.
+- Deleting a valid source or destination the server refuses explains why,
+  rather than suggesting a connection problem.
+- New valid sources and destinations get unique ids after switching tabs.
+- Table skeletons draw a checkbox placeholder from column metadata, not from
+  a column named `select`.
 - Label Popover examples are centered and have room for open panels.
   Date Picker previews have enough height for an open calendar.
 - Workspace actions stay together at the bottom of a column layout,

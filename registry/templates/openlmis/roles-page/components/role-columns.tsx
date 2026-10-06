@@ -2,7 +2,6 @@
 
 import { createColumnHelper } from "@tanstack/react-table"
 import { EllipsisIcon, ListChecksIcon, PencilIcon } from "lucide-react"
-import { useCallback, useRef } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,8 +14,9 @@ import {
   DataTableColumnHeader,
   type DataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
+import { useMenuOpensDialog } from "@/registry/blocks/openlmis/data-table/row-actions"
 import type { ResponsiveColumn } from "@/registry/blocks/openlmis/data-table/responsive-columns"
-import { roleTypeOf } from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+import { roleTypeOf } from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import { roleTypeInfo } from "./role-form-dialog/role-form"
 
 import type { ListedRole } from "./mock-roles"
@@ -91,25 +91,6 @@ export function createRoleColumns(actions: RoleRowActions) {
         ]
       : []),
   ])
-}
-
-/** Keeps a closing menu from taking focus back to its trigger when an item opened a dialog, which then owns focus. */
-function useMenuOpensDialog() {
-  const opened = useRef(false)
-
-  const onOpenChange = useCallback((open: boolean) => {
-    if (open) opened.current = false
-  }, [])
-  const finalFocus = useCallback(() => !opened.current, [])
-  const opensDialog = useCallback(
-    (open: () => void) => () => {
-      opened.current = true
-      open()
-    },
-    []
-  )
-
-  return { onOpenChange, finalFocus, opensDialog }
 }
 
 function RoleActions({

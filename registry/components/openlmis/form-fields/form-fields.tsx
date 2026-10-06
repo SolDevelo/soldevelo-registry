@@ -95,16 +95,16 @@ type FieldProps = {
 type FieldFrameProps = FieldProps & {
   /** Beside the label in a row, such as a status badge. */
   badge?: ReactNode
-  /** After the badge in a row, or at the end of a stacked label"s line, such as a Reset or a link. */
+  /** After the badge in a row, or at the end of a stacked label's line, such as a Reset or a link. */
   action?: ReactNode
   state: ReturnType<typeof useFieldErrors>
-  /** `end` lines a row"s error up with a value set at the end, such as an image preview. */
+  /** `end` lines a row's error up with a value set at the end, such as an image preview. */
   errorAlign?: "end"
-  /** The control, which takes the field"s name as its id. */
+  /** The control, which takes the field's name as its id. */
   children: ReactNode
 }
 
-/** The field"s errors as display text, whether there are any, and what the control is described by. */
+/** The field's errors as display text, whether there are any, and what the control is described by. */
 function useFieldErrors(
   description?: ReactNode,
   extraDescribedBy?: string,
@@ -137,7 +137,7 @@ function useFieldErrors(
   return { errors, isInvalid, descriptionId, errorId, badgeId, describedBy }
 }
 
-/** A label"s text with the required mark, for any label, including a skeleton"s. */
+/** A label's text with the required mark, for any label, including a skeleton's. */
 export function FieldLabelText({
   label,
   required,
@@ -176,7 +176,7 @@ function RowExtras({
   )
 }
 
-/** Label, control, description and error, laid out as the field"s `layout` asks. */
+/** Label, control, description and error, laid out as the field's `layout` asks. */
 function FieldFrame({
   layout = "stacked",
   label,
@@ -469,7 +469,7 @@ export function PasswordField({
 }
 
 type ChoiceCardProps = {
-  /** The control"s id, so a click anywhere on the card reaches it. */
+  /** The control's id, so a click anywhere on the card reaches it. */
   htmlFor?: string
   label: ReactNode
   /** Text goes in a description line; any other node, such as a skeleton, is placed as it is. */
@@ -531,7 +531,7 @@ function ChoiceTile({
 type SwitchFieldProps = Omit<FieldProps, "required" | "label"> &
   Pick<FieldFrameProps, "action"> & { label: string }
 
-/** An info button that shows a field"s description in a popover. */
+/** An info button that shows a field's description in a popover. */
 function FieldAbout({
   label,
   description,
@@ -546,6 +546,8 @@ function FieldAbout({
         render={
           <Button
             aria-label={aboutLabel(label)}
+            // A dialog opening on this form focuses the field itself, not its info button.
+            data-no-initial-focus=""
             size="icon-xs"
             type="button"
             variant="ghost"
@@ -844,7 +846,7 @@ type SelectFieldProps = FieldProps &
     items: readonly SelectFieldItem[]
   }
 
-/** One of a short, fixed list; the field"s value is the item"s `value`. */
+/** One of a short, fixed list; the field's value is the item's `value`. */
 export function SelectField({
   label,
   description,
@@ -916,7 +918,7 @@ type ComboboxFieldProps = FieldProps & {
   limit?: number
 }
 
-/** Picks one item by typing to filter; the field"s value is the item"s `value`, or null for none. */
+/** Picks one item by typing to filter; the field's value is the item's `value`, or null for none. */
 export function ComboboxField({
   label,
   layout,
@@ -1047,16 +1049,15 @@ export function MultiComboboxField({
   const { isInvalid, describedBy: ariaDescribedBy } = state
   const anchor = useComboboxAnchor()
   const [picked, setPicked] = useState<readonly ComboboxFieldItem[]>([])
+  // A value missing from `items` keeps a chip named by its value, so the next change cannot drop it.
   const selected = useMemo(() => {
-    if (onSearch) {
-      const known = new Map(
-        [...picked, ...items].map((item) => [item.value, item])
-      )
-      return field.state.value.flatMap((value) => known.get(value) ?? [])
-    }
-    const chosen = new Set(field.state.value)
-    return items.filter((item) => chosen.has(item.value))
-  }, [items, picked, field.state.value, onSearch])
+    const known = new Map(
+      [...picked, ...items].map((item) => [item.value, item])
+    )
+    return field.state.value.map(
+      (value) => known.get(value) ?? { value, label: value }
+    )
+  }, [items, picked, field.state.value])
   const [query, setQuery] = useState("")
   const { items: listed, hint } = narrowOptions(items, {
     query,

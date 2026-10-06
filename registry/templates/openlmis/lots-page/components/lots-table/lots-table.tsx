@@ -8,7 +8,7 @@ import {
   useTable,
 } from "@tanstack/react-table"
 import { BoxesIcon, EllipsisIcon, PencilIcon, SearchXIcon } from "lucide-react"
-import { useCallback, useMemo, useRef } from "react"
+import { useMemo } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -27,6 +27,7 @@ import {
   DataTableSkeleton,
   dataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
+import { useMenuOpensDialog } from "@/registry/blocks/openlmis/data-table/row-actions"
 import { formatDateValue } from "@/registry/components/openlmis/date-picker/date-value"
 
 import type { LotRow } from "./lots"
@@ -117,25 +118,6 @@ function createColumns(
         ]
       : []),
   ])
-}
-
-/** Keeps a closing menu from taking focus back to its trigger when an item opened a dialog, which then owns focus. */
-function useMenuOpensDialog() {
-  const opened = useRef(false)
-
-  const onOpenChange = useCallback((open: boolean) => {
-    if (open) opened.current = false
-  }, [])
-  const finalFocus = useCallback(() => !opened.current, [])
-  const opensDialog = useCallback(
-    (open: () => void) => () => {
-      opened.current = true
-      open()
-    },
-    []
-  )
-
-  return { onOpenChange, finalFocus, opensDialog }
 }
 
 function LotActions({

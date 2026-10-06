@@ -15,7 +15,7 @@ import {
 import {
   type Role,
   rightLabel,
-} from "../role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import { useDialogTarget } from "@/registry/components/openlmis/form-dialog/use-dialog-target"
 
 type RoleRightsDialogProps = {
