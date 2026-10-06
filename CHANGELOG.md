@@ -58,6 +58,9 @@ and edits update local state.
 
 ### Fixed
 
+- The Select Filter preview gives Supplying Facility more room for the
+  selected name, while keeping Status compact and fitting narrow screens.
+
 - Label Popover examples are centered and have room for open panels.
   Date Picker previews have enough height for an open calendar.
 - Workspace actions stay together at the bottom of a column layout,

@@ -9,17 +9,19 @@ export default function Page() {
   const [facility, setFacility] = useState("bdh")
 
   return (
-    <div className="flex w-full max-w-60 flex-col gap-3 p-8 pb-28">
-      <SelectFilter
-        label="Status"
-        onValueChange={setStatus}
-        options={[
-          { value: "active", label: "Active" },
-          { value: "inactive", label: "Inactive" },
-        ]}
-        value={status}
-      />
-      {/* A long label stays whole while the value is cut short. */}
+    <div className="flex w-full max-w-md flex-col gap-3 px-4 pt-8 pb-28 sm:px-8">
+      <div className="w-44 max-w-full">
+        <SelectFilter
+          label="Status"
+          onValueChange={setStatus}
+          options={[
+            { value: "active", label: "Active" },
+            { value: "inactive", label: "Inactive" },
+          ]}
+          value={status}
+        />
+      </div>
+      {/* Long labels stay visible and selected values truncate when space is limited. */}
       <SelectFilter
         label="Supplying Facility"
         onValueChange={setFacility}
