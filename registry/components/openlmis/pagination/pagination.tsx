@@ -154,8 +154,7 @@ export function Pagination({
         </div>
       }
       range={
-        // Read aloud but hidden in a narrow table. `auto` keeps a numbers-only
-        // "1-10 / 1,211" in order inside right-to-left text, and a translated label in its own.
+        // Hidden but read aloud when narrow; `auto` keeps "1-10 / 1,211" in order inside right-to-left text.
         <p
           aria-live="polite"
           className="sr-only whitespace-nowrap text-muted-foreground tabular-nums @md/pagination:not-sr-only"
