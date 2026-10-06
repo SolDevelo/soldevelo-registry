@@ -2,7 +2,7 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 43 installable items across 1 open-source project (OpenLMIS): 20 components, 17 blocks, and 6 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 49 installable items across 1 open-source project (OpenLMIS): 20 components, 21 blocks, and 8 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
@@ -10,8 +10,8 @@ Items are consumed with the shadcn CLI, which copies the source into the consume
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
 - [Components](https://registry.soldevelo.com/components): 20 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 17 blocks, with live previews and full source.
-- [Templates](https://registry.soldevelo.com/templates): 6 templates, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 21 blocks, with live previews and full source.
+- [Templates](https://registry.soldevelo.com/templates): 8 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
 
@@ -90,6 +90,12 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 - [Home Dashboard](https://registry.soldevelo.com/templates/openlmis-home-dashboard) `@soldevelo/openlmis-home-dashboard` (template): OpenLMIS home screen on mock data: a greeting with what is waiting, Add User, system notices, a stat strip, requisitions by period and by status, cold chain equipment and the approvals queue, each shown only when the user's rights allow.
 - [User Roles Page](https://registry.soldevelo.com/templates/openlmis-user-roles-page) `@soldevelo/openlmis-user-roles-page` (template): Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.
 - [Not Found Page](https://registry.soldevelo.com/templates/openlmis-not-found-page) `@soldevelo/openlmis-not-found-page` (template): A 404 page that shows the address that was asked for, with Go Back and Back Home, ready to render inside an app shell so the navigation stays.
+- [Add Assignment Dialog](https://registry.soldevelo.com/blocks/openlmis-add-assignment-dialog) `@soldevelo/openlmis-add-assignment-dialog` (block): Add a valid source or destination with program, facility type, facility or organization, and geographic level choices.
+- [Delete Assignments Dialog](https://registry.soldevelo.com/blocks/openlmis-delete-assignments-dialog) `@soldevelo/openlmis-delete-assignments-dialog` (block): Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.
+- [Feature Flags Settings](https://registry.soldevelo.com/blocks/openlmis-feature-flags-settings) `@soldevelo/openlmis-feature-flags-settings` (block): Searchable feature flag overrides with inherited values, deployment markers, per-flag Reset and dirty settings.
+- [Branding Settings](https://registry.soldevelo.com/blocks/openlmis-branding-settings) `@soldevelo/openlmis-branding-settings` (block): App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.
+- [Valid Assignments Page](https://registry.soldevelo.com/templates/openlmis-valid-assignments-page) `@soldevelo/openlmis-valid-assignments-page` (template): Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.
+- [System Settings Page](https://registry.soldevelo.com/templates/openlmis-system-settings-page) `@soldevelo/openlmis-system-settings-page` (template): Mock branding and feature flag settings with sticky Save and Cancel, discard confirmation, defaults, conflict Reload and partial-save feedback.
 
 ## Technology
 

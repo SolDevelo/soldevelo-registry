@@ -1,0 +1,57 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-delete-assignments-dialog",
+  "title": "Delete Assignments Dialog",
+  "description": "Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.",
+  "dependencies": [
+    "lucide-react@^1",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "alert",
+    "alert-dialog",
+    "button",
+    "spinner",
+    "https://registry.soldevelo.com/r/openlmis-add-assignment-dialog.json",
+    "https://registry.soldevelo.com/r/openlmis-form-dialog.json"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog.tsx",
+      "content": "\"use client\"\n\nimport { AlertCircleIcon, Trash2Icon } from \"lucide-react\"\nimport { type RefObject, useRef } from \"react\"\n\nimport { Alert, AlertDescription, AlertTitle } from \"@/components/ui/alert\"\nimport {\n  AlertDialog,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogMedia,\n  AlertDialogTitle,\n} from \"@/components/ui/alert-dialog\"\nimport { Button } from \"@/components/ui/button\"\nimport { Spinner } from \"@/components/ui/spinner\"\nimport {\n  ASSIGNMENT_LABELS,\n  type AssignmentKind,\n} from \"@/components/blocks/openlmis/add-assignment-dialog/assignment-form\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\n\n/** Selected assignments by id, each with the name it is read out by. */\nexport type AssignmentTargets = ReadonlyMap<string, string>\n\n/** How a delete went; the API has no bulk delete, so some can fail while others go. */\nexport type DeleteAssignmentsResult = {\n  deleted: string[]\n  failed: string[]\n}\n\ntype DeleteAssignmentsDialogProps = {\n  kind: AssignmentKind\n  /** What to delete; the dialog is open while it is set, and must keep its identity. */\n  targets: AssignmentTargets | undefined\n  onClose: () => void\n  onConfirm: (ids: string[]) => void\n  /** Locks the dialog and spins Delete while the parent deletes. */\n  pending?: boolean\n  /** Shown when nothing was deleted, so the dialog stays open to try again. */\n  error?: string\n  focusAfterDelete?: RefObject<HTMLElement | null>\n  deletedCount?: number\n}\n\nexport function DeleteAssignmentsDialog({\n  kind,\n  targets,\n  onClose,\n  onConfirm,\n  pending = false,\n  error,\n  focusAfterDelete,\n  deletedCount = 0,\n}: DeleteAssignmentsDialogProps) {\n  const { shown, dialogProps } = useDialogTarget(targets, onClose)\n  const cancelRef = useRef<HTMLButtonElement>(null)\n  const labels = ASSIGNMENT_LABELS[kind]\n  const count = shown?.size ?? 0\n  const name = shown?.values().next().value ?? \"\"\n\n  return (\n    <AlertDialog {...dialogProps(pending)}>\n      <AlertDialogContent\n        finalFocus={() => {\n          if (!deletedCount || !focusAfterDelete?.current) return true\n          focusAfterDelete.current.focus()\n          return false\n        }}\n        initialFocus={cancelRef}\n      >\n        <AlertDialogHeader>\n          <AlertDialogMedia>\n            <Trash2Icon />\n          </AlertDialogMedia>\n          <AlertDialogTitle>\n            {count === 1\n              ? `Delete ${labels.one}?`\n              : `Delete ${count} ${labels.many}?`}\n          </AlertDialogTitle>\n          <AlertDialogDescription>\n            {count === 1\n              ? `${name} will no longer be a ${labels.one.toLowerCase()}.`\n              : `They will no longer be ${labels.many.toLowerCase()}.`}{\" \"}\n            This cannot be undone.\n          </AlertDialogDescription>\n        </AlertDialogHeader>\n        {error && (\n          <Alert variant=\"destructive\">\n            <AlertCircleIcon />\n            <AlertTitle>Could Not Delete</AlertTitle>\n            <AlertDescription>{error}</AlertDescription>\n          </Alert>\n        )}\n        <AlertDialogFooter>\n          <AlertDialogCancel disabled={pending} ref={cancelRef}>\n            Cancel\n          </AlertDialogCancel>\n          <Button\n            disabled={pending}\n            focusableWhenDisabled\n            onClick={() => shown && onConfirm([...shown.keys()])}\n            variant=\"destructive\"\n          >\n            {pending && <Spinner data-icon=\"inline-start\" />}\n            Delete\n          </Button>\n        </AlertDialogFooter>\n      </AlertDialogContent>\n    </AlertDialog>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/delete-assignments-dialog.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "384px"
+  },
+  "categories": [
+    "overlay",
+    "assignments"
+  ],
+  "type": "registry:block"
+}

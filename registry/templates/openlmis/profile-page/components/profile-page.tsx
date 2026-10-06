@@ -95,6 +95,7 @@ export function ProfilePage() {
     setTab(next)
   }
   const signOut = () => {
+    setProfileRevision((revision) => revision + 1)
     setChanges(0)
     setPasswordOpen(false)
     setNotice({
@@ -193,6 +194,7 @@ export function ProfilePage() {
             </WorkspaceTabsContent>
             <WorkspaceTabsContent value="notifications">
               <ProfileNotificationSettings
+                key={profileRevision}
                 onCancel={() => setNotice(undefined)}
                 configurations={MOCK_DIGEST_CONFIGURATIONS}
                 hasContactDetails={profile.contact !== null}

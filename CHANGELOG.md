@@ -15,6 +15,10 @@ Every example uses mock data and local state.
 
 ### Added
 
+- Valid source and destination lists with paired filters, selection across
+  pages, add dialogs and partial-delete feedback.
+- Branding and feature flag settings with live previews, inherited values,
+  defaults, conflict reload and partial-save feedback.
 - Role administration with create and edit dialogs, rights selection,
   filtering and confirmation before changing a role in use.
 - A profile page with basic information, read-only role assignments,
@@ -45,6 +49,11 @@ Every example uses mock data and local state.
 - Long filter values and approval program names truncate without hiding
   their labels or periods. Dashboard errors can show an offline state,
   and percentages follow the requested locale.
+
+### Fixed
+
+- Discarding profile changes after a password change clears the unsaved
+  form values as well as the change count.
 
 ## [0.0.4] - 2026-09-25
 

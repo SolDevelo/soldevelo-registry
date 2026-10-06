@@ -950,4 +950,174 @@ export const registryItems: RegistryItem[] = [
     categories: ["errors", "navigation"],
     meta: { project: "openlmis", height: "278px" },
   },
+  {
+    name: "openlmis-add-assignment-dialog",
+    title: "Add Assignment Dialog",
+    type: "registry:block",
+    description:
+      "Add a valid source or destination with program, facility type, facility or organization, and geographic level choices.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/add-assignment-dialog/assignment-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "assignments"],
+    meta: {
+      project: "openlmis",
+      height: "640px",
+    },
+  },
+  {
+    name: "openlmis-delete-assignments-dialog",
+    title: "Delete Assignments Dialog",
+    type: "registry:block",
+    description:
+      "Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["alert", "alert-dialog", "button", "spinner"],
+    files: [
+      {
+        path: "blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["overlay", "assignments"],
+    meta: {
+      project: "openlmis",
+      height: "384px",
+    },
+  },
+  {
+    name: "openlmis-feature-flags-settings",
+    title: "Feature Flags Settings",
+    type: "registry:block",
+    description:
+      "Searchable feature flag overrides with inherited values, deployment markers, per-flag Reset and dirty settings.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1"],
+    registryDependencies: ["alert", "button", "popover"],
+    files: [
+      {
+        path: "blocks/openlmis/feature-flags-settings/feature-flags.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "settings"],
+    meta: {
+      project: "openlmis",
+      height: "378px",
+    },
+  },
+  {
+    name: "openlmis-branding-settings",
+    title: "Branding Settings",
+    type: "registry:block",
+    description:
+      "App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: ["alert", "button"],
+    files: [
+      {
+        path: "blocks/openlmis/branding-settings/branding.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/branding-settings/branding-preview.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/branding-settings/branding-settings.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "settings"],
+    meta: {
+      project: "openlmis",
+      height: "508px",
+    },
+  },
+  {
+    name: "openlmis-valid-assignments-page",
+    title: "Valid Assignments Page",
+    type: "registry:page",
+    description:
+      "Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: ["button", "dropdown-menu"],
+    files: [
+      {
+        path: "templates/openlmis/valid-assignments-page/components/mock-assignments.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/use-assignments.ts",
+        type: "registry:hook",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/valid-assignments-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/page.tsx",
+        type: "registry:page",
+        target: "app/valid-assignments-page/page.tsx",
+      },
+    ],
+    categories: ["assignments", "data-table"],
+    meta: {
+      project: "openlmis",
+      height: "803px",
+    },
+  },
+  {
+    name: "openlmis-system-settings-page",
+    title: "System Settings Page",
+    type: "registry:page",
+    description:
+      "Mock branding and feature flag settings with sticky Save and Cancel, discard confirmation, defaults, conflict Reload and partial-save feedback.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1"],
+    registryDependencies: ["alert", "alert-dialog", "button", "spinner"],
+    files: [
+      {
+        path: "templates/openlmis/system-settings-page/components/mock-settings.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/save-feedback.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/settings-reset.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/system-settings-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/page.tsx",
+        type: "registry:page",
+        target: "app/system-settings-page/page.tsx",
+      },
+    ],
+    categories: ["settings"],
+    meta: {
+      project: "openlmis",
+      height: "641px",
+    },
+  },
 ]

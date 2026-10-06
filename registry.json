@@ -2500,6 +2500,413 @@
           "info-foreground": "oklch(0.2 0.04 240)"
         }
       }
+    },
+    {
+      "name": "openlmis-add-assignment-dialog",
+      "title": "Add Assignment Dialog",
+      "description": "Add a valid source or destination with program, facility type, facility or organization, and geographic level choices.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/add-assignment-dialog/assignment-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/add-assignment-dialog/assignment-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "640px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "assignments"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-delete-assignments-dialog",
+      "title": "Delete Assignments Dialog",
+      "description": "Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "alert-dialog",
+        "button",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-add-assignment-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/delete-assignments-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "384px"
+      },
+      "categories": [
+        "overlay",
+        "assignments"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-feature-flags-settings",
+      "title": "Feature Flags Settings",
+      "description": "Searchable feature flag overrides with inherited values, deployment markers, per-flag Reset and dirty settings.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "popover",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/feature-flags-settings/feature-flags.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/feature-flags-settings/feature-flags.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "378px"
+      },
+      "categories": [
+        "forms",
+        "settings"
+      ],
+      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-branding-settings",
+      "title": "Branding Settings",
+      "description": "App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/branding-settings/branding.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/branding-settings/branding.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/branding-settings/branding-preview.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/branding-settings/branding-preview.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/branding-settings/branding-settings.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/branding-settings/branding-settings.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "508px"
+      },
+      "categories": [
+        "forms",
+        "settings"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-valid-assignments-page",
+      "title": "Valid Assignments Page",
+      "description": "Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "https://registry.soldevelo.com/r/openlmis-add-assignment-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-combobox-filter.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-delete-assignments-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-select-filter.json",
+        "https://registry.soldevelo.com/r/openlmis-table-selection.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/mock-assignments.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/valid-assignments-page/mock-assignments.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/use-assignments.ts",
+          "type": "registry:hook",
+          "target": "components/openlmis/valid-assignments-page/use-assignments.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/valid-assignments-page/assignment-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/valid-assignments-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/valid-assignments-page/valid-assignments-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/valid-assignments-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "803px"
+      },
+      "categories": [
+        "assignments",
+        "data-table"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-system-settings-page",
+      "title": "System Settings Page",
+      "description": "Mock branding and feature flag settings with sticky Save and Cancel, discard confirmation, defaults, conflict Reload and partial-save feedback.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "alert-dialog",
+        "button",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-branding-settings.json",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-feature-flags-settings.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/mock-settings.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/system-settings-page/mock-settings.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/save-feedback.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/save-feedback.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/settings-reset.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/settings-reset.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/system-settings-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/system-settings-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/system-settings-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "641px"
+      },
+      "categories": [
+        "settings"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
     }
   ]
 }
