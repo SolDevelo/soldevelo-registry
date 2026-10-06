@@ -29,7 +29,7 @@ const KINDS = [
   "Dispensary",
 ]
 
-// 70 facilities, more than the 50 listed at once, so the list asks to be narrowed.
+// 70 facilities, more than the 50 listed at once, so the list hints to search.
 const FACILITIES: ComboboxFilterOption[] = DISTRICTS.flatMap((district) =>
   KINDS.map((kind) => `${district} ${kind}`)
 ).map((label, index) => ({

@@ -3,7 +3,7 @@ type NarrowableOption = { label: string; description?: string }
 const searchText = (text: string) =>
   text.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase()
 
-// Hide oversized result sets until the query narrows them below the limit.
+// List the first `limit` matches, with a hint to search when more match than that.
 export function narrowOptions<T extends NarrowableOption>(
   options: readonly T[],
   {
@@ -23,13 +23,14 @@ export function narrowOptions<T extends NarrowableOption>(
             (option.description &&
               searchText(option.description).includes(text))
         )
+  const items = matches.slice(0, limit)
   const count = total ?? matches.length
-  if (count <= limit) return { items: matches, hint: null }
   return {
-    items: [],
+    items,
+    // An empty list shows the empty message alone.
     hint:
-      text === ""
-        ? "Type to narrow the list"
-        : `${count} matches, keep typing to narrow the list`,
+      count > limit && items.length > 0
+        ? `More than ${limit} entries. Search to narrow the list.`
+        : null,
   }
 }

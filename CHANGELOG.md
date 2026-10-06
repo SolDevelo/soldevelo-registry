@@ -34,8 +34,9 @@ and edits update local state.
 
 - Auth Card, Dashboard Card, Settings List and Stat Strip are now blocks,
   alongside Data Table, List Toolbar and Workspace.
-- Filter and form comboboxes ask users to type when more than 50 options
-  match, rather than showing a partial list. The limit is configurable.
+- Filter and form comboboxes show up to 50 options immediately. Larger lists
+  include a message suggesting search, which narrows the full set of options.
+  The rendering limit is configurable.
 - Domain-specific columns, forms, dialogs and dashboard widgets now ship
   inside their page templates. Shared UI remains separately installable.
 - Form fields support stacked, row and inline layouts, shared password

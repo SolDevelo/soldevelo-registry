@@ -912,7 +912,7 @@ type ComboboxFieldProps = FieldProps & {
   emptyMessage?: ReactNode
   /** Names the button that empties the field, for screen readers. */
   clearLabel?: string
-  /** Most matches listed at once; past it the user is asked to type to narrow the list. */
+  /** Most matches rendered at once; past it a hint asks the user to search. */
   limit?: number
 }
 
@@ -990,8 +990,11 @@ export function ComboboxField({
             </InputGroupAddon>
           )}
         </ComboboxInput>
-        <ComboboxContent>
-          <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
+        <ComboboxContent className="flex flex-col">
+          <ComboboxPrimitive.Status className="text-xs text-muted-foreground">
+            {hint && <span className="block px-3 pt-2">{hint}</span>}
+          </ComboboxPrimitive.Status>
+          <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
           <ComboboxList>
             {(item: ComboboxFieldItem) => (
               <ComboboxItem key={item.value} value={item}>
@@ -1021,7 +1024,7 @@ type MultiComboboxFieldProps = FieldProps & {
   onSearch?: (text: string) => void
   /** With `onSearch`, how many items match in all when `items` holds only some of them. */
   total?: number
-  /** Most matches listed at once; past it the user is asked to type to narrow the list. */
+  /** Most matches rendered at once; past it a hint asks the user to search. */
   limit?: number
 }
 
@@ -1119,8 +1122,11 @@ export function MultiComboboxField({
             )}
           </ComboboxValue>
         </ComboboxChips>
-        <ComboboxContent anchor={anchor}>
-          <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
+        <ComboboxContent anchor={anchor} className="flex flex-col">
+          <ComboboxPrimitive.Status className="text-xs text-muted-foreground">
+            {hint && <span className="block px-3 pt-2">{hint}</span>}
+          </ComboboxPrimitive.Status>
+          <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
           <ComboboxList>
             {(item: ComboboxFieldItem) => (
               <ComboboxItem key={item.value} value={item}>

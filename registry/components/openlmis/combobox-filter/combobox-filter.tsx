@@ -30,7 +30,7 @@ type ComboboxFilterProps = {
   value: string
   onValueChange: (value: string) => void
   options: ComboboxFilterOption[]
-  /** Most options listed at once; past it the user is asked to type to narrow the list. */
+  /** Most options rendered at once; past it a hint asks the user to search. */
   limit?: number
   /** Called with what the user types; the caller narrows `options` and they are listed as given. */
   onSearch?: (text: string) => void
@@ -104,13 +104,14 @@ export function ComboboxFilter({
           </InputGroupAddon>
         )}
       </ComboboxInput>
-      <ComboboxContent>
-        {onSearch && (
-          <ComboboxPrimitive.Status className="px-3 pt-2 text-xs text-muted-foreground empty:hidden">
-            {items.length > 0 && status}
-          </ComboboxPrimitive.Status>
-        )}
-        <ComboboxEmpty>{hint ?? emptyMessage}</ComboboxEmpty>
+      <ComboboxContent className="flex flex-col">
+        <ComboboxPrimitive.Status className="text-xs text-muted-foreground">
+          {onSearch && items.length > 0 && status && (
+            <span className="block px-3 pt-2">{status}</span>
+          )}
+          {hint && <span className="block px-3 pt-2">{hint}</span>}
+        </ComboboxPrimitive.Status>
+        <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
         <ComboboxList>
           {(option: ComboboxFilterOption) => (
             <ComboboxItem key={option.value} value={option}>
