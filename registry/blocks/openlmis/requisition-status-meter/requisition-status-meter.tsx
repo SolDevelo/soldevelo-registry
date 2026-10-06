@@ -61,6 +61,8 @@ type RequisitionStatusMeterProps = {
   onRetry?: () => void
   /** Fills the meter from the right on a right-to-left page. */
   dir?: "ltr" | "rtl"
+  /** Formats each share, e.g. "43%"; fixed so a server render matches the browser. */
+  locale?: string
 }
 
 /** Where sent requisitions stand, from submitted to released, as one segmented bar with a legend. */
@@ -69,6 +71,7 @@ export function RequisitionStatusMeter({
   failed = false,
   onRetry,
   dir = "ltr",
+  locale = "en-US",
 }: RequisitionStatusMeterProps) {
   const total = counts
     ? REQUISITION_PIPELINE.reduce((sum, status) => sum + counts[status], 0)
@@ -85,7 +88,7 @@ export function RequisitionStatusMeter({
       ) : counts === undefined || total === undefined ? (
         <Skeleton className="h-36 w-full" />
       ) : (
-        <StatusMeter counts={counts} dir={dir} total={total} />
+        <StatusMeter counts={counts} dir={dir} locale={locale} total={total} />
       )}
     </DashboardCard>
   )
@@ -95,13 +98,16 @@ function StatusMeter({
   counts,
   total,
   dir,
+  locale,
 }: {
   counts: Record<PipelineStatus, number>
   total: number
   dir: "ltr" | "rtl"
+  locale: string
 }) {
+  const percent = new Intl.NumberFormat(locale, { style: "percent" })
   const share = (count: number) =>
-    total === 0 ? 0 : Math.round((count / total) * 100)
+    percent.format(total === 0 ? 0 : count / total)
 
   return (
     <div className="flex flex-col gap-4">
@@ -150,7 +156,7 @@ function StatusMeter({
               {formatCount(counts[status])}
             </span>
             <span className="w-10 text-end text-muted-foreground tabular-nums">
-              {share(counts[status])}%
+              {share(counts[status])}
             </span>
           </li>
         ))}

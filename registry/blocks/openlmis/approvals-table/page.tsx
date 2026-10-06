@@ -12,7 +12,7 @@ const REQUISITIONS: ApprovalRequisition[] = [
   {
     id: "r2",
     emergency: false,
-    program: { name: "Family Planning" },
+    program: { name: "Family Planning And Reproductive Health Commodities" },
     facility: { code: "HC01", name: "Comfort Health Clinic" },
     processingPeriod: { name: "Jan 2026" },
     waitingSince: "2026-02-04T13:40:00Z",
@@ -29,8 +29,12 @@ const REQUISITIONS: ApprovalRequisition[] = [
 
 export default function Page() {
   return (
-    <div className="w-full max-w-3xl p-8">
+    <div className="flex w-full max-w-3xl flex-col gap-6 p-8">
       <ApprovalsTable requisitions={REQUISITIONS} />
+      {/* Narrow, two lines each: a long program gives way, the period stays whole. */}
+      <div className="w-full max-w-sm">
+        <ApprovalsTable requisitions={REQUISITIONS} />
+      </div>
     </div>
   )
 }

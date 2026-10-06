@@ -7,6 +7,7 @@ import {
   type ReactTable,
   type RowData,
   rowPaginationFeature,
+  rowSelectionFeature,
   rowSortingFeature,
   tableFeatures,
 } from "@tanstack/react-table"
@@ -52,6 +53,7 @@ export const dataTableFeatures = tableFeatures({
   columnVisibilityFeature,
   rowSortingFeature,
   rowPaginationFeature,
+  rowSelectionFeature,
   columnMeta: {} as DataTableColumnMeta,
 })
 
@@ -96,7 +98,10 @@ export function DataTable<TData extends RowData>({
           <TableBody>
             {rows.length > 0 ? (
               rows.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow
+                  data-state={row.getIsSelected() ? "selected" : undefined}
+                  key={row.id}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {/* Cuts overflow with an ellipsis; the padding keeps a button's focus ring inside. */}
@@ -151,7 +156,7 @@ function DataTableHeader<TData extends RowData>({
 }
 
 // A size container, so the footer and columns lay out by the table's width rather than the window's.
-function DataTableCard({ children }: { children: ReactNode }) {
+export function DataTableCard({ children }: { children: ReactNode }) {
   return (
     <div className="@container/table overflow-hidden rounded-xl border bg-card shadow-xs [&_thead]:bg-muted/50 [&_thead_tr]:hover:bg-transparent">
       {children}
@@ -183,7 +188,8 @@ export function DataTableColumnHeader<TData extends RowData, TValue>({
   column,
   title,
 }: DataTableColumnHeaderProps<TData, TValue>) {
-  if (!column.getCanSort()) return <HeaderLabel>{title}</HeaderLabel>
+  if (!column.getCanSort())
+    return <DataTableHeaderLabel>{title}</DataTableHeaderLabel>
 
   const direction = column.getIsSorted()
   const SortIcon =
@@ -200,14 +206,14 @@ export function DataTableColumnHeader<TData extends RowData, TValue>({
         size="xs"
         variant="ghost"
       >
-        <HeaderLabel>{title}</HeaderLabel>
+        <DataTableHeaderLabel>{title}</DataTableHeaderLabel>
         <SortIcon className="text-muted-foreground" data-icon="inline-end" />
       </Button>
     </div>
   )
 }
 
-function HeaderLabel({ children }: { children: ReactNode }) {
+export function DataTableHeaderLabel({ children }: { children: ReactNode }) {
   return (
     <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
       {children}
@@ -238,7 +244,12 @@ export function DataTableSkeleton<TData extends RowData>({
               <TableRow key={row}>
                 {columns.map((column) => (
                   <TableCell key={column.id}>
-                    <Skeleton className="h-4 w-3/4" />
+                    {/* The selection column gets a checkbox-sized square. */}
+                    <Skeleton
+                      className={
+                        column.id === "select" ? "size-4" : "h-4 w-3/4"
+                      }
+                    />
                   </TableCell>
                 ))}
               </TableRow>
@@ -283,6 +294,8 @@ type DataTableErrorProps = {
   description?: string
   onRetry?: () => void
   retryLabel?: string
+  /** Replaces the warning triangle, e.g. a wifi-off icon for an offline failure. */
+  icon?: ReactNode
 }
 
 export function DataTableError({
@@ -290,6 +303,7 @@ export function DataTableError({
   description,
   onRetry,
   retryLabel = "Try Again",
+  icon,
 }: DataTableErrorProps) {
   return (
     <DataTableCard>
@@ -302,7 +316,7 @@ export function DataTableError({
           )
         }
         description={description}
-        icon={<AlertTriangleIcon />}
+        icon={icon ?? <AlertTriangleIcon />}
         title={title}
       />
     </DataTableCard>

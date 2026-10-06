@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-workspace-tabs",
+  "title": "Workspace Tabs",
+  "description": "Controlled page section tabs that wrap into a column or grid on narrow screens.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "tabs",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/workspace-tabs/workspace-tabs.tsx",
+      "content": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/ui/tabs\"\nimport { cn } from \"@/lib/utils\"\n\ntype WorkspaceTabsProps = {\n  value: string\n  onValueChange: (value: string) => void\n  children: ReactNode\n}\n\n/** Tabs that split one page, e.g. a product's General, Programs and Facility Types. */\nexport function WorkspaceTabs({\n  value,\n  onValueChange,\n  children,\n}: WorkspaceTabsProps) {\n  return (\n    <Tabs\n      className=\"gap-4\"\n      onValueChange={(next) => onValueChange(String(next))}\n      value={value}\n    >\n      {children}\n    </Tabs>\n  )\n}\n\ntype WorkspaceTabsListProps = {\n  /** Names the tab list for screen readers, e.g. \"Product Sections\". */\n  label: string\n  /** Narrow: one tab per row, or two by two with `grid`; then a single row once there is room. */\n  wrap?: \"column\" | \"grid\"\n  children: ReactNode\n}\n\nexport function WorkspaceTabsList({\n  label,\n  wrap = \"column\",\n  children,\n}: WorkspaceTabsListProps) {\n  return (\n    // Its own container, so the tabs wrap by the room the page gives them, not the window.\n    <div className=\"@container\">\n      <TabsList\n        aria-label={label}\n        className={cn(\n          \"grid w-full group-data-horizontal/tabs:h-auto @lg:inline-flex @lg:w-fit @lg:group-data-horizontal/tabs:h-8\",\n          wrap === \"grid\" ? \"grid-cols-2\" : \"grid-cols-1\"\n        )}\n      >\n        {children}\n      </TabsList>\n    </div>\n  )\n}\n\nexport function WorkspaceTabsTrigger({\n  value,\n  children,\n}: {\n  value: string\n  children: ReactNode\n}) {\n  return <TabsTrigger value={value}>{children}</TabsTrigger>\n}\n\nexport function WorkspaceTabsContent({\n  value,\n  children,\n}: {\n  value: string\n  children: ReactNode\n}) {\n  return <TabsContent value={value}>{children}</TabsContent>\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/workspace-tabs.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "298px"
+  },
+  "categories": [
+    "navigation",
+    "layout"
+  ],
+  "type": "registry:component"
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-role-rights-popover",
+  "title": "Role Rights Popover",
+  "description": "A role name with a help button that lists the rights it grants.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "popover",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/role-rights-popover/role-rights-popover.tsx",
+      "content": "\"use client\"\n\nimport { CheckIcon, CircleHelpIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTrigger,\n} from \"@/components/ui/popover\"\n\ntype RoleRightsPopoverProps = {\n  /** The role's name, shown beside the button and as the popover's title. */\n  name: string\n  /** The rights the role grants, already labelled; they are sorted for you. */\n  rights: readonly string[]\n  /** Shown instead of the rights count when the role has one. */\n  description?: string | null\n}\n\n/** The role's name with a button beside it that shows what the role lets its holder do. */\nexport function RoleRightsPopover({\n  name,\n  rights,\n  description,\n}: RoleRightsPopoverProps) {\n  return (\n    <span className=\"flex min-w-0 items-center gap-1\">\n      <span className=\"truncate\">{name}</span>\n      <Popover>\n        <PopoverTrigger\n          render={\n            <Button\n              aria-label={`${name} Rights`}\n              size=\"icon-xs\"\n              variant=\"ghost\"\n            />\n          }\n        >\n          <CircleHelpIcon />\n        </PopoverTrigger>\n        <PopoverContent align=\"start\">\n          <RoleRights description={description} name={name} rights={rights} />\n        </PopoverContent>\n      </Popover>\n    </span>\n  )\n}\n\n/** Rendered only while the popover is open, so a table of roles does no work for closed ones. */\nfunction RoleRights({ name, rights, description }: RoleRightsPopoverProps) {\n  // oxlint-disable-next-line unicorn/no-array-sort -- sorts a fresh copy; toSorted needs the ES2023 lib\n  const sorted = [...rights].sort()\n\n  return (\n    <>\n      <PopoverHeader>\n        <PopoverTitle>{name} Rights</PopoverTitle>\n        <PopoverDescription>\n          {description || rightsCount(sorted.length)}\n        </PopoverDescription>\n      </PopoverHeader>\n      {sorted.length > 0 && (\n        <ul className=\"flex max-h-64 flex-col gap-1.5 overflow-y-auto\">\n          {sorted.map((right) => (\n            <li className=\"flex items-center gap-2\" key={right}>\n              <CheckIcon\n                aria-hidden=\"true\"\n                className=\"size-4 shrink-0 text-success\"\n              />\n              {right}\n            </li>\n          ))}\n        </ul>\n      )}\n    </>\n  )\n}\n\nfunction rightsCount(count: number) {\n  if (count === 0) return \"This role grants no rights.\"\n  return count === 1\n    ? \"The 1 right this role grants.\"\n    : `The ${count} rights this role grants.`\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/role-rights-popover.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "160px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "roles",
+    "users"
+  ],
+  "type": "registry:component"
+}

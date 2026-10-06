@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-table"
 import {
   EllipsisIcon,
-  ListChecksIcon,
   PlusIcon,
   SearchXIcon,
   ShieldIcon,
@@ -36,6 +35,7 @@ import {
   dataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
 import { useContainerSize } from "@/registry/blocks/openlmis/data-table/responsive-columns"
+import { RoleRightsPopover } from "@/registry/components/openlmis/role-rights-popover/role-rights-popover"
 import { SearchInput } from "@/registry/components/openlmis/search-input/search-input"
 import { StatusBadge } from "@/registry/components/openlmis/status-badge/status-badge"
 
@@ -56,10 +56,11 @@ export type LookupStatus = {
 type NameStatus = LookupStatus["nodes"]
 
 const EMPTY_TEXT: Record<RoleTab["id"], string> = {
-  supervision: "Supervision roles let this user work on requisitions.",
+  supervision:
+    "Supervision roles let this user work on a program's requisitions, at a supervisory node or at their home facility.",
   fulfillment: "Fulfillment roles let this user handle orders at a facility.",
-  reports: "Report roles let this user view reports.",
-  administration: "Administration roles let this user manage OpenLMIS.",
+  reports: "Reports roles let this user see reports.",
+  administration: "Administration roles let this user manage the system.",
 }
 
 const columnHelper = createColumnHelper<DataTableFeatures, RoleRow>()
@@ -110,16 +111,24 @@ type ColumnOptions = {
   /** Too narrow for a column each, so the role cell carries the rest on lines of its own. */
   compact: boolean
   status: LookupStatus
-  onRemove: (row: RoleRow) => void
-  onViewRights: (roleId: string) => void
+  /** Left out where the roles are only shown, e.g. on the user's own profile. */
+  onRemove?: ((row: RoleRow) => void) | undefined
 }
 
 function RoleCell({ row, options }: { row: RoleRow; options: ColumnOptions }) {
   const { tab, compact, status } = options
   return (
     <span className="flex min-w-0 flex-col gap-1">
-      <span className="flex min-w-0 items-center gap-2 font-medium">
-        <Name value={row.role} />
+      <span className="flex min-w-0 items-center gap-2">
+        {row.role === undefined ? (
+          <Name value={undefined} />
+        ) : (
+          <RoleRightsPopover
+            description={row.description}
+            name={row.role}
+            rights={row.rights}
+          />
+        )}
         {row.isUnsaved && <StatusBadge tone="info">Unsaved</StatusBadge>}
       </span>
       {compact && tab.type === "SUPERVISION" && (
@@ -138,33 +147,33 @@ function RoleCell({ row, options }: { row: RoleRow; options: ColumnOptions }) {
 }
 
 function createColumns(options: ColumnOptions) {
-  const { tab, compact, status } = options
+  const { tab, compact, status, onRemove } = options
   const role = columnHelper.accessor("role", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => <RoleCell options={options} row={row.original} />,
   })
-  const actions = columnHelper.display({
-    id: "actions",
-    header: () => <span className="sr-only">Actions</span>,
-    meta: { className: "w-16" },
-    cell: ({ row }) => (
-      <RoleActions
-        onRemove={() => options.onRemove(row.original)}
-        onViewRights={() =>
-          options.onViewRights(row.original.assignment.roleId)
-        }
-        role={row.original.role ?? "Unknown"}
-      />
-    ),
-  })
+  const withActions = onRemove
+    ? [
+        columnHelper.display({
+          id: "actions",
+          header: () => <span className="sr-only">Actions</span>,
+          meta: { className: "w-16" },
+          cell: ({ row }) => (
+            <RoleActions
+              onRemove={() => onRemove(row.original)}
+              role={row.original.role ?? "Unknown"}
+            />
+          ),
+        }),
+      ]
+    : []
 
-  if (compact) return columnHelper.columns([role, actions])
+  if (compact) return columnHelper.columns([role, ...withActions])
 
   if (tab.type === "SUPERVISION") {
     return columnHelper.columns([
-      role,
       columnHelper.accessor("program", {
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Program" />
@@ -179,50 +188,34 @@ function createColumns(options: ColumnOptions) {
         meta: { className: "w-2/5" },
         cell: ({ row }) => <NodeCell row={row.original} status={status} />,
       }),
-      actions,
+      role,
+      ...withActions,
     ])
   }
   if (tab.type === "ORDER_FULFILLMENT") {
     return columnHelper.columns([
-      role,
       columnHelper.accessor("facility", {
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Facility" />
+          <DataTableColumnHeader column={column} title="Supplying Facility" />
         ),
         meta: { className: "w-1/2" },
         cell: ({ getValue }) => (
           <Name status={status.facilities} value={getValue()} />
         ),
       }),
-      actions,
+      role,
+      ...withActions,
     ])
   }
-  return columnHelper.columns([
-    role,
-    columnHelper.accessor("description", {
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Description" />
-      ),
-      enableSorting: false,
-      meta: { className: "w-1/2" },
-      cell: ({ getValue }) => (
-        <span className="truncate text-muted-foreground">
-          {getValue() ?? "-"}
-        </span>
-      ),
-    }),
-    actions,
-  ])
+  return columnHelper.columns([role, ...withActions])
 }
 
 function RoleActions({
   role,
   onRemove,
-  onViewRights,
 }: {
   role: string
   onRemove: () => void
-  onViewRights: () => void
 }) {
   return (
     <div className="flex justify-end">
@@ -239,10 +232,6 @@ function RoleActions({
           <EllipsisIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-auto">
-          <DropdownMenuItem onClick={onViewRights}>
-            <ListChecksIcon />
-            View Rights
-          </DropdownMenuItem>
           <DropdownMenuItem onClick={onRemove} variant="destructive">
             <Trash2Icon />
             Remove
@@ -259,7 +248,8 @@ type RoleAssignmentsTableProps = Omit<ColumnOptions, "compact"> & {
   /** The rows could not be loaded; shows an error with Try Again. */
   failed?: boolean
   onRetry?: () => void
-  onAdd: () => void
+  /** Left out where the roles are only shown; hides Add Role. */
+  onAdd?: () => void
 }
 
 const INITIAL_SORTING: SortingState = [{ id: "role", desc: false }]
@@ -281,10 +271,10 @@ export function RoleAssignmentsTable({
   const compact =
     size === "none" || size === "sm" || size === "md" || size === "lg"
 
-  const { tab, status, onRemove, onViewRights } = options
+  const { tab, status, onRemove } = options
   const columns = useMemo(
-    () => createColumns({ tab, compact, status, onRemove, onViewRights }),
-    [tab, compact, status, onRemove, onViewRights]
+    () => createColumns({ tab, compact, status, onRemove }),
+    [tab, compact, status, onRemove]
   )
 
   const [sort = INITIAL_SORTING[0]] = sorting
@@ -354,10 +344,12 @@ export function RoleAssignmentsTable({
             value={query}
           />
         </div>
-        <Button className="ms-auto" onClick={onAdd}>
-          <PlusIcon data-icon="inline-start" />
-          Add Role
-        </Button>
+        {onAdd && (
+          <Button className="ms-auto" onClick={onAdd}>
+            <PlusIcon data-icon="inline-start" />
+            Add Role
+          </Button>
+        )}
       </div>
       {failed && onRetry ? (
         <DataTableError
@@ -373,12 +365,18 @@ export function RoleAssignmentsTable({
             rows.length === 0 ? (
               <DataTableEmpty
                 action={
-                  <Button onClick={onAdd} variant="outline">
-                    <PlusIcon data-icon="inline-start" />
-                    Add Role
-                  </Button>
+                  onAdd && (
+                    <Button onClick={onAdd} variant="outline">
+                      <PlusIcon data-icon="inline-start" />
+                      Add Role
+                    </Button>
+                  )
                 }
-                description={EMPTY_TEXT[tab.id]}
+                description={
+                  onAdd
+                    ? EMPTY_TEXT[tab.id]
+                    : "Ask an administrator if you need a role of this type."
+                }
                 icon={<ShieldIcon />}
                 title="No Roles Yet"
               />

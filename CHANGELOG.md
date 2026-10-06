@@ -8,6 +8,39 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 You install items by name rather than by version, so a release says what
 changed in the catalog, not a number you have to pin.
 
+## [0.0.5] - 2026-10-06
+
+OpenLMIS form, table and settings UI now follows the latest shipped screens.
+Every example uses mock data and local state.
+
+### Added
+
+- Bordered settings rows, a calendar date picker and a live password
+  requirements checklist with pure validation helpers.
+- Role rights popovers, searchable combobox filters, wrapping workspace
+  tabs, and a table selection column and action bar.
+- Number, decimal, textarea, select, multiple-choice combobox, tags, image
+  and date controls in the form fields kit.
+
+### Changed
+
+- Form fields support stacked, row and inline layouts, shared password
+  visibility, accessible hints and errors, radio tiles, and compact switches
+  with descriptions in popovers.
+- User dialogs show mismatched account statuses, keep contact fields left
+  to right, and validate usernames using Latin letters, numbers and underscores.
+- Password dialogs show the rules while typing and check the user's name.
+- Role assignment tables show rights beside the role, simplify their
+  columns, and support read-only use.
+- Tables support selected rows, checkbox skeletons, reusable frames and
+  header labels. Workspaces and their action footers can use a narrow width.
+- Dialogs focus the first field, keep touch openings from raising the
+  keyboard, and retain submit-button focus while pending. Opening a dialog
+  from a row menu keeps focus inside it.
+- Long filter values and approval program names truncate without hiding
+  their labels or periods. Dashboard errors can show an offline state,
+  and percentages follow the requested locale.
+
 ## [0.0.4] - 2026-09-25
 
 The site now counts what visitors find useful, without cookies and without

@@ -163,7 +163,10 @@ export type RoleRow = {
   id: string
   assignment: RoleAssignment
   role: string | undefined
+  /** The role's description, shown with its rights. */
   description: string | undefined
+  /** What the role grants, as labels. */
+  rights: string[]
   program: string | undefined
   /** The supervisory node, or for a home facility role, the home facility. */
   node: string | undefined
@@ -199,6 +202,7 @@ function toRoleRow(
     assignment,
     role: role?.name,
     description: role?.description ?? undefined,
+    rights: (role?.rights ?? []).map((right) => rightLabel(right.name)),
     program: assignment.programId
       ? lookups.programs.get(assignment.programId)?.name
       : undefined,

@@ -16,11 +16,20 @@ const lookups = {
     {
       id: "storeroom",
       name: "Storeroom Manager",
-      rights: [{ name: "REQUISITION_CREATE", type: "SUPERVISION" as const }],
+      rights: [
+        { name: "REQUISITION_CREATE", type: "SUPERVISION" as const },
+        { name: "REQUISITION_VIEW", type: "SUPERVISION" as const },
+      ],
+    },
+    {
+      id: "warehouse",
+      name: "Warehouse Manager",
+      rights: [{ name: "PODS_MANAGE", type: "ORDER_FULFILLMENT" as const }],
     },
     {
       id: "approver",
       name: "Program Supervisor",
+      description: "Approves requisitions for the programs it supervises.",
       rights: [{ name: "REQUISITION_APPROVE", type: "SUPERVISION" as const }],
     },
   ]),
@@ -45,7 +54,15 @@ const SAVED: RoleAssignment[] = [
   { roleId: "approver", programId: "fp", supervisoryNodeId: "n1" },
 ]
 
-const tab = ROLE_TABS[0]
+const [supervision, fulfillment, reports] = ROLE_TABS
+const STATUS = { nodes: "ready", facilities: "ready" } as const
+const savedKeys = new Set(SAVED.map(assignmentKey))
+const context = { lookups, savedKeys, homeFacilityId: "hc" }
+const HELD: RoleAssignment[] = [{ roleId: "warehouse", warehouseId: "dh" }]
+const fulfillmentRows = toRoleRows(HELD, fulfillment.type, {
+  ...context,
+  savedKeys: new Set(HELD.map(assignmentKey)),
+})
 
 export default function Page() {
   // One unsaved addition, so the Unsaved badge shows.
@@ -53,14 +70,10 @@ export default function Page() {
     ...SAVED,
     { roleId: "approver", programId: "em", supervisoryNodeId: "n2" },
   ])
-  const rows = toRoleRows(draft, tab.type, {
-    lookups,
-    savedKeys: new Set(SAVED.map(assignmentKey)),
-    homeFacilityId: "hc",
-  })
+  const rows = toRoleRows(draft, supervision.type, context)
 
   return (
-    <div className="w-full max-w-4xl p-8">
+    <div className="flex w-full max-w-4xl flex-col gap-8 p-8">
       <RoleAssignmentsTable
         onAdd={() => undefined}
         onRemove={(row) =>
@@ -68,11 +81,17 @@ export default function Page() {
             current.filter((assignment) => assignment !== row.assignment)
           )
         }
-        onViewRights={() => undefined}
         rows={rows}
-        status={{ nodes: "ready", facilities: "ready" }}
-        tab={tab}
+        status={STATUS}
+        tab={supervision}
       />
+      {/* Read-only, as on a user's own profile: no Add Role and no row menu. */}
+      <RoleAssignmentsTable
+        rows={fulfillmentRows}
+        status={STATUS}
+        tab={fulfillment}
+      />
+      <RoleAssignmentsTable rows={[]} status={STATUS} tab={reports} />
     </div>
   )
 }

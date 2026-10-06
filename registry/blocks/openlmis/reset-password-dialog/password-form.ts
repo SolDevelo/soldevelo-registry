@@ -1,29 +1,29 @@
 import { z } from "zod"
 
+import {
+  type PasswordOwner,
+  passwordIssue,
+} from "@/registry/components/openlmis/password-requirements/password-rules"
+
 export type PasswordMethod = "email" | "manual"
 
-// The rule the OpenLMIS auth service enforces, checked here too so the user hears it before sending.
-const MIN_PASSWORD_LENGTH = 8
+/** With an owner, a typed password may not contain their username or names. */
+export function passwordFormSchemaFor(owner?: PasswordOwner) {
+  return z
+    .object({
+      method: z.enum(["email", "manual"]),
+      password: z.string(),
+    })
+    .superRefine(({ method, password }, context) => {
+      const message =
+        method === "manual" ? passwordIssue(password, owner) : undefined
+      if (message)
+        context.addIssue({ code: "custom", path: ["password"], message })
+    })
+}
 
-const issue = (message: string) => ({
-  code: "custom" as const,
-  path: ["password"],
-  message,
-})
-
-export const passwordFormSchema = z
-  .object({
-    method: z.enum(["email", "manual"]),
-    password: z.string(),
-  })
-  .superRefine(({ method, password }, context) => {
-    if (method !== "manual") return
-    if (password === "") context.addIssue(issue("Enter a password."))
-    else if (password.length < MIN_PASSWORD_LENGTH)
-      context.addIssue(issue("Use at least 8 characters."))
-    else if (!/\d/.test(password))
-      context.addIssue(issue("Include at least 1 number."))
-  })
+/** The rules without an owner, for a password whose user is not known. */
+export const passwordFormSchema = passwordFormSchemaFor()
 
 export type PasswordFormValues = z.input<typeof passwordFormSchema>
 

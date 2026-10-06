@@ -26,12 +26,14 @@ import {
   FieldSkeleton,
   SkeletonLine,
 } from "@/registry/components/openlmis/form-fields/form-fields"
+import { Callout } from "@/registry/components/openlmis/callout/callout"
 import { StatusBadge } from "@/registry/components/openlmis/status-badge/status-badge"
 
 import {
   canNotify,
   EMPTY_USER_FORM,
   type Facility,
+  statusMismatch,
   toSavedValues,
   toUserFormValues,
   type UserDetails,
@@ -116,6 +118,7 @@ function UserForm({
   const savedEmail = details?.email ?? ""
   const homeFacilityRoles = details?.homeFacilityRoleCount ?? 0
   const savedFacilityId = details?.homeFacilityId ?? null
+  const mismatch = details && statusMismatch(details)
 
   return (
     <FormDialogForm onSubmit={() => void form.handleSubmit()}>
@@ -135,7 +138,12 @@ function UserForm({
 
           <form.AppField name="username">
             {(field) => (
-              <field.TextField autoComplete="off" label="Username" required />
+              <field.TextField
+                autoComplete="off"
+                dir="ltr"
+                label="Username"
+                required
+              />
             )}
           </form.AppField>
 
@@ -180,6 +188,7 @@ function UserForm({
                     <EmailStatus verified={details.emailVerified} />
                   )
                 }
+                dir="ltr"
                 label="Email"
                 type="email"
               />
@@ -196,6 +205,7 @@ function UserForm({
               {(field) => (
                 <field.TextField
                   autoComplete="off"
+                  dir="ltr"
                   label="Phone Number"
                   type="tel"
                 />
@@ -222,6 +232,14 @@ function UserForm({
                 )
               }
             </form.Subscribe>
+          )}
+
+          {mismatch && (
+            <Callout title="Status Does Not Match" tone="warning">
+              {mismatch === "listed-inactive"
+                ? `The Users list shows ${details.username} as inactive, but they can still sign in. Saving applies the Active switch below to both.`
+                : `The Users list shows ${details.username} as active, but they cannot sign in. Saving applies the Active switch below to both.`}
+            </Callout>
           )}
 
           <form.AppField name="active">

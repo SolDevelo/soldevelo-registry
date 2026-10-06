@@ -10,8 +10,10 @@ export type UserDetails = {
   emailVerified: boolean
   jobTitle: string | null
   phoneNumber: string | null
-  /** Whether the user can sign in. */
+  /** Whether the Users list shows the user as active; the Active switch saves it. */
   active: boolean
+  /** Whether the account can sign in, if known; the form warns when it disagrees with `active`. */
+  signInEnabled?: boolean
   homeFacilityId: string | null
   allowNotify: boolean
   /** Roles that only apply at the home facility, so they lose their meaning when it changes. */
@@ -27,10 +29,9 @@ export type Facility = {
 const requiredText = (message: string) => z.string().trim().min(1, message)
 
 export const userFormSchema = z.object({
-  // The OpenLMIS reference data service only takes letters and digits in a username.
   username: requiredText("Enter a username.").regex(
-    /^[\p{L}\p{N}]*$/u,
-    "Use letters and numbers only."
+    /^\w*$/,
+    "Use Latin letters, numbers and underscores only."
   ),
   email: z
     .string()
@@ -77,6 +78,18 @@ export function toUserFormValues(user: UserDetails): UserFormValues {
     allowNotify: user.allowNotify,
     removeHomeFacilityRoles: false,
   }
+}
+
+/** The list shows `active`, while sign-in follows the account; undefined when they agree or sign-in is unknown. */
+export function statusMismatch({
+  active,
+  signInEnabled,
+}: Pick<UserDetails, "active" | "signInEnabled">):
+  | "listed-inactive"
+  | "listed-active"
+  | undefined {
+  if (signInEnabled === undefined || signInEnabled === active) return undefined
+  return signInEnabled ? "listed-inactive" : "listed-active"
 }
 
 /** Notifications need a verified address, and only the saved one can be verified yet. */

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-combobox-filter",
+  "title": "Combobox Filter",
+  "description": "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
+  "dependencies": [
+    "lucide-react",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "combobox",
+    "input-group"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/combobox-filter/combobox-filter.tsx",
+      "content": "\"use client\"\n\nimport { Combobox as ComboboxPrimitive } from \"@base-ui/react\"\nimport { XIcon } from \"lucide-react\"\n\nimport {\n  Combobox,\n  ComboboxContent,\n  ComboboxEmpty,\n  ComboboxInput,\n  ComboboxItem,\n  ComboboxList,\n} from \"@/components/ui/combobox\"\nimport { InputGroupAddon, InputGroupButton } from \"@/components/ui/input-group\"\n\nexport type ComboboxFilterOption = {\n  value: string\n  label: string\n  /** Muted beside the label, e.g. a facility's code. */\n  description?: string\n}\n\ntype ComboboxFilterProps = {\n  /** The placeholder and accessible name, e.g. \"Facility\". */\n  label: string\n  /** An empty string means no filter. */\n  value: string\n  onValueChange: (value: string) => void\n  options: ComboboxFilterOption[]\n  limit?: number\n  /** Called with what the user types; the caller narrows `options` and they are listed as given. */\n  onSearch?: (text: string) => void\n  /** Shown when there is nothing to list. */\n  emptyMessage?: string\n  clearLabel?: string\n  /** Shown above the options while searching, such as how many matches were left out. */\n  status?: string\n  onOpenChange?: (open: boolean) => void\n}\n\n/** A toolbar filter for a long list: type to narrow it, pick one value, clear it. */\nexport function ComboboxFilter({\n  label,\n  value,\n  onValueChange,\n  options,\n  limit = 50,\n  onSearch,\n  emptyMessage = \"No Matches\",\n  clearLabel = `Clear ${label}`,\n  status,\n  onOpenChange,\n}: ComboboxFilterProps) {\n  const selected = options.find((option) => option.value === value) ?? null\n\n  return (\n    <Combobox\n      // With `onSearch` the caller already narrowed the options, so they are not filtered again.\n      filter={onSearch ? null : undefined}\n      isItemEqualToValue={(item, picked) => item.value === picked.value}\n      itemToStringLabel={(item) => item.label}\n      items={options}\n      limit={limit}\n      onInputValueChange={\n        onSearch &&\n        ((text, details) =>\n          onSearch(details.reason === \"input-change\" ? text : \"\"))\n      }\n      onOpenChange={onOpenChange && ((open) => onOpenChange(open))}\n      onValueChange={(item) => onValueChange(item?.value ?? \"\")}\n      value={selected}\n    >\n      <ComboboxInput aria-label={label} className=\"w-full\" placeholder={label}>\n        {selected !== null && (\n          <InputGroupAddon align=\"inline-end\">\n            <ComboboxPrimitive.Clear\n              aria-label={clearLabel}\n              data-slot=\"combobox-clear\"\n              render={<InputGroupButton size=\"icon-xs\" variant=\"ghost\" />}\n            >\n              <XIcon />\n            </ComboboxPrimitive.Clear>\n          </InputGroupAddon>\n        )}\n      </ComboboxInput>\n      <ComboboxContent>\n        {onSearch && (\n          <ComboboxPrimitive.Status className=\"px-3 pt-2 text-xs text-muted-foreground empty:hidden\">\n            {options.length > 0 && status}\n          </ComboboxPrimitive.Status>\n        )}\n        <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>\n        <ComboboxList>\n          {(option: ComboboxFilterOption) => (\n            <ComboboxItem key={option.value} value={option}>\n              <span className=\"min-w-0 truncate\" dir=\"auto\">\n                {option.label}\n              </span>\n              {option.description && (\n                <span\n                  className=\"ms-auto shrink-0 text-xs text-muted-foreground\"\n                  dir=\"auto\"\n                >\n                  {option.description}\n                </span>\n              )}\n            </ComboboxItem>\n          )}\n        </ComboboxList>\n      </ComboboxContent>\n    </Combobox>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/combobox-filter.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "352px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "forms",
+    "data-table"
+  ],
+  "type": "registry:component"
+}

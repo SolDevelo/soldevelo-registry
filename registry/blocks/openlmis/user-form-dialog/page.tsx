@@ -29,6 +29,25 @@ const USER: UserDetails = {
   homeFacilityRoleCount: 3,
 }
 
+// Listed as active while the account cannot sign in, so the form warns about it.
+const MISMATCHED_USER: UserDetails = {
+  id: "u2",
+  username: "srmanager2",
+  firstName: "Chikondi",
+  lastName: "Phiri",
+  email: "chikondi.phiri@example.org",
+  emailVerified: false,
+  jobTitle: null,
+  phoneNumber: null,
+  active: true,
+  signInEnabled: false,
+  homeFacilityId: "f3",
+  allowNotify: false,
+  homeFacilityRoleCount: 0,
+}
+
+const USERS = [USER, MISMATCHED_USER]
+
 export default function Page() {
   // Open on load, so the catalog shows the dialog rather than its triggers.
   const [target, setTarget] = useState<UserFormDialogTarget | undefined>(
@@ -47,6 +66,9 @@ export default function Page() {
       <Button onClick={() => setTarget(USER.id)} variant="outline">
         Edit User
       </Button>
+      <Button onClick={() => setTarget(MISMATCHED_USER.id)} variant="outline">
+        Status Mismatch
+      </Button>
       <UserFormDialog
         error={error}
         facilities={FACILITIES}
@@ -60,7 +82,7 @@ export default function Page() {
           close()
         }}
         target={target}
-        user={USER}
+        user={USERS.find((user) => user.id === target)}
       />
     </div>
   )

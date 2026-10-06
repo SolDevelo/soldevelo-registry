@@ -4,6 +4,378 @@
   "homepage": "https://registry.soldevelo.com",
   "items": [
     {
+      "name": "openlmis-settings-list",
+      "title": "Settings List",
+      "description": "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/settings-list/settings-list.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/settings-list.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "303px"
+      },
+      "categories": [
+        "settings",
+        "forms"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-date-picker",
+      "title": "Date Picker",
+      "description": "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
+      "dependencies": [
+        "lucide-react",
+        "react-day-picker@^10",
+        "date-fns@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/date-picker/date-picker.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/date-picker/date-picker.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/date-picker/date-value.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/date-picker/date-value.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "240px"
+      },
+      "categories": [
+        "forms"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-password-requirements",
+      "title": "Password Requirements",
+      "description": "A live checklist of password rules with pure validation helpers.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/password-requirements/password-requirements.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/password-requirements/password-requirements.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/password-requirements/password-rules.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/password-requirements/password-rules.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "238px"
+      },
+      "categories": [
+        "forms",
+        "auth"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-role-rights-popover",
+      "title": "Role Rights Popover",
+      "description": "A role name with a help button that lists the rights it grants.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "popover",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/role-rights-popover/role-rights-popover.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/role-rights-popover.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "160px"
+      },
+      "categories": [
+        "roles",
+        "users"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-table-selection",
+      "title": "Table Selection",
+      "description": "A page selection checkbox column and a floating selected-count bar with Clear and actions.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/table-selection/table-selection.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/table-selection.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "445px"
+      },
+      "categories": [
+        "data-table"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-combobox-filter",
+      "title": "Combobox Filter",
+      "description": "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
+      "dependencies": [
+        "lucide-react",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "combobox",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/combobox-filter/combobox-filter.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/combobox-filter.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "352px"
+      },
+      "categories": [
+        "forms",
+        "data-table"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-workspace-tabs",
+      "title": "Workspace Tabs",
+      "description": "Controlled page section tabs that wrap into a column or grid on narrow screens.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "tabs",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/workspace-tabs/workspace-tabs.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/workspace-tabs.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "298px"
+      },
+      "categories": [
+        "navigation",
+        "layout"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
       "name": "openlmis-pagination",
       "title": "Pagination",
       "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
@@ -25,7 +397,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "236px"
+        "height": "288px"
       },
       "categories": [
         "navigation",
@@ -131,7 +503,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "176px"
+        "height": "220px"
       },
       "categories": [
         "forms",
@@ -312,20 +684,29 @@
     {
       "name": "openlmis-form-fields",
       "title": "Form Fields",
-      "description": "TanStack Form field components on shadcn Field: text, password with a show button, a type-to-filter combobox, radio and switch choice cards, required marks, inline errors, and skeletons that hold the form's shape while values load.",
+      "description": "Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.",
       "dependencies": [
         "@base-ui/react",
         "@tanstack/react-form@^1",
-        "lucide-react"
+        "lucide-react",
+        "zod@^4"
       ],
       "registryDependencies": [
+        "badge",
+        "button",
         "combobox",
         "field",
         "input",
         "input-group",
+        "popover",
         "radio-group",
+        "select",
         "skeleton",
-        "switch"
+        "switch",
+        "textarea",
+        "tooltip",
+        "https://registry.soldevelo.com/r/openlmis-date-picker.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json"
       ],
       "files": [
         {
@@ -347,11 +728,16 @@
           "path": "registry/components/openlmis/form-fields/form-messages.tsx",
           "type": "registry:component",
           "target": "components/openlmis/form-fields/form-messages.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/form-fields/tags.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/form-fields/tags.ts"
         }
       ],
       "meta": {
         "project": "openlmis",
-        "height": "620px"
+        "height": "1677px"
       },
       "categories": [
         "forms"
@@ -464,7 +850,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "254px"
+        "height": "392px"
       },
       "categories": [
         "dashboard",
@@ -814,6 +1200,7 @@
         "badge",
         "button",
         "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-status-badge.json"
@@ -875,7 +1262,8 @@
       "registryDependencies": [
         "field",
         "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-password-requirements.json"
       ],
       "files": [
         {
@@ -1111,7 +1499,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "357px"
+        "height": "692px"
       },
       "categories": [
         "dashboard",
@@ -1155,6 +1543,7 @@
         "dropdown-menu",
         "skeleton",
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-role-rights-popover.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-status-badge.json"
       ],
@@ -1172,7 +1561,7 @@
       ],
       "meta": {
         "project": "openlmis",
-        "height": "403px"
+        "height": "907px"
       },
       "categories": [
         "data-table",
@@ -1543,7 +1932,6 @@
         "https://registry.soldevelo.com/r/openlmis-import-roles-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
         "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
-        "https://registry.soldevelo.com/r/openlmis-role-rights-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [

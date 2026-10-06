@@ -1,6 +1,7 @@
 "use client"
 
 import { AlertCircleIcon } from "lucide-react"
+import { useEffect, useRef } from "react"
 import type { ReactNode } from "react"
 
 import {
@@ -26,6 +27,7 @@ type FormDialogProps = {
   onOpenChange: (open: boolean) => void
   /** Runs once the close animation ends, e.g. to drop the content it was showing. */
   onOpenChangeComplete?: (open: boolean) => void
+  closeButton?: boolean
   children: ReactNode
 }
 
@@ -34,8 +36,27 @@ export function FormDialog({
   open,
   onOpenChange,
   onOpenChangeComplete,
+  closeButton = true,
   children,
 }: FormDialogProps) {
+  const popupRef = useRef<HTMLDivElement>(null)
+  const touchRef = useRef(false)
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      touchRef.current = event.pointerType === "touch"
+    }
+    const onKeyDown = () => {
+      touchRef.current = false
+    }
+    document.addEventListener("pointerdown", onPointerDown, true)
+    document.addEventListener("keydown", onKeyDown, true)
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown, true)
+      document.removeEventListener("keydown", onKeyDown, true)
+    }
+  }, [])
+
   return (
     <Dialog
       // A click outside would throw away everything typed, so only Cancel, Close and Escape close it.
@@ -45,11 +66,29 @@ export function FormDialog({
       open={open}
     >
       {/* Flex instead of grid, so the form can hand the leftover height to its body. */}
-      {/* oxlint-disable-next-line shadcn/no-arbitrary-values -- no scale value keeps a margin inside the dynamic viewport */}
-      <DialogContent className="flex max-h-[calc(100dvh-2rem)] flex-col sm:max-w-lg">
+      <DialogContent
+        // oxlint-disable-next-line shadcn/no-arbitrary-values -- no scale value keeps a margin inside the dynamic viewport
+        className="flex max-h-[calc(100dvh-2rem)] flex-col sm:max-w-lg"
+        initialFocus={(interaction) => {
+          const popup = popupRef.current
+          if (interaction === "touch" || (!interaction && touchRef.current)) {
+            return popup
+          }
+          return firstField(popup) ?? popup
+        }}
+        ref={popupRef}
+        showCloseButton={closeButton}
+      >
         {children}
       </DialogContent>
     </Dialog>
+  )
+}
+
+function firstField(popup: HTMLElement | null) {
+  const body = popup?.querySelector("[data-slot='form-dialog-body']")
+  return body?.querySelector<HTMLElement>(
+    ":is(input:not([type='hidden']), textarea, select, button, [tabindex]):not([disabled]):not([hidden]):not([tabindex='-1']):not([aria-disabled='true'])"
   )
 }
 
@@ -92,7 +131,10 @@ export function FormDialogDescription({ children }: { children: ReactNode }) {
 export function FormDialogBody({ children }: { children: ReactNode }) {
   // Bleeds to the dialog's edges, so focus rings are not clipped and the scrollbar sits at the edge.
   return (
-    <div className="-mx-4 min-h-0 flex-1 overflow-y-auto px-4 py-1">
+    <div
+      className="-mx-4 min-h-0 flex-1 overflow-y-auto px-4 py-1"
+      data-slot="form-dialog-body"
+    >
       {children}
     </div>
   )
@@ -133,7 +175,11 @@ export function FormDialogSubmit({
   children,
 }: FormDialogSubmitProps) {
   return (
-    <Button disabled={pending || disabled} type="submit">
+    <Button
+      disabled={pending || disabled}
+      focusableWhenDisabled={pending}
+      type="submit"
+    >
       {pending && <Spinner data-icon="inline-start" />}
       {children}
     </Button>

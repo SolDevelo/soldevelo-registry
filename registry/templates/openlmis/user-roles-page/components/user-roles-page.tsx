@@ -26,7 +26,6 @@ import {
   type LookupStatus,
   RoleAssignmentsTable,
 } from "@/registry/blocks/openlmis/role-assignments-table/role-assignments-table"
-import { RoleRightsDialog } from "@/registry/blocks/openlmis/role-rights-dialog/role-rights-dialog"
 import {
   Workspace,
   WorkspaceActions,
@@ -77,7 +76,6 @@ type Notice =
 type OpenDialog =
   | { kind: "add"; tab: RoleTab }
   | { kind: "import" }
-  | { kind: "rights"; role: Role }
   | { kind: "discard" }
 
 const mockUser = MOCK_USERS.find((candidate) => candidate.id === MOCK_USER_ID)
@@ -170,13 +168,6 @@ function RolesEditor({
     },
     [remove]
   )
-  const viewRights = useCallback(
-    (roleId: string) => {
-      const role = lookups.roles.get(roleId)
-      if (role) setDialog({ kind: "rights", role })
-    },
-    [lookups.roles]
-  )
 
   const save = () => {
     onSave?.(draft.draft)
@@ -262,7 +253,6 @@ function RolesEditor({
                     key={item.id}
                     onAdd={() => setDialog({ kind: "add", tab: item })}
                     onRemove={removeRole}
-                    onViewRights={viewRights}
                     rows={rows}
                     status={status}
                     tab={item}
@@ -318,10 +308,6 @@ function RolesEditor({
         userId={user.id}
         username={user.username}
         users={users}
-      />
-      <RoleRightsDialog
-        onClose={closeDialog}
-        role={dialog?.kind === "rights" ? dialog.role : undefined}
       />
       <DiscardChangesDialog
         changes={draft.changes}

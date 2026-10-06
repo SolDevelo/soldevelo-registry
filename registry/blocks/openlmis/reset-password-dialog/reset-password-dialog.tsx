@@ -1,7 +1,7 @@
 "use client"
 
 import { revalidateLogic } from "@tanstack/react-form"
-import type { ReactNode } from "react"
+import { type ReactNode, useId, useMemo } from "react"
 
 import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import {
@@ -22,10 +22,11 @@ import {
   ChoiceCardSkeleton,
   SkeletonLine,
 } from "@/registry/components/openlmis/form-fields/form-fields"
+import { PasswordRequirements } from "@/registry/components/openlmis/password-requirements/password-requirements"
 
 import {
   defaultPasswordForm,
-  passwordFormSchema,
+  passwordFormSchemaFor,
   resetEmail,
 } from "./password-form"
 
@@ -39,6 +40,9 @@ export type PasswordUser = {
   id: string
   username: string
   email: string | null
+  /** With the names, a typed password may not contain them either. */
+  firstName?: string | null
+  lastName?: string | null
 }
 
 /** What the user chose: email a reset link, or set this password now. */
@@ -106,6 +110,8 @@ function PasswordForm({
 }) {
   const { username } = user
   const email = resetEmail(user.email)
+  const requirementsId = useId()
+  const schema = useMemo(() => passwordFormSchemaFor(user), [user])
 
   const form = useAppForm({
     defaultValues: defaultPasswordForm(email),
@@ -113,7 +119,7 @@ function PasswordForm({
       mode: "submit",
       modeAfterSubmission: "change",
     }),
-    validators: { onDynamic: passwordFormSchema },
+    validators: { onDynamic: schema },
     onSubmit: ({ value }) =>
       onSubmit(
         value.method === "email" && email
@@ -141,7 +147,11 @@ function PasswordForm({
           {error && (
             <FormDialogError
               description={error}
-              title="Could Not Reset Password"
+              title={
+                target.created
+                  ? "Could Not Set Password"
+                  : "Could Not Reset Password"
+              }
             />
           )}
 
@@ -172,11 +182,20 @@ function PasswordForm({
               method === "manual" && (
                 <form.AppField name="password">
                   {(field) => (
-                    <field.PasswordField
-                      description="At least 8 characters and 1 number."
-                      label="New Password"
-                      required
-                    />
+                    <div className="grid gap-3">
+                      <field.PasswordField
+                        describedBy={requirementsId}
+                        hideLabel="Hide Password"
+                        label="New Password"
+                        required
+                        showLabel="Show Password"
+                      />
+                      <PasswordRequirements
+                        id={requirementsId}
+                        owner={user}
+                        password={field.state.value}
+                      />
+                    </div>
                   )}
                 </form.AppField>
               )

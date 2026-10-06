@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-date-picker",
+  "title": "Date Picker",
+  "description": "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
+  "dependencies": [
+    "lucide-react",
+    "react-day-picker@^10",
+    "date-fns@^4",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "popover",
+    "label"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/date-picker/date-picker.tsx",
+      "content": "\"use client\"\n\nimport { CalendarIcon, XIcon } from \"lucide-react\"\nimport { useRef, useState } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Calendar } from \"@/components/ui/calendar\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\"\n\nimport { formatDateValue, parseDateValue, toDateValue } from \"@/components/openlmis/date-picker/date-value\"\n\nconst FIRST_MONTH = new Date(1900, 0)\nconst lastMonth = () => new Date(new Date().getFullYear() + 20, 11)\n\n/** Narrow, since a day column is too small for the full name in many languages. */\nconst weekdayName = (date: Date, locale: string) =>\n  date.toLocaleDateString(locale, { weekday: \"narrow\" })\n\nexport type DatePickerProps = {\n  id: string\n  /** `yyyy-MM-dd`, or an empty string for no date. */\n  value: string\n  onValueChange: (value: string) => void\n  placeholder: string\n  /** Names the picker where no field label does, as in a toolbar; shown before a picked date. */\n  label?: string | undefined\n  /** The id of a label elsewhere, such as a field's, that names the picker. */\n  labelledBy?: string | undefined\n  required?: boolean | undefined\n  /** Read out with a required picker, which cannot say so itself. */\n  requiredLabel?: string | undefined\n  disabled?: boolean | undefined\n  /** Shows a clear button while a date is picked, unless the date is required. */\n  clearLabel?: string | undefined\n  /** The first and last days that can be picked, as `yyyy-MM-dd`. */\n  earliest?: string | undefined\n  latest?: string | undefined\n  invalid?: boolean | undefined\n  describedBy?: string | undefined\n  onBlur?: (() => void) | undefined\n  /** The language the picked date and weekday names are shown in. */\n  dateLanguage?: string | undefined\n  dir?: \"ltr\" | \"rtl\" | undefined\n}\n\n/** A date picked from a calendar; the value stays `yyyy-MM-dd` whatever language it is shown in. */\nexport function DatePicker({\n  id,\n  value,\n  onValueChange,\n  placeholder,\n  label,\n  labelledBy,\n  required,\n  requiredLabel = \"Required\",\n  disabled,\n  clearLabel,\n  earliest,\n  latest,\n  invalid,\n  describedBy,\n  onBlur,\n  dateLanguage = \"en-US\",\n  dir,\n}: DatePickerProps) {\n  const labelId = labelledBy ?? `${id}-label`\n  const requiredId = `${id}-required`\n  const valueId = `${id}-value`\n  const trigger = useRef<HTMLButtonElement>(null)\n  const [open, setOpen] = useState(false)\n  const selected = parseDateValue(value)\n  const shown = formatDateValue(value, dateLanguage)\n  const clearable = Boolean(clearLabel && !required)\n  const canClear = clearable && Boolean(shown) && !disabled\n  const first = earliest ? parseDateValue(earliest) : undefined\n  const last = latest ? parseDateValue(latest) : undefined\n  const named = Boolean(label || labelledBy)\n\n  return (\n    <div className=\"relative\">\n      <Popover onOpenChange={setOpen} open={open}>\n        <PopoverTrigger\n          render={\n            <Button\n              aria-describedby={describedBy}\n              aria-invalid={invalid}\n              aria-labelledby={[\n                named ? labelId : \"\",\n                required ? requiredId : \"\",\n                shown || !named ? valueId : \"\",\n              ]\n                .filter(Boolean)\n                .join(\" \")}\n              className=\"w-full justify-start\"\n              disabled={disabled}\n              id={id}\n              onBlur={onBlur}\n              ref={trigger}\n              type=\"button\"\n              variant=\"outline\"\n            />\n          }\n        >\n          <CalendarIcon data-icon=\"inline-start\" />\n          {required && (\n            <span className=\"sr-only\" id={requiredId}>\n              {requiredLabel}\n            </span>\n          )}\n          <span\n            className={\n              canClear ? \"flex min-w-0 gap-1 pe-6\" : \"flex min-w-0 gap-1\"\n            }\n          >\n            {label && (\n              <span\n                className={shown ? \"shrink-0 text-muted-foreground\" : \"sr-only\"}\n                id={labelledBy ? undefined : labelId}\n              >\n                {shown ? `${label}:` : label}\n              </span>\n            )}\n            <span\n              className={\n                shown\n                  ? \"min-w-0 truncate\"\n                  : \"min-w-0 truncate text-muted-foreground\"\n              }\n              id={valueId}\n            >\n              {shown || placeholder}\n            </span>\n          </span>\n        </PopoverTrigger>\n        <PopoverContent\n          align=\"start\"\n          aria-labelledby={named ? labelId : valueId}\n          className=\"w-auto p-0\"\n        >\n          <Calendar\n            // oxlint-disable-next-line jsx-a11y/no-autofocus -- moves focus to the selected day as the calendar opens\n            autoFocus\n            captionLayout=\"dropdown\"\n            defaultMonth={selected ?? first ?? last}\n            dir={dir}\n            disabled={[\n              ...(first ? [{ before: first }] : []),\n              ...(last ? [{ after: last }] : []),\n            ]}\n            endMonth={last ?? lastMonth()}\n            formatters={{\n              formatWeekdayName: (date) => weekdayName(date, dateLanguage),\n            }}\n            mode=\"single\"\n            onSelect={(date: Date | undefined) => {\n              onValueChange(date ? toDateValue(date) : \"\")\n              setOpen(false)\n            }}\n            required={!clearable}\n            selected={selected}\n            startMonth={first ?? FIRST_MONTH}\n          />\n        </PopoverContent>\n      </Popover>\n      {/* A sibling of the trigger, since a button cannot hold another button. */}\n      {canClear && (\n        <div className=\"absolute inset-y-0 end-1 flex items-center\">\n          <Button\n            aria-label={clearLabel}\n            onClick={() => {\n              onValueChange(\"\")\n              trigger.current?.focus()\n            }}\n            size=\"icon-xs\"\n            type=\"button\"\n            variant=\"ghost\"\n          >\n            <XIcon />\n          </Button>\n        </div>\n      )}\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/date-picker/date-picker.tsx"
+    },
+    {
+      "path": "registry/components/openlmis/date-picker/date-value.ts",
+      "content": "const DATE_VALUE = /^(\\d{4})-(\\d{2})-(\\d{2})$/\n\n/** A `yyyy-MM-dd` value as a local date, or undefined when it is not a real day. */\nexport function parseDateValue(value: string): Date | undefined {\n  const match = DATE_VALUE.exec(value)\n  if (!match) return undefined\n  const [year, month, day] = match.slice(1).map(Number) as [\n    number,\n    number,\n    number,\n  ]\n  const date = new Date(0)\n  // setFullYear, since the constructor maps years 0 to 99 onto 1900 to 1999.\n  date.setFullYear(year, month - 1, day)\n  date.setHours(0, 0, 0, 0)\n  const isSameDay =\n    date.getFullYear() === year &&\n    date.getMonth() === month - 1 &&\n    date.getDate() === day\n  return isSameDay ? date : undefined\n}\n\nconst pad = (part: number, length = 2) => String(part).padStart(length, \"0\")\n\nexport function toDateValue(date: Date): string {\n  return `${pad(date.getFullYear(), 4)}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`\n}\n\nexport function formatDateValue(value: string, locale: string): string {\n  const date = parseDateValue(value)\n  return date\n    ? new Intl.DateTimeFormat(locale, { dateStyle: \"medium\" }).format(date)\n    : \"\"\n}",
+      "type": "registry:lib",
+      "target": "components/openlmis/date-picker/date-value.ts"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "240px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "forms"
+  ],
+  "type": "registry:component"
+}

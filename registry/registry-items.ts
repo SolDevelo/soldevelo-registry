@@ -12,6 +12,155 @@ import type { RegistryItem } from "shadcn/schema"
 // - `meta.height` is the preview's first-paint height at desktop width. Measure it, do not guess.
 export const registryItems: RegistryItem[] = [
   // -- Components -------------------------------------------------------------
+
+  {
+    name: "openlmis-settings-list",
+    title: "Settings List",
+    type: "registry:component",
+    description:
+      "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
+    dependencies: [],
+    registryDependencies: ["badge"],
+    files: [
+      {
+        path: "components/openlmis/settings-list/settings-list.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["settings", "forms"],
+    meta: {
+      project: "openlmis",
+      height: "303px",
+    },
+  },
+  {
+    name: "openlmis-date-picker",
+    title: "Date Picker",
+    type: "registry:component",
+    description:
+      "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
+    dependencies: ["lucide-react", "react-day-picker@^10", "date-fns@^4"],
+    registryDependencies: ["button", "calendar", "popover", "label"],
+    files: [
+      {
+        path: "components/openlmis/date-picker/date-picker.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/date-picker/date-value.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms"],
+    meta: {
+      project: "openlmis",
+      height: "240px",
+    },
+  },
+  {
+    name: "openlmis-password-requirements",
+    title: "Password Requirements",
+    type: "registry:component",
+    description:
+      "A live checklist of password rules with pure validation helpers.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["input", "label"],
+    files: [
+      {
+        path: "components/openlmis/password-requirements/password-requirements.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/password-requirements/password-rules.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "auth"],
+    meta: {
+      project: "openlmis",
+      height: "238px",
+    },
+  },
+  {
+    name: "openlmis-role-rights-popover",
+    title: "Role Rights Popover",
+    type: "registry:component",
+    description:
+      "A role name with a help button that lists the rights it grants.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["popover", "button"],
+    files: [
+      {
+        path: "components/openlmis/role-rights-popover/role-rights-popover.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["roles", "users"],
+    meta: {
+      project: "openlmis",
+      height: "160px",
+    },
+  },
+  {
+    name: "openlmis-table-selection",
+    title: "Table Selection",
+    type: "registry:component",
+    description:
+      "A page selection checkbox column and a floating selected-count bar with Clear and actions.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
+    registryDependencies: ["button", "checkbox"],
+    files: [
+      {
+        path: "components/openlmis/table-selection/table-selection.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["data-table"],
+    meta: {
+      project: "openlmis",
+      height: "445px",
+    },
+  },
+  {
+    name: "openlmis-combobox-filter",
+    title: "Combobox Filter",
+    type: "registry:component",
+    description:
+      "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["combobox", "input-group"],
+    files: [
+      {
+        path: "components/openlmis/combobox-filter/combobox-filter.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "data-table"],
+    meta: {
+      project: "openlmis",
+      height: "352px",
+    },
+  },
+  {
+    name: "openlmis-workspace-tabs",
+    title: "Workspace Tabs",
+    type: "registry:component",
+    description:
+      "Controlled page section tabs that wrap into a column or grid on narrow screens.",
+    dependencies: [],
+    registryDependencies: ["tabs", "button"],
+    files: [
+      {
+        path: "components/openlmis/workspace-tabs/workspace-tabs.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["navigation", "layout"],
+    meta: {
+      project: "openlmis",
+      height: "298px",
+    },
+  },
   {
     name: "openlmis-pagination",
     title: "Pagination",
@@ -27,7 +176,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["navigation", "data-table"],
-    meta: { project: "openlmis", height: "236px" },
+    meta: { project: "openlmis", height: "288px" },
   },
   {
     name: "openlmis-search-input",
@@ -65,7 +214,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms", "data-table"],
-    meta: { project: "openlmis", height: "176px" },
+    meta: { project: "openlmis", height: "220px" },
   },
   {
     name: "openlmis-column-view-options",
@@ -123,16 +272,27 @@ export const registryItems: RegistryItem[] = [
     title: "Form Fields",
     type: "registry:component",
     description:
-      "TanStack Form field components on shadcn Field: text, password with a show button, a type-to-filter combobox, radio and switch choice cards, required marks, inline errors, and skeletons that hold the form's shape while values load.",
-    dependencies: ["@base-ui/react", "@tanstack/react-form@^1", "lucide-react"],
+      "Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.",
+    dependencies: [
+      "@base-ui/react",
+      "@tanstack/react-form@^1",
+      "lucide-react",
+      "zod@^4",
+    ],
     registryDependencies: [
+      "badge",
+      "button",
       "combobox",
       "field",
       "input",
       "input-group",
+      "popover",
       "radio-group",
+      "select",
       "skeleton",
       "switch",
+      "textarea",
+      "tooltip",
     ],
     files: [
       {
@@ -151,9 +311,10 @@ export const registryItems: RegistryItem[] = [
         path: "components/openlmis/form-fields/form-messages.tsx",
         type: "registry:component",
       },
+      { path: "components/openlmis/form-fields/tags.ts", type: "registry:lib" },
     ],
     categories: ["forms"],
-    meta: { project: "openlmis", height: "620px" },
+    meta: { project: "openlmis", height: "1677px" },
   },
   {
     name: "openlmis-form-dialog",
@@ -191,7 +352,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["dashboard", "layout"],
-    meta: { project: "openlmis", height: "254px" },
+    meta: { project: "openlmis", height: "392px" },
   },
   {
     name: "openlmis-stat-strip",
@@ -412,7 +573,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["dashboard", "requisitions"],
-    meta: { project: "openlmis", height: "357px" },
+    meta: { project: "openlmis", height: "692px" },
   },
   {
     name: "openlmis-role-assignments-table",
@@ -433,7 +594,7 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["data-table", "users", "roles"],
-    meta: { project: "openlmis", height: "403px" },
+    meta: { project: "openlmis", height: "907px" },
   },
   {
     name: "openlmis-add-role-dialog",

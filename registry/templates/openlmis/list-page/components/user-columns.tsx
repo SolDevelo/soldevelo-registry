@@ -7,6 +7,7 @@ import {
   PencilIcon,
   ShieldIcon,
 } from "lucide-react"
+import { useCallback, useRef } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -91,14 +92,35 @@ export const createUserColumns = (actions: UserRowActions) =>
     }),
   ])
 
+/** Keeps a closing menu from taking focus back to its trigger when an item opened a dialog, which then owns focus. */
+function useMenuOpensDialog() {
+  const opened = useRef(false)
+
+  const onOpenChange = useCallback((open: boolean) => {
+    if (open) opened.current = false
+  }, [])
+  const finalFocus = useCallback(() => !opened.current, [])
+  const opensDialog = useCallback(
+    (open: () => void) => () => {
+      opened.current = true
+      open()
+    },
+    []
+  )
+
+  return { onOpenChange, finalFocus, opensDialog }
+}
+
 function UserActions({
   username,
   onEdit,
   onResetPassword,
 }: { username: string } & Record<"onEdit" | "onResetPassword", () => void>) {
+  const menu = useMenuOpensDialog()
+
   return (
     <div className="flex justify-end">
-      <DropdownMenu>
+      <DropdownMenu onOpenChange={menu.onOpenChange}>
         <DropdownMenuTrigger
           render={
             <Button
@@ -110,8 +132,12 @@ function UserActions({
         >
           <EllipsisIcon />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-auto">
-          <DropdownMenuItem onClick={onEdit}>
+        <DropdownMenuContent
+          align="end"
+          className="w-auto"
+          finalFocus={menu.finalFocus}
+        >
+          <DropdownMenuItem onClick={menu.opensDialog(onEdit)}>
             <PencilIcon />
             Edit
           </DropdownMenuItem>
@@ -119,7 +145,10 @@ function UserActions({
             <ShieldIcon />
             Roles
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onResetPassword} variant="destructive">
+          <DropdownMenuItem
+            onClick={menu.opensDialog(onResetPassword)}
+            variant="destructive"
+          >
             <KeyRoundIcon />
             Reset Password
           </DropdownMenuItem>

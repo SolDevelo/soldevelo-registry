@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "lucide-react"
+import { AlertCircleIcon, WifiOffIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
 import { Badge } from "@/components/ui/badge"
@@ -68,6 +68,8 @@ export function DashboardCardCount({
 
 type DashboardCardErrorProps = {
   onRetry: () => void
+  /** `offline` asks for a connection quietly instead of reporting a failure. */
+  variant?: "error" | "offline"
   message?: ReactNode
   retryLabel?: ReactNode
 }
@@ -75,18 +77,27 @@ type DashboardCardErrorProps = {
 /** A card body that failed to load, with a Try Again of its own so the rest of the page stays. */
 export function DashboardCardError({
   onRetry,
-  message = "This could not be loaded.",
+  variant = "error",
+  message = variant === "offline"
+    ? "Connect To Download This Data"
+    : "This could not be loaded.",
   retryLabel = "Try Again",
 }: DashboardCardErrorProps) {
+  const offline = variant === "offline"
+
   return (
     <div
       className="flex items-center gap-2 text-sm text-muted-foreground"
-      role="alert"
+      role={offline ? "status" : "alert"}
     >
-      <AlertCircleIcon
-        aria-hidden="true"
-        className="size-4 shrink-0 text-destructive"
-      />
+      {offline ? (
+        <WifiOffIcon aria-hidden="true" className="size-4 shrink-0" />
+      ) : (
+        <AlertCircleIcon
+          aria-hidden="true"
+          className="size-4 shrink-0 text-destructive"
+        />
+      )}
       <span className="min-w-0 flex-1">{message}</span>
       <Button onClick={onRetry} size="sm" type="button" variant="outline">
         {retryLabel}
