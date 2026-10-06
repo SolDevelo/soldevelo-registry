@@ -58,6 +58,9 @@ and edits update local state.
 
 ### Fixed
 
+- Dashboard previews keep positioned chart content inside the preview frame,
+  avoiding a second vertical scrollbar on short screens.
+
 - The Select Filter preview gives Supplying Facility more room for the
   selected name, while keeping Status compact and fitting narrow screens.
 
