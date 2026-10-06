@@ -12,6 +12,23 @@ import type { RegistryItem } from "shadcn/schema"
 // - `meta.height` is the preview's first-paint height at desktop width. Measure it, do not guess.
 export const registryItems: RegistryItem[] = [
   // -- Components -------------------------------------------------------------
+  {
+    name: "openlmis-form-actions",
+    title: "Form Actions",
+    type: "registry:component",
+    description:
+      "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
+    dependencies: [],
+    registryDependencies: ["button", "spinner", "input", "label"],
+    files: [
+      {
+        path: "components/openlmis/form-actions/form-actions.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms"],
+    meta: { project: "openlmis", height: "170px" },
+  },
 
   {
     name: "openlmis-settings-list",
@@ -407,6 +424,104 @@ export const registryItems: RegistryItem[] = [
   },
   // -- Blocks -----------------------------------------------------------------
   {
+    name: "openlmis-profile-notification-settings",
+    title: "Profile Notification Settings",
+    type: "registry:block",
+    description:
+      "Choose notification channels and email digest frequency, day, time and schedule with inline validation.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
+    registryDependencies: ["button", "table", "skeleton"],
+    files: [
+      {
+        path: "blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/profile-notification-settings/digest.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "profile", "data-table"],
+    meta: {
+      project: "openlmis",
+      height: "510px",
+    },
+  },
+  {
+    name: "openlmis-profile-basic-information",
+    title: "Profile Basic Information",
+    type: "registry:block",
+    description:
+      "Editable profile settings with email verification, notification consent, and read-only account details.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
+    registryDependencies: ["alert", "badge", "button", "skeleton", "spinner"],
+    files: [
+      {
+        path: "blocks/openlmis/profile-basic-information/profile-basic-information.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/profile-basic-information/profile.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "profile"],
+    meta: {
+      project: "openlmis",
+      height: "628px",
+    },
+  },
+  {
+    name: "openlmis-change-password-dialog",
+    title: "Change Password Dialog",
+    type: "registry:block",
+    description:
+      "Choose and confirm a new password with a shared reveal button and live password requirements.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/change-password-dialog/change-password-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "profile"],
+    meta: {
+      project: "openlmis",
+      height: "640px",
+    },
+  },
+  {
+    name: "openlmis-role-form-dialog",
+    title: "Role Form Dialog",
+    type: "registry:block",
+    description:
+      "Create or edit a role with type tabs, name, description and rights, and confirmation before changing a role in use.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
+    registryDependencies: [
+      "alert-dialog",
+      "button",
+      "field",
+      "skeleton",
+      "tabs",
+    ],
+    files: [
+      {
+        path: "blocks/openlmis/role-form-dialog/role-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/role-form-dialog/role-form.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "administration"],
+    meta: {
+      project: "openlmis",
+      height: "768px",
+    },
+  },
+  {
     name: "openlmis-data-table",
     title: "Data Table",
     type: "registry:block",
@@ -653,6 +768,72 @@ export const registryItems: RegistryItem[] = [
   },
 
   // -- Templates --------------------------------------------------------------
+  {
+    name: "openlmis-profile-page",
+    title: "Profile Page",
+    type: "registry:page",
+    description:
+      "A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.",
+    dependencies: ["lucide-react@^1", "react-dom@^19"],
+    registryDependencies: ["badge", "button", "tabs"],
+    files: [
+      {
+        path: "templates/openlmis/profile-page/page.tsx",
+        type: "registry:page",
+        target: "app/profile-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/profile-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/mock-profile.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["profile"],
+    meta: {
+      project: "openlmis",
+      height: "737px",
+    },
+  },
+  {
+    name: "openlmis-roles-page",
+    title: "Roles Page",
+    type: "registry:page",
+    description:
+      "Search and filter roles by type, create or edit them, and view their rights using local mock data.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: ["button", "dropdown-menu"],
+    files: [
+      {
+        path: "templates/openlmis/roles-page/page.tsx",
+        type: "registry:page",
+        target: "app/roles-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/roles-page/components/roles-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/roles-page/components/role-columns.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/roles-page/components/roles-list.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/roles-page/components/mock-roles.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["administration"],
+    meta: {
+      project: "openlmis",
+      height: "783px",
+    },
+  },
   {
     name: "openlmis-list-page",
     title: "List Page",

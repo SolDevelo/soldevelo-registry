@@ -15,6 +15,11 @@ Every example uses mock data and local state.
 
 ### Added
 
+- Role administration with create and edit dialogs, rights selection,
+  filtering and confirmation before changing a role in use.
+- A profile page with basic information, read-only role assignments,
+  notification and digest settings, and a change password dialog.
+- Shared form actions that can live in a sticky page footer.
 - Bordered settings rows, a calendar date picker and a live password
   requirements checklist with pure validation helpers.
 - Role rights popovers, searchable combobox filters, wrapping workspace

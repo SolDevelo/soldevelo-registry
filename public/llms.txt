@@ -2,16 +2,16 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 36 installable items across 1 open-source project (OpenLMIS): 19 components, 13 blocks, and 4 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 43 installable items across 1 open-source project (OpenLMIS): 20 components, 17 blocks, and 6 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
 ## Pages
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
-- [Components](https://registry.soldevelo.com/components): 19 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 13 blocks, with live previews and full source.
-- [Templates](https://registry.soldevelo.com/templates): 4 templates, with live previews and full source.
+- [Components](https://registry.soldevelo.com/components): 20 components, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 17 blocks, with live previews and full source.
+- [Templates](https://registry.soldevelo.com/templates): 6 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
 
@@ -41,12 +41,13 @@ Register the namespace once in `components.json`, then install any item by name:
 ```
 
 ```sh
-pnpm dlx shadcn@latest add @soldevelo/openlmis-settings-list
-npx shadcn@latest add @soldevelo/openlmis-settings-list
+pnpm dlx shadcn@latest add @soldevelo/openlmis-form-actions
+npx shadcn@latest add @soldevelo/openlmis-form-actions
 ```
 
 ## Catalog
 
+- [Form Actions](https://registry.soldevelo.com/components/openlmis-form-actions) `@soldevelo/openlmis-form-actions` (component): Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.
 - [Settings List](https://registry.soldevelo.com/components/openlmis-settings-list) `@soldevelo/openlmis-settings-list` (component): Bordered setting rows with labels, descriptions, badges and editable or read-only values.
 - [Date Picker](https://registry.soldevelo.com/components/openlmis-date-picker) `@soldevelo/openlmis-date-picker` (component): A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.
 - [Password Requirements](https://registry.soldevelo.com/components/openlmis-password-requirements) `@soldevelo/openlmis-password-requirements` (component): A live checklist of password rules with pure validation helpers.
@@ -66,6 +67,10 @@ npx shadcn@latest add @soldevelo/openlmis-settings-list
 - [Stat Strip](https://registry.soldevelo.com/components/openlmis-stat-strip) `@soldevelo/openlmis-stat-strip` (component): One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.
 - [Discard Changes Dialog](https://registry.soldevelo.com/components/openlmis-discard-changes-dialog) `@soldevelo/openlmis-discard-changes-dialog` (component): Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.
 - [Callout](https://registry.soldevelo.com/components/openlmis-callout) `@soldevelo/openlmis-callout` (component): Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.
+- [Profile Notification Settings](https://registry.soldevelo.com/blocks/openlmis-profile-notification-settings) `@soldevelo/openlmis-profile-notification-settings` (block): Choose notification channels and email digest frequency, day, time and schedule with inline validation.
+- [Profile Basic Information](https://registry.soldevelo.com/blocks/openlmis-profile-basic-information) `@soldevelo/openlmis-profile-basic-information` (block): Editable profile settings with email verification, notification consent, and read-only account details.
+- [Change Password Dialog](https://registry.soldevelo.com/blocks/openlmis-change-password-dialog) `@soldevelo/openlmis-change-password-dialog` (block): Choose and confirm a new password with a shared reveal button and live password requirements.
+- [Role Form Dialog](https://registry.soldevelo.com/blocks/openlmis-role-form-dialog) `@soldevelo/openlmis-role-form-dialog` (block): Create or edit a role with type tabs, name, description and rights, and confirmation before changing a role in use.
 - [Data Table](https://registry.soldevelo.com/blocks/openlmis-data-table) `@soldevelo/openlmis-data-table` (block): Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.
 - [Workspace](https://registry.soldevelo.com/blocks/openlmis-workspace) `@soldevelo/openlmis-workspace` (block): Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.
 - [List Toolbar](https://registry.soldevelo.com/blocks/openlmis-list-toolbar) `@soldevelo/openlmis-list-toolbar` (block): Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.
@@ -79,6 +84,8 @@ npx shadcn@latest add @soldevelo/openlmis-settings-list
 - [Add Role Dialog](https://registry.soldevelo.com/blocks/openlmis-add-role-dialog) `@soldevelo/openlmis-add-role-dialog` (block): Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.
 - [Import Roles Dialog](https://registry.soldevelo.com/blocks/openlmis-import-roles-dialog) `@soldevelo/openlmis-import-roles-dialog` (block): Dialog that copies another user's roles into the ones being edited, with a searchable list of users and a preview of how many roles are new before anything is added.
 - [Role Rights Dialog](https://registry.soldevelo.com/blocks/openlmis-role-rights-dialog) `@soldevelo/openlmis-role-rights-dialog` (block): Dialog listing what a role lets its holder do, each right named in words, scrolling inside the viewport when the list is long.
+- [Profile Page](https://registry.soldevelo.com/templates/openlmis-profile-page) `@soldevelo/openlmis-profile-page` (template): A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.
+- [Roles Page](https://registry.soldevelo.com/templates/openlmis-roles-page) `@soldevelo/openlmis-roles-page` (template): Search and filter roles by type, create or edit them, and view their rights using local mock data.
 - [List Page](https://registry.soldevelo.com/templates/openlmis-list-page) `@soldevelo/openlmis-list-page` (template): Complete users list screen on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, empty and no-matches states, and row actions that open Edit User and Reset Password, with Add User going on to Set Password.
 - [Home Dashboard](https://registry.soldevelo.com/templates/openlmis-home-dashboard) `@soldevelo/openlmis-home-dashboard` (template): OpenLMIS home screen on mock data: a greeting with what is waiting, Add User, system notices, a stat strip, requisitions by period and by status, cold chain equipment and the approvals queue, each shown only when the user's rights allow.
 - [User Roles Page](https://registry.soldevelo.com/templates/openlmis-user-roles-page) `@soldevelo/openlmis-user-roles-page` (template): Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.

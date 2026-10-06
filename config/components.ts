@@ -7,6 +7,37 @@ import type { RegistryEntry } from "@/lib/types"
 export const components: RegistryEntry[] = [
   {
     "kind": "component",
+    "name": "openlmis-form-actions",
+    "project": "openlmis",
+    "title": "Form Actions",
+    "height": "170px",
+    "description": "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
+    "registryDependencies": [
+      "button",
+      "spinner",
+      "input",
+      "label"
+    ],
+    "dependencies": [],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\n\nimport { FormActions } from \"@/components/openlmis/form-actions\"\n\nexport default function Page() {\n  const [saved, setSaved] = useState(\"Grace Banda\")\n  const [name, setName] = useState(saved)\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-4 p-8\">\n      <form\n        className=\"flex flex-col gap-2\"\n        id=\"profile-name\"\n        onSubmit={(event) => {\n          event.preventDefault()\n          setSaved(name)\n        }}\n      >\n        <Label htmlFor=\"display-name\">Display Name</Label>\n        <Input\n          id=\"display-name\"\n          onChange={(event) => setName(event.target.value)}\n          value={name}\n        />\n      </form>\n      <div className=\"flex justify-between gap-2\">\n        <FormActions\n          actions={{\n            formId: \"profile-name\",\n            changed: name !== saved,\n            pending: false,\n            cancel: () => setName(saved),\n          }}\n          saveLabel=\"Save Profile\"\n        />\n      </div>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "form-actions.tsx",
+        "code": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Spinner } from \"@/components/ui/spinner\"\n\n/** What a form hands its Cancel and Save buttons, wherever they are placed. */\nexport type FormActionState = {\n  /** The form's id, for a submit button placed outside it. */\n  formId: string\n  changed: boolean\n  pending: boolean\n  /** Puts the form back to the saved values. */\n  cancel: () => void\n}\n\n/** Cancel and Save for a form, e.g. in a `WorkspaceFooter`. */\nexport function FormActions({\n  actions: { formId, changed, pending, cancel },\n  saveLabel,\n}: {\n  actions: FormActionState\n  saveLabel: ReactNode\n}) {\n  return (\n    <>\n      <Button\n        disabled={!changed || pending}\n        onClick={cancel}\n        size=\"lg\"\n        type=\"button\"\n        variant=\"outline\"\n      >\n        Cancel\n      </Button>\n      <Button\n        disabled={!changed || pending}\n        focusableWhenDisabled={pending}\n        form={formId}\n        size=\"lg\"\n        type=\"submit\"\n      >\n        {pending && <Spinner data-icon=\"inline-start\" />}\n        {saveLabel}\n      </Button>\n    </>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/form-actions.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
     "name": "openlmis-settings-list",
     "project": "openlmis",
     "title": "Settings List",

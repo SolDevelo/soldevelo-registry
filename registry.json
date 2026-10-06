@@ -4,6 +4,57 @@
   "homepage": "https://registry.soldevelo.com",
   "items": [
     {
+      "name": "openlmis-form-actions",
+      "title": "Form Actions",
+      "description": "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "spinner",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/form-actions/form-actions.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-actions.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "170px"
+      },
+      "categories": [
+        "forms"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
       "name": "openlmis-settings-list",
       "title": "Settings List",
       "description": "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
@@ -1030,6 +1081,256 @@
       }
     },
     {
+      "name": "openlmis-profile-notification-settings",
+      "title": "Profile Notification Settings",
+      "description": "Choose notification channels and email digest frequency, day, time and schedule with inline validation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "table",
+        "skeleton",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/profile-notification-settings/digest.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/profile-notification-settings/digest.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "510px"
+      },
+      "categories": [
+        "forms",
+        "profile",
+        "data-table"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-profile-basic-information",
+      "title": "Profile Basic Information",
+      "description": "Editable profile settings with email verification, notification consent, and read-only account details.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "badge",
+        "button",
+        "skeleton",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/profile-basic-information/profile-basic-information.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/profile-basic-information/profile-basic-information.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/profile-basic-information/profile.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/profile-basic-information/profile.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "628px"
+      },
+      "categories": [
+        "forms",
+        "profile"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-change-password-dialog",
+      "title": "Change Password Dialog",
+      "description": "Choose and confirm a new password with a shared reveal button and live password requirements.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-password-requirements.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/change-password-dialog/change-password-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/change-password-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "640px"
+      },
+      "categories": [
+        "forms",
+        "profile"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-role-form-dialog",
+      "title": "Role Form Dialog",
+      "description": "Create or edit a role with type tabs, name, description and rights, and confirmation before changing a role in use.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert-dialog",
+        "button",
+        "field",
+        "skeleton",
+        "tabs",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/role-form-dialog/role-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/role-form-dialog/role-form-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/role-form-dialog/role-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/role-form-dialog/role-form.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "768px"
+      },
+      "categories": [
+        "forms",
+        "administration"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
       "name": "openlmis-data-table",
       "title": "Data Table",
       "description": "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
@@ -1739,6 +2040,161 @@
         "roles"
       ],
       "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-profile-page",
+      "title": "Profile Page",
+      "description": "A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.",
+      "dependencies": [
+        "lucide-react@^1",
+        "react-dom@^19",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "tabs",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-change-password-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-profile-basic-information.json",
+        "https://registry.soldevelo.com/r/openlmis-profile-notification-settings.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/profile-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/profile-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/profile-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/profile-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/mock-profile.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/profile-page/mock-profile.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "737px"
+      },
+      "categories": [
+        "profile"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-roles-page",
+      "title": "Roles Page",
+      "description": "Search and filter roles by type, create or edit them, and view their rights using local mock data.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
+        "https://registry.soldevelo.com/r/openlmis-role-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-role-rights-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-select-filter.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/roles-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/roles-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/components/roles-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/roles-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/components/role-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/role-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/components/roles-list.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/roles-page/roles-list.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/components/mock-roles.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/roles-page/mock-roles.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "783px"
+      },
+      "categories": [
+        "administration"
+      ],
+      "type": "registry:page",
       "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
