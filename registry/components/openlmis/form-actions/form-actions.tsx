@@ -19,14 +19,17 @@ export type FormActionState = {
 export function FormActions({
   actions: { formId, changed, pending, cancel },
   saveLabel,
+  cancelDisabled = !changed,
 }: {
   actions: FormActionState
   saveLabel: ReactNode
+  /** A navigation Cancel may stay available while the form is unchanged. */
+  cancelDisabled?: boolean
 }) {
   return (
     <>
       <Button
-        disabled={!changed || pending}
+        disabled={cancelDisabled || pending}
         onClick={cancel}
         size="lg"
         type="button"

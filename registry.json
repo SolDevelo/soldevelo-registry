@@ -169,6 +169,7 @@
       "description": "A live checklist of password rules with pure validation helpers.",
       "dependencies": [
         "lucide-react",
+        "zod@^4",
         "@base-ui/react"
       ],
       "registryDependencies": [
@@ -185,6 +186,11 @@
           "path": "registry/components/openlmis/password-requirements/password-rules.ts",
           "type": "registry:lib",
           "target": "components/openlmis/password-requirements/password-rules.ts"
+        },
+        {
+          "path": "registry/components/openlmis/password-requirements/password-schema.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/password-requirements/password-schema.ts"
         }
       ],
       "meta": {
@@ -2883,6 +2889,1239 @@
       },
       "categories": [
         "settings"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-number-text",
+      "title": "Number Text",
+      "description": "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
+      "dependencies": [
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "field",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/number-text/number-text.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/number-text.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "260px"
+      },
+      "categories": [
+        "forms"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-general-form",
+      "title": "Product General Form",
+      "description": "Product information with code validation, pack sizes, dispensing units, dirty state and reusable footer actions.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-number-text.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-general-form/product-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-general-form/product-form-fields.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-general-form/product-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/product-general-form/product-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-general-form/product-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-general-form/product-general-form.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "723px"
+      },
+      "categories": [
+        "forms",
+        "products"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-form-dialog",
+      "title": "Product Form Dialog",
+      "description": "Add Product with required information, pack size and duplicate-code validation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-product-general-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-form-dialog/product-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-form-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "832px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "products"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-program-link-dialog",
+      "title": "Product Program Link Dialog",
+      "description": "Add, edit or view a product program link with category, doses, price and Full Supply.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-number-text.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-program-link-dialog/program-link-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/product-program-link-dialog/program-link-form.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "832px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "products"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-program-links",
+      "title": "Product Program Links",
+      "description": "Responsive product program links with category, supply, price, inactive markers and row actions.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "alert-dialog",
+        "badge",
+        "button",
+        "dropdown-menu",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-program-links/product-program-links.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-program-links/product-program-links.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-program-links/remove-program-link-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-program-links/remove-program-link-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "342px"
+      },
+      "categories": [
+        "data-table",
+        "products"
+      ],
+      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-approval-dialog",
+      "title": "Product Approval Dialog",
+      "description": "Facility type and program approval with stock levels, duplicate checks and locked edit choices.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-number-text.json",
+        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-approval-dialog/approval-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/product-approval-dialog/approval-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "800px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "products"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-approved-products",
+      "title": "Facility Approved Products",
+      "description": "Product approvals grouped by facility type, with responsive stock-level columns and row actions.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "alert-dialog",
+        "button",
+        "dropdown-menu",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-product-approval-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/facility-approved-products/facility-approved-products.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-approved-products/facility-approved-products.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "438px"
+      },
+      "categories": [
+        "data-table",
+        "products"
+      ],
+      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-kit-products-dialog",
+      "title": "Kit Products Dialog",
+      "description": "Search and pick products for a kit, excluding existing products and showing limited-search feedback.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/kit-products-dialog/kit-products-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/kit-products-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "480px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "products"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-kit-unpack-list",
+      "title": "Product Kit Unpack List",
+      "description": "Editable kit quantities with Add Products, Remove, dirty state, validation and footer actions.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "skeleton",
+        "table",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-kit-products-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-number-text.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/product-kit-unpack-list/kit-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/product-kit-unpack-list/kit-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "418px"
+      },
+      "categories": [
+        "forms",
+        "data-table",
+        "products"
+      ],
+      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-product-editor-page",
+      "title": "Product Editor Page",
+      "description": "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-facility-approved-products.json",
+        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-kit-products-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-product-approval-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-product-general-form.json",
+        "https://registry.soldevelo.com/r/openlmis-product-kit-unpack-list.json",
+        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-product-program-links.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/mock-product.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/product-editor-page/mock-product.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-editor-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/product-editor-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "788px"
+      },
+      "categories": [
+        "products"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-general-form",
+      "title": "Facility General Form",
+      "description": "Facility information, geographic zone, operational date, status switches, duplicate codes and externally managed fields.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/facility-general-form/facility-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-general-form/facility-form-fields.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/facility-general-form/facility-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/facility-general-form/facility-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/facility-general-form/facility-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-general-form/facility-general-form.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "583px"
+      },
+      "categories": [
+        "forms",
+        "facilities"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-program-dialog",
+      "title": "Facility Program Dialog",
+      "description": "Add a supported program and start date to a facility.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/facility-program-dialog/facility-program.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/facility-program-dialog/facility-program.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "512px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "facilities"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-programs",
+      "title": "Facility Programs",
+      "description": "Supported programs with start dates, Active and Locally Fulfilled switches and unsaved-row removal.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty",
+        "field",
+        "skeleton",
+        "switch",
+        "table",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-date-picker.json",
+        "https://registry.soldevelo.com/r/openlmis-facility-program-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/facility-programs/facility-programs.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-programs.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "345px"
+      },
+      "categories": [
+        "data-table",
+        "facilities"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-form-dialog",
+      "title": "Facility Form Dialog",
+      "description": "Add Facility with shared information fields and validation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-facility-general-form.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/facility-form-dialog/facility-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/facility-form-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "896px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "facilities"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reason-general-form",
+      "title": "Reason General Form",
+      "description": "Stock reason information with tags, category, type, free text and fixed saved choices.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/reason-general-form/reason-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reason-general-form/reason-form-fields.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/reason-general-form/reason-form.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/reason-general-form/reason-form.ts"
+        },
+        {
+          "path": "registry/blocks/openlmis/reason-general-form/reason-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reason-general-form/reason-general-form.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "426px"
+      },
+      "categories": [
+        "forms",
+        "stock"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reason-assignment-dialog",
+      "title": "Reason Assignment Dialog",
+      "description": "Add a program and facility type pair for a reason, with Show and duplicate validation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx"
+        },
+        {
+          "path": "registry/blocks/openlmis/reason-assignment-dialog/reason-assignment.ts",
+          "type": "registry:lib",
+          "target": "components/blocks/openlmis/reason-assignment-dialog/reason-assignment.ts"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "512px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "stock"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reason-assignments",
+      "title": "Reason Assignments",
+      "description": "Program and facility type assignments for a reason, with Show switches and row removal.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty",
+        "skeleton",
+        "switch",
+        "table",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-reason-assignment-dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/reason-assignments/reason-assignments.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reason-assignments.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "333px"
+      },
+      "categories": [
+        "data-table",
+        "stock"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reason-form-dialog",
+      "title": "Reason Form Dialog",
+      "description": "Add Reason with shared stock-reason fields and validation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-reason-general-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/openlmis/reason-form-dialog/reason-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/openlmis/reason-form-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "704px"
+      },
+      "categories": [
+        "forms",
+        "overlay",
+        "stock"
+      ],
+      "type": "registry:block",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-editor-page",
+      "title": "Facility Editor Page",
+      "description": "Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "badge",
+        "button",
+        "spinner",
+        "tabs",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-facility-general-form.json",
+        "https://registry.soldevelo.com/r/openlmis-facility-program-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-facility-programs.json",
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-editor-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/mock-facility.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/facility-editor-page/mock-facility.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/facility-editor-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "680px"
+      },
+      "categories": [
+        "facilities"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reason-editor-page",
+      "title": "Reason Editor Page",
+      "description": "Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "field",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
+        "https://registry.soldevelo.com/r/openlmis-reason-assignment-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-reason-assignments.json",
+        "https://registry.soldevelo.com/r/openlmis-reason-general-form.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/mock-reason.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/reason-editor-page/mock-reason.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-editor-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/reason-editor-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "813px"
+      },
+      "categories": [
+        "stock"
       ],
       "type": "registry:page",
       "cssVars": {

@@ -80,7 +80,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "A live checklist of password rules with pure validation helpers.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react", "zod@^4"],
     registryDependencies: ["input", "label"],
     files: [
       {
@@ -89,6 +89,10 @@ export const registryItems: RegistryItem[] = [
       },
       {
         path: "components/openlmis/password-requirements/password-rules.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "components/openlmis/password-requirements/password-schema.ts",
         type: "registry:lib",
       },
     ],
@@ -1118,6 +1122,502 @@ export const registryItems: RegistryItem[] = [
     meta: {
       project: "openlmis",
       height: "641px",
+    },
+  },
+  {
+    name: "openlmis-number-text",
+    title: "Number Text",
+    type: "registry:component",
+    description:
+      "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
+    dependencies: ["zod@^4"],
+    registryDependencies: ["field", "input"],
+    files: [
+      {
+        path: "components/openlmis/number-text/number-text.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms"],
+    meta: {
+      project: "openlmis",
+      height: "260px",
+    },
+  },
+  {
+    name: "openlmis-product-general-form",
+    title: "Product General Form",
+    type: "registry:block",
+    description:
+      "Product information with code validation, pack sizes, dispensing units, dirty state and reusable footer actions.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/product-general-form/product-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/product-general-form/product-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/product-general-form/product-general-form.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "products"],
+    meta: {
+      project: "openlmis",
+      height: "723px",
+    },
+  },
+  {
+    name: "openlmis-product-form-dialog",
+    title: "Product Form Dialog",
+    type: "registry:block",
+    description:
+      "Add Product with required information, pack size and duplicate-code validation.",
+    dependencies: ["@tanstack/react-form@^1"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/product-form-dialog/product-form-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "products"],
+    meta: {
+      project: "openlmis",
+      height: "832px",
+    },
+  },
+  {
+    name: "openlmis-product-program-link-dialog",
+    title: "Product Program Link Dialog",
+    type: "registry:block",
+    description:
+      "Add, edit or view a product program link with category, doses, price and Full Supply.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/product-program-link-dialog/program-link-form.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "products"],
+    meta: {
+      project: "openlmis",
+      height: "832px",
+    },
+  },
+  {
+    name: "openlmis-product-program-links",
+    title: "Product Program Links",
+    type: "registry:block",
+    description:
+      "Responsive product program links with category, supply, price, inactive markers and row actions.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: [
+      "alert",
+      "alert-dialog",
+      "badge",
+      "button",
+      "dropdown-menu",
+      "spinner",
+    ],
+    files: [
+      {
+        path: "blocks/openlmis/product-program-links/product-program-links.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/product-program-links/remove-program-link-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["data-table", "products"],
+    meta: {
+      project: "openlmis",
+      height: "342px",
+    },
+  },
+  {
+    name: "openlmis-product-approval-dialog",
+    title: "Product Approval Dialog",
+    type: "registry:block",
+    description:
+      "Facility type and program approval with stock levels, duplicate checks and locked edit choices.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/product-approval-dialog/approval-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "products"],
+    meta: {
+      project: "openlmis",
+      height: "800px",
+    },
+  },
+  {
+    name: "openlmis-facility-approved-products",
+    title: "Facility Approved Products",
+    type: "registry:block",
+    description:
+      "Product approvals grouped by facility type, with responsive stock-level columns and row actions.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: [
+      "alert",
+      "alert-dialog",
+      "button",
+      "dropdown-menu",
+      "spinner",
+    ],
+    files: [
+      {
+        path: "blocks/openlmis/facility-approved-products/facility-approved-products.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["data-table", "products"],
+    meta: {
+      project: "openlmis",
+      height: "438px",
+    },
+  },
+  {
+    name: "openlmis-kit-products-dialog",
+    title: "Kit Products Dialog",
+    type: "registry:block",
+    description:
+      "Search and pick products for a kit, excluding existing products and showing limited-search feedback.",
+    dependencies: [],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/kit-products-dialog/kit-products-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "products"],
+    meta: {
+      project: "openlmis",
+      height: "480px",
+    },
+  },
+  {
+    name: "openlmis-product-kit-unpack-list",
+    title: "Product Kit Unpack List",
+    type: "registry:block",
+    description:
+      "Editable kit quantities with Add Products, Remove, dirty state, validation and footer actions.",
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: ["button", "dropdown-menu", "skeleton", "table"],
+    files: [
+      {
+        path: "blocks/openlmis/product-kit-unpack-list/kit-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "data-table", "products"],
+    meta: {
+      project: "openlmis",
+      height: "418px",
+    },
+  },
+  {
+    name: "openlmis-product-editor-page",
+    title: "Product Editor Page",
+    type: "registry:page",
+    description:
+      "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: ["button"],
+    files: [
+      {
+        path: "templates/openlmis/product-editor-page/components/mock-product.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/page.tsx",
+        type: "registry:page",
+        target: "app/product-editor-page/page.tsx",
+      },
+    ],
+    categories: ["products"],
+    meta: {
+      project: "openlmis",
+      height: "788px",
+    },
+  },
+  {
+    name: "openlmis-facility-general-form",
+    title: "Facility General Form",
+    type: "registry:block",
+    description:
+      "Facility information, geographic zone, operational date, status switches, duplicate codes and externally managed fields.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/facility-general-form/facility-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/facility-general-form/facility-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/facility-general-form/facility-general-form.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "facilities"],
+    meta: {
+      project: "openlmis",
+      height: "583px",
+    },
+  },
+  {
+    name: "openlmis-facility-program-dialog",
+    title: "Facility Program Dialog",
+    type: "registry:block",
+    description: "Add a supported program and start date to a facility.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/facility-program-dialog/facility-program.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "facilities"],
+    meta: {
+      project: "openlmis",
+      height: "512px",
+    },
+  },
+  {
+    name: "openlmis-facility-programs",
+    title: "Facility Programs",
+    type: "registry:block",
+    description:
+      "Supported programs with start dates, Active and Locally Fulfilled switches and unsaved-row removal.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: [
+      "button",
+      "empty",
+      "field",
+      "skeleton",
+      "switch",
+      "table",
+    ],
+    files: [
+      {
+        path: "blocks/openlmis/facility-programs/facility-programs.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["data-table", "facilities"],
+    meta: {
+      project: "openlmis",
+      height: "345px",
+    },
+  },
+  {
+    name: "openlmis-facility-form-dialog",
+    title: "Facility Form Dialog",
+    type: "registry:block",
+    description: "Add Facility with shared information fields and validation.",
+    dependencies: ["@tanstack/react-form@^1"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/facility-form-dialog/facility-form-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "facilities"],
+    meta: {
+      project: "openlmis",
+      height: "896px",
+    },
+  },
+  {
+    name: "openlmis-reason-general-form",
+    title: "Reason General Form",
+    type: "registry:block",
+    description:
+      "Stock reason information with tags, category, type, free text and fixed saved choices.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/reason-general-form/reason-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/reason-general-form/reason-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "blocks/openlmis/reason-general-form/reason-general-form.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "stock"],
+    meta: {
+      project: "openlmis",
+      height: "426px",
+    },
+  },
+  {
+    name: "openlmis-reason-assignment-dialog",
+    title: "Reason Assignment Dialog",
+    type: "registry:block",
+    description:
+      "Add a program and facility type pair for a reason, with Show and duplicate validation.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "blocks/openlmis/reason-assignment-dialog/reason-assignment.ts",
+        type: "registry:lib",
+      },
+    ],
+    categories: ["forms", "overlay", "stock"],
+    meta: {
+      project: "openlmis",
+      height: "512px",
+    },
+  },
+  {
+    name: "openlmis-reason-assignments",
+    title: "Reason Assignments",
+    type: "registry:block",
+    description:
+      "Program and facility type assignments for a reason, with Show switches and row removal.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "empty", "skeleton", "switch", "table"],
+    files: [
+      {
+        path: "blocks/openlmis/reason-assignments/reason-assignments.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["data-table", "stock"],
+    meta: {
+      project: "openlmis",
+      height: "333px",
+    },
+  },
+  {
+    name: "openlmis-reason-form-dialog",
+    title: "Reason Form Dialog",
+    type: "registry:block",
+    description: "Add Reason with shared stock-reason fields and validation.",
+    dependencies: ["@tanstack/react-form@^1"],
+    registryDependencies: ["button", "field"],
+    files: [
+      {
+        path: "blocks/openlmis/reason-form-dialog/reason-form-dialog.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["forms", "overlay", "stock"],
+    meta: {
+      project: "openlmis",
+      height: "704px",
+    },
+  },
+  {
+    name: "openlmis-facility-editor-page",
+    title: "Facility Editor Page",
+    type: "registry:page",
+    description:
+      "Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["alert", "badge", "button", "spinner", "tabs"],
+    files: [
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/mock-facility.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/page.tsx",
+        type: "registry:page",
+        target: "app/facility-editor-page/page.tsx",
+      },
+    ],
+    categories: ["facilities"],
+    meta: {
+      project: "openlmis",
+      height: "680px",
+    },
+  },
+  {
+    name: "openlmis-reason-editor-page",
+    title: "Reason Editor Page",
+    type: "registry:page",
+    description:
+      "Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["alert", "button", "field", "spinner"],
+    files: [
+      {
+        path: "templates/openlmis/reason-editor-page/components/mock-reason.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/page.tsx",
+        type: "registry:page",
+        target: "app/reason-editor-page/page.tsx",
+      },
+    ],
+    categories: ["stock"],
+    meta: {
+      project: "openlmis",
+      height: "813px",
     },
   },
 ]

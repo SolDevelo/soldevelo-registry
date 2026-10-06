@@ -30,7 +30,7 @@ export const components: RegistryEntry[] = [
       {
         "type": "component",
         "name": "form-actions.tsx",
-        "code": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Spinner } from \"@/components/ui/spinner\"\n\n/** What a form hands its Cancel and Save buttons, wherever they are placed. */\nexport type FormActionState = {\n  /** The form's id, for a submit button placed outside it. */\n  formId: string\n  changed: boolean\n  pending: boolean\n  /** Puts the form back to the saved values. */\n  cancel: () => void\n}\n\n/** Cancel and Save for a form, e.g. in a `WorkspaceFooter`. */\nexport function FormActions({\n  actions: { formId, changed, pending, cancel },\n  saveLabel,\n}: {\n  actions: FormActionState\n  saveLabel: ReactNode\n}) {\n  return (\n    <>\n      <Button\n        disabled={!changed || pending}\n        onClick={cancel}\n        size=\"lg\"\n        type=\"button\"\n        variant=\"outline\"\n      >\n        Cancel\n      </Button>\n      <Button\n        disabled={!changed || pending}\n        focusableWhenDisabled={pending}\n        form={formId}\n        size=\"lg\"\n        type=\"submit\"\n      >\n        {pending && <Spinner data-icon=\"inline-start\" />}\n        {saveLabel}\n      </Button>\n    </>\n  )\n}",
+        "code": "\"use client\"\n\nimport type { ReactNode } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Spinner } from \"@/components/ui/spinner\"\n\n/** What a form hands its Cancel and Save buttons, wherever they are placed. */\nexport type FormActionState = {\n  /** The form's id, for a submit button placed outside it. */\n  formId: string\n  changed: boolean\n  pending: boolean\n  /** Puts the form back to the saved values. */\n  cancel: () => void\n}\n\n/** Cancel and Save for a form, e.g. in a `WorkspaceFooter`. */\nexport function FormActions({\n  actions: { formId, changed, pending, cancel },\n  saveLabel,\n  cancelDisabled = !changed,\n}: {\n  actions: FormActionState\n  saveLabel: ReactNode\n  /** A navigation Cancel may stay available while the form is unchanged. */\n  cancelDisabled?: boolean\n}) {\n  return (\n    <>\n      <Button\n        disabled={cancelDisabled || pending}\n        onClick={cancel}\n        size=\"lg\"\n        type=\"button\"\n        variant=\"outline\"\n      >\n        Cancel\n      </Button>\n      <Button\n        disabled={!changed || pending}\n        focusableWhenDisabled={pending}\n        form={formId}\n        size=\"lg\"\n        type=\"submit\"\n      >\n        {pending && <Spinner data-icon=\"inline-start\" />}\n        {saveLabel}\n      </Button>\n    </>\n  )\n}",
         "lang": "tsx",
         "target": "components/openlmis/form-actions.tsx"
       }
@@ -118,7 +118,8 @@ export const components: RegistryEntry[] = [
       "label"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react",
+      "zod@^4"
     ],
     "files": [
       {
@@ -141,6 +142,13 @@ export const components: RegistryEntry[] = [
         "code": "/** Whose password it is; the OpenLMIS auth service refuses one that contains any of these. */\nexport type PasswordOwner = {\n  username: string\n  firstName?: string | null\n  lastName?: string | null\n}\n\n/** The fixed rules the auth service checks, in the order it reports them; strength is left to the server. */\nconst PASSWORD_RULES = [\"length\", \"characters\", \"number\", \"names\"] as const\n\nexport type PasswordRule = (typeof PASSWORD_RULES)[number]\n\nexport const PASSWORD_RULE_LABELS: Record<PasswordRule, string> = {\n  length: \"8 to 72 characters\",\n  characters: \"Only letters A to Z and numbers\",\n  number: \"At least 1 number\",\n  names: \"Does not contain the username, first name or last name\",\n}\n\nconst PASSWORD_RULE_ERRORS: Record<PasswordRule, string> = {\n  length: \"Use 8 to 72 characters.\",\n  characters:\n    \"Use only the letters A to Z and numbers, with no spaces or symbols.\",\n  number: \"Include at least 1 number.\",\n  names: \"Leave out the username, first name and last name.\",\n}\n\n/** The rules that apply; the names rule only when the owner is known. */\nexport function passwordRules(owner?: PasswordOwner): readonly PasswordRule[] {\n  return owner\n    ? PASSWORD_RULES\n    : PASSWORD_RULES.filter((rule) => rule !== \"names\")\n}\n\nexport function passwordChecks(\n  password: string,\n  owner?: PasswordOwner\n): Record<PasswordRule, boolean> {\n  const lower = password.toLowerCase()\n  const names = [owner?.username, owner?.firstName, owner?.lastName]\n    .map((name) => name?.trim().toLowerCase())\n    .filter((name): name is string => Boolean(name))\n  return {\n    length: password.length >= 8 && password.length <= 72,\n    characters: /^[a-zA-Z0-9]+$/.test(password),\n    number: /\\d/.test(password),\n    names: password !== \"\" && names.every((name) => !lower.includes(name)),\n  }\n}\n\n/** What is wrong with the password: missing, or the first rule it misses. */\nexport function passwordIssue(\n  password: string,\n  owner?: PasswordOwner\n): string | undefined {\n  if (password === \"\") return \"Enter a password.\"\n  const checks = passwordChecks(password, owner)\n  const unmet = passwordRules(owner).find((rule) => !checks[rule])\n  return unmet && PASSWORD_RULE_ERRORS[unmet]\n}",
         "lang": "ts",
         "target": "components/openlmis/password-requirements/password-rules.ts"
+      },
+      {
+        "type": "lib",
+        "name": "password-schema.ts",
+        "code": "import { z } from \"zod\"\n\nimport { type PasswordOwner, passwordIssue } from \"@/components/openlmis/password-requirements/password-rules\"\n\n/** The new password, typed twice; with an owner, it may not contain their username or names. */\nexport function newPasswordSchema(owner?: PasswordOwner) {\n  return z\n    .object({ password: z.string(), confirm: z.string() })\n    .superRefine(({ password, confirm }, context) => {\n      const issue = passwordIssue(password, owner)\n      if (issue)\n        context.addIssue({ code: \"custom\", path: [\"password\"], message: issue })\n      if (confirm === \"\") {\n        context.addIssue({\n          code: \"custom\",\n          path: [\"confirm\"],\n          message: \"Type the new password again.\",\n        })\n      } else if (confirm !== password) {\n        context.addIssue({\n          code: \"custom\",\n          path: [\"confirm\"],\n          message: \"The passwords do not match.\",\n        })\n      }\n    })\n}",
+        "lang": "ts",
+        "target": "components/openlmis/password-requirements/password-schema.ts"
       }
     ]
   },
@@ -692,6 +700,37 @@ export const components: RegistryEntry[] = [
         "code": "import {\n  CircleCheckIcon,\n  InfoIcon,\n  type LucideIcon,\n  TriangleAlertIcon,\n} from \"lucide-react\"\nimport type { ReactNode } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type CalloutTone = \"info\" | \"warning\" | \"success\"\n\n// Tinted by tone while the text keeps the foreground colours, which read on every tint.\nconst TONES = {\n  info: {\n    className: \"border-info/30 bg-info/10\",\n    iconClass: \"text-info\",\n    icon: InfoIcon,\n  },\n  warning: {\n    className: \"border-warning/30 bg-warning/10\",\n    iconClass: \"text-warning\",\n    icon: TriangleAlertIcon,\n  },\n  success: {\n    className: \"border-success/30 bg-success/10\",\n    iconClass: \"text-success\",\n    icon: CircleCheckIcon,\n  },\n} as const satisfies Record<\n  CalloutTone,\n  { className: string; iconClass: string; icon: LucideIcon }\n>\n\ntype CalloutProps = {\n  tone: CalloutTone\n  title: ReactNode\n  children?: ReactNode\n  /** A button at the end, such as Undo. */\n  action?: ReactNode\n}\n\n/** A message in a state's colour, with its own icon so it reads without relying on colour; its own element, as stock Alert has no warning, info or success tone. */\nexport function Callout({ tone, title, children, action }: CalloutProps) {\n  const { className, iconClass, icon: Icon } = TONES[tone]\n\n  return (\n    <div\n      className={cn(\n        \"flex w-full items-start gap-2 rounded-lg border px-2.5 py-2 text-sm\",\n        className\n      )}\n      // Like the stock Alert, so a callout that appears after an action is announced.\n      role=\"alert\"\n    >\n      <Icon\n        aria-hidden=\"true\"\n        className={cn(\"mt-0.5 size-4 shrink-0\", iconClass)}\n      />\n      <div className=\"flex min-w-0 flex-1 flex-col gap-0.5\">\n        <p className=\"font-medium text-foreground\">{title}</p>\n        {children && (\n          <div className=\"text-balance text-muted-foreground\">{children}</div>\n        )}\n      </div>\n      {action && <div className=\"shrink-0\">{action}</div>}\n    </div>\n  )\n}",
         "lang": "tsx",
         "target": "components/openlmis/callout.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-number-text",
+    "project": "openlmis",
+    "title": "Number Text",
+    "height": "260px",
+    "description": "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
+    "registryDependencies": [
+      "field",
+      "input"
+    ],
+    "dependencies": [
+      "zod@^4"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport {\n  Field,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n} from \"@/components/ui/field\"\nimport { Input } from \"@/components/ui/input\"\n\nimport {\n  decimalText,\n  toDecimal,\n  toWholeNumber,\n  wholeNumberText,\n} from \"@/components/openlmis/number-text\"\n\nconst quantity = wholeNumberText({\n  required: \"Enter a quantity.\",\n  invalid: \"Enter a whole number, such as 0 or 12.\",\n  tooLarge: \"Enter a number no larger than 2147483647.\",\n})\n\nconst price = decimalText(\n  {\n    invalid: \"Enter a price, such as 2 or 2.50.\",\n    tooLarge: \"Enter a smaller price.\",\n    tooPrecise: \"Enter no more than 2 decimals.\",\n  },\n  { optional: true, maxDecimals: 2 }\n)\n\nfunction NumberTextField({\n  id,\n  label,\n  initial,\n  schema,\n  toNumber,\n}: {\n  id: string\n  label: string\n  initial: string\n  schema: typeof quantity\n  toNumber: (text: string) => number | null\n}) {\n  const [text, setText] = useState(initial)\n  const result = schema.safeParse(text)\n  const message = result.success ? undefined : result.error.issues[0]?.message\n\n  return (\n    <Field data-invalid={!!message}>\n      <FieldLabel htmlFor={id}>{label}</FieldLabel>\n      <Input\n        aria-invalid={!!message}\n        id={id}\n        inputMode=\"decimal\"\n        onChange={(event) => setText(event.target.value)}\n        value={text}\n      />\n      {message ? (\n        <FieldError errors={[{ message }]} />\n      ) : (\n        <FieldDescription>Saved as {String(toNumber(text))}.</FieldDescription>\n      )}\n    </Field>\n  )\n}\n\nexport default function Page() {\n  return (\n    <div className=\"w-full max-w-sm p-8\">\n      <FieldGroup>\n        <NumberTextField\n          id=\"quantity\"\n          initial=\"12\"\n          label=\"Quantity\"\n          schema={quantity}\n          toNumber={toWholeNumber}\n        />\n        <NumberTextField\n          id=\"price\"\n          initial=\"2.505\"\n          label=\"Price Per Pack\"\n          schema={price}\n          toNumber={toDecimal}\n        />\n      </FieldGroup>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "lib",
+        "name": "number-text.ts",
+        "code": "import { z } from \"zod\"\n\nconst MAX_WHOLE_NUMBER = 2_147_483_647\n\ntype NumberMessages = {\n  required?: string\n  invalid: string\n  tooLarge: string\n  tooSmall?: string\n  tooPrecise?: string\n}\n\ntype WholeNumberRules = {\n  min?: number\n  max?: number\n  optional?: boolean\n}\n\n/** A text field holding a whole number, kept as text so a half-typed value is never lost. */\nexport function wholeNumberText(\n  messages: NumberMessages,\n  { min, max = MAX_WHOLE_NUMBER, optional = false }: WholeNumberRules = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > max) issue(messages.tooLarge)\n    else if (min !== undefined && Number(text) < min) issue(messages.tooSmall)\n  })\n}\n\nexport const toWholeNumber = (text: string) => Number(text.trim())\n\nexport const toOptionalWholeNumber = (text: string) =>\n  text.trim() ? toWholeNumber(text) : null\n\n/** A text field holding a number of 0 or more, with at most `maxDecimals` decimals. */\nexport function decimalText(\n  messages: NumberMessages,\n  {\n    optional = false,\n    maxDecimals,\n  }: { optional?: boolean; maxDecimals?: number } = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+(\\.[0-9]+)?$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > Number.MAX_SAFE_INTEGER) issue(messages.tooLarge)\n    else if (\n      maxDecimals !== undefined &&\n      (text.split(\".\")[1]?.length ?? 0) > maxDecimals\n    )\n      issue(messages.tooPrecise)\n  })\n}\n\nexport const toDecimal = (text: string) =>\n  text.trim() ? Number(text.trim()) : null\n\nexport const toNumberText = (value: number | null | undefined) =>\n  value == null ? \"\" : String(value)",
+        "lang": "ts",
+        "target": "components/openlmis/number-text.ts"
       }
     ]
   }

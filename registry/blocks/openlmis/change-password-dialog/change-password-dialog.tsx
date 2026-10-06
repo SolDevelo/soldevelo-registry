@@ -2,7 +2,6 @@
 
 import { revalidateLogic } from "@tanstack/react-form"
 import { type ReactNode, useId, useMemo } from "react"
-import { z } from "zod"
 
 import { FieldGroup } from "@/components/ui/field"
 import {
@@ -20,34 +19,11 @@ import {
 import { useDialogTarget } from "@/registry/components/openlmis/form-dialog/use-dialog-target"
 import { useAppForm } from "@/registry/components/openlmis/form-fields/form"
 import { PasswordRequirements } from "@/registry/components/openlmis/password-requirements/password-requirements"
-import {
-  type PasswordOwner,
-  passwordIssue,
-} from "@/registry/components/openlmis/password-requirements/password-rules"
+import type { PasswordOwner } from "@/registry/components/openlmis/password-requirements/password-rules"
+import { newPasswordSchema } from "@/registry/components/openlmis/password-requirements/password-schema"
 
-/** The new password, typed twice; it may not contain the owner's username or names. */
-export function newPasswordSchema(owner?: PasswordOwner) {
-  return z
-    .object({ password: z.string(), confirm: z.string() })
-    .superRefine(({ password, confirm }, context) => {
-      const issue = passwordIssue(password, owner)
-      if (issue)
-        context.addIssue({ code: "custom", path: ["password"], message: issue })
-      if (confirm === "") {
-        context.addIssue({
-          code: "custom",
-          path: ["confirm"],
-          message: "Type the new password again.",
-        })
-      } else if (confirm !== password) {
-        context.addIssue({
-          code: "custom",
-          path: ["confirm"],
-          message: "The passwords do not match.",
-        })
-      }
-    })
-}
+// Re-exported so existing imports from this block keep working.
+export { newPasswordSchema }
 
 type ChangePasswordDialogProps = {
   open: boolean

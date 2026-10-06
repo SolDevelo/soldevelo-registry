@@ -2,16 +2,16 @@
 
 > Open-source UI blocks for the projects SolDevelo builds, installable with the shadcn CLI.
 
-SolDevelo Registry publishes 49 installable items across 1 open-source project (OpenLMIS): 20 components, 21 blocks, and 8 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
+SolDevelo Registry publishes 69 installable items across 1 open-source project (OpenLMIS): 21 components, 37 blocks, and 11 page templates. Everything is open source and maintained by SolDevelo at https://github.com/SolDevelo/soldevelo-registry.
 
 Items are consumed with the shadcn CLI, which copies the source into the consumer's repository. There is no wrapper package and no runtime dependency on this site.
 
 ## Pages
 
 - [Home](https://registry.soldevelo.com/): What the registry contains and how to wire it up.
-- [Components](https://registry.soldevelo.com/components): 20 components, with live previews and full source.
-- [Blocks](https://registry.soldevelo.com/blocks): 21 blocks, with live previews and full source.
-- [Templates](https://registry.soldevelo.com/templates): 8 templates, with live previews and full source.
+- [Components](https://registry.soldevelo.com/components): 21 components, with live previews and full source.
+- [Blocks](https://registry.soldevelo.com/blocks): 37 blocks, with live previews and full source.
+- [Templates](https://registry.soldevelo.com/templates): 11 templates, with live previews and full source.
 - [Docs](https://registry.soldevelo.com/docs): Registry setup, install commands, where each kind lands, and the theme tokens items ship with.
 - [Changelog](https://registry.soldevelo.com/changelog): What changed in each release, generated from CHANGELOG.md.
 
@@ -96,6 +96,26 @@ npx shadcn@latest add @soldevelo/openlmis-form-actions
 - [Branding Settings](https://registry.soldevelo.com/blocks/openlmis-branding-settings) `@soldevelo/openlmis-branding-settings` (block): App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.
 - [Valid Assignments Page](https://registry.soldevelo.com/templates/openlmis-valid-assignments-page) `@soldevelo/openlmis-valid-assignments-page` (template): Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.
 - [System Settings Page](https://registry.soldevelo.com/templates/openlmis-system-settings-page) `@soldevelo/openlmis-system-settings-page` (template): Mock branding and feature flag settings with sticky Save and Cancel, discard confirmation, defaults, conflict Reload and partial-save feedback.
+- [Number Text](https://registry.soldevelo.com/components/openlmis-number-text) `@soldevelo/openlmis-number-text` (component): Pure number validation for text fields, including whole numbers, bounds and decimal precision.
+- [Product General Form](https://registry.soldevelo.com/blocks/openlmis-product-general-form) `@soldevelo/openlmis-product-general-form` (block): Product information with code validation, pack sizes, dispensing units, dirty state and reusable footer actions.
+- [Product Form Dialog](https://registry.soldevelo.com/blocks/openlmis-product-form-dialog) `@soldevelo/openlmis-product-form-dialog` (block): Add Product with required information, pack size and duplicate-code validation.
+- [Product Program Link Dialog](https://registry.soldevelo.com/blocks/openlmis-product-program-link-dialog) `@soldevelo/openlmis-product-program-link-dialog` (block): Add, edit or view a product program link with category, doses, price and Full Supply.
+- [Product Program Links](https://registry.soldevelo.com/blocks/openlmis-product-program-links) `@soldevelo/openlmis-product-program-links` (block): Responsive product program links with category, supply, price, inactive markers and row actions.
+- [Product Approval Dialog](https://registry.soldevelo.com/blocks/openlmis-product-approval-dialog) `@soldevelo/openlmis-product-approval-dialog` (block): Facility type and program approval with stock levels, duplicate checks and locked edit choices.
+- [Facility Approved Products](https://registry.soldevelo.com/blocks/openlmis-facility-approved-products) `@soldevelo/openlmis-facility-approved-products` (block): Product approvals grouped by facility type, with responsive stock-level columns and row actions.
+- [Kit Products Dialog](https://registry.soldevelo.com/blocks/openlmis-kit-products-dialog) `@soldevelo/openlmis-kit-products-dialog` (block): Search and pick products for a kit, excluding existing products and showing limited-search feedback.
+- [Product Kit Unpack List](https://registry.soldevelo.com/blocks/openlmis-product-kit-unpack-list) `@soldevelo/openlmis-product-kit-unpack-list` (block): Editable kit quantities with Add Products, Remove, dirty state, validation and footer actions.
+- [Product Editor Page](https://registry.soldevelo.com/templates/openlmis-product-editor-page) `@soldevelo/openlmis-product-editor-page` (template): Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.
+- [Facility General Form](https://registry.soldevelo.com/blocks/openlmis-facility-general-form) `@soldevelo/openlmis-facility-general-form` (block): Facility information, geographic zone, operational date, status switches, duplicate codes and externally managed fields.
+- [Facility Program Dialog](https://registry.soldevelo.com/blocks/openlmis-facility-program-dialog) `@soldevelo/openlmis-facility-program-dialog` (block): Add a supported program and start date to a facility.
+- [Facility Programs](https://registry.soldevelo.com/blocks/openlmis-facility-programs) `@soldevelo/openlmis-facility-programs` (block): Supported programs with start dates, Active and Locally Fulfilled switches and unsaved-row removal.
+- [Facility Form Dialog](https://registry.soldevelo.com/blocks/openlmis-facility-form-dialog) `@soldevelo/openlmis-facility-form-dialog` (block): Add Facility with shared information fields and validation.
+- [Reason General Form](https://registry.soldevelo.com/blocks/openlmis-reason-general-form) `@soldevelo/openlmis-reason-general-form` (block): Stock reason information with tags, category, type, free text and fixed saved choices.
+- [Reason Assignment Dialog](https://registry.soldevelo.com/blocks/openlmis-reason-assignment-dialog) `@soldevelo/openlmis-reason-assignment-dialog` (block): Add a program and facility type pair for a reason, with Show and duplicate validation.
+- [Reason Assignments](https://registry.soldevelo.com/blocks/openlmis-reason-assignments) `@soldevelo/openlmis-reason-assignments` (block): Program and facility type assignments for a reason, with Show switches and row removal.
+- [Reason Form Dialog](https://registry.soldevelo.com/blocks/openlmis-reason-form-dialog) `@soldevelo/openlmis-reason-form-dialog` (block): Add Reason with shared stock-reason fields and validation.
+- [Facility Editor Page](https://registry.soldevelo.com/templates/openlmis-facility-editor-page) `@soldevelo/openlmis-facility-editor-page` (template): Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.
+- [Reason Editor Page](https://registry.soldevelo.com/templates/openlmis-reason-editor-page) `@soldevelo/openlmis-reason-editor-page` (template): Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.
 
 ## Technology
 

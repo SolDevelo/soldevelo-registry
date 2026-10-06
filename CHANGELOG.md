@@ -15,6 +15,13 @@ Every example uses mock data and local state.
 
 ### Added
 
+- Product information, program links, facility approvals and kit unpack
+  lists, with reusable dialogs and a tabbed product editor.
+- Facility information and associated programs, including externally
+  managed fields and validation across tabs.
+- Stock reason forms and program/facility type assignments, with a
+  reason editor that shows partial-save feedback.
+- Shared text-number checks for bounds and decimal precision.
 - Valid source and destination lists with paired filters, selection across
   pages, add dialogs and partial-delete feedback.
 - Branding and feature flag settings with live previews, inherited values,
@@ -41,6 +48,7 @@ Every example uses mock data and local state.
 - Password dialogs show the rules while typing and check the user's name.
 - Role assignment tables show rights beside the role, simplify their
   columns, and support read-only use.
+- Table skeletons can omit pagination for lists that are not paged.
 - Tables support selected rows, checkbox skeletons, reusable frames and
   header labels. Workspaces and their action footers can use a narrow width.
 - Dialogs focus the first field, keep touch openings from raising the

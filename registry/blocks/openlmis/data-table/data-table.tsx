@@ -221,15 +221,19 @@ export function DataTableHeaderLabel({ children }: { children: ReactNode }) {
   )
 }
 
+const PAGINATION_SKELETON = <PaginationSkeleton />
+
 type DataTableSkeletonProps<TData extends RowData> = {
   /** A table built from the real columns with no rows, so the header and widths match exactly. */
   table: DataTableInstance<TData>
   rowCount: number
+  footer?: ReactNode
 }
 
 export function DataTableSkeleton<TData extends RowData>({
   table,
   rowCount,
+  footer = PAGINATION_SKELETON,
 }: DataTableSkeletonProps<TData>) {
   const columns = table.getVisibleLeafColumns()
   const rows = Array.from({ length: rowCount }, (_, index) => index)
@@ -256,9 +260,7 @@ export function DataTableSkeleton<TData extends RowData>({
             ))}
           </TableBody>
         </Table>
-        <DataTableFooter>
-          <PaginationSkeleton />
-        </DataTableFooter>
+        {footer && <DataTableFooter>{footer}</DataTableFooter>}
       </DataTableCard>
     </div>
   )

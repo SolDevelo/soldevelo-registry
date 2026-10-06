@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-facility-program-dialog",
+  "title": "Facility Program Dialog",
+  "description": "Add a supported program and start date to a facility.",
+  "dependencies": [
+    "@tanstack/react-form@^1",
+    "zod@^4",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "button",
+    "field",
+    "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+    "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx",
+      "content": "\"use client\"\n\nimport { revalidateLogic } from \"@tanstack/react-form\"\nimport { useMemo, useState } from \"react\"\n\nimport { FieldGroup } from \"@/components/ui/field\"\nimport {\n  FormDialog,\n  FormDialogBody,\n  FormDialogCancel,\n  FormDialogDescription,\n  FormDialogFooter,\n  FormDialogForm,\n  FormDialogHeader,\n  FormDialogSubmit,\n  FormDialogTitle,\n} from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\nimport { FieldSkeleton } from \"@/components/openlmis/form-fields/form-fields\"\n\nimport {\n  addProgramSchema,\n  availablePrograms,\n  EMPTY_ADD_PROGRAM,\n  type FacilityProgram,\n  type ProgramOption,\n  programName,\n  toFacilityProgram,\n} from \"@/components/blocks/openlmis/facility-program-dialog/facility-program\"\n\ntype FacilityProgramDialogProps = {\n  open: boolean\n  /** The facility's rows, so only programs it does not support yet are offered. */\n  rows: readonly FacilityProgram[]\n  /** Every program; the form shows a skeleton until they are set. */\n  programs: readonly ProgramOption[] | undefined\n  /** Called with the new row; add it, then close. */\n  onAdd: (row: FacilityProgram) => void\n  onClose: () => void\n}\n\n/** Add Program: a program the facility supports, and the date it starts. */\nexport function FacilityProgramDialog({\n  open,\n  onClose,\n  ...props\n}: FacilityProgramDialogProps) {\n  const { shown, dialogProps } = useDialogTarget(open || undefined, onClose)\n\n  return (\n    <FormDialog {...dialogProps()}>\n      {shown && <AddProgramContent {...props} />}\n    </FormDialog>\n  )\n}\n\nfunction AddProgramHeader() {\n  return (\n    <FormDialogHeader>\n      <FormDialogTitle>Add Program</FormDialogTitle>\n      <FormDialogDescription>\n        Choose a program this facility supports, and the date it starts.\n      </FormDialogDescription>\n    </FormDialogHeader>\n  )\n}\n\nfunction AddProgramContent({\n  programs,\n  ...props\n}: Omit<FacilityProgramDialogProps, \"open\" | \"onClose\">) {\n  if (!programs) {\n    return (\n      <>\n        <AddProgramHeader />\n        <FormDialogBody>\n          <div aria-busy>\n            <FieldGroup>\n              <FieldSkeleton label=\"Program\" required />\n              <FieldSkeleton label=\"Start Date\" required />\n            </FieldGroup>\n          </div>\n        </FormDialogBody>\n        <FormDialogFooter>\n          <FormDialogCancel />\n          <FormDialogSubmit disabled>Add</FormDialogSubmit>\n        </FormDialogFooter>\n      </>\n    )\n  }\n  return <AddProgramForm programs={programs} {...props} />\n}\n\nfunction AddProgramForm({\n  rows,\n  programs,\n  onAdd,\n}: Omit<FacilityProgramDialogProps, \"open\" | \"onClose\" | \"programs\"> & {\n  programs: readonly ProgramOption[]\n}) {\n  // The choices as the dialog opened, so the program just added never drops out while it closes.\n  const [rowsAtOpen] = useState(rows)\n  const items = useMemo(\n    () =>\n      availablePrograms(programs, rowsAtOpen).map((program) => ({\n        value: program.id,\n        label: programName(program),\n      })),\n    [programs, rowsAtOpen]\n  )\n\n  const form = useAppForm({\n    defaultValues: EMPTY_ADD_PROGRAM,\n    // Quiet until the first submit, then each field re-checks as it is corrected.\n    validationLogic: revalidateLogic({\n      mode: \"submit\",\n      modeAfterSubmission: \"change\",\n    }),\n    validators: { onDynamic: addProgramSchema },\n    onSubmit: ({ value }) => {\n      const program = programs.find((item) => item.id === value.programId)\n      if (program) onAdd(toFacilityProgram(program, value.startDate))\n    },\n  })\n\n  return (\n    <FormDialogForm onSubmit={() => void form.handleSubmit()}>\n      <AddProgramHeader />\n      <FormDialogBody>\n        <FieldGroup>\n          <form.AppField name=\"programId\">\n            {(field) => (\n              <field.ComboboxField\n                clearLabel=\"Clear Program\"\n                emptyMessage=\"No Matches\"\n                items={items}\n                label=\"Program\"\n                placeholder=\"Select A Program\"\n                required\n              />\n            )}\n          </form.AppField>\n          <form.AppField name=\"startDate\">\n            {(field) => (\n              <field.DateField\n                description=\"The program start date determines the first date available for users to enter requisitions related to the program.\"\n                label=\"Start Date\"\n                placeholder=\"Pick A Date\"\n                required\n              />\n            )}\n          </form.AppField>\n        </FieldGroup>\n      </FormDialogBody>\n      <FormDialogFooter>\n        <FormDialogCancel />\n        <FormDialogSubmit>Add</FormDialogSubmit>\n      </FormDialogFooter>\n    </FormDialogForm>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx"
+    },
+    {
+      "path": "registry/blocks/openlmis/facility-program-dialog/facility-program.ts",
+      "content": "import { z } from \"zod\"\n\n/** A program a facility can support. */\nexport type ProgramOption = {\n  id: string\n  code: string\n  name: string | null\n}\n\n/** A program the facility supports, and how. */\nexport type FacilityProgram = ProgramOption & {\n  supportActive: boolean\n  supportLocallyFulfilled: boolean\n  /** `yyyy-MM-dd`, or empty when a legacy record has none. */\n  supportStartDate: string\n  /** Already stored: it cannot be removed here, and may lack a start date. */\n  saved: boolean\n}\n\n/** The name a program is shown by: its name, or its code when it has none. */\nexport const programName = (program: Pick<ProgramOption, \"code\" | \"name\">) =>\n  program.name || program.code\n\nexport const addProgramSchema = z.object({\n  programId: z\n    .string()\n    .nullable()\n    .refine((value) => Boolean(value), \"Choose a program.\"),\n  startDate: z\n    .string()\n    .refine((value) => value.length > 0, \"Choose a start date.\"),\n})\n\nexport type AddProgramValues = z.input<typeof addProgramSchema>\n\nexport const EMPTY_ADD_PROGRAM: AddProgramValues = {\n  programId: null,\n  startDate: \"\",\n}\n\n/** A new row for `program`: active, not locally fulfilled, from `startDate`. */\nexport const toFacilityProgram = (\n  program: ProgramOption,\n  startDate: string\n): FacilityProgram => ({\n  ...program,\n  supportActive: true,\n  supportLocallyFulfilled: false,\n  supportStartDate: startDate,\n  saved: false,\n})\n\n/** Programs the facility does not support yet, by name. */\nexport function availablePrograms(\n  programs: readonly ProgramOption[],\n  rows: readonly FacilityProgram[]\n) {\n  const added = new Set(rows.map((row) => row.id))\n  return (\n    programs\n      .filter((program) => !added.has(program.id))\n      // oxlint-disable-next-line unicorn/no-array-sort -- sorts the filtered array without requiring ES2023\n      .sort((a, b) => programName(a).localeCompare(programName(b)))\n  )\n}\n\n/** Legacy stored some programs without a start date; only a new row must have one. */\nexport const missingStartDate = (row: FacilityProgram) =>\n  !row.saved && !row.supportStartDate",
+      "type": "registry:lib",
+      "target": "components/blocks/openlmis/facility-program-dialog/facility-program.ts"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "512px"
+  },
+  "categories": [
+    "forms",
+    "overlay",
+    "facilities"
+  ],
+  "type": "registry:block"
+}

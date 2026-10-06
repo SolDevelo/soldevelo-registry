@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-number-text",
+  "title": "Number Text",
+  "description": "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
+  "dependencies": [
+    "zod@^4",
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "field",
+    "input"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/number-text/number-text.ts",
+      "content": "import { z } from \"zod\"\n\nconst MAX_WHOLE_NUMBER = 2_147_483_647\n\ntype NumberMessages = {\n  required?: string\n  invalid: string\n  tooLarge: string\n  tooSmall?: string\n  tooPrecise?: string\n}\n\ntype WholeNumberRules = {\n  min?: number\n  max?: number\n  optional?: boolean\n}\n\n/** A text field holding a whole number, kept as text so a half-typed value is never lost. */\nexport function wholeNumberText(\n  messages: NumberMessages,\n  { min, max = MAX_WHOLE_NUMBER, optional = false }: WholeNumberRules = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > max) issue(messages.tooLarge)\n    else if (min !== undefined && Number(text) < min) issue(messages.tooSmall)\n  })\n}\n\nexport const toWholeNumber = (text: string) => Number(text.trim())\n\nexport const toOptionalWholeNumber = (text: string) =>\n  text.trim() ? toWholeNumber(text) : null\n\n/** A text field holding a number of 0 or more, with at most `maxDecimals` decimals. */\nexport function decimalText(\n  messages: NumberMessages,\n  {\n    optional = false,\n    maxDecimals,\n  }: { optional?: boolean; maxDecimals?: number } = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+(\\.[0-9]+)?$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > Number.MAX_SAFE_INTEGER) issue(messages.tooLarge)\n    else if (\n      maxDecimals !== undefined &&\n      (text.split(\".\")[1]?.length ?? 0) > maxDecimals\n    )\n      issue(messages.tooPrecise)\n  })\n}\n\nexport const toDecimal = (text: string) =>\n  text.trim() ? Number(text.trim()) : null\n\nexport const toNumberText = (value: number | null | undefined) =>\n  value == null ? \"\" : String(value)",
+      "type": "registry:lib",
+      "target": "components/openlmis/number-text.ts"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "260px"
+  },
+  "categories": [
+    "forms"
+  ],
+  "type": "registry:component"
+}
