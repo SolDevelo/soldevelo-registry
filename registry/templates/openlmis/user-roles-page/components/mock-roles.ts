@@ -6,7 +6,7 @@ import type {
   Role,
   RoleAssignment,
   SupervisoryNode,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 
 export type RolesUser = {
   id: string

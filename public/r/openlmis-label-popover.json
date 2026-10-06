@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-label-popover",
+  "title": "Label Popover",
+  "description": "A truncated label with an accessible details button and a composable popover panel.",
+  "dependencies": [
+    "lucide-react@^1",
+    "@base-ui/react@^1"
+  ],
+  "registryDependencies": [
+    "button",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/label-popover/label-popover.tsx",
+      "content": "\"use client\"\n\nimport type { ReactNode } from \"react\"\nimport { CircleHelpIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTrigger,\n} from \"@/components/ui/popover\"\n\ntype LabelPopoverProps = {\n  /** The text shown inline, truncated when space runs out. */\n  label: ReactNode\n  /** The popover's heading. */\n  title: ReactNode\n  /** Names the help button for assistive tech. */\n  ariaLabel: string\n  /** A line under the title. */\n  description?: ReactNode\n  /** The popover's body, rendered only while it is open. */\n  children?: ReactNode\n}\n\n/** A label with a help button beside it that opens a panel of detail. */\nexport function LabelPopover({\n  label,\n  title,\n  ariaLabel,\n  description,\n  children,\n}: LabelPopoverProps) {\n  return (\n    <span className=\"flex min-w-0 items-center gap-1\">\n      <span className=\"truncate\">{label}</span>\n      <Popover>\n        <PopoverTrigger\n          render={\n            <Button aria-label={ariaLabel} size=\"icon-xs\" variant=\"ghost\" />\n          }\n        >\n          <CircleHelpIcon />\n        </PopoverTrigger>\n        <PopoverContent align=\"start\">\n          <PopoverHeader>\n            <PopoverTitle>{title}</PopoverTitle>\n            {description && (\n              <PopoverDescription>{description}</PopoverDescription>\n            )}\n          </PopoverHeader>\n          {children}\n        </PopoverContent>\n      </Popover>\n    </span>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/label-popover.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "384px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "feedback"
+  ],
+  "type": "registry:component"
+}

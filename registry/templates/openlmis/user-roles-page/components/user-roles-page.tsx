@@ -6,8 +6,8 @@ import { useCallback, useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AddRoleDialog } from "@/registry/blocks/openlmis/add-role-dialog/add-role-dialog"
-import { ImportRolesDialog } from "@/registry/blocks/openlmis/import-roles-dialog/import-roles-dialog"
+import { AddRoleDialog } from "./add-role-dialog/add-role-dialog"
+import { ImportRolesDialog } from "./import-roles-dialog/import-roles-dialog"
 import {
   byId,
   countByType,
@@ -21,12 +21,11 @@ import {
   type SupervisoryNode,
   toRoleRows,
   assignmentKey,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments"
 import {
   type LookupStatus,
   RoleAssignmentsTable,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments-table"
-import { RoleRightsDialog } from "@/registry/blocks/openlmis/role-rights-dialog/role-rights-dialog"
+} from "@/registry/blocks/openlmis/role-assignments/role-assignments-table"
 import {
   Workspace,
   WorkspaceActions,
@@ -36,6 +35,7 @@ import {
   WorkspaceHeader,
   WorkspaceHeading,
   WorkspaceIcon,
+  WorkspaceLayout,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
 import { Callout } from "@/registry/components/openlmis/callout/callout"
@@ -77,7 +77,6 @@ type Notice =
 type OpenDialog =
   | { kind: "add"; tab: RoleTab }
   | { kind: "import" }
-  | { kind: "rights"; role: Role }
   | { kind: "discard" }
 
 const mockUser = MOCK_USERS.find((candidate) => candidate.id === MOCK_USER_ID)
@@ -170,13 +169,6 @@ function RolesEditor({
     },
     [remove]
   )
-  const viewRights = useCallback(
-    (roleId: string) => {
-      const role = lookups.roles.get(roleId)
-      if (role) setDialog({ kind: "rights", role })
-    },
-    [lookups.roles]
-  )
 
   const save = () => {
     onSave?.(draft.draft)
@@ -190,8 +182,7 @@ function RolesEditor({
   const name = [user.firstName, user.lastName].filter(Boolean).join(" ")
 
   return (
-    // One column, so the bar sits under the page wherever this renders.
-    <div className="flex w-full flex-1 flex-col">
+    <WorkspaceLayout>
       <Workspace>
         <PageBreadcrumbs
           items={[
@@ -262,7 +253,6 @@ function RolesEditor({
                     key={item.id}
                     onAdd={() => setDialog({ kind: "add", tab: item })}
                     onRemove={removeRole}
-                    onViewRights={viewRights}
                     rows={rows}
                     status={status}
                     tab={item}
@@ -319,10 +309,6 @@ function RolesEditor({
         username={user.username}
         users={users}
       />
-      <RoleRightsDialog
-        onClose={closeDialog}
-        role={dialog?.kind === "rights" ? dialog.role : undefined}
-      />
       <DiscardChangesDialog
         changes={draft.changes}
         onDiscard={() => {
@@ -335,7 +321,7 @@ function RolesEditor({
         open={dialog?.kind === "discard"}
         subject={`the roles of ${user.username}`}
       />
-    </div>
+    </WorkspaceLayout>
   )
 }
 

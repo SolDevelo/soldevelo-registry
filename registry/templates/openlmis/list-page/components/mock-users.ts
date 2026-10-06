@@ -4,7 +4,7 @@ import type {
   Facility,
   UserDetails,
   UserFormValues,
-} from "@/registry/blocks/openlmis/user-form-dialog/user-form"
+} from "./user-form-dialog/user-form"
 
 export type User = {
   id: string

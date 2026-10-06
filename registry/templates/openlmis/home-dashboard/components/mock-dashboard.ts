@@ -1,9 +1,9 @@
 // Mock numbers for the dashboard, so the page runs with no backend. Pass your own data instead.
 
-import type { ApprovalRequisition } from "@/registry/blocks/openlmis/approvals-table/approvals-table"
-import type { EquipmentStatus } from "@/registry/blocks/openlmis/equipment-status/equipment-status"
-import type { PipelineStatus } from "@/registry/blocks/openlmis/requisition-status-meter/requisition-status-meter"
-import type { PeriodRequisition } from "@/registry/blocks/openlmis/requisitions-by-period/periods"
+import type { ApprovalRequisition } from "@/registry/templates/openlmis/home-dashboard/components/approvals-table/approvals-table"
+import type { EquipmentStatus } from "@/registry/templates/openlmis/home-dashboard/components/equipment-status/equipment-status"
+import type { PipelineStatus } from "@/registry/templates/openlmis/home-dashboard/components/requisition-status-meter/requisition-status-meter"
+import type { PeriodRequisition } from "@/registry/templates/openlmis/home-dashboard/components/requisitions-by-period/periods"
 
 /** What the signed-in user's rights let the dashboard show; work it out from their rights. */
 export type DashboardAccess = {

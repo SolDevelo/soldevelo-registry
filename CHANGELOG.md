@@ -8,6 +8,94 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 You install items by name rather than by version, so a release says what
 changed in the catalog, not a number you have to pin.
 
+## [0.0.5] - 2026-10-06
+
+OpenLMIS UI now follows the latest shipped screens. The catalog separates
+reusable building blocks from complete page examples. All data is mocked,
+and edits update local state.
+
+### Added
+
+- Mock page templates for role administration, profiles, valid sources and
+  destinations, system settings, products, facilities, stock reasons, lots,
+  service accounts, programs and facility types.
+- Sign-in, forgot-password and reset-password page templates,
+  including validation, result states and a session-expired dialog example.
+- Shared form actions, bordered settings rows, a calendar date picker,
+  password requirements and pure text-number validation helpers.
+- Searchable combobox filters, wrapping workspace tabs, and table selection
+  controls for bulk actions.
+- A controlled copy button and value display, a label details popover,
+  a segmented meter and a composable list of status meters.
+- Number, decimal, textarea, select, multiple-choice combobox, tags, image
+  and date controls in the form fields kit.
+- A Role Assignments block, shared by the user roles, roles and profile
+  templates so each installs it once. Data Table also ships the row-menu
+  helper the list templates use to hand focus to the dialog an action opens.
+
+### Changed
+
+- Auth Card, Dashboard Card, Settings List and Stat Strip are now blocks,
+  alongside Data Table, List Toolbar and Workspace.
+- Filter and form comboboxes show up to 50 options immediately. Larger lists
+  include a message suggesting search, which narrows the full set of options.
+  The rendering limit is configurable.
+- Domain-specific columns, forms, dialogs and dashboard widgets now ship
+  inside their page templates. Shared UI remains separately installable.
+- Form fields support stacked, row and inline layouts, shared password
+  visibility, accessible hints and errors, radio tiles, and compact switches
+  with descriptions in popovers.
+- User examples show mismatched account statuses, keep contact fields left
+  to right, and validate usernames using Latin letters, numbers and underscores.
+- Password examples show the rules while typing and check the user's name.
+- Role assignment examples show rights beside the role and support read-only use.
+- Table skeletons can omit pagination for lists that are not paged. Tables
+  support selected rows, checkbox skeletons, reusable frames and header labels.
+- Workspaces and their action footers can use a narrow width.
+- Dialogs focus the first field, keep touch openings from raising the keyboard,
+  and retain submit-button focus while pending. Opening a dialog from a row
+  menu keeps focus inside it.
+- Long filter values and approval program names truncate without hiding
+  their labels or periods. Dashboard errors can show an offline state,
+  and percentages follow the requested locale.
+
+### Fixed
+
+- Dashboard previews keep positioned chart content inside the preview frame,
+  avoiding a second vertical scrollbar on short screens.
+- The Select Filter preview gives Supplying Facility more room for the
+  selected name, while keeping Status compact and fitting narrow screens.
+- The pagination range reads in order on right-to-left pages again.
+- Dashboard dates, counts, chart months and meter percentages use one fixed
+  locale, so they no longer change after the page loads in a browser set to
+  another language. Status Meter takes a `locale` to choose another.
+- Service account creation times show in UTC, labelled as such, so they
+  match between the server and every visitor's time zone.
+- A dialog opens on its first field rather than that field's info button.
+- The multiple-choice combobox keeps selected values that are missing from
+  its options instead of dropping them on the next change.
+- Deleting a valid source or destination the server refuses explains why,
+  rather than suggesting a connection problem.
+- New valid sources and destinations get unique ids after switching tabs.
+- Table skeletons draw a checkbox placeholder from column metadata, not from
+  a column named `select`.
+- Label Popover examples are centered and have room for open panels.
+  Date Picker previews have enough height for an open calendar.
+- Workspace actions stay together at the bottom of a column layout,
+  including when the page scrolls.
+- Discarding profile changes after a password change clears the unsaved
+  form values as well as the change count.
+- Copy feedback clears when focus or the pointer leaves the control,
+  including browsers that do not focus clicked buttons.
+
+### Removed
+
+- The duplicate No Access Page template. Use the reusable No Access component
+  inside a workspace or another page layout.
+- Standalone domain-specific table, form and dialog catalog entries. Install
+  their page template to obtain the complete mocked example, or compose a
+  new workflow from Data Table, Form Fields, Form Dialog and the shared controls.
+
 ## [0.0.4] - 2026-09-25
 
 The site now counts what visitors find useful, without cookies and without

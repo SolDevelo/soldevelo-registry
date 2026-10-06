@@ -19,6 +19,7 @@ import {
   DataTableColumnHeader,
   type DataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
+import { useMenuOpensDialog } from "@/registry/blocks/openlmis/data-table/row-actions"
 import type { ResponsiveColumn } from "@/registry/blocks/openlmis/data-table/responsive-columns"
 import { StatusBadge } from "@/registry/components/openlmis/status-badge/status-badge"
 
@@ -96,9 +97,11 @@ function UserActions({
   onEdit,
   onResetPassword,
 }: { username: string } & Record<"onEdit" | "onResetPassword", () => void>) {
+  const menu = useMenuOpensDialog()
+
   return (
     <div className="flex justify-end">
-      <DropdownMenu>
+      <DropdownMenu onOpenChange={menu.onOpenChange}>
         <DropdownMenuTrigger
           render={
             <Button
@@ -110,8 +113,12 @@ function UserActions({
         >
           <EllipsisIcon />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-auto">
-          <DropdownMenuItem onClick={onEdit}>
+        <DropdownMenuContent
+          align="end"
+          className="w-auto"
+          finalFocus={menu.finalFocus}
+        >
+          <DropdownMenuItem onClick={menu.opensDialog(onEdit)}>
             <PencilIcon />
             Edit
           </DropdownMenuItem>
@@ -119,7 +126,10 @@ function UserActions({
             <ShieldIcon />
             Roles
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onResetPassword} variant="destructive">
+          <DropdownMenuItem
+            onClick={menu.opensDialog(onResetPassword)}
+            variant="destructive"
+          >
             <KeyRoundIcon />
             Reset Password
           </DropdownMenuItem>

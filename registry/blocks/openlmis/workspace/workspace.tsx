@@ -1,4 +1,6 @@
-import type { ReactNode } from "react"
+import type { ReactNode, Ref } from "react"
+
+import { cn } from "@/lib/utils"
 
 // Page layout. Parts take only `children`, which keeps padding and heading scale equal across pages.
 
@@ -6,9 +8,36 @@ type WorkspaceProps = {
   children: ReactNode
 }
 
-export function Workspace({ children }: WorkspaceProps) {
+type WorkspaceWidthProps = WorkspaceProps & {
+  /** `narrow` for a page of settings, which reads better as one short column. */
+  width?: "default" | "narrow"
+}
+
+const MAX_WIDTH = { default: "max-w-6xl", narrow: "max-w-4xl" } as const
+
+// The host supplies the height; the content grows above the bottom action bar.
+export function WorkspaceLayout({
+  children,
+  ref,
+}: WorkspaceProps & { ref?: Ref<HTMLDivElement> }) {
   return (
-    <div className="@container/main mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+    <div className="flex min-h-full w-full flex-1 flex-col" ref={ref}>
+      {children}
+    </div>
+  )
+}
+
+export function Workspace({
+  children,
+  width = "default",
+}: WorkspaceWidthProps) {
+  return (
+    <div
+      className={cn(
+        "@container/main mx-auto flex w-full flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6",
+        MAX_WIDTH[width]
+      )}
+    >
       {children}
     </div>
   )
@@ -70,11 +99,22 @@ export function WorkspaceContent({ children }: WorkspaceProps) {
   return <div className="flex flex-1 flex-col gap-4 lg:gap-6">{children}</div>
 }
 
-/** Rendered after `Workspace`: full width, stuck to the bottom, its buttons in line with the page. */
-export function WorkspaceFooter({ children }: WorkspaceProps) {
+// Place after Workspace inside WorkspaceLayout.
+export function WorkspaceFooter({
+  children,
+  width = "default",
+}: WorkspaceWidthProps) {
   return (
-    <div className="sticky bottom-0 z-10 border-t bg-muted/80 backdrop-blur-sm">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-2 px-4 py-3 lg:px-6">
+    <div
+      className="sticky bottom-0 z-10 border-t bg-muted/80 backdrop-blur-sm"
+      data-slot="workspace-footer"
+    >
+      <div
+        className={cn(
+          "mx-auto flex w-full items-center justify-end gap-2 px-4 py-3 lg:px-6",
+          MAX_WIDTH[width]
+        )}
+      >
         {children}
       </div>
     </div>

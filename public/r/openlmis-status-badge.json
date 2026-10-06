@@ -4,7 +4,7 @@
   "title": "Status Badge",
   "description": "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
   "dependencies": [
-    "lucide-react"
+    "lucide-react@^1"
   ],
   "registryDependencies": [
     "utils"

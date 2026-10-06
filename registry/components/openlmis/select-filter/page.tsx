@@ -6,17 +6,30 @@ import { SelectFilter } from "./select-filter"
 
 export default function Page() {
   const [status, setStatus] = useState("active")
+  const [facility, setFacility] = useState("bdh")
 
   return (
-    <div className="w-full max-w-60 p-8 pb-28">
+    <div className="flex w-full max-w-md flex-col gap-3 px-4 pt-8 pb-28 sm:px-8">
+      <div className="w-44 max-w-full">
+        <SelectFilter
+          label="Status"
+          onValueChange={setStatus}
+          options={[
+            { value: "active", label: "Active" },
+            { value: "inactive", label: "Inactive" },
+          ]}
+          value={status}
+        />
+      </div>
+      {/* Long labels stay visible and selected values truncate when space is limited. */}
       <SelectFilter
-        label="Status"
-        onValueChange={setStatus}
+        label="Supplying Facility"
+        onValueChange={setFacility}
         options={[
-          { value: "active", label: "Active" },
-          { value: "inactive", label: "Inactive" },
+          { value: "bdh", label: "Balaka District Hospital" },
+          { value: "lch", label: "Lilongwe Central Hospital" },
         ]}
-        value={status}
+        value={facility}
       />
     </div>
   )

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-auth-card",
+  "title": "Auth Card",
+  "description": "Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.",
+  "dependencies": [
+    "@base-ui/react@^1"
+  ],
+  "registryDependencies": [
+    "button",
+    "card",
+    "field",
+    "spinner"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/openlmis/auth-card/auth-card.tsx",
+      "content": "\"use client\"\n\nimport type { FormEvent, ReactNode } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Card, CardFooter, CardHeader } from \"@/components/ui/card\"\nimport { FieldGroup } from \"@/components/ui/field\"\nimport { Spinner } from \"@/components/ui/spinner\"\n\ntype AuthCardProps = {\n  /** The footer credit; pass `null` to leave it out. */\n  poweredBy?: { name: string; href: string } | null\n  children: ReactNode\n}\n\nconst OPENLMIS = { name: \"OpenLMIS\", href: \"https://openlmis.org/\" }\n\n/** The signed-out card on its own, at the width `AuthPage` centres. */\nexport function AuthCard({ poweredBy = OPENLMIS, children }: AuthCardProps) {\n  return (\n    <div className=\"w-full max-w-sm\">\n      <Card>\n        {children}\n        {poweredBy && (\n          <CardFooter className=\"justify-center\">\n            <p className=\"text-sm text-muted-foreground\">\n              Powered by{\" \"}\n              <a\n                className=\"underline underline-offset-4 hover:text-primary\"\n                href={poweredBy.href}\n                rel=\"noopener noreferrer\"\n                target=\"_blank\"\n              >\n                {poweredBy.name}\n              </a>\n              .\n            </p>\n          </CardFooter>\n        )}\n      </Card>\n    </div>\n  )\n}\n\ntype AuthPageProps = AuthCardProps & {\n  /** Top end of the page, e.g. language and theme switchers. */\n  actions?: ReactNode\n}\n\n/** A signed-out page: one centred card on a muted background, filling its parent's height. */\nexport function AuthPage({ actions, poweredBy, children }: AuthPageProps) {\n  return (\n    <section className=\"relative flex min-h-full w-full flex-col items-center justify-center bg-muted px-6 py-12 text-foreground\">\n      {actions && (\n        <div className=\"absolute end-4 top-4 flex items-center gap-1\">\n          {actions}\n        </div>\n      )}\n      <AuthCard poweredBy={poweredBy}>{children}</AuthCard>\n    </section>\n  )\n}\n\n/** The app's logo above the title, e.g. `<img src={logoUrl} alt=\"OpenLMIS\" />`. */\nexport function AuthHeader({\n  logo,\n  children,\n}: {\n  logo?: ReactNode\n  children: ReactNode\n}) {\n  return (\n    <CardHeader className=\"justify-items-center text-center\">\n      {logo && <div className=\"mx-auto flex h-12 *:h-full\">{logo}</div>}\n      {children}\n    </CardHeader>\n  )\n}\n\nconst focusOnMount = (element: HTMLElement | null) => element?.focus()\n\ntype AuthTitleProps = {\n  /** Takes focus as it appears; set it only when the card replaces a form the user was in, never on first render. */\n  focus?: boolean\n  children: ReactNode\n}\n\nexport function AuthTitle({ focus = false, children }: AuthTitleProps) {\n  return (\n    <div\n      className=\"outline-none\"\n      ref={focus ? focusOnMount : undefined}\n      tabIndex={focus ? -1 : undefined}\n    >\n      {/* A plain heading, as stock CardTitle has no large size. */}\n      <h1 className=\"font-heading text-xl leading-snug font-bold tracking-tight\">\n        {children}\n      </h1>\n    </div>\n  )\n}\n\nexport function AuthForm({\n  onSubmit,\n  children,\n}: {\n  onSubmit: () => void\n  children: ReactNode\n}) {\n  const submit = (event: FormEvent) => {\n    event.preventDefault()\n    onSubmit()\n  }\n\n  return (\n    <form noValidate onSubmit={submit}>\n      <FieldGroup>{children}</FieldGroup>\n    </form>\n  )\n}\n\nexport function AuthSubmit({\n  pending,\n  children,\n}: {\n  pending: boolean\n  children: ReactNode\n}) {\n  return (\n    // Focusable while pending, so pressing it does not drop keyboard focus.\n    <Button\n      className=\"w-full\"\n      disabled={pending}\n      focusableWhenDisabled={pending}\n      type=\"submit\"\n    >\n      {pending && <Spinner data-icon=\"inline-start\" />}\n      {children}\n    </Button>\n  )\n}\n\ntype AuthLinkProps = {\n  href: string\n  newTab?: boolean\n  children: ReactNode\n}\n\nexport function AuthLink({ href, newTab = false, children }: AuthLinkProps) {\n  return (\n    <a\n      className=\"rounded-sm text-sm text-muted-foreground outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50\"\n      href={href}\n      rel={newTab ? \"noopener noreferrer\" : undefined}\n      target={newTab ? \"_blank\" : undefined}\n    >\n      {children}\n    </a>\n  )\n}\n\ntype AuthButtonLinkProps = {\n  href: string\n  variant?: \"default\" | \"outline\"\n  describedBy?: string\n  children: ReactNode\n}\n\n/** A full-width button that navigates, such as Back To Sign In. */\nexport function AuthButtonLink({\n  href,\n  variant = \"default\",\n  describedBy,\n  children,\n}: AuthButtonLinkProps) {\n  return (\n    <Button\n      aria-describedby={describedBy}\n      className=\"w-full\"\n      nativeButton={false}\n      // oxlint-disable-next-line jsx-a11y/control-has-associated-label -- Base UI renders the Button's text into the link\n      render={<a href={href} />}\n      variant={variant}\n    >\n      {children}\n    </Button>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/blocks/openlmis/auth-card.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "329px"
+  },
+  "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+  "categories": [
+    "auth",
+    "forms"
+  ],
+  "type": "registry:block"
+}

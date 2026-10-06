@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-segmented-meter",
+  "title": "Segmented Meter",
+  "description": "A stacked meter with a labeled count and percentage legend, locale formatting and right-to-left support.",
+  "dependencies": [
+    "recharts@^3",
+    "@base-ui/react@^1"
+  ],
+  "registryDependencies": [
+    "chart",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/segmented-meter/segmented-meter.tsx",
+      "content": "\"use client\"\n\nimport { Bar, BarChart, XAxis, YAxis } from \"recharts\"\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\"\nimport { cn } from \"@/lib/utils\"\n\nexport type MeterSegment = {\n  /** Stable identity, independent of its label. */\n  id: string\n  label: string\n  value: number\n}\n\n/** The chart ramp, lightest first, so the order of the segments reads in the colour. */\nconst RAMP = [\n  { fill: \"var(--chart-1)\", dot: \"bg-chart-1\" },\n  { fill: \"var(--chart-2)\", dot: \"bg-chart-2\" },\n  { fill: \"var(--chart-3)\", dot: \"bg-chart-3\" },\n  { fill: \"var(--chart-4)\", dot: \"bg-chart-4\" },\n  { fill: \"var(--chart-5)\", dot: \"bg-chart-5\" },\n] as const\n\nconst rampAt = (index: number) => RAMP[index % RAMP.length]\n\ntype SegmentedMeterProps = {\n  /** In order; each takes the next step of the chart ramp. */\n  segments: readonly MeterSegment[]\n  /** Fills the meter from the right on a right-to-left page. */\n  dir?: \"ltr\" | \"rtl\"\n  /** Formats counts and shares; fixed so a server render matches the browser. */\n  locale?: string\n  className?: string\n}\n\n/** Parts of a whole as one stacked bar, with a legend giving each part's count and share. */\nexport function SegmentedMeter({\n  segments,\n  dir = \"ltr\",\n  locale = \"en-US\",\n  className,\n}: SegmentedMeterProps) {\n  const total = segments.reduce((sum, segment) => sum + segment.value, 0)\n  const count = new Intl.NumberFormat(locale)\n  const percent = new Intl.NumberFormat(locale, { style: \"percent\" })\n  const share = (value: number) =>\n    percent.format(total === 0 ? 0 : value / total)\n\n  // Index keys, not labels, so any label is a safe data key and CSS variable name.\n  const config = Object.fromEntries(\n    segments.map((segment, index) => [\n      `s${index}`,\n      { label: segment.label, color: rampAt(index).fill },\n    ])\n  ) satisfies ChartConfig\n  const datum = Object.fromEntries(\n    segments.map((segment, index) => [`s${index}`, segment.value])\n  )\n\n  return (\n    <div className={cn(\"flex flex-col gap-4\", className)}>\n      <ChartContainer className=\"aspect-auto h-3 w-full\" config={config}>\n        <BarChart\n          accessibilityLayer\n          barCategoryGap={0}\n          data={[datum]}\n          layout=\"vertical\"\n          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}\n        >\n          <XAxis\n            domain={[0, Math.max(total, 1)]}\n            hide\n            reversed={dir === \"rtl\"}\n            type=\"number\"\n          />\n          <YAxis hide type=\"category\" />\n          <ChartTooltip\n            content={<ChartTooltipContent hideLabel />}\n            cursor={false}\n          />\n          {segments.map((segment, index) => (\n            <Bar\n              dataKey={`s${index}`}\n              fill={`var(--color-s${index})`}\n              key={segment.id}\n              stackId=\"segments\"\n              stroke=\"var(--card)\"\n              strokeWidth={2}\n            />\n          ))}\n        </BarChart>\n      </ChartContainer>\n      <ul className=\"flex flex-col gap-1.5\">\n        {segments.map((segment, index) => (\n          <li className=\"flex items-center gap-2 text-sm\" key={segment.id}>\n            <span\n              aria-hidden=\"true\"\n              className={cn(\n                \"size-2.5 shrink-0 rounded-full\",\n                rampAt(index).dot\n              )}\n            />\n            <span className=\"min-w-0 flex-1 truncate text-muted-foreground\">\n              {segment.label}\n            </span>\n            <span className=\"font-medium tabular-nums\">\n              {count.format(segment.value)}\n            </span>\n            <span className=\"w-10 text-end text-muted-foreground tabular-nums\">\n              {share(segment.value)}\n            </span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/segmented-meter.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "330px"
+  },
+  "categories": [
+    "charts"
+  ],
+  "type": "registry:component"
+}

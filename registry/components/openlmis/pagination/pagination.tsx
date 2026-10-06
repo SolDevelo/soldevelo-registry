@@ -154,11 +154,11 @@ export function Pagination({
         </div>
       }
       range={
-        // `ltr` keeps "1-10 / 1,211" in order inside right-to-left text.
+        // Hidden but read aloud when narrow; `auto` keeps "1-10 / 1,211" in order inside right-to-left text.
         <p
           aria-live="polite"
           className="sr-only whitespace-nowrap text-muted-foreground tabular-nums @md/pagination:not-sr-only"
-          dir="ltr"
+          dir="auto"
         >
           {labels.range(from, to, rowCount)}
         </p>

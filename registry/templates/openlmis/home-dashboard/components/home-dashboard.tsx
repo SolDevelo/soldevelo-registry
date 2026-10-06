@@ -11,10 +11,10 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
-import { ApprovalsTable } from "@/registry/blocks/openlmis/approvals-table/approvals-table"
-import { EquipmentStatusCard } from "@/registry/blocks/openlmis/equipment-status/equipment-status"
-import { RequisitionStatusMeter } from "@/registry/blocks/openlmis/requisition-status-meter/requisition-status-meter"
-import { RequisitionsByPeriod } from "@/registry/blocks/openlmis/requisitions-by-period/requisitions-by-period"
+import { ApprovalsTable } from "@/registry/templates/openlmis/home-dashboard/components/approvals-table/approvals-table"
+import { EquipmentStatusCard } from "@/registry/templates/openlmis/home-dashboard/components/equipment-status/equipment-status"
+import { RequisitionStatusMeter } from "@/registry/templates/openlmis/home-dashboard/components/requisition-status-meter/requisition-status-meter"
+import { RequisitionsByPeriod } from "@/registry/templates/openlmis/home-dashboard/components/requisitions-by-period/requisitions-by-period"
 import {
   Workspace,
   WorkspaceActions,
@@ -24,11 +24,11 @@ import {
   WorkspaceHeading,
   WorkspaceTitle,
 } from "@/registry/blocks/openlmis/workspace/workspace"
-import { DashboardRow } from "@/registry/components/openlmis/dashboard-card/dashboard-card"
+import { DashboardRow } from "@/registry/blocks/openlmis/dashboard-card/dashboard-card"
 import {
   Stat,
   StatStrip,
-} from "@/registry/components/openlmis/stat-strip/stat-strip"
+} from "@/registry/blocks/openlmis/stat-strip/stat-strip"
 
 import {
   type DashboardAccess,
