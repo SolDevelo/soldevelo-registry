@@ -51,8 +51,9 @@ const config = {
 } satisfies ChartConfig
 
 /** Month and year from a `YYYY-MM` key, read in UTC so a period never slips into the month before. */
+// A fixed locale, so a server render and the browser print the same labels.
 const monthFormat = (options: Intl.DateTimeFormatOptions) => {
-  const formatter = new Intl.DateTimeFormat(undefined, {
+  const formatter = new Intl.DateTimeFormat("en-US", {
     ...options,
     timeZone: "UTC",
   })

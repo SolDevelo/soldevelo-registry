@@ -185,9 +185,15 @@ export function ServiceAccountsTable({
 }: ServiceAccountsTableProps) {
   const formatDate = useMemo(
     () =>
+      // UTC, named, so a server render and the browser print the same time.
       new Intl.DateTimeFormat(dateLanguage, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone: "UTC",
+        timeZoneName: "short",
       }).format,
     [dateLanguage]
   )

@@ -61,7 +61,7 @@ export function AuthPage({ actions, poweredBy, children }: AuthPageProps) {
   )
 }
 
-/** The app's logo above the title, e.g. `<img src="/logo.png" alt="OpenLMIS" />`. */
+/** The app's logo above the title, e.g. `<img src={logoUrl} alt="OpenLMIS" />`. */
 export function AuthHeader({
   logo,
   children,

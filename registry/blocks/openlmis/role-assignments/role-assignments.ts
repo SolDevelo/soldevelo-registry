@@ -244,7 +244,8 @@ const SORT_ORDER: Record<RoleSortField, RoleSortField[]> = {
   facility: ["facility", "role"],
 }
 
-const collator = new Intl.Collator(undefined, {
+// A fixed locale, so a server render and the browser sort the rows the same way.
+const collator = new Intl.Collator("en-US", {
   sensitivity: "base",
   numeric: true,
 })

@@ -66,8 +66,11 @@ and edits update local state.
 - The Select Filter preview gives Supplying Facility more room for the
   selected name, while keeping Status compact and fitting narrow screens.
 - The pagination range reads in order on right-to-left pages again.
-- Dashboard dates and counts use one fixed locale, so they no longer change
-  after the page loads in a browser set to another language.
+- Dashboard dates, counts, chart months and meter percentages use one fixed
+  locale, so they no longer change after the page loads in a browser set to
+  another language. Status Meter takes a `locale` to choose another.
+- Service account creation times show in UTC, labelled as such, so they
+  match between the server and every visitor's time zone.
 - A dialog opens on its first field rather than that field's info button.
 - The multiple-choice combobox keeps selected values that are missing from
   its options instead of dropping them on the next change.

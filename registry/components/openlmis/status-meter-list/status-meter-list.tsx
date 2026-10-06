@@ -27,6 +27,8 @@ type StatusMeterProps = {
   value: number
   max?: number
   tone?: StatusMeterTone
+  /** Formats the percentage read aloud; fixed by default, so a server render and the browser agree. */
+  locale?: string
   /** The header line: `StatusMeterIcon`, `StatusMeterLabel`, `StatusMeterValue`. */
   children: ReactNode
   className?: string
@@ -37,6 +39,7 @@ export function StatusMeter({
   value,
   max = 100,
   tone = "info",
+  locale = "en-US",
   children,
   className,
 }: StatusMeterProps) {
@@ -46,6 +49,7 @@ export function StatusMeter({
         {/* A meter, not a progress bar: it is a share of the whole, not a task underway. */}
         <Meter.Root
           className="flex flex-col gap-1.5"
+          locale={locale}
           max={Math.max(max, 1)}
           value={value}
         >
