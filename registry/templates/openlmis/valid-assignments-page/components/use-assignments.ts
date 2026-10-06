@@ -6,11 +6,11 @@ import {
   ASSIGNMENT_LABELS,
   type AssignmentKind,
   type NewAssignment,
-} from "@/registry/blocks/openlmis/add-assignment-dialog/assignment-form"
+} from "./add-assignment-dialog/assignment-form"
 import type {
   AssignmentTargets,
   DeleteAssignmentsResult,
-} from "@/registry/blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog"
+} from "./delete-assignments-dialog/delete-assignments-dialog"
 import type { CalloutTone } from "@/registry/components/openlmis/callout/callout"
 
 import type { AssignmentRow } from "./assignment-columns"

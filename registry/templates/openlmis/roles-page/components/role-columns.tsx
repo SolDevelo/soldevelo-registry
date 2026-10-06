@@ -16,8 +16,8 @@ import {
   type DataTableFeatures,
 } from "@/registry/blocks/openlmis/data-table/data-table"
 import type { ResponsiveColumn } from "@/registry/blocks/openlmis/data-table/responsive-columns"
-import { roleTypeOf } from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
-import { roleTypeInfo } from "@/registry/blocks/openlmis/role-form-dialog/role-form"
+import { roleTypeOf } from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+import { roleTypeInfo } from "./role-form-dialog/role-form"
 
 import type { ListedRole } from "./mock-roles"
 

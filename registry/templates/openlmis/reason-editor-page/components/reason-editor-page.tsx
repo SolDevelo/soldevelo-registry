@@ -11,13 +11,13 @@ import {
   assignmentKey,
   assignmentNames,
   type ReasonAssignment,
-} from "@/registry/blocks/openlmis/reason-assignment-dialog/reason-assignment"
-import { ReasonAssignments } from "@/registry/blocks/openlmis/reason-assignments/reason-assignments"
+} from "./reason-assignment-dialog/reason-assignment"
+import { ReasonAssignments } from "./reason-assignments/reason-assignments"
 import {
   EMPTY_REASON,
   type ReasonValues,
-} from "@/registry/blocks/openlmis/reason-general-form/reason-form"
-import { ReasonGeneralForm } from "@/registry/blocks/openlmis/reason-general-form/reason-general-form"
+} from "./reason-general-form/reason-form"
+import { ReasonGeneralForm } from "./reason-general-form/reason-general-form"
 import {
   Workspace,
   WorkspaceContent,

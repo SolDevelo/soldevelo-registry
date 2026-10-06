@@ -7,7 +7,7 @@ import {
   countChanges,
   mergeAssignments,
   type RoleAssignment,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "./role-assignments-table/role-assignments"
 
 /** The roles being edited, kept apart from the saved ones until they are saved. */
 export function useRoleDraft(saved: RoleAssignment[]) {

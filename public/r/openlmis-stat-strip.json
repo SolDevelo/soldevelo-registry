@@ -4,7 +4,7 @@
   "title": "Stat Strip",
   "description": "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "skeleton",

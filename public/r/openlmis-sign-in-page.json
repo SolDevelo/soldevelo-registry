@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-sign-in-page",
+  "title": "Sign In Page",
+  "description": "Mock sign-in page with credentials, refused feedback and a signed-in result.",
+  "dependencies": [
+    "@tanstack/react-form@^1",
+    "zod@^4",
+    "@base-ui/react@^1"
+  ],
+  "registryDependencies": [
+    "button",
+    "card",
+    "field",
+    "https://registry.soldevelo.com/r/openlmis-auth-card.json",
+    "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+    "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+  ],
+  "files": [
+    {
+      "path": "registry/templates/openlmis/sign-in-page/components/session-expired-dialog/session-expired-dialog.tsx",
+      "content": "\"use client\"\n\nimport { revalidateLogic } from \"@tanstack/react-form\"\nimport type { ReactNode } from \"react\"\nimport { z } from \"zod\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { FieldGroup } from \"@/components/ui/field\"\nimport { AuthLink } from \"@/components/openlmis/auth-card\"\nimport {\n  FormDialog,\n  FormDialogBody,\n  FormDialogDescription,\n  FormDialogError,\n  FormDialogFooter,\n  FormDialogForm,\n  FormDialogHeader,\n  FormDialogSubmit,\n  FormDialogTitle,\n} from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useDialogTarget } from \"@/components/openlmis/form-dialog/use-dialog-target\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\n\n// Its own field name, so its id never clashes with a password field on the page behind it.\nconst passwordSchema = z.object({\n  sessionPassword: z.string().min(1, \"Password is required.\"),\n})\n\ntype SessionExpiredDialogProps = {\n  /** Open while the session is expired; only signing in or out should close it. */\n  open: boolean\n  /** Who was signed in; only the password is asked for. */\n  username: string\n  onSignIn: (password: string) => void\n  onSignOut: () => void\n  /** Signing in. */\n  pending?: boolean\n  /** Signing out. */\n  signingOut?: boolean\n  /** Why signing in failed, e.g. a wrong password. */\n  error?: ReactNode\n  forgotPasswordHref?: string\n  /** Where a close button would be, e.g. a language switcher. */\n  action?: ReactNode\n}\n\nconst keepOpen = () => {}\n\n/** Over whatever page was open when the session ran out, until the same user signs in or out. */\nexport function SessionExpiredDialog({\n  open,\n  username,\n  onSignIn,\n  onSignOut,\n  pending = false,\n  signingOut = false,\n  error,\n  forgotPasswordHref = \"/forgot-password\",\n  action,\n}: SessionExpiredDialogProps) {\n  // Keeps the last username through the close animation, so the dialog never empties as it fades.\n  const { shown, dialogProps } = useDialogTarget(\n    open ? username : undefined,\n    keepOpen\n  )\n\n  return (\n    // The pages behind are waiting on it, so there is no close button.\n    <FormDialog closeButton={false} {...dialogProps()}>\n      {shown && (\n        <SignInAgainForm\n          action={action}\n          error={error}\n          forgotPasswordHref={forgotPasswordHref}\n          onSignIn={onSignIn}\n          onSignOut={onSignOut}\n          pending={pending}\n          signingOut={signingOut}\n          username={shown}\n        />\n      )}\n    </FormDialog>\n  )\n}\n\nfunction SignInAgainForm({\n  username,\n  onSignIn,\n  onSignOut,\n  pending,\n  signingOut,\n  error,\n  forgotPasswordHref,\n  action,\n}: Omit<SessionExpiredDialogProps, \"open\" | \"pending\" | \"signingOut\"> & {\n  pending: boolean\n  signingOut: boolean\n  forgotPasswordHref: string\n}) {\n  const form = useAppForm({\n    defaultValues: { sessionPassword: \"\" },\n    validationLogic: revalidateLogic({\n      mode: \"submit\",\n      modeAfterSubmission: \"change\",\n    }),\n    validators: { onDynamic: passwordSchema },\n    onSubmit: ({ value }) => onSignIn(value.sessionPassword),\n  })\n\n  return (\n    <FormDialogForm onSubmit={form.handleSubmit}>\n      {action && <div className=\"absolute end-2 top-2\">{action}</div>}\n      <FormDialogHeader>\n        <FormDialogTitle>Session Expired</FormDialogTitle>\n        <FormDialogDescription>\n          You were signed out after a period of inactivity. Sign in again to\n          carry on. Your unsaved changes are kept.\n        </FormDialogDescription>\n      </FormDialogHeader>\n      <FormDialogBody>\n        <FieldGroup>\n          {error && (\n            <FormDialogError description={error} title=\"Sign In Failed\" />\n          )}\n          {/* Lets password managers offer the password saved for this account. */}\n          <input autoComplete=\"username\" hidden readOnly value={username} />\n          <form.AppField name=\"sessionPassword\">\n            {(field) => (\n              <field.PasswordField\n                action={\n                  // A new tab, so the page and its unsaved work stay behind the dialog.\n                  <AuthLink href={forgotPasswordHref} newTab>\n                    Forgot Password?\n                  </AuthLink>\n                }\n                autoComplete=\"current-password\"\n                description={\n                  <>\n                    Signed in as{\" \"}\n                    <span className=\"font-medium text-foreground\">\n                      {username}\n                    </span>\n                  </>\n                }\n                label=\"Password\"\n                placeholder=\"Enter Your Password\"\n              />\n            )}\n          </form.AppField>\n        </FieldGroup>\n      </FormDialogBody>\n      <FormDialogFooter>\n        <Button\n          disabled={pending || signingOut}\n          onClick={onSignOut}\n          type=\"button\"\n          variant=\"destructive\"\n        >\n          Sign Out\n        </Button>\n        <FormDialogSubmit disabled={signingOut} pending={pending}>\n          {pending ? \"Signing In...\" : \"Sign In\"}\n        </FormDialogSubmit>\n      </FormDialogFooter>\n    </FormDialogForm>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/sign-in-page/session-expired-dialog.tsx"
+    },
+    {
+      "path": "registry/templates/openlmis/sign-in-page/components/sign-in-form/sign-in-form.tsx",
+      "content": "\"use client\"\n\nimport { revalidateLogic } from \"@tanstack/react-form\"\nimport type { ReactNode } from \"react\"\nimport { z } from \"zod\"\n\nimport { CardContent, CardDescription } from \"@/components/ui/card\"\nimport { FormDialogError } from \"@/components/openlmis/form-dialog/form-dialog\"\nimport { useAppForm } from \"@/components/openlmis/form-fields/form\"\n\nimport {\n  AuthForm,\n  AuthHeader,\n  AuthLink,\n  AuthSubmit,\n  AuthTitle,\n} from \"@/components/openlmis/auth-card\"\n\nexport type SignInCredentials = { username: string; password: string }\n\nconst signInSchema = z.object({\n  username: z\n    .string()\n    .min(1, \"Username is required.\")\n    .max(255, \"Username must be at most 255 characters.\"),\n  password: z.string().min(1, \"Password is required.\"),\n})\n\ntype SignInFormProps = {\n  /** Named in the description: \"Enter your {appName} credentials\". */\n  appName?: string\n  logo?: ReactNode\n  forgotPasswordHref?: string\n  onSubmit: (credentials: SignInCredentials) => void\n  /** Shows a spinner on Sign In while the credentials are checked. */\n  pending?: boolean\n  /** Why sign-in was refused, shown above the fields. */\n  error?: ReactNode\n}\n\n/** The sign-in card's content; render it inside `AuthPage`. */\nexport function SignInForm({\n  appName = \"OpenLMIS\",\n  logo,\n  forgotPasswordHref = \"/forgot-password\",\n  onSubmit,\n  pending = false,\n  error,\n}: SignInFormProps) {\n  const form = useAppForm({\n    defaultValues: { username: \"\", password: \"\" },\n    // Quiet until the first submit, then each field re-checks as it is corrected.\n    validationLogic: revalidateLogic({\n      mode: \"submit\",\n      modeAfterSubmission: \"change\",\n    }),\n    validators: { onDynamic: signInSchema },\n    onSubmit: ({ value }) => onSubmit(value),\n  })\n\n  return (\n    <>\n      <AuthHeader logo={logo}>\n        <AuthTitle>Sign In</AuthTitle>\n        <CardDescription>\n          Enter your {appName} credentials to continue.\n        </CardDescription>\n      </AuthHeader>\n\n      <CardContent>\n        <AuthForm onSubmit={form.handleSubmit}>\n          {error && (\n            <FormDialogError description={error} title=\"Sign In Failed\" />\n          )}\n          <form.AppField name=\"username\">\n            {(field) => (\n              <field.TextField\n                autoComplete=\"username\"\n                label=\"Username\"\n                placeholder=\"Enter Your Username\"\n              />\n            )}\n          </form.AppField>\n          <form.AppField name=\"password\">\n            {(field) => (\n              <field.PasswordField\n                action={\n                  <AuthLink href={forgotPasswordHref}>\n                    Forgot Password?\n                  </AuthLink>\n                }\n                autoComplete=\"current-password\"\n                label=\"Password\"\n                placeholder=\"Enter Your Password\"\n              />\n            )}\n          </form.AppField>\n          <AuthSubmit pending={pending}>\n            {pending ? \"Signing In...\" : \"Sign In\"}\n          </AuthSubmit>\n        </AuthForm>\n      </CardContent>\n    </>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/sign-in-page/sign-in-form.tsx"
+    },
+    {
+      "path": "registry/templates/openlmis/sign-in-page/components/sign-in-page.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { CardContent, CardDescription } from \"@/components/ui/card\"\nimport {\n  AuthButtonLink,\n  AuthHeader,\n  AuthPage,\n  AuthTitle,\n} from \"@/components/openlmis/auth-card\"\nimport {\n  type SignInCredentials,\n  SignInForm,\n} from \"@/components/openlmis/sign-in-page/sign-in-form\"\n\n// Mock account; swap the check for your own sign-in call.\nconst MOCK_USER = { username: \"administrator\", password: \"password1\" }\n\n// oxlint-disable-next-line next/no-img-element -- items are framework-neutral\nconst logo = <img alt=\"OpenLMIS\" src=\"https://registry.soldevelo.com/projects/openlmis.png\" />\n\nexport function SignInPage() {\n  const [error, setError] = useState<string>()\n  const [signedIn, setSignedIn] = useState<string>()\n\n  const signIn = ({ username, password }: SignInCredentials) => {\n    if (username === MOCK_USER.username && password === MOCK_USER.password) {\n      setError(undefined)\n      setSignedIn(username)\n    } else {\n      setError(\"Check your username and password, then try again.\")\n    }\n  }\n\n  return (\n    <AuthPage>\n      {signedIn ? (\n        <>\n          <AuthHeader logo={logo}>\n            <AuthTitle focus>Signed In</AuthTitle>\n            <CardDescription>Welcome back, {signedIn}.</CardDescription>\n          </AuthHeader>\n          <CardContent>\n            <AuthButtonLink href=\"/\">Continue</AuthButtonLink>\n          </CardContent>\n        </>\n      ) : (\n        <SignInForm error={error} logo={logo} onSubmit={signIn} />\n      )}\n    </AuthPage>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/sign-in-page/sign-in-page.tsx"
+    },
+    {
+      "path": "registry/templates/openlmis/sign-in-page/page.tsx",
+      "content": "import { SignInPage } from \"@/components/openlmis/sign-in-page/sign-in-page\"\n\n// A Next.js App Router route; in any other React app, render SignInPage from your own route.\nexport default function Page() {\n  return <SignInPage />\n}",
+      "type": "registry:page",
+      "target": "app/sign-in-page/page.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "484px"
+  },
+  "categories": [
+    "auth"
+  ],
+  "type": "registry:page"
+}

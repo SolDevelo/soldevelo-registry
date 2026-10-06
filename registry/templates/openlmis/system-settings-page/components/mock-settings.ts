@@ -1,8 +1,8 @@
-import type { Branding } from "@/registry/blocks/openlmis/branding-settings/branding"
+import type { Branding } from "./branding-settings/branding"
 import type {
   FeatureFlagDefinition,
   StoredFlags,
-} from "@/registry/blocks/openlmis/feature-flags-settings/feature-flags"
+} from "./feature-flags-settings/feature-flags"
 
 export const DEFAULT_APP_NAME = "OpenLMIS"
 export const DEFAULT_LOGO_URL = "/projects/openlmis.png"

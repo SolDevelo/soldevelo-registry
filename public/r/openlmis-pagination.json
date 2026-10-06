@@ -4,8 +4,8 @@
   "title": "Pagination",
   "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",

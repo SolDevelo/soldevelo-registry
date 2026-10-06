@@ -4,8 +4,8 @@
   "title": "Dashboard Card",
   "description": "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "badge",

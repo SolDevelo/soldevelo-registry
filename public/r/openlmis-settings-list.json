@@ -4,7 +4,7 @@
   "title": "Settings List",
   "description": "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "badge"

@@ -4,16 +4,13 @@
   "title": "Date Picker",
   "description": "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
   "dependencies": [
-    "lucide-react",
-    "react-day-picker@^10",
-    "date-fns@^4",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",
     "calendar",
-    "popover",
-    "label"
+    "popover"
   ],
   "files": [
     {

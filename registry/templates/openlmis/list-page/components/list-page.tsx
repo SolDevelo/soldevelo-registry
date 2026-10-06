@@ -41,11 +41,11 @@ import { SelectFilter } from "@/registry/components/openlmis/select-filter/selec
 import {
   type PasswordDialogTarget,
   ResetPasswordDialog,
-} from "@/registry/blocks/openlmis/reset-password-dialog/reset-password-dialog"
+} from "./reset-password-dialog/reset-password-dialog"
 import {
   UserFormDialog,
   type UserFormDialogTarget,
-} from "@/registry/blocks/openlmis/user-form-dialog/user-form-dialog"
+} from "./user-form-dialog/user-form-dialog"
 
 import { MOCK_FACILITIES, type User, type UsersQuery } from "./mock-users"
 import { createUserColumns, HIDEABLE_COLUMNS } from "./user-columns"

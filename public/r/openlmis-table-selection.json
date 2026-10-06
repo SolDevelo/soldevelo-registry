@@ -5,8 +5,8 @@
   "description": "A page selection checkbox column and a floating selected-count bar with Clear and actions.",
   "dependencies": [
     "@tanstack/react-table@^9",
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",

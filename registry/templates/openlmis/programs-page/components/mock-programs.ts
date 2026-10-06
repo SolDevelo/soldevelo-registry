@@ -1,0 +1,61 @@
+// Mock programs, so the page runs with no backend. Pass your own instead.
+
+import type { Program } from "./program-form-dialog/program-form"
+
+export const MOCK_PROGRAMS: Program[] = [
+  {
+    id: "program-family-planning",
+    code: "PRG001",
+    name: "Family Planning",
+    description: "Contraceptives for health centers and district stores.",
+    active: true,
+    showNonFullSupplyTab: true,
+    periodsSkippable: false,
+    skipAuthorization: false,
+    enableDatePhysicalStockCountCompleted: true,
+  },
+  {
+    id: "program-essential-meds",
+    code: "PRG002",
+    name: "Essential Meds",
+    description: null,
+    active: true,
+    showNonFullSupplyTab: false,
+    periodsSkippable: true,
+    skipAuthorization: false,
+    enableDatePhysicalStockCountCompleted: false,
+  },
+  {
+    id: "program-new",
+    code: "PRG003",
+    name: "New Program",
+    description: null,
+    active: true,
+    showNonFullSupplyTab: false,
+    periodsSkippable: false,
+    skipAuthorization: false,
+    enableDatePhysicalStockCountCompleted: false,
+  },
+  {
+    id: "program-epi",
+    code: "PRG004",
+    name: "EPI",
+    description: "Vaccines and immunization supplies.",
+    active: true,
+    showNonFullSupplyTab: false,
+    periodsSkippable: false,
+    skipAuthorization: true,
+    enableDatePhysicalStockCountCompleted: false,
+  },
+  {
+    id: "program-arv",
+    code: "PRG005",
+    name: "ARV",
+    description: null,
+    active: false,
+    showNonFullSupplyTab: false,
+    periodsSkippable: false,
+    skipAuthorization: false,
+    enableDatePhysicalStockCountCompleted: false,
+  },
+]

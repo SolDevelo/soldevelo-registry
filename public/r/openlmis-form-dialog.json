@@ -4,13 +4,14 @@
   "title": "Form Dialog",
   "description": "Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "alert",
     "button",
     "dialog",
+    "field",
     "spinner",
     "https://registry.soldevelo.com/r/openlmis-form-fields.json"
   ],

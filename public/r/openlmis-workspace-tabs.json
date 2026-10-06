@@ -4,11 +4,11 @@
   "title": "Workspace Tabs",
   "description": "Controlled page section tabs that wrap into a column or grid on narrow screens.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "tabs",
-    "button"
+    "utils"
   ],
   "files": [
     {

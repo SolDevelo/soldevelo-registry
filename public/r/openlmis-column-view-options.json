@@ -4,8 +4,8 @@
   "title": "Column View Options",
   "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",

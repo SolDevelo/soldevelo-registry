@@ -4,8 +4,8 @@
   "title": "Select Filter",
   "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",

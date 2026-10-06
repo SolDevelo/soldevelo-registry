@@ -7,17 +7,14 @@ import { createPortal } from "react-dom"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ChangePasswordDialog } from "@/registry/blocks/openlmis/change-password-dialog/change-password-dialog"
-import {
-  applySaved,
-  profileChanges,
-} from "@/registry/blocks/openlmis/profile-basic-information/profile"
-import { ProfileBasicInformation } from "@/registry/blocks/openlmis/profile-basic-information/profile-basic-information"
+import { ChangePasswordDialog } from "./change-password-dialog/change-password-dialog"
+import { applySaved, profileChanges } from "./profile-basic-information/profile"
+import { ProfileBasicInformation } from "./profile-basic-information/profile-basic-information"
 import {
   type FormActionState as ProfileFormActions,
   FormActions as ProfileFormButtons,
 } from "@/registry/components/openlmis/form-actions/form-actions"
-import { ProfileNotificationSettings } from "@/registry/blocks/openlmis/profile-notification-settings/profile-notification-settings"
+import { ProfileNotificationSettings } from "./profile-notification-settings/profile-notification-settings"
 import {
   assignmentKey,
   byId,
@@ -25,8 +22,8 @@ import {
   ROLE_TABS,
   type RoleTab,
   toRoleRows,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
-import { RoleAssignmentsTable } from "@/registry/blocks/openlmis/role-assignments-table/role-assignments-table"
+} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
+import { RoleAssignmentsTable } from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table"
 import {
   Workspace,
   WorkspaceActions,

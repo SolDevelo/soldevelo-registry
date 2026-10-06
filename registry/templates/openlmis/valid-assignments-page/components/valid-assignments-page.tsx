@@ -20,8 +20,8 @@ import { Button } from "@/components/ui/button"
 import {
   ASSIGNMENT_LABELS,
   type AssignmentKind,
-} from "@/registry/blocks/openlmis/add-assignment-dialog/assignment-form"
-import { AddAssignmentDialog } from "@/registry/blocks/openlmis/add-assignment-dialog/add-assignment-dialog"
+} from "./add-assignment-dialog/assignment-form"
+import { AddAssignmentDialog } from "./add-assignment-dialog/add-assignment-dialog"
 import {
   DataTable,
   DataTableCard,
@@ -36,7 +36,7 @@ import {
 import {
   type AssignmentTargets,
   DeleteAssignmentsDialog,
-} from "@/registry/blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog"
+} from "./delete-assignments-dialog/delete-assignments-dialog"
 import {
   ListToolbar,
   ListToolbarEnd,

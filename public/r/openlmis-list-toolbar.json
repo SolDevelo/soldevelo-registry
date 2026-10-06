@@ -4,9 +4,11 @@
   "title": "List Toolbar",
   "description": "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
   "dependencies": [
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
+    "button",
     "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
     "https://registry.soldevelo.com/r/openlmis-search-input.json",
     "https://registry.soldevelo.com/r/openlmis-select-filter.json"

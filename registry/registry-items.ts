@@ -8,10 +8,10 @@ import type { RegistryItem } from "shadcn/schema"
 //   prefix does not match `meta.project`.
 // - Source lives at `registry/{kind-plural}/{project}/{item}/`, one folder per item.
 // - `files[].path` is relative to `registry/`.
+// - Templates include the shared example files they use, without installing another page.
 // - `categories` is shadcn metadata for CLI search; the site does not group by it.
 // - `meta.height` is the preview's first-paint height at desktop width. Measure it, do not guess.
 export const registryItems: RegistryItem[] = [
-  // -- Components -------------------------------------------------------------
   {
     name: "openlmis-form-actions",
     title: "Form Actions",
@@ -19,7 +19,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
     dependencies: [],
-    registryDependencies: ["button", "spinner", "input", "label"],
+    registryDependencies: ["button", "input", "label", "spinner"],
     files: [
       {
         path: "components/openlmis/form-actions/form-actions.tsx",
@@ -27,9 +27,11 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms"],
-    meta: { project: "openlmis", height: "170px" },
+    meta: {
+      project: "openlmis",
+      height: "170px",
+    },
   },
-
   {
     name: "openlmis-settings-list",
     title: "Settings List",
@@ -56,8 +58,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
-    dependencies: ["lucide-react", "react-day-picker@^10", "date-fns@^4"],
-    registryDependencies: ["button", "calendar", "popover", "label"],
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "calendar", "popover"],
     files: [
       {
         path: "components/openlmis/date-picker/date-picker.tsx",
@@ -80,8 +82,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "A live checklist of password rules with pure validation helpers.",
-    dependencies: ["lucide-react", "zod@^4"],
-    registryDependencies: ["input", "label"],
+    dependencies: ["lucide-react@^1", "zod@^4"],
+    registryDependencies: ["input", "label", "utils"],
     files: [
       {
         path: "components/openlmis/password-requirements/password-requirements.tsx",
@@ -103,32 +105,12 @@ export const registryItems: RegistryItem[] = [
     },
   },
   {
-    name: "openlmis-role-rights-popover",
-    title: "Role Rights Popover",
-    type: "registry:component",
-    description:
-      "A role name with a help button that lists the rights it grants.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["popover", "button"],
-    files: [
-      {
-        path: "components/openlmis/role-rights-popover/role-rights-popover.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["roles", "users"],
-    meta: {
-      project: "openlmis",
-      height: "160px",
-    },
-  },
-  {
     name: "openlmis-table-selection",
     title: "Table Selection",
     type: "registry:component",
     description:
       "A page selection checkbox column and a floating selected-count bar with Clear and actions.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
     registryDependencies: ["button", "checkbox"],
     files: [
       {
@@ -148,7 +130,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
-    dependencies: ["lucide-react"],
+    dependencies: ["@base-ui/react@^1", "lucide-react@^1"],
     registryDependencies: ["combobox", "input-group"],
     files: [
       {
@@ -169,7 +151,7 @@ export const registryItems: RegistryItem[] = [
     description:
       "Controlled page section tabs that wrap into a column or grid on narrow screens.",
     dependencies: [],
-    registryDependencies: ["tabs", "button"],
+    registryDependencies: ["tabs", "utils"],
     files: [
       {
         path: "components/openlmis/workspace-tabs/workspace-tabs.tsx",
@@ -188,7 +170,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["button", "select", "skeleton"],
     files: [
       {
@@ -197,7 +179,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["navigation", "data-table"],
-    meta: { project: "openlmis", height: "288px" },
+    meta: {
+      project: "openlmis",
+      height: "288px",
+    },
   },
   {
     name: "openlmis-search-input",
@@ -205,7 +190,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list updates once per search rather than on every keystroke.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["input-group"],
     files: [
       {
@@ -218,7 +203,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms", "data-table"],
-    meta: { project: "openlmis", height: "128px" },
+    meta: {
+      project: "openlmis",
+      height: "128px",
+    },
   },
   {
     name: "openlmis-select-filter",
@@ -226,7 +214,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       'Toolbar dropdown that narrows a list to one value, reading "Status: Active" once picked, with a button to clear it.',
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["button", "select"],
     files: [
       {
@@ -235,7 +223,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms", "data-table"],
-    meta: { project: "openlmis", height: "220px" },
+    meta: {
+      project: "openlmis",
+      height: "220px",
+    },
   },
   {
     name: "openlmis-column-view-options",
@@ -243,7 +234,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["button", "dropdown-menu"],
     files: [
       {
@@ -252,7 +243,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["data-table"],
-    meta: { project: "openlmis", height: "320px" },
+    meta: {
+      project: "openlmis",
+      height: "320px",
+    },
   },
   {
     name: "openlmis-status-badge",
@@ -260,7 +254,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["utils"],
     files: [
       {
@@ -269,7 +263,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["data-display"],
-    meta: { project: "openlmis", height: "84px" },
+    meta: {
+      project: "openlmis",
+      height: "84px",
+    },
   },
   {
     name: "openlmis-page-breadcrumbs",
@@ -286,7 +283,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["navigation"],
-    meta: { project: "openlmis", height: "84px" },
+    meta: {
+      project: "openlmis",
+      height: "84px",
+    },
   },
   {
     name: "openlmis-form-fields",
@@ -295,9 +295,9 @@ export const registryItems: RegistryItem[] = [
     description:
       "Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.",
     dependencies: [
-      "@base-ui/react",
+      "@base-ui/react@^1",
       "@tanstack/react-form@^1",
-      "lucide-react",
+      "lucide-react@^1",
       "zod@^4",
     ],
     registryDependencies: [
@@ -314,28 +314,35 @@ export const registryItems: RegistryItem[] = [
       "switch",
       "textarea",
       "tooltip",
+      "utils",
     ],
     files: [
       {
-        path: "components/openlmis/form-fields/form.tsx",
-        type: "registry:component",
+        path: "components/openlmis/form-fields/form-context.ts",
+        type: "registry:lib",
       },
       {
         path: "components/openlmis/form-fields/form-fields.tsx",
         type: "registry:component",
       },
       {
-        path: "components/openlmis/form-fields/form-context.ts",
-        type: "registry:lib",
-      },
-      {
         path: "components/openlmis/form-fields/form-messages.tsx",
         type: "registry:component",
       },
-      { path: "components/openlmis/form-fields/tags.ts", type: "registry:lib" },
+      {
+        path: "components/openlmis/form-fields/form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "components/openlmis/form-fields/tags.ts",
+        type: "registry:lib",
+      },
     ],
     categories: ["forms"],
-    meta: { project: "openlmis", height: "1677px" },
+    meta: {
+      project: "openlmis",
+      height: "1677px",
+    },
   },
   {
     name: "openlmis-form-dialog",
@@ -343,8 +350,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["alert", "button", "dialog", "spinner"],
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["alert", "button", "dialog", "field", "spinner"],
     files: [
       {
         path: "components/openlmis/form-dialog/form-dialog.tsx",
@@ -356,7 +363,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["forms", "overlay"],
-    meta: { project: "openlmis", height: "416px" },
+    meta: {
+      project: "openlmis",
+      height: "416px",
+    },
   },
   {
     name: "openlmis-dashboard-card",
@@ -364,7 +374,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["badge", "button", "card", "skeleton"],
     files: [
       {
@@ -373,7 +383,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["dashboard", "layout"],
-    meta: { project: "openlmis", height: "392px" },
+    meta: {
+      project: "openlmis",
+      height: "392px",
+    },
   },
   {
     name: "openlmis-stat-strip",
@@ -390,7 +403,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["dashboard", "data-display"],
-    meta: { project: "openlmis", height: "152px" },
+    meta: {
+      project: "openlmis",
+      height: "152px",
+    },
   },
   {
     name: "openlmis-discard-changes-dialog",
@@ -407,7 +423,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["overlay", "forms"],
-    meta: { project: "openlmis", height: "288px" },
+    meta: {
+      project: "openlmis",
+      height: "288px",
+    },
   },
   {
     name: "openlmis-callout",
@@ -415,8 +434,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:component",
     description:
       "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["utils"],
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "utils"],
     files: [
       {
         path: "components/openlmis/callout/callout.tsx",
@@ -424,105 +443,9 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["feedback"],
-    meta: { project: "openlmis", height: "308px" },
-  },
-  // -- Blocks -----------------------------------------------------------------
-  {
-    name: "openlmis-profile-notification-settings",
-    title: "Profile Notification Settings",
-    type: "registry:block",
-    description:
-      "Choose notification channels and email digest frequency, day, time and schedule with inline validation.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
-    registryDependencies: ["button", "table", "skeleton"],
-    files: [
-      {
-        path: "blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/profile-notification-settings/digest.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "profile", "data-table"],
     meta: {
       project: "openlmis",
-      height: "510px",
-    },
-  },
-  {
-    name: "openlmis-profile-basic-information",
-    title: "Profile Basic Information",
-    type: "registry:block",
-    description:
-      "Editable profile settings with email verification, notification consent, and read-only account details.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
-    registryDependencies: ["alert", "badge", "button", "skeleton", "spinner"],
-    files: [
-      {
-        path: "blocks/openlmis/profile-basic-information/profile-basic-information.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/profile-basic-information/profile.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "profile"],
-    meta: {
-      project: "openlmis",
-      height: "628px",
-    },
-  },
-  {
-    name: "openlmis-change-password-dialog",
-    title: "Change Password Dialog",
-    type: "registry:block",
-    description:
-      "Choose and confirm a new password with a shared reveal button and live password requirements.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/change-password-dialog/change-password-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "profile"],
-    meta: {
-      project: "openlmis",
-      height: "640px",
-    },
-  },
-  {
-    name: "openlmis-role-form-dialog",
-    title: "Role Form Dialog",
-    type: "registry:block",
-    description:
-      "Create or edit a role with type tabs, name, description and rights, and confirmation before changing a role in use.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4", "lucide-react@^1"],
-    registryDependencies: [
-      "alert-dialog",
-      "button",
-      "field",
-      "skeleton",
-      "tabs",
-    ],
-    files: [
-      {
-        path: "blocks/openlmis/role-form-dialog/role-form-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/role-form-dialog/role-form.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "administration"],
-    meta: {
-      project: "openlmis",
-      height: "768px",
+      height: "308px",
     },
   },
   {
@@ -531,7 +454,7 @@ export const registryItems: RegistryItem[] = [
     type: "registry:block",
     description:
       "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
     registryDependencies: ["button", "empty", "skeleton", "table"],
     files: [
       {
@@ -540,11 +463,14 @@ export const registryItems: RegistryItem[] = [
       },
       {
         path: "blocks/openlmis/data-table/responsive-columns.ts",
-        type: "registry:hook",
+        type: "registry:lib",
       },
     ],
     categories: ["data-table"],
-    meta: { project: "openlmis", height: "639px" },
+    meta: {
+      project: "openlmis",
+      height: "639px",
+    },
   },
   {
     name: "openlmis-workspace",
@@ -552,8 +478,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:block",
     description:
       "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.",
-    dependencies: [],
-    registryDependencies: [],
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "utils"],
     files: [
       {
         path: "blocks/openlmis/workspace/workspace.tsx",
@@ -561,7 +487,10 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["layout"],
-    meta: { project: "openlmis", height: "320px" },
+    meta: {
+      project: "openlmis",
+      height: "320px",
+    },
   },
   {
     name: "openlmis-list-toolbar",
@@ -569,8 +498,8 @@ export const registryItems: RegistryItem[] = [
     type: "registry:block",
     description:
       "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
-    dependencies: [],
-    registryDependencies: [],
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button"],
     files: [
       {
         path: "blocks/openlmis/list-toolbar/list-toolbar.tsx",
@@ -578,221 +507,81 @@ export const registryItems: RegistryItem[] = [
       },
     ],
     categories: ["layout", "data-table"],
-    meta: { project: "openlmis", height: "288px" },
+    meta: {
+      project: "openlmis",
+      height: "288px",
+    },
   },
-  {
-    name: "openlmis-user-form-dialog",
-    title: "User Form Dialog",
-    type: "registry:block",
-    description:
-      "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes. It takes the user, facilities and save state as props.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["badge", "button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/user-form-dialog/user-form-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/user-form-dialog/user-form.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "users"],
-    meta: { project: "openlmis", height: "768px" },
-  },
-  {
-    name: "openlmis-reset-password-dialog",
-    title: "Reset Password Dialog",
-    type: "registry:block",
-    description:
-      "Reset Password dialog that emails the user a reset link or sets a password by hand, falls back to a typed password when the user has no email, and opens as Set Password for a user just created.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["field"],
-    files: [
-      {
-        path: "blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/reset-password-dialog/password-form.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "users"],
-    meta: { project: "openlmis", height: "448px" },
-  },
-  {
-    name: "openlmis-requisitions-by-period",
-    title: "Requisitions By Period",
-    type: "registry:block",
-    description:
-      "Stacked bar chart of sent requisitions over the latest six months, in progress against approved, grouped by the month their period starts, with two-line month ticks, totals on each bar and a table for screen readers.",
-    dependencies: ["lucide-react", "recharts"],
-    registryDependencies: ["chart", "empty", "skeleton"],
-    files: [
-      {
-        path: "blocks/openlmis/requisitions-by-period/requisitions-by-period.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/requisitions-by-period/periods.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["dashboard", "charts", "requisitions"],
-    meta: { project: "openlmis", height: "414px" },
-  },
-  {
-    name: "openlmis-requisition-status-meter",
-    title: "Requisition Status Meter",
-    type: "registry:block",
-    description:
-      "Where sent requisitions stand, from submitted to released, as one segmented bar in the chart ramp with a legend of counts and shares.",
-    dependencies: ["recharts"],
-    registryDependencies: ["chart", "skeleton"],
-    files: [
-      {
-        path: "blocks/openlmis/requisition-status-meter/requisition-status-meter.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["dashboard", "charts", "requisitions"],
-    meta: { project: "openlmis", height: "310px" },
-  },
-  {
-    name: "openlmis-equipment-status",
-    title: "Equipment Status",
-    type: "registry:block",
-    description:
-      "Cold chain equipment by functional status, each with its own icon, count and meter in a success, warning or destructive tone, so the state reads without relying on colour.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["skeleton", "utils"],
-    files: [
-      {
-        path: "blocks/openlmis/equipment-status/equipment-status.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["dashboard", "cold-chain"],
-    meta: { project: "openlmis", height: "314px" },
-  },
-  {
-    name: "openlmis-approvals-table",
-    title: "Approvals Table",
-    type: "registry:block",
-    description:
-      "Requisitions waiting on the user, emergencies flagged: a table when the card has room and two lines per requisition on a narrow card, with loading, empty and error states.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["badge", "empty", "skeleton", "table"],
-    files: [
-      {
-        path: "blocks/openlmis/approvals-table/approvals-table.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["dashboard", "requisitions"],
-    meta: { project: "openlmis", height: "692px" },
-  },
-  {
-    name: "openlmis-role-assignments-table",
-    title: "Role Assignments Table",
-    type: "registry:block",
-    description:
-      "One role type's assignments for a user: search, sort and paging in the browser, program and supervisory node or facility columns that fold under the role when narrow, Unsaved and Ignored badges, names that show a placeholder until they load, and View Rights and Remove row actions.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
-    registryDependencies: ["button", "dropdown-menu", "skeleton"],
-    files: [
-      {
-        path: "blocks/openlmis/role-assignments-table/role-assignments-table.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/role-assignments-table/role-assignments.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["data-table", "users", "roles"],
-    meta: { project: "openlmis", height: "907px" },
-  },
-  {
-    name: "openlmis-add-role-dialog",
-    title: "Add Role Dialog",
-    type: "registry:block",
-    description:
-      "Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["field"],
-    files: [
-      {
-        path: "blocks/openlmis/add-role-dialog/add-role-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/add-role-dialog/role-form.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "roles"],
-    meta: { project: "openlmis", height: "528px" },
-  },
-  {
-    name: "openlmis-import-roles-dialog",
-    title: "Import Roles Dialog",
-    type: "registry:block",
-    description:
-      "Dialog that copies another user's roles into the ones being edited, with a searchable list of users and a preview of how many roles are new before anything is added.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["field"],
-    files: [
-      {
-        path: "blocks/openlmis/import-roles-dialog/import-roles-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "roles"],
-    meta: { project: "openlmis", height: "384px" },
-  },
-  {
-    name: "openlmis-role-rights-dialog",
-    title: "Role Rights Dialog",
-    type: "registry:block",
-    description:
-      "Dialog listing what a role lets its holder do, each right named in words, scrolling inside the viewport when the list is long.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["button", "dialog"],
-    files: [
-      {
-        path: "blocks/openlmis/role-rights-dialog/role-rights-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["overlay", "roles"],
-    meta: { project: "openlmis", height: "384px" },
-  },
-
-  // -- Templates --------------------------------------------------------------
   {
     name: "openlmis-profile-page",
     title: "Profile Page",
     type: "registry:page",
     description:
       "A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.",
-    dependencies: ["lucide-react@^1", "react-dom@^19"],
-    registryDependencies: ["badge", "button", "tabs"],
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "react-dom@^19",
+      "zod@^4",
+    ],
+    registryDependencies: [
+      "alert",
+      "badge",
+      "button",
+      "dropdown-menu",
+      "field",
+      "skeleton",
+      "spinner",
+      "table",
+      "tabs",
+      "utils",
+    ],
     files: [
       {
-        path: "templates/openlmis/profile-page/page.tsx",
-        type: "registry:page",
-        target: "app/profile-page/page.tsx",
+        path: "templates/openlmis/profile-page/components/change-password-dialog/change-password-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/mock-profile.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/profile-basic-information/profile-basic-information.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/profile-basic-information/profile.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/profile-notification-settings/digest.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/profile-page/components/profile-notification-settings/profile-notification-settings.tsx",
+        type: "registry:component",
       },
       {
         path: "templates/openlmis/profile-page/components/profile-page.tsx",
         type: "registry:component",
       },
       {
-        path: "templates/openlmis/profile-page/components/mock-profile.ts",
+        path: "templates/openlmis/profile-page/page.tsx",
+        type: "registry:page",
+        target: "app/profile-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
         type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
+        type: "registry:component",
       },
     ],
     categories: ["profile"],
@@ -807,29 +596,58 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Search and filter roles by type, create or edit them, and view their rights using local mock data.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
-    registryDependencies: ["button", "dropdown-menu"],
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: [
+      "alert-dialog",
+      "button",
+      "dialog",
+      "dropdown-menu",
+      "field",
+      "skeleton",
+      "tabs",
+    ],
     files: [
       {
-        path: "templates/openlmis/roles-page/page.tsx",
-        type: "registry:page",
-        target: "app/roles-page/page.tsx",
-      },
-      {
-        path: "templates/openlmis/roles-page/components/roles-page.tsx",
-        type: "registry:component",
+        path: "templates/openlmis/roles-page/components/mock-roles.ts",
+        type: "registry:lib",
       },
       {
         path: "templates/openlmis/roles-page/components/role-columns.tsx",
         type: "registry:component",
       },
       {
+        path: "templates/openlmis/roles-page/components/role-form-dialog/role-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/roles-page/components/role-form-dialog/role-form.ts",
+        type: "registry:lib",
+      },
+      {
         path: "templates/openlmis/roles-page/components/roles-list.ts",
         type: "registry:lib",
       },
       {
-        path: "templates/openlmis/roles-page/components/mock-roles.ts",
+        path: "templates/openlmis/roles-page/components/roles-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/roles-page/page.tsx",
+        type: "registry:page",
+        target: "app/roles-page/page.tsx",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
         type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+        type: "registry:component",
       },
     ],
     categories: ["administration"],
@@ -844,15 +662,14 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Complete users list screen on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, empty and no-matches states, and row actions that open Edit User and Reset Password, with Add User going on to Set Password.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react"],
-    registryDependencies: ["button", "dropdown-menu"],
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: ["badge", "button", "dropdown-menu", "field"],
     files: [
-      {
-        path: "templates/openlmis/list-page/page.tsx",
-        type: "registry:page",
-        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
-        target: "app/list-page/page.tsx",
-      },
       {
         path: "templates/openlmis/list-page/components/list-page.tsx",
         type: "registry:component",
@@ -862,6 +679,14 @@ export const registryItems: RegistryItem[] = [
         type: "registry:lib",
       },
       {
+        path: "templates/openlmis/list-page/components/reset-password-dialog/password-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/list-page/components/reset-password-dialog/reset-password-dialog.tsx",
+        type: "registry:component",
+      },
+      {
         path: "templates/openlmis/list-page/components/use-user-list.ts",
         type: "registry:hook",
       },
@@ -869,9 +694,25 @@ export const registryItems: RegistryItem[] = [
         path: "templates/openlmis/list-page/components/user-columns.tsx",
         type: "registry:component",
       },
+      {
+        path: "templates/openlmis/list-page/components/user-form-dialog/user-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/list-page/components/user-form-dialog/user-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/list-page/page.tsx",
+        type: "registry:page",
+        target: "app/list-page/page.tsx",
+      },
     ],
     categories: ["data-table", "users"],
-    meta: { project: "openlmis", height: "783px" },
+    meta: {
+      project: "openlmis",
+      height: "783px",
+    },
   },
   {
     name: "openlmis-home-dashboard",
@@ -879,14 +720,24 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "OpenLMIS home screen on mock data: a greeting with what is waiting, Add User, system notices, a stat strip, requisitions by period and by status, cold chain equipment and the approvals queue, each shown only when the user's rights allow.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["alert", "button", "empty"],
+    dependencies: ["lucide-react@^1", "recharts@^3"],
+    registryDependencies: [
+      "alert",
+      "badge",
+      "button",
+      "chart",
+      "empty",
+      "skeleton",
+      "table",
+    ],
     files: [
       {
-        path: "templates/openlmis/home-dashboard/page.tsx",
-        type: "registry:page",
-        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
-        target: "app/home-dashboard/page.tsx",
+        path: "templates/openlmis/home-dashboard/components/approvals-table/approvals-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/components/equipment-status/equipment-status.tsx",
+        type: "registry:component",
       },
       {
         path: "templates/openlmis/home-dashboard/components/home-dashboard.tsx",
@@ -896,9 +747,29 @@ export const registryItems: RegistryItem[] = [
         path: "templates/openlmis/home-dashboard/components/mock-dashboard.ts",
         type: "registry:lib",
       },
+      {
+        path: "templates/openlmis/home-dashboard/components/requisition-status-meter/requisition-status-meter.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/components/requisitions-by-period/periods.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/components/requisitions-by-period/requisitions-by-period.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/home-dashboard/page.tsx",
+        type: "registry:page",
+        target: "app/home-dashboard/page.tsx",
+      },
     ],
     categories: ["dashboard"],
-    meta: { project: "openlmis", height: "1024px" },
+    meta: {
+      project: "openlmis",
+      height: "1024px",
+    },
   },
   {
     name: "openlmis-user-roles-page",
@@ -906,17 +777,32 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.",
-    dependencies: ["lucide-react"],
-    registryDependencies: ["badge", "button", "tabs"],
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: [
+      "badge",
+      "button",
+      "dialog",
+      "dropdown-menu",
+      "field",
+      "skeleton",
+      "tabs",
+    ],
     files: [
       {
-        path: "templates/openlmis/user-roles-page/page.tsx",
-        type: "registry:page",
-        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
-        target: "app/user-roles-page/page.tsx",
+        path: "templates/openlmis/user-roles-page/components/add-role-dialog/add-role-dialog.tsx",
+        type: "registry:component",
       },
       {
-        path: "templates/openlmis/user-roles-page/components/user-roles-page.tsx",
+        path: "templates/openlmis/user-roles-page/components/add-role-dialog/role-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/import-roles-dialog/import-roles-dialog.tsx",
         type: "registry:component",
       },
       {
@@ -924,12 +810,40 @@ export const registryItems: RegistryItem[] = [
         type: "registry:lib",
       },
       {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+        type: "registry:component",
+      },
+      {
         path: "templates/openlmis/user-roles-page/components/use-role-draft.ts",
         type: "registry:hook",
       },
+      {
+        path: "templates/openlmis/user-roles-page/components/user-roles-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/user-roles-page/page.tsx",
+        type: "registry:page",
+        target: "app/user-roles-page/page.tsx",
+      },
     ],
     categories: ["users", "roles"],
-    meta: { project: "openlmis", height: "561px" },
+    meta: {
+      project: "openlmis",
+      height: "561px",
+    },
   },
   {
     name: "openlmis-not-found-page",
@@ -937,117 +851,23 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "A 404 page that shows the address that was asked for, with Go Back and Back Home, ready to render inside an app shell so the navigation stays.",
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react@^1"],
     registryDependencies: ["button", "empty"],
     files: [
-      {
-        path: "templates/openlmis/not-found-page/page.tsx",
-        type: "registry:page",
-        // registry:page requires an explicit target; the shadcn schema rejects the item without one.
-        target: "app/not-found-page/page.tsx",
-      },
       {
         path: "templates/openlmis/not-found-page/components/not-found-page.tsx",
         type: "registry:component",
       },
+      {
+        path: "templates/openlmis/not-found-page/page.tsx",
+        type: "registry:page",
+        target: "app/not-found-page/page.tsx",
+      },
     ],
     categories: ["errors", "navigation"],
-    meta: { project: "openlmis", height: "278px" },
-  },
-  {
-    name: "openlmis-add-assignment-dialog",
-    title: "Add Assignment Dialog",
-    type: "registry:block",
-    description:
-      "Add a valid source or destination with program, facility type, facility or organization, and geographic level choices.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/add-assignment-dialog/assignment-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "assignments"],
     meta: {
       project: "openlmis",
-      height: "640px",
-    },
-  },
-  {
-    name: "openlmis-delete-assignments-dialog",
-    title: "Delete Assignments Dialog",
-    type: "registry:block",
-    description:
-      "Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.",
-    dependencies: ["lucide-react@^1"],
-    registryDependencies: ["alert", "alert-dialog", "button", "spinner"],
-    files: [
-      {
-        path: "blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["overlay", "assignments"],
-    meta: {
-      project: "openlmis",
-      height: "384px",
-    },
-  },
-  {
-    name: "openlmis-feature-flags-settings",
-    title: "Feature Flags Settings",
-    type: "registry:block",
-    description:
-      "Searchable feature flag overrides with inherited values, deployment markers, per-flag Reset and dirty settings.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1"],
-    registryDependencies: ["alert", "button", "popover"],
-    files: [
-      {
-        path: "blocks/openlmis/feature-flags-settings/feature-flags.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "settings"],
-    meta: {
-      project: "openlmis",
-      height: "378px",
-    },
-  },
-  {
-    name: "openlmis-branding-settings",
-    title: "Branding Settings",
-    type: "registry:block",
-    description:
-      "App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
-    registryDependencies: ["alert", "button"],
-    files: [
-      {
-        path: "blocks/openlmis/branding-settings/branding.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/branding-settings/branding-preview.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/branding-settings/branding-settings.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "settings"],
-    meta: {
-      project: "openlmis",
-      height: "508px",
+      height: "278px",
     },
   },
   {
@@ -1056,9 +876,37 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
-    registryDependencies: ["button", "dropdown-menu"],
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: [
+      "alert",
+      "alert-dialog",
+      "button",
+      "dropdown-menu",
+      "field",
+      "spinner",
+    ],
     files: [
+      {
+        path: "templates/openlmis/valid-assignments-page/components/add-assignment-dialog/add-assignment-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/add-assignment-dialog/assignment-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/valid-assignments-page/components/delete-assignments-dialog/delete-assignments-dialog.tsx",
+        type: "registry:component",
+      },
       {
         path: "templates/openlmis/valid-assignments-page/components/mock-assignments.ts",
         type: "registry:lib",
@@ -1066,10 +914,6 @@ export const registryItems: RegistryItem[] = [
       {
         path: "templates/openlmis/valid-assignments-page/components/use-assignments.ts",
         type: "registry:hook",
-      },
-      {
-        path: "templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
-        type: "registry:component",
       },
       {
         path: "templates/openlmis/valid-assignments-page/components/valid-assignments-page.tsx",
@@ -1093,9 +937,35 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Mock branding and feature flag settings with sticky Save and Cancel, discard confirmation, defaults, conflict Reload and partial-save feedback.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1"],
-    registryDependencies: ["alert", "alert-dialog", "button", "spinner"],
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: [
+      "alert",
+      "alert-dialog",
+      "button",
+      "popover",
+      "spinner",
+    ],
     files: [
+      {
+        path: "templates/openlmis/system-settings-page/components/branding-settings/branding-preview.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/branding-settings/branding-settings.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/branding-settings/branding.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/feature-flags-settings/feature-flags-settings.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/system-settings-page/components/feature-flags-settings/feature-flags.ts",
+        type: "registry:lib",
+      },
       {
         path: "templates/openlmis/system-settings-page/components/mock-settings.ts",
         type: "registry:lib",
@@ -1145,221 +1015,96 @@ export const registryItems: RegistryItem[] = [
     },
   },
   {
-    name: "openlmis-product-general-form",
-    title: "Product General Form",
-    type: "registry:block",
+    name: "openlmis-product-editor-page",
+    title: "Product Editor Page",
+    type: "registry:page",
     description:
-      "Product information with code validation, pack sizes, dispensing units, dirty state and reusable footer actions.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/product-general-form/product-form-fields.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/product-general-form/product-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/product-general-form/product-general-form.tsx",
-        type: "registry:component",
-      },
+      "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "react-dom@^19",
+      "zod@^4",
     ],
-    categories: ["forms", "products"],
-    meta: {
-      project: "openlmis",
-      height: "723px",
-    },
-  },
-  {
-    name: "openlmis-product-form-dialog",
-    title: "Product Form Dialog",
-    type: "registry:block",
-    description:
-      "Add Product with required information, pack size and duplicate-code validation.",
-    dependencies: ["@tanstack/react-form@^1"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/product-form-dialog/product-form-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "products"],
-    meta: {
-      project: "openlmis",
-      height: "832px",
-    },
-  },
-  {
-    name: "openlmis-product-program-link-dialog",
-    title: "Product Program Link Dialog",
-    type: "registry:block",
-    description:
-      "Add, edit or view a product program link with category, doses, price and Full Supply.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/product-program-link-dialog/program-link-form.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "products"],
-    meta: {
-      project: "openlmis",
-      height: "832px",
-    },
-  },
-  {
-    name: "openlmis-product-program-links",
-    title: "Product Program Links",
-    type: "registry:block",
-    description:
-      "Responsive product program links with category, supply, price, inactive markers and row actions.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
     registryDependencies: [
       "alert",
       "alert-dialog",
       "badge",
       "button",
       "dropdown-menu",
+      "field",
+      "skeleton",
       "spinner",
+      "table",
     ],
     files: [
       {
-        path: "blocks/openlmis/product-program-links/product-program-links.tsx",
+        path: "templates/openlmis/product-editor-page/components/facility-approved-products/facility-approved-products.tsx",
         type: "registry:component",
       },
       {
-        path: "blocks/openlmis/product-program-links/remove-program-link-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["data-table", "products"],
-    meta: {
-      project: "openlmis",
-      height: "342px",
-    },
-  },
-  {
-    name: "openlmis-product-approval-dialog",
-    title: "Product Approval Dialog",
-    type: "registry:block",
-    description:
-      "Facility type and program approval with stock levels, duplicate checks and locked edit choices.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/product-approval-dialog/approval-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "products"],
-    meta: {
-      project: "openlmis",
-      height: "800px",
-    },
-  },
-  {
-    name: "openlmis-facility-approved-products",
-    title: "Facility Approved Products",
-    type: "registry:block",
-    description:
-      "Product approvals grouped by facility type, with responsive stock-level columns and row actions.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
-    registryDependencies: [
-      "alert",
-      "alert-dialog",
-      "button",
-      "dropdown-menu",
-      "spinner",
-    ],
-    files: [
-      {
-        path: "blocks/openlmis/facility-approved-products/facility-approved-products.tsx",
+        path: "templates/openlmis/product-editor-page/components/facility-approved-products/remove-approval-dialog.tsx",
         type: "registry:component",
       },
       {
-        path: "blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx",
+        path: "templates/openlmis/product-editor-page/components/kit-products-dialog/kit-products-dialog.tsx",
         type: "registry:component",
       },
-    ],
-    categories: ["data-table", "products"],
-    meta: {
-      project: "openlmis",
-      height: "438px",
-    },
-  },
-  {
-    name: "openlmis-kit-products-dialog",
-    title: "Kit Products Dialog",
-    type: "registry:block",
-    description:
-      "Search and pick products for a kit, excluding existing products and showing limited-search feedback.",
-    dependencies: [],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/kit-products-dialog/kit-products-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "products"],
-    meta: {
-      project: "openlmis",
-      height: "480px",
-    },
-  },
-  {
-    name: "openlmis-product-kit-unpack-list",
-    title: "Product Kit Unpack List",
-    type: "registry:block",
-    description:
-      "Editable kit quantities with Add Products, Remove, dirty state, validation and footer actions.",
-    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
-    registryDependencies: ["button", "dropdown-menu", "skeleton", "table"],
-    files: [
-      {
-        path: "blocks/openlmis/product-kit-unpack-list/kit-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "data-table", "products"],
-    meta: {
-      project: "openlmis",
-      height: "418px",
-    },
-  },
-  {
-    name: "openlmis-product-editor-page",
-    title: "Product Editor Page",
-    type: "registry:page",
-    description:
-      "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
-    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
-    registryDependencies: ["button"],
-    files: [
       {
         path: "templates/openlmis/product-editor-page/components/mock-product.ts",
         type: "registry:lib",
       },
       {
+        path: "templates/openlmis/product-editor-page/components/product-approval-dialog/approval-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-approval-dialog/product-approval-dialog.tsx",
+        type: "registry:component",
+      },
+      {
         path: "templates/openlmis/product-editor-page/components/product-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-form-dialog/product-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-general-form/product-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-general-form/product-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-general-form/product-general-form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-kit-unpack-list/kit-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-kit-unpack-list/product-kit-unpack-list.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-program-link-dialog/product-program-link-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-program-link-dialog/program-link-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-program-links/product-program-links.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/product-editor-page/components/product-program-links/remove-program-link-dialog.tsx",
         type: "registry:component",
       },
       {
@@ -1375,204 +1120,55 @@ export const registryItems: RegistryItem[] = [
     },
   },
   {
-    name: "openlmis-facility-general-form",
-    title: "Facility General Form",
-    type: "registry:block",
-    description:
-      "Facility information, geographic zone, operational date, status switches, duplicate codes and externally managed fields.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/facility-general-form/facility-form-fields.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/facility-general-form/facility-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/facility-general-form/facility-general-form.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "facilities"],
-    meta: {
-      project: "openlmis",
-      height: "583px",
-    },
-  },
-  {
-    name: "openlmis-facility-program-dialog",
-    title: "Facility Program Dialog",
-    type: "registry:block",
-    description: "Add a supported program and start date to a facility.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/facility-program-dialog/facility-program.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "facilities"],
-    meta: {
-      project: "openlmis",
-      height: "512px",
-    },
-  },
-  {
-    name: "openlmis-facility-programs",
-    title: "Facility Programs",
-    type: "registry:block",
-    description:
-      "Supported programs with start dates, Active and Locally Fulfilled switches and unsaved-row removal.",
-    dependencies: ["lucide-react@^1"],
-    registryDependencies: [
-      "button",
-      "empty",
-      "field",
-      "skeleton",
-      "switch",
-      "table",
-    ],
-    files: [
-      {
-        path: "blocks/openlmis/facility-programs/facility-programs.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["data-table", "facilities"],
-    meta: {
-      project: "openlmis",
-      height: "345px",
-    },
-  },
-  {
-    name: "openlmis-facility-form-dialog",
-    title: "Facility Form Dialog",
-    type: "registry:block",
-    description: "Add Facility with shared information fields and validation.",
-    dependencies: ["@tanstack/react-form@^1"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/facility-form-dialog/facility-form-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "facilities"],
-    meta: {
-      project: "openlmis",
-      height: "896px",
-    },
-  },
-  {
-    name: "openlmis-reason-general-form",
-    title: "Reason General Form",
-    type: "registry:block",
-    description:
-      "Stock reason information with tags, category, type, free text and fixed saved choices.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/reason-general-form/reason-form-fields.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/reason-general-form/reason-form.ts",
-        type: "registry:lib",
-      },
-      {
-        path: "blocks/openlmis/reason-general-form/reason-general-form.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "stock"],
-    meta: {
-      project: "openlmis",
-      height: "426px",
-    },
-  },
-  {
-    name: "openlmis-reason-assignment-dialog",
-    title: "Reason Assignment Dialog",
-    type: "registry:block",
-    description:
-      "Add a program and facility type pair for a reason, with Show and duplicate validation.",
-    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx",
-        type: "registry:component",
-      },
-      {
-        path: "blocks/openlmis/reason-assignment-dialog/reason-assignment.ts",
-        type: "registry:lib",
-      },
-    ],
-    categories: ["forms", "overlay", "stock"],
-    meta: {
-      project: "openlmis",
-      height: "512px",
-    },
-  },
-  {
-    name: "openlmis-reason-assignments",
-    title: "Reason Assignments",
-    type: "registry:block",
-    description:
-      "Program and facility type assignments for a reason, with Show switches and row removal.",
-    dependencies: ["lucide-react@^1"],
-    registryDependencies: ["button", "empty", "skeleton", "switch", "table"],
-    files: [
-      {
-        path: "blocks/openlmis/reason-assignments/reason-assignments.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["data-table", "stock"],
-    meta: {
-      project: "openlmis",
-      height: "333px",
-    },
-  },
-  {
-    name: "openlmis-reason-form-dialog",
-    title: "Reason Form Dialog",
-    type: "registry:block",
-    description: "Add Reason with shared stock-reason fields and validation.",
-    dependencies: ["@tanstack/react-form@^1"],
-    registryDependencies: ["button", "field"],
-    files: [
-      {
-        path: "blocks/openlmis/reason-form-dialog/reason-form-dialog.tsx",
-        type: "registry:component",
-      },
-    ],
-    categories: ["forms", "overlay", "stock"],
-    meta: {
-      project: "openlmis",
-      height: "704px",
-    },
-  },
-  {
     name: "openlmis-facility-editor-page",
     title: "Facility Editor Page",
     type: "registry:page",
     description:
       "Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.",
-    dependencies: ["lucide-react@^1"],
-    registryDependencies: ["alert", "badge", "button", "spinner", "tabs"],
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: [
+      "alert",
+      "badge",
+      "button",
+      "empty",
+      "field",
+      "skeleton",
+      "spinner",
+      "switch",
+      "table",
+      "tabs",
+    ],
     files: [
       {
         path: "templates/openlmis/facility-editor-page/components/facility-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-form-dialog/facility-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-general-form/facility-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-general-form/facility-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-general-form/facility-general-form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-program-dialog/facility-program-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-program-dialog/facility-program.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/facility-editor-page/components/facility-programs/facility-programs.tsx",
         type: "registry:component",
       },
       {
@@ -1597,15 +1193,52 @@ export const registryItems: RegistryItem[] = [
     type: "registry:page",
     description:
       "Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.",
-    dependencies: ["lucide-react@^1"],
-    registryDependencies: ["alert", "button", "field", "spinner"],
+    dependencies: ["@tanstack/react-form@^1", "lucide-react@^1", "zod@^4"],
+    registryDependencies: [
+      "alert",
+      "button",
+      "empty",
+      "field",
+      "skeleton",
+      "spinner",
+      "switch",
+      "table",
+    ],
     files: [
       {
         path: "templates/openlmis/reason-editor-page/components/mock-reason.ts",
         type: "registry:lib",
       },
       {
+        path: "templates/openlmis/reason-editor-page/components/reason-assignment-dialog/reason-assignment-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-assignment-dialog/reason-assignment.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-assignments/reason-assignments.tsx",
+        type: "registry:component",
+      },
+      {
         path: "templates/openlmis/reason-editor-page/components/reason-editor-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-form-dialog/reason-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-general-form/reason-form-fields.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-general-form/reason-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/reason-editor-page/components/reason-general-form/reason-general-form.tsx",
         type: "registry:component",
       },
       {
@@ -1619,5 +1252,433 @@ export const registryItems: RegistryItem[] = [
       project: "openlmis",
       height: "813px",
     },
+  },
+  {
+    name: "openlmis-auth-card",
+    title: "Auth Card",
+    type: "registry:component",
+    description:
+      "Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.",
+    dependencies: [],
+    registryDependencies: ["button", "card", "field", "spinner"],
+    files: [
+      {
+        path: "components/openlmis/auth-card/auth-card.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["auth", "forms"],
+    meta: {
+      project: "openlmis",
+      height: "329px",
+    },
+  },
+  {
+    name: "openlmis-no-access",
+    title: "No Access",
+    type: "registry:component",
+    description:
+      "No-access empty state with a heading-level choice and optional Back Home link.",
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "empty"],
+    files: [
+      {
+        path: "components/openlmis/no-access/no-access.tsx",
+        type: "registry:component",
+      },
+    ],
+    categories: ["feedback"],
+    meta: {
+      project: "openlmis",
+      height: "477px",
+    },
+  },
+  {
+    name: "openlmis-sign-in-page",
+    title: "Sign In Page",
+    type: "registry:page",
+    description:
+      "Mock sign-in page with credentials, refused feedback and a signed-in result.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["button", "card", "field"],
+    files: [
+      {
+        path: "templates/openlmis/sign-in-page/components/session-expired-dialog/session-expired-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/sign-in-page/components/sign-in-form/sign-in-form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/sign-in-page/components/sign-in-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/sign-in-page/page.tsx",
+        type: "registry:page",
+        target: "app/sign-in-page/page.tsx",
+      },
+    ],
+    categories: ["auth"],
+    meta: {
+      project: "openlmis",
+      height: "484px",
+    },
+  },
+  {
+    name: "openlmis-forgot-password-page",
+    title: "Forgot Password Page",
+    type: "registry:page",
+    description: "Mock email reset request page with a neutral confirmation.",
+    dependencies: ["@tanstack/react-form@^1", "zod@^4"],
+    registryDependencies: ["card"],
+    files: [
+      {
+        path: "templates/openlmis/forgot-password-page/components/forgot-password-form/forgot-password-form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/forgot-password-page/components/forgot-password-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/forgot-password-page/page.tsx",
+        type: "registry:page",
+        target: "app/forgot-password-page/page.tsx",
+      },
+    ],
+    categories: ["auth"],
+    meta: {
+      project: "openlmis",
+      height: "468px",
+    },
+  },
+  {
+    name: "openlmis-reset-password-page",
+    title: "Reset Password Page",
+    type: "registry:page",
+    description:
+      "Mock password reset page with validation and link-status presentation.",
+    dependencies: ["@tanstack/react-form@^1"],
+    registryDependencies: ["card"],
+    files: [
+      {
+        path: "templates/openlmis/reset-password-page/components/reset-password-form/reset-password-form.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reset-password-page/components/reset-password-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/reset-password-page/page.tsx",
+        type: "registry:page",
+        target: "app/reset-password-page/page.tsx",
+      },
+    ],
+    categories: ["auth"],
+    meta: {
+      project: "openlmis",
+      height: "603px",
+    },
+  },
+  {
+    name: "openlmis-no-access-page",
+    title: "No Access Page",
+    type: "registry:page",
+    description:
+      "Workspace page for a permission-denied empty state with Back Home.",
+    dependencies: [],
+    registryDependencies: [],
+    files: [
+      {
+        path: "templates/openlmis/no-access-page/components/no-access-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/no-access-page/page.tsx",
+        type: "registry:page",
+        target: "app/no-access-page/page.tsx",
+      },
+    ],
+    categories: ["feedback"],
+    meta: {
+      project: "openlmis",
+      height: "266px",
+    },
+  },
+  {
+    name: "openlmis-lots-page",
+    title: "Lots Page",
+    type: "registry:page",
+    description:
+      "Mock lot list with product/expiry filters, paging and editable lot dialogs.",
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: ["button", "dropdown-menu", "field"],
+    files: [
+      {
+        path: "templates/openlmis/lots-page/components/lot-form-dialog/lot-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/lot-form-dialog/lot-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/lots-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/lots-table/lots-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/lots-table/lots-toolbar.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/lots-table/lots.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/lots-page/components/mock-lots.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/lots-page/page.tsx",
+        type: "registry:page",
+        target: "app/lots-page/page.tsx",
+      },
+    ],
+    categories: ["administration"],
+    meta: {
+      project: "openlmis",
+      height: "747px",
+    },
+  },
+  {
+    name: "openlmis-service-accounts-page",
+    title: "Service Accounts Page",
+    type: "registry:page",
+    description:
+      "Mock service-key list with sorting, paging, add/delete dialogs and copy-state presentation.",
+    dependencies: ["@tanstack/react-table@^9", "lucide-react@^1"],
+    registryDependencies: [
+      "alert",
+      "alert-dialog",
+      "button",
+      "dropdown-menu",
+      "spinner",
+    ],
+    files: [
+      {
+        path: "templates/openlmis/service-accounts-page/components/mock-service-accounts.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/service-accounts-page/components/service-account-form-dialog/service-account-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/service-accounts-page/components/service-account.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/service-accounts-page/components/service-accounts-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/service-accounts-page/components/service-accounts-table/service-accounts-table.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/service-accounts-page/page.tsx",
+        type: "registry:page",
+        target: "app/service-accounts-page/page.tsx",
+      },
+    ],
+    categories: ["administration"],
+    meta: {
+      project: "openlmis",
+      height: "459px",
+    },
+  },
+  {
+    name: "openlmis-copyable-value",
+    title: "Copyable Value",
+    type: "registry:component",
+    description:
+      "A value display and controlled copy button, with caller-owned copy behavior and feedback.",
+    categories: ["feedback"],
+    meta: {
+      project: "openlmis",
+      height: "146px",
+    },
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "utils"],
+    files: [
+      {
+        path: "components/openlmis/copyable-value/copyable-value.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "openlmis-label-popover",
+    title: "Label Popover",
+    type: "registry:component",
+    description:
+      "A truncated label with an accessible details button and a composable popover panel.",
+    categories: ["feedback"],
+    meta: {
+      project: "openlmis",
+      height: "124px",
+    },
+    dependencies: ["lucide-react@^1"],
+    registryDependencies: ["button", "popover"],
+    files: [
+      {
+        path: "components/openlmis/label-popover/label-popover.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "openlmis-segmented-meter",
+    title: "Segmented Meter",
+    type: "registry:component",
+    description:
+      "A stacked meter with a labeled count and percentage legend, locale formatting and right-to-left support.",
+    categories: ["charts"],
+    meta: {
+      project: "openlmis",
+      height: "330px",
+    },
+    dependencies: ["recharts@^3"],
+    registryDependencies: ["chart", "utils"],
+    files: [
+      {
+        path: "components/openlmis/segmented-meter/segmented-meter.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "openlmis-status-meter-list",
+    title: "Status Meter List",
+    type: "registry:component",
+    description:
+      "Composable labeled meters with icons, counts and semantic tones.",
+    categories: ["charts"],
+    meta: {
+      project: "openlmis",
+      height: "220px",
+    },
+    dependencies: ["@base-ui/react@^1", "lucide-react@^1"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/openlmis/status-meter-list/status-meter-list.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "openlmis-programs-page",
+    title: "Programs Page",
+    type: "registry:page",
+    description:
+      "Mock program administration with responsive columns, sorting, paging and create/edit forms.",
+    categories: ["administration"],
+    meta: {
+      project: "openlmis",
+      height: "507px",
+    },
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: ["button", "dropdown-menu", "field"],
+    files: [
+      {
+        path: "templates/openlmis/programs-page/components/mock-programs.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/programs-page/components/program-columns.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/programs-page/components/program-form-dialog/program-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/programs-page/components/program-form-dialog/program-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/programs-page/components/programs-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/programs-page/page.tsx",
+        type: "registry:page",
+        target: "app/programs-page/page.tsx",
+      },
+    ],
+  },
+  {
+    name: "openlmis-facility-types-page",
+    title: "Facility Types Page",
+    type: "registry:page",
+    description:
+      "Mock facility type administration with responsive columns, sorting, paging and create/edit forms.",
+    categories: ["administration"],
+    meta: {
+      project: "openlmis",
+      height: "411px",
+    },
+    dependencies: [
+      "@tanstack/react-form@^1",
+      "@tanstack/react-table@^9",
+      "lucide-react@^1",
+      "zod@^4",
+    ],
+    registryDependencies: ["button", "dropdown-menu", "field"],
+    files: [
+      {
+        path: "templates/openlmis/facility-types-page/components/facility-type-columns.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-types-page/components/facility-type-form-dialog/facility-type-form-dialog.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-types-page/components/facility-type-form-dialog/facility-type-form.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/facility-types-page/components/facility-types-page.tsx",
+        type: "registry:component",
+      },
+      {
+        path: "templates/openlmis/facility-types-page/components/mock-facility-types.ts",
+        type: "registry:lib",
+      },
+      {
+        path: "templates/openlmis/facility-types-page/page.tsx",
+        type: "registry:page",
+        target: "app/facility-types-page/page.tsx",
+      },
+    ],
   },
 ]

@@ -4,8 +4,8 @@
   "title": "Combobox Filter",
   "description": "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
   "dependencies": [
-    "lucide-react",
-    "@base-ui/react"
+    "@base-ui/react@^1",
+    "lucide-react@^1"
   ],
   "registryDependencies": [
     "combobox",

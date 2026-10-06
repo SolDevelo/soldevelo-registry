@@ -6,8 +6,8 @@ import { useCallback, useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AddRoleDialog } from "@/registry/blocks/openlmis/add-role-dialog/add-role-dialog"
-import { ImportRolesDialog } from "@/registry/blocks/openlmis/import-roles-dialog/import-roles-dialog"
+import { AddRoleDialog } from "./add-role-dialog/add-role-dialog"
+import { ImportRolesDialog } from "./import-roles-dialog/import-roles-dialog"
 import {
   byId,
   countByType,
@@ -21,11 +21,11 @@ import {
   type SupervisoryNode,
   toRoleRows,
   assignmentKey,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "./role-assignments-table/role-assignments"
 import {
   type LookupStatus,
   RoleAssignmentsTable,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments-table"
+} from "./role-assignments-table/role-assignments-table"
 import {
   Workspace,
   WorkspaceActions,

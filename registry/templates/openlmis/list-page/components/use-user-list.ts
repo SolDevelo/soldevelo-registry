@@ -2,10 +2,7 @@
 
 import { useMemo, useState } from "react"
 
-import type {
-  UserDetails,
-  UserFormValues,
-} from "@/registry/blocks/openlmis/user-form-dialog/user-form"
+import type { UserDetails, UserFormValues } from "./user-form-dialog/user-form"
 
 import {
   MOCK_USERS,

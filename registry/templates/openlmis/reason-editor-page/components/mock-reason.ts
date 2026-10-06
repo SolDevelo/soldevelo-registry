@@ -1,8 +1,8 @@
 import type {
   AssignmentOption,
   ReasonAssignment,
-} from "@/registry/blocks/openlmis/reason-assignment-dialog/reason-assignment"
-import type { ReasonValues } from "@/registry/blocks/openlmis/reason-general-form/reason-form"
+} from "./reason-assignment-dialog/reason-assignment"
+import type { ReasonValues } from "./reason-general-form/reason-form"
 
 export type MockReason = {
   values: ReasonValues

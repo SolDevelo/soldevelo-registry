@@ -1,11 +1,11 @@
-import type { KitProduct } from "@/registry/blocks/openlmis/kit-products-dialog/kit-products-dialog"
-import type { Approval } from "@/registry/blocks/openlmis/product-approval-dialog/approval-form"
-import type { Product } from "@/registry/blocks/openlmis/product-general-form/product-form"
-import type { KitChild } from "@/registry/blocks/openlmis/product-kit-unpack-list/kit-form"
+import type { KitProduct } from "./kit-products-dialog/kit-products-dialog"
+import type { Approval } from "./product-approval-dialog/approval-form"
+import type { Product } from "./product-general-form/product-form"
+import type { KitChild } from "./product-kit-unpack-list/kit-form"
 import type {
   NamedOption,
   ProgramLink,
-} from "@/registry/blocks/openlmis/product-program-link-dialog/program-link-form"
+} from "./product-program-link-dialog/program-link-form"
 
 export const MOCK_PRODUCT: Product = {
   id: "kit-delivery",

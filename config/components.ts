@@ -14,9 +14,9 @@ export const components: RegistryEntry[] = [
     "description": "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
     "registryDependencies": [
       "button",
-      "spinner",
       "input",
-      "label"
+      "label",
+      "spinner"
     ],
     "dependencies": [],
     "files": [
@@ -74,13 +74,10 @@ export const components: RegistryEntry[] = [
     "registryDependencies": [
       "button",
       "calendar",
-      "popover",
-      "label"
+      "popover"
     ],
     "dependencies": [
-      "lucide-react",
-      "react-day-picker@^10",
-      "date-fns@^4"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -115,10 +112,11 @@ export const components: RegistryEntry[] = [
     "description": "A live checklist of password rules with pure validation helpers.",
     "registryDependencies": [
       "input",
-      "label"
+      "label",
+      "utils"
     ],
     "dependencies": [
-      "lucide-react",
+      "lucide-react@^1",
       "zod@^4"
     ],
     "files": [
@@ -154,37 +152,6 @@ export const components: RegistryEntry[] = [
   },
   {
     "kind": "component",
-    "name": "openlmis-role-rights-popover",
-    "project": "openlmis",
-    "title": "Role Rights Popover",
-    "height": "160px",
-    "description": "A role name with a help button that lists the rights it grants.",
-    "registryDependencies": [
-      "popover",
-      "button"
-    ],
-    "dependencies": [
-      "lucide-react"
-    ],
-    "files": [
-      {
-        "type": "page",
-        "name": "page.tsx",
-        "code": "import { RoleRightsPopover } from \"@/components/openlmis/role-rights-popover\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full flex-col items-start gap-3 p-8 text-sm\">\n      <RoleRightsPopover\n        name=\"Storeroom Manager\"\n        rights={[\n          \"Requisition Create\",\n          \"Requisition Delete\",\n          \"Requisition View\",\n          \"Stock Cards View\",\n        ]}\n      />\n      <RoleRightsPopover\n        description=\"Fulfills orders and records proofs of delivery.\"\n        name=\"Warehouse Manager\"\n        rights={[\"Orders Edit\", \"Orders View\", \"PODs Manage\"]}\n      />\n      <RoleRightsPopover name=\"Guest\" rights={[]} />\n    </div>\n  )\n}",
-        "lang": "tsx",
-        "target": null
-      },
-      {
-        "type": "component",
-        "name": "role-rights-popover.tsx",
-        "code": "\"use client\"\n\nimport { CheckIcon, CircleHelpIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTrigger,\n} from \"@/components/ui/popover\"\n\ntype RoleRightsPopoverProps = {\n  /** The role's name, shown beside the button and as the popover's title. */\n  name: string\n  /** The rights the role grants, already labelled; they are sorted for you. */\n  rights: readonly string[]\n  /** Shown instead of the rights count when the role has one. */\n  description?: string | null\n}\n\n/** The role's name with a button beside it that shows what the role lets its holder do. */\nexport function RoleRightsPopover({\n  name,\n  rights,\n  description,\n}: RoleRightsPopoverProps) {\n  return (\n    <span className=\"flex min-w-0 items-center gap-1\">\n      <span className=\"truncate\">{name}</span>\n      <Popover>\n        <PopoverTrigger\n          render={\n            <Button\n              aria-label={`${name} Rights`}\n              size=\"icon-xs\"\n              variant=\"ghost\"\n            />\n          }\n        >\n          <CircleHelpIcon />\n        </PopoverTrigger>\n        <PopoverContent align=\"start\">\n          <RoleRights description={description} name={name} rights={rights} />\n        </PopoverContent>\n      </Popover>\n    </span>\n  )\n}\n\n/** Rendered only while the popover is open, so a table of roles does no work for closed ones. */\nfunction RoleRights({ name, rights, description }: RoleRightsPopoverProps) {\n  // oxlint-disable-next-line unicorn/no-array-sort -- sorts a fresh copy; toSorted needs the ES2023 lib\n  const sorted = [...rights].sort()\n\n  return (\n    <>\n      <PopoverHeader>\n        <PopoverTitle>{name} Rights</PopoverTitle>\n        <PopoverDescription>\n          {description || rightsCount(sorted.length)}\n        </PopoverDescription>\n      </PopoverHeader>\n      {sorted.length > 0 && (\n        <ul className=\"flex max-h-64 flex-col gap-1.5 overflow-y-auto\">\n          {sorted.map((right) => (\n            <li className=\"flex items-center gap-2\" key={right}>\n              <CheckIcon\n                aria-hidden=\"true\"\n                className=\"size-4 shrink-0 text-success\"\n              />\n              {right}\n            </li>\n          ))}\n        </ul>\n      )}\n    </>\n  )\n}\n\nfunction rightsCount(count: number) {\n  if (count === 0) return \"This role grants no rights.\"\n  return count === 1\n    ? \"The 1 right this role grants.\"\n    : `The ${count} rights this role grants.`\n}",
-        "lang": "tsx",
-        "target": "components/openlmis/role-rights-popover.tsx"
-      }
-    ]
-  },
-  {
-    "kind": "component",
     "name": "openlmis-table-selection",
     "project": "openlmis",
     "title": "Table Selection",
@@ -197,7 +164,7 @@ export const components: RegistryEntry[] = [
     ],
     "dependencies": [
       "@tanstack/react-table@^9",
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -228,7 +195,8 @@ export const components: RegistryEntry[] = [
       "input-group"
     ],
     "dependencies": [
-      "lucide-react"
+      "@base-ui/react@^1",
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -256,7 +224,7 @@ export const components: RegistryEntry[] = [
     "description": "Controlled page section tabs that wrap into a column or grid on narrow screens.",
     "registryDependencies": [
       "tabs",
-      "button"
+      "utils"
     ],
     "dependencies": [],
     "files": [
@@ -289,7 +257,7 @@ export const components: RegistryEntry[] = [
       "skeleton"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -319,7 +287,7 @@ export const components: RegistryEntry[] = [
       "input-group"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -357,7 +325,7 @@ export const components: RegistryEntry[] = [
       "select"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -388,7 +356,7 @@ export const components: RegistryEntry[] = [
       "dropdown-menu"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -418,7 +386,7 @@ export const components: RegistryEntry[] = [
       "utils"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -486,13 +454,14 @@ export const components: RegistryEntry[] = [
       "switch",
       "textarea",
       "tooltip",
+      "utils",
       "https://registry.soldevelo.com/r/openlmis-date-picker.json",
       "https://registry.soldevelo.com/r/openlmis-settings-list.json"
     ],
     "dependencies": [
-      "@base-ui/react",
+      "@base-ui/react@^1",
       "@tanstack/react-form@^1",
-      "lucide-react",
+      "lucide-react@^1",
       "zod@^4"
     ],
     "files": [
@@ -504,11 +473,11 @@ export const components: RegistryEntry[] = [
         "target": null
       },
       {
-        "type": "component",
-        "name": "form.tsx",
-        "code": "import { createFormHook } from \"@tanstack/react-form\"\n\nimport { fieldContext, formContext } from \"@/components/openlmis/form-fields/form-context\"\nimport {\n  ComboboxField,\n  DateField,\n  DecimalField,\n  ImageField,\n  MultiComboboxField,\n  NumberField,\n  PasswordField,\n  RadioGroupField,\n  SelectField,\n  SwitchField,\n  TagsField,\n  TextareaField,\n  TextField,\n} from \"@/components/openlmis/form-fields/form-fields\"\n\n/** `useForm` with the field components attached, used as `<form.AppField>{(field) => <field.TextField />}`. */\nexport const { useAppForm, withForm } = createFormHook({\n  fieldContext,\n  formContext,\n  fieldComponents: {\n    TextField,\n    NumberField,\n    DecimalField,\n    TextareaField,\n    PasswordField,\n    SwitchField,\n    RadioGroupField,\n    ComboboxField,\n    MultiComboboxField,\n    TagsField,\n    SelectField,\n    ImageField,\n    DateField,\n  },\n  formComponents: {},\n})",
-        "lang": "tsx",
-        "target": "components/openlmis/form-fields/form.tsx"
+        "type": "lib",
+        "name": "form-context.ts",
+        "code": "import { createFormHookContexts } from \"@tanstack/react-form\"\n\nexport const { fieldContext, formContext, useFieldContext } =\n  createFormHookContexts()",
+        "lang": "ts",
+        "target": "components/openlmis/form-fields/form-context.ts"
       },
       {
         "type": "component",
@@ -518,18 +487,18 @@ export const components: RegistryEntry[] = [
         "target": "components/openlmis/form-fields/form-fields.tsx"
       },
       {
-        "type": "lib",
-        "name": "form-context.ts",
-        "code": "import { createFormHookContexts } from \"@tanstack/react-form\"\n\nexport const { fieldContext, formContext, useFieldContext } =\n  createFormHookContexts()",
-        "lang": "ts",
-        "target": "components/openlmis/form-fields/form-context.ts"
-      },
-      {
         "type": "component",
         "name": "form-messages.tsx",
         "code": "\"use client\"\n\nimport { createContext, type ReactNode, use, useMemo } from \"react\"\n\ntype FormMessages = {\n  formatError: (message: string) => string\n  aboutLabel: (label: string) => string\n  requiredLabel: string\n  dateLanguage: string\n}\n\nconst defaultAboutLabel = (label: string) => `About ${label}`\n\nconst FormMessagesContext = createContext<FormMessages>({\n  formatError: (message) => message,\n  aboutLabel: defaultAboutLabel,\n  requiredLabel: \"Required\",\n  dateLanguage: \"en-US\",\n})\n\ntype FormMessagesProviderProps = {\n  /** Turns a validation message into display text, e.g. by translating a message key. */\n  formatError: (message: string) => string\n  /** Names the info button that shows a field's description. */\n  aboutLabel?: (label: string) => string\n  /** Read out with a field that must be filled in but cannot say so itself, such as a date. */\n  requiredLabel?: string\n  /** The language dates are shown in. */\n  dateLanguage?: string\n  children: ReactNode\n}\n\n/** Optional: without it, messages show exactly as written, in English. */\nexport function FormMessagesProvider({\n  formatError,\n  aboutLabel = defaultAboutLabel,\n  requiredLabel = \"Required\",\n  dateLanguage = \"en-US\",\n  children,\n}: FormMessagesProviderProps) {\n  const messages = useMemo(\n    () => ({ formatError, aboutLabel, requiredLabel, dateLanguage }),\n    [formatError, aboutLabel, requiredLabel, dateLanguage]\n  )\n  return <FormMessagesContext value={messages}>{children}</FormMessagesContext>\n}\n\nexport function useFormatError() {\n  return use(FormMessagesContext).formatError\n}\n\nexport function useAboutLabel() {\n  return use(FormMessagesContext).aboutLabel\n}\n\nexport function useDateMessages() {\n  const { requiredLabel, dateLanguage } = use(FormMessagesContext)\n  return { requiredLabel, dateLanguage }\n}",
         "lang": "tsx",
         "target": "components/openlmis/form-fields/form-messages.tsx"
+      },
+      {
+        "type": "component",
+        "name": "form.tsx",
+        "code": "import { createFormHook } from \"@tanstack/react-form\"\n\nimport { fieldContext, formContext } from \"@/components/openlmis/form-fields/form-context\"\nimport {\n  ComboboxField,\n  DateField,\n  DecimalField,\n  ImageField,\n  MultiComboboxField,\n  NumberField,\n  PasswordField,\n  RadioGroupField,\n  SelectField,\n  SwitchField,\n  TagsField,\n  TextareaField,\n  TextField,\n} from \"@/components/openlmis/form-fields/form-fields\"\n\n/** `useForm` with the field components attached, used as `<form.AppField>{(field) => <field.TextField />}`. */\nexport const { useAppForm, withForm } = createFormHook({\n  fieldContext,\n  formContext,\n  fieldComponents: {\n    TextField,\n    NumberField,\n    DecimalField,\n    TextareaField,\n    PasswordField,\n    SwitchField,\n    RadioGroupField,\n    ComboboxField,\n    MultiComboboxField,\n    TagsField,\n    SelectField,\n    ImageField,\n    DateField,\n  },\n  formComponents: {},\n})",
+        "lang": "tsx",
+        "target": "components/openlmis/form-fields/form.tsx"
       },
       {
         "type": "lib",
@@ -551,11 +520,12 @@ export const components: RegistryEntry[] = [
       "alert",
       "button",
       "dialog",
+      "field",
       "spinner",
       "https://registry.soldevelo.com/r/openlmis-form-fields.json"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -595,7 +565,7 @@ export const components: RegistryEntry[] = [
       "skeleton"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -681,10 +651,11 @@ export const components: RegistryEntry[] = [
     "height": "308px",
     "description": "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
     "registryDependencies": [
+      "button",
       "utils"
     ],
     "dependencies": [
-      "lucide-react"
+      "lucide-react@^1"
     ],
     "files": [
       {
@@ -731,6 +702,192 @@ export const components: RegistryEntry[] = [
         "code": "import { z } from \"zod\"\n\nconst MAX_WHOLE_NUMBER = 2_147_483_647\n\ntype NumberMessages = {\n  required?: string\n  invalid: string\n  tooLarge: string\n  tooSmall?: string\n  tooPrecise?: string\n}\n\ntype WholeNumberRules = {\n  min?: number\n  max?: number\n  optional?: boolean\n}\n\n/** A text field holding a whole number, kept as text so a half-typed value is never lost. */\nexport function wholeNumberText(\n  messages: NumberMessages,\n  { min, max = MAX_WHOLE_NUMBER, optional = false }: WholeNumberRules = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > max) issue(messages.tooLarge)\n    else if (min !== undefined && Number(text) < min) issue(messages.tooSmall)\n  })\n}\n\nexport const toWholeNumber = (text: string) => Number(text.trim())\n\nexport const toOptionalWholeNumber = (text: string) =>\n  text.trim() ? toWholeNumber(text) : null\n\n/** A text field holding a number of 0 or more, with at most `maxDecimals` decimals. */\nexport function decimalText(\n  messages: NumberMessages,\n  {\n    optional = false,\n    maxDecimals,\n  }: { optional?: boolean; maxDecimals?: number } = {}\n) {\n  return z.string().superRefine((value, context) => {\n    const text = value.trim()\n    const issue = (message: string | undefined) =>\n      context.addIssue({ code: \"custom\", message: message ?? messages.invalid })\n    if (!text) {\n      if (!optional) issue(messages.required)\n    } else if (!/^[0-9]+(\\.[0-9]+)?$/.test(text)) issue(messages.invalid)\n    else if (Number(text) > Number.MAX_SAFE_INTEGER) issue(messages.tooLarge)\n    else if (\n      maxDecimals !== undefined &&\n      (text.split(\".\")[1]?.length ?? 0) > maxDecimals\n    )\n      issue(messages.tooPrecise)\n  })\n}\n\nexport const toDecimal = (text: string) =>\n  text.trim() ? Number(text.trim()) : null\n\nexport const toNumberText = (value: number | null | undefined) =>\n  value == null ? \"\" : String(value)",
         "lang": "ts",
         "target": "components/openlmis/number-text.ts"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-auth-card",
+    "project": "openlmis",
+    "title": "Auth Card",
+    "height": "329px",
+    "description": "Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.",
+    "registryDependencies": [
+      "button",
+      "card",
+      "field",
+      "spinner"
+    ],
+    "dependencies": [],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { CardContent, CardDescription } from \"@/components/ui/card\"\n\nimport {\n  AuthButtonLink,\n  AuthCard,\n  AuthHeader,\n  AuthLink,\n  AuthTitle,\n} from \"@/components/openlmis/auth-card\"\n\n// oxlint-disable-next-line next/no-img-element -- items are framework-neutral\nconst logo = <img alt=\"OpenLMIS\" src=\"https://registry.soldevelo.com/projects/openlmis.png\" />\n\nexport default function Page() {\n  return (\n    <div className=\"grid w-full items-start justify-items-center gap-6 bg-muted p-8 md:grid-cols-2\">\n      <AuthCard>\n        <AuthHeader logo={logo}>\n          <AuthTitle>Signed Out</AuthTitle>\n          <CardDescription>\n            You signed out of OpenLMIS. Sign in again to carry on.\n          </CardDescription>\n        </AuthHeader>\n        <CardContent>\n          <div className=\"grid gap-2\">\n            <AuthButtonLink href=\"#\">Sign In</AuthButtonLink>\n            <p className=\"text-center\">\n              <AuthLink href=\"#\">Forgot Password?</AuthLink>\n            </p>\n          </div>\n        </CardContent>\n      </AuthCard>\n      <AuthCard poweredBy={null}>\n        <AuthHeader>\n          <AuthTitle>Without A Logo Or Credit</AuthTitle>\n          <CardDescription>\n            Leave out the logo and pass a null credit for a plain card.\n          </CardDescription>\n        </AuthHeader>\n        <CardContent>\n          <AuthButtonLink href=\"#\" variant=\"outline\">\n            Back\n          </AuthButtonLink>\n        </CardContent>\n      </AuthCard>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "auth-card.tsx",
+        "code": "\"use client\"\n\nimport type { FormEvent, ReactNode } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { Card, CardFooter, CardHeader } from \"@/components/ui/card\"\nimport { FieldGroup } from \"@/components/ui/field\"\nimport { Spinner } from \"@/components/ui/spinner\"\n\ntype AuthCardProps = {\n  /** The footer credit; pass `null` to leave it out. */\n  poweredBy?: { name: string; href: string } | null\n  children: ReactNode\n}\n\nconst OPENLMIS = { name: \"OpenLMIS\", href: \"https://openlmis.org/\" }\n\n/** The signed-out card on its own, at the width `AuthPage` centres. */\nexport function AuthCard({ poweredBy = OPENLMIS, children }: AuthCardProps) {\n  return (\n    <div className=\"w-full max-w-sm\">\n      <Card>\n        {children}\n        {poweredBy && (\n          <CardFooter className=\"justify-center\">\n            <p className=\"text-sm text-muted-foreground\">\n              Powered by{\" \"}\n              <a\n                className=\"underline underline-offset-4 hover:text-primary\"\n                href={poweredBy.href}\n                rel=\"noopener noreferrer\"\n                target=\"_blank\"\n              >\n                {poweredBy.name}\n              </a>\n              .\n            </p>\n          </CardFooter>\n        )}\n      </Card>\n    </div>\n  )\n}\n\ntype AuthPageProps = AuthCardProps & {\n  /** Top end of the page, e.g. language and theme switchers. */\n  actions?: ReactNode\n}\n\n/** A signed-out page: one centred card on a muted background, filling its parent's height. */\nexport function AuthPage({ actions, poweredBy, children }: AuthPageProps) {\n  return (\n    <section className=\"relative flex min-h-full w-full flex-col items-center justify-center bg-muted px-6 py-12 text-foreground\">\n      {actions && (\n        <div className=\"absolute end-4 top-4 flex items-center gap-1\">\n          {actions}\n        </div>\n      )}\n      <AuthCard poweredBy={poweredBy}>{children}</AuthCard>\n    </section>\n  )\n}\n\n/** The app's logo above the title, e.g. `<img src=\"https://registry.soldevelo.com/logo.png\" alt=\"OpenLMIS\" />`. */\nexport function AuthHeader({\n  logo,\n  children,\n}: {\n  logo?: ReactNode\n  children: ReactNode\n}) {\n  return (\n    <CardHeader className=\"justify-items-center text-center\">\n      {logo && <div className=\"mx-auto flex h-12 *:h-full\">{logo}</div>}\n      {children}\n    </CardHeader>\n  )\n}\n\nconst focusOnMount = (element: HTMLElement | null) => element?.focus()\n\ntype AuthTitleProps = {\n  /** Takes focus as it appears; set it only when the card replaces a form the user was in, never on first render. */\n  focus?: boolean\n  children: ReactNode\n}\n\nexport function AuthTitle({ focus = false, children }: AuthTitleProps) {\n  return (\n    <div\n      className=\"outline-none\"\n      ref={focus ? focusOnMount : undefined}\n      tabIndex={focus ? -1 : undefined}\n    >\n      {/* A plain heading, as stock CardTitle has no large size. */}\n      <h1 className=\"font-heading text-xl leading-snug font-bold tracking-tight\">\n        {children}\n      </h1>\n    </div>\n  )\n}\n\nexport function AuthForm({\n  onSubmit,\n  children,\n}: {\n  onSubmit: () => void\n  children: ReactNode\n}) {\n  const submit = (event: FormEvent) => {\n    event.preventDefault()\n    onSubmit()\n  }\n\n  return (\n    <form noValidate onSubmit={submit}>\n      <FieldGroup>{children}</FieldGroup>\n    </form>\n  )\n}\n\nexport function AuthSubmit({\n  pending,\n  children,\n}: {\n  pending: boolean\n  children: ReactNode\n}) {\n  return (\n    // Focusable while pending, so pressing it does not drop keyboard focus.\n    <Button\n      className=\"w-full\"\n      disabled={pending}\n      focusableWhenDisabled={pending}\n      type=\"submit\"\n    >\n      {pending && <Spinner data-icon=\"inline-start\" />}\n      {children}\n    </Button>\n  )\n}\n\ntype AuthLinkProps = {\n  href: string\n  newTab?: boolean\n  children: ReactNode\n}\n\nexport function AuthLink({ href, newTab = false, children }: AuthLinkProps) {\n  return (\n    <a\n      className=\"rounded-sm text-sm text-muted-foreground outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50\"\n      href={href}\n      rel={newTab ? \"noopener noreferrer\" : undefined}\n      target={newTab ? \"_blank\" : undefined}\n    >\n      {children}\n    </a>\n  )\n}\n\ntype AuthButtonLinkProps = {\n  href: string\n  variant?: \"default\" | \"outline\"\n  describedBy?: string\n  children: ReactNode\n}\n\n/** A full-width button that navigates, such as Back To Sign In. */\nexport function AuthButtonLink({\n  href,\n  variant = \"default\",\n  describedBy,\n  children,\n}: AuthButtonLinkProps) {\n  return (\n    <Button\n      aria-describedby={describedBy}\n      className=\"w-full\"\n      nativeButton={false}\n      // oxlint-disable-next-line jsx-a11y/control-has-associated-label -- Base UI renders the Button's text into the link\n      render={<a href={href} />}\n      variant={variant}\n    >\n      {children}\n    </Button>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/auth-card.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-no-access",
+    "project": "openlmis",
+    "title": "No Access",
+    "height": "477px",
+    "description": "No-access empty state with a heading-level choice and optional Back Home link.",
+    "registryDependencies": [
+      "button",
+      "empty"
+    ],
+    "dependencies": [
+      "lucide-react@^1"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { NoAccess } from \"@/components/openlmis/no-access\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full flex-col gap-6 p-8\">\n      <NoAccess />\n      <div className=\"rounded-xl border\">\n        <NoAccess homeHref={null} />\n      </div>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "no-access.tsx",
+        "code": "import { HouseIcon, LockIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\"\n\ntype NoAccessProps = {\n  /** `h1` when it stands in for the whole page, `h2` inside one. */\n  heading?: \"h1\" | \"h2\"\n  /** Where Back Home goes; `null` leaves the button out. */\n  homeHref?: string | null\n}\n\n/** Where a page's content would be, for a user whose roles do not reach it. */\nexport function NoAccess({\n  heading: Heading = \"h2\",\n  homeHref = \"/\",\n}: NoAccessProps) {\n  return (\n    <Empty>\n      <EmptyHeader>\n        <EmptyMedia variant=\"icon\">\n          <LockIcon />\n        </EmptyMedia>\n        <EmptyTitle>\n          <Heading>No Access To This Page</Heading>\n        </EmptyTitle>\n        <EmptyDescription>\n          Your roles do not include the rights this page needs. Ask an\n          administrator if you need access.\n        </EmptyDescription>\n      </EmptyHeader>\n      {homeHref !== null && (\n        <EmptyContent>\n          <Button\n            nativeButton={false}\n            // oxlint-disable-next-line jsx-a11y/control-has-associated-label -- Base UI renders the Button's text into the link\n            render={<a href={homeHref} />}\n            variant=\"outline\"\n          >\n            <HouseIcon data-icon=\"inline-start\" />\n            Back Home\n          </Button>\n        </EmptyContent>\n      )}\n    </Empty>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/no-access.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-copyable-value",
+    "project": "openlmis",
+    "title": "Copyable Value",
+    "height": "146px",
+    "description": "A value display and controlled copy button, with caller-owned copy behavior and feedback.",
+    "registryDependencies": [
+      "button",
+      "utils"
+    ],
+    "dependencies": [
+      "lucide-react@^1"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport { useState } from \"react\"\n\nimport { CopyButton, CopyableValue } from \"@/components/openlmis/copyable-value\"\n\nconst apiKey = \"8f3c2a1e-6b7d-4e9f-a0c5-2d1b3e4f5a6c\"\nconst orderCode = \"ORD-2024-000183\"\n\nexport default function Page() {\n  const [copied, setCopied] = useState<string>()\n  const onCopiedChange = (next: boolean) => !next && setCopied(undefined)\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-4 p-8\">\n      <CopyableValue\n        copied={copied === apiKey}\n        copiedLabel=\"Key Copied\"\n        copyLabel=\"Copy Key\"\n        onCopiedChange={onCopiedChange}\n        onCopy={setCopied}\n        value={apiKey}\n      />\n      <div className=\"flex items-center gap-1\">\n        <span className=\"font-mono text-sm\">{orderCode}</span>\n        <CopyButton\n          copied={copied === orderCode}\n          copiedLabel=\"Code Copied\"\n          copyLabel=\"Copy Code\"\n          onCopiedChange={onCopiedChange}\n          onCopy={setCopied}\n          value={orderCode}\n        />\n      </div>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "copyable-value.tsx",
+        "code": "\"use client\"\n\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\nimport type { ComponentProps } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\n/** Copy state for a value; the caller does the copying and says when it is done. */\nexport type CopyState = {\n  /** Shows a tick and `copiedLabel` in place of the copy icon. */\n  copied?: boolean\n  /** Called on click; copy `value`, then pass `copied`. */\n  onCopy?: ((value: string) => void) | undefined\n  /** Called with `false` when a copied button loses focus or the pointer, so the tick can reset. */\n  onCopiedChange?: ((copied: boolean) => void) | undefined\n}\n\nexport type CopyButtonProps = CopyState & {\n  value: string\n  /** Accessible name before copying. */\n  copyLabel?: string\n  /** Accessible name once copied. */\n  copiedLabel?: string\n  /** Takes focus as it mounts, e.g. when a dialog opens on a new value. */\n  focusOnMount?: boolean\n}\n\n/** An icon button that asks the caller to copy `value`, showing a tick while `copied` is set. */\nexport function CopyButton({\n  value,\n  copyLabel = \"Copy\",\n  copiedLabel = \"Copied\",\n  focusOnMount = false,\n  copied = false,\n  onCopy,\n  onCopiedChange,\n}: CopyButtonProps) {\n  // Safari does not focus a clicked button, so blur alone may never fire.\n  const reset = () => copied && onCopiedChange?.(false)\n\n  return (\n    <Button\n      aria-label={copied ? copiedLabel : copyLabel}\n      // oxlint-disable-next-line jsx-a11y/no-autofocus -- a caller opts in when the value is what its surface is about\n      autoFocus={focusOnMount}\n      onBlur={reset}\n      onClick={() => onCopy?.(value)}\n      onPointerLeave={reset}\n      size=\"icon-xs\"\n      type=\"button\"\n      variant=\"ghost\"\n    >\n      {copied ? <CheckIcon /> : <CopyIcon />}\n    </Button>\n  )\n}\n\ntype CopyableValueProps = CopyButtonProps &\n  Omit<ComponentProps<\"div\">, \"children\" | \"onCopy\">\n\n/** A value shown in full, monospaced, with its Copy button. */\nexport function CopyableValue({\n  value,\n  copyLabel,\n  copiedLabel,\n  focusOnMount,\n  copied,\n  onCopy,\n  onCopiedChange,\n  className,\n  ...props\n}: CopyableValueProps) {\n  return (\n    <div\n      className={cn(\n        \"flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-2\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"min-w-0 flex-1 font-mono text-sm break-all\" dir=\"ltr\">\n        {value}\n      </span>\n      <CopyButton\n        copied={copied}\n        copiedLabel={copiedLabel}\n        copyLabel={copyLabel}\n        focusOnMount={focusOnMount}\n        onCopiedChange={onCopiedChange}\n        onCopy={onCopy}\n        value={value}\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/copyable-value.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-label-popover",
+    "project": "openlmis",
+    "title": "Label Popover",
+    "height": "124px",
+    "description": "A truncated label with an accessible details button and a composable popover panel.",
+    "registryDependencies": [
+      "button",
+      "popover"
+    ],
+    "dependencies": [
+      "lucide-react@^1"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { LabelPopover } from \"@/components/openlmis/label-popover\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full flex-col items-start gap-3 p-8 text-sm\">\n      <LabelPopover\n        ariaLabel=\"About Lead Time\"\n        description=\"Days between placing an order and receiving it.\"\n        label=\"Lead Time\"\n        title=\"Lead Time\"\n      >\n        <ul className=\"flex max-h-64 flex-col gap-1.5 overflow-y-auto\">\n          <li>Measured from the order date.</li>\n          <li>Averaged over the last three orders.</li>\n        </ul>\n      </LabelPopover>\n      <LabelPopover\n        ariaLabel=\"About Buffer Stock\"\n        description=\"Extra stock held to cover unexpected demand.\"\n        label=\"Buffer Stock\"\n        title=\"Buffer Stock\"\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "label-popover.tsx",
+        "code": "\"use client\"\n\nimport type { ReactNode } from \"react\"\nimport { CircleHelpIcon } from \"lucide-react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Popover,\n  PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTrigger,\n} from \"@/components/ui/popover\"\n\ntype LabelPopoverProps = {\n  /** The text shown inline, truncated when space runs out. */\n  label: ReactNode\n  /** The popover's heading. */\n  title: ReactNode\n  /** Names the help button for assistive tech. */\n  ariaLabel: string\n  /** A line under the title. */\n  description?: ReactNode\n  /** The popover's body, rendered only while it is open. */\n  children?: ReactNode\n}\n\n/** A label with a help button beside it that opens a panel of detail. */\nexport function LabelPopover({\n  label,\n  title,\n  ariaLabel,\n  description,\n  children,\n}: LabelPopoverProps) {\n  return (\n    <span className=\"flex min-w-0 items-center gap-1\">\n      <span className=\"truncate\">{label}</span>\n      <Popover>\n        <PopoverTrigger\n          render={\n            <Button aria-label={ariaLabel} size=\"icon-xs\" variant=\"ghost\" />\n          }\n        >\n          <CircleHelpIcon />\n        </PopoverTrigger>\n        <PopoverContent align=\"start\">\n          <PopoverHeader>\n            <PopoverTitle>{title}</PopoverTitle>\n            {description && (\n              <PopoverDescription>{description}</PopoverDescription>\n            )}\n          </PopoverHeader>\n          {children}\n        </PopoverContent>\n      </Popover>\n    </span>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/label-popover.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-segmented-meter",
+    "project": "openlmis",
+    "title": "Segmented Meter",
+    "height": "330px",
+    "description": "A stacked meter with a labeled count and percentage legend, locale formatting and right-to-left support.",
+    "registryDependencies": [
+      "chart",
+      "utils"
+    ],
+    "dependencies": [
+      "recharts@^3"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "import { SegmentedMeter } from \"@/components/openlmis/segmented-meter\"\n\nexport default function Page() {\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-10 p-8\">\n      <SegmentedMeter\n        segments={[\n          { id: \"queued\", label: \"Queued\", value: 12 },\n          { id: \"started\", label: \"Started\", value: 8 },\n          { id: \"in-review\", label: \"In Review\", value: 5 },\n          { id: \"accepted\", label: \"Accepted\", value: 9 },\n          { id: \"done\", label: \"Done\", value: 21 },\n        ]}\n      />\n      <SegmentedMeter\n        segments={[\n          { id: \"open\", label: \"Open\", value: 0 },\n          { id: \"closed\", label: \"Closed\", value: 0 },\n        ]}\n      />\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "segmented-meter.tsx",
+        "code": "\"use client\"\n\nimport { Bar, BarChart, XAxis, YAxis } from \"recharts\"\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\"\nimport { cn } from \"@/lib/utils\"\n\nexport type MeterSegment = {\n  /** Stable identity, independent of its label. */\n  id: string\n  label: string\n  value: number\n}\n\n/** The chart ramp, lightest first, so the order of the segments reads in the colour. */\nconst RAMP = [\n  { fill: \"var(--chart-1)\", dot: \"bg-chart-1\" },\n  { fill: \"var(--chart-2)\", dot: \"bg-chart-2\" },\n  { fill: \"var(--chart-3)\", dot: \"bg-chart-3\" },\n  { fill: \"var(--chart-4)\", dot: \"bg-chart-4\" },\n  { fill: \"var(--chart-5)\", dot: \"bg-chart-5\" },\n] as const\n\nconst rampAt = (index: number) => RAMP[index % RAMP.length]\n\ntype SegmentedMeterProps = {\n  /** In order; each takes the next step of the chart ramp. */\n  segments: readonly MeterSegment[]\n  /** Fills the meter from the right on a right-to-left page. */\n  dir?: \"ltr\" | \"rtl\"\n  /** Formats counts and shares; fixed so a server render matches the browser. */\n  locale?: string\n  className?: string\n}\n\n/** Parts of a whole as one stacked bar, with a legend giving each part's count and share. */\nexport function SegmentedMeter({\n  segments,\n  dir = \"ltr\",\n  locale = \"en-US\",\n  className,\n}: SegmentedMeterProps) {\n  const total = segments.reduce((sum, segment) => sum + segment.value, 0)\n  const count = new Intl.NumberFormat(locale)\n  const percent = new Intl.NumberFormat(locale, { style: \"percent\" })\n  const share = (value: number) =>\n    percent.format(total === 0 ? 0 : value / total)\n\n  // Index keys, not labels, so any label is a safe data key and CSS variable name.\n  const config = Object.fromEntries(\n    segments.map((segment, index) => [\n      `s${index}`,\n      { label: segment.label, color: rampAt(index).fill },\n    ])\n  ) satisfies ChartConfig\n  const datum = Object.fromEntries(\n    segments.map((segment, index) => [`s${index}`, segment.value])\n  )\n\n  return (\n    <div className={cn(\"flex flex-col gap-4\", className)}>\n      <ChartContainer className=\"aspect-auto h-3 w-full\" config={config}>\n        <BarChart\n          accessibilityLayer\n          barCategoryGap={0}\n          data={[datum]}\n          layout=\"vertical\"\n          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}\n        >\n          <XAxis\n            domain={[0, Math.max(total, 1)]}\n            hide\n            reversed={dir === \"rtl\"}\n            type=\"number\"\n          />\n          <YAxis hide type=\"category\" />\n          <ChartTooltip\n            content={<ChartTooltipContent hideLabel />}\n            cursor={false}\n          />\n          {segments.map((segment, index) => (\n            <Bar\n              dataKey={`s${index}`}\n              fill={`var(--color-s${index})`}\n              key={segment.id}\n              stackId=\"segments\"\n              stroke=\"var(--card)\"\n              strokeWidth={2}\n            />\n          ))}\n        </BarChart>\n      </ChartContainer>\n      <ul className=\"flex flex-col gap-1.5\">\n        {segments.map((segment, index) => (\n          <li className=\"flex items-center gap-2 text-sm\" key={segment.id}>\n            <span\n              aria-hidden=\"true\"\n              className={cn(\n                \"size-2.5 shrink-0 rounded-full\",\n                rampAt(index).dot\n              )}\n            />\n            <span className=\"min-w-0 flex-1 truncate text-muted-foreground\">\n              {segment.label}\n            </span>\n            <span className=\"font-medium tabular-nums\">\n              {count.format(segment.value)}\n            </span>\n            <span className=\"w-10 text-end text-muted-foreground tabular-nums\">\n              {share(segment.value)}\n            </span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/segmented-meter.tsx"
+      }
+    ]
+  },
+  {
+    "kind": "component",
+    "name": "openlmis-status-meter-list",
+    "project": "openlmis",
+    "title": "Status Meter List",
+    "height": "220px",
+    "description": "Composable labeled meters with icons, counts and semantic tones.",
+    "registryDependencies": [
+      "utils"
+    ],
+    "dependencies": [
+      "@base-ui/react@^1",
+      "lucide-react@^1"
+    ],
+    "files": [
+      {
+        "type": "page",
+        "name": "page.tsx",
+        "code": "\"use client\"\n\nimport {\n  CircleCheckIcon,\n  CircleXIcon,\n  InfoIcon,\n  TriangleAlertIcon,\n} from \"lucide-react\"\n\nimport {\n  StatusMeter,\n  StatusMeterIcon,\n  StatusMeterLabel,\n  StatusMeterList,\n  StatusMeterValue,\n} from \"@/components/openlmis/status-meter-list\"\n\nconst ROWS = [\n  { label: \"Healthy\", value: 42, tone: \"success\", icon: CircleCheckIcon },\n  { label: \"Degraded\", value: 7, tone: \"warning\", icon: TriangleAlertIcon },\n  { label: \"Down\", value: 3, tone: \"destructive\", icon: CircleXIcon },\n  { label: \"Unknown\", value: 0, tone: \"info\", icon: InfoIcon },\n] as const\n\nconst total = ROWS.reduce((sum, row) => sum + row.value, 0)\n\nexport default function Page() {\n  return (\n    <div className=\"w-full max-w-md p-8\">\n      <StatusMeterList>\n        {ROWS.map((row) => (\n          <StatusMeter\n            key={row.label}\n            max={total}\n            tone={row.tone}\n            value={row.value}\n          >\n            <StatusMeterIcon icon={row.icon} />\n            <StatusMeterLabel>{row.label}</StatusMeterLabel>\n            <StatusMeterValue>{row.value}</StatusMeterValue>\n          </StatusMeter>\n        ))}\n      </StatusMeterList>\n    </div>\n  )\n}",
+        "lang": "tsx",
+        "target": null
+      },
+      {
+        "type": "component",
+        "name": "status-meter-list.tsx",
+        "code": "\"use client\"\n\nimport { Meter } from \"@base-ui/react/meter\"\nimport type { LucideIcon } from \"lucide-react\"\nimport { type ComponentProps, createContext, type ReactNode, use } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport type StatusMeterTone = \"success\" | \"warning\" | \"destructive\" | \"info\"\n\nconst TONES = {\n  success: { icon: \"text-success\", bar: \"bg-success\" },\n  warning: { icon: \"text-warning\", bar: \"bg-warning\" },\n  destructive: { icon: \"text-destructive\", bar: \"bg-destructive\" },\n  info: { icon: \"text-info\", bar: \"bg-info\" },\n} as const satisfies Record<StatusMeterTone, { icon: string; bar: string }>\n\nconst ToneContext = createContext<StatusMeterTone>(\"info\")\n\n/** A list of status rows, each with its own meter. */\nexport function StatusMeterList({ className, ...props }: ComponentProps<\"ul\">) {\n  return <ul className={cn(\"flex flex-col gap-3\", className)} {...props} />\n}\n\ntype StatusMeterProps = {\n  /** The row's share; read against `max`. */\n  value: number\n  max?: number\n  tone?: StatusMeterTone\n  /** The header line: `StatusMeterIcon`, `StatusMeterLabel`, `StatusMeterValue`. */\n  children: ReactNode\n  className?: string\n}\n\n/** One status: a header line over a thin bar filled to `value / max`. */\nexport function StatusMeter({\n  value,\n  max = 100,\n  tone = \"info\",\n  children,\n  className,\n}: StatusMeterProps) {\n  return (\n    <li className={className}>\n      <ToneContext value={tone}>\n        {/* A meter, not a progress bar: it is a share of the whole, not a task underway. */}\n        <Meter.Root\n          className=\"flex flex-col gap-1.5\"\n          max={Math.max(max, 1)}\n          value={value}\n        >\n          <div className=\"flex items-center gap-2 text-sm\">{children}</div>\n          <Meter.Track className=\"h-1 w-full overflow-hidden rounded-full bg-muted\">\n            <Meter.Indicator\n              className={cn(\"h-full transition-all\", TONES[tone].bar)}\n            />\n          </Meter.Track>\n        </Meter.Root>\n      </ToneContext>\n    </li>\n  )\n}\n\n/** Tinted by the row's tone; pair it with a label so the colour is never the only cue. */\nexport function StatusMeterIcon({\n  icon: Icon,\n  className,\n}: {\n  icon: LucideIcon\n  className?: string\n}) {\n  const tone = use(ToneContext)\n  return (\n    <Icon\n      aria-hidden=\"true\"\n      className={cn(\"size-4 shrink-0\", TONES[tone].icon, className)}\n    />\n  )\n}\n\nexport function StatusMeterLabel({\n  className,\n  ...props\n}: ComponentProps<typeof Meter.Label>) {\n  return (\n    <Meter.Label\n      className={cn(\"min-w-0 flex-1 truncate\", className)}\n      {...props}\n    />\n  )\n}\n\nexport function StatusMeterValue({\n  className,\n  ...props\n}: ComponentProps<\"span\">) {\n  return (\n    <span className={cn(\"font-medium tabular-nums\", className)} {...props} />\n  )\n}",
+        "lang": "tsx",
+        "target": "components/openlmis/status-meter-list.tsx"
       }
     ]
   }

@@ -4,9 +4,12 @@
   "title": "Workspace",
   "description": "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.",
   "dependencies": [
-    "@base-ui/react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
+    "button",
+    "utils",
     "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json"
   ],
   "files": [

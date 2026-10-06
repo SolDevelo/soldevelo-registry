@@ -5,7 +5,7 @@
   "description": "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
   "dependencies": [
     "zod@^4",
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "field",

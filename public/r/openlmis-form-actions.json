@@ -4,13 +4,13 @@
   "title": "Form Actions",
   "description": "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "button",
-    "spinner",
     "input",
-    "label"
+    "label",
+    "spinner"
   ],
   "files": [
     {

@@ -3,7 +3,7 @@
 import type {
   Right,
   Role,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
 
 /** A role as the list shows it, with how many users hold it. */
 export type ListedRole = Role & { count: number }

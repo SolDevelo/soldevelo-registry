@@ -1,9 +1,9 @@
-import type { FacilityValues } from "@/registry/blocks/openlmis/facility-general-form/facility-form"
-import type { FacilityLookups } from "@/registry/blocks/openlmis/facility-general-form/facility-form-fields"
+import type { FacilityValues } from "./facility-general-form/facility-form"
+import type { FacilityLookups } from "./facility-general-form/facility-form-fields"
 import type {
   FacilityProgram,
   ProgramOption,
-} from "@/registry/blocks/openlmis/facility-program-dialog/facility-program"
+} from "./facility-program-dialog/facility-program"
 
 export type MockFacility = {
   values: FacilityValues

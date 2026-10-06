@@ -4,7 +4,7 @@
   "title": "Discard Changes Dialog",
   "description": "Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "alert-dialog",

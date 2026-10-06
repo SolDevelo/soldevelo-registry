@@ -4,7 +4,7 @@
   "title": "Page Breadcrumbs",
   "description": "Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.",
   "dependencies": [
-    "@base-ui/react"
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
     "breadcrumb"

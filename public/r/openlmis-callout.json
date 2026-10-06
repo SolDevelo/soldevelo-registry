@@ -4,9 +4,11 @@
   "title": "Callout",
   "description": "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
   "dependencies": [
-    "lucide-react"
+    "lucide-react@^1",
+    "@base-ui/react@^1"
   ],
   "registryDependencies": [
+    "button",
     "utils"
   ],
   "files": [

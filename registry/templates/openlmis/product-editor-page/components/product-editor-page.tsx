@@ -13,36 +13,33 @@ import {
   APPROVAL_HIDEABLE_COLUMNS,
   ApprovalsToolbar,
   FacilityApprovedProducts,
-} from "@/registry/blocks/openlmis/facility-approved-products/facility-approved-products"
-import { RemoveApprovalDialog } from "@/registry/blocks/openlmis/facility-approved-products/remove-approval-dialog"
+} from "./facility-approved-products/facility-approved-products"
+import { RemoveApprovalDialog } from "./facility-approved-products/remove-approval-dialog"
 import type {
   Approval,
   ApprovalValues,
-} from "@/registry/blocks/openlmis/product-approval-dialog/approval-form"
-import { ProductApprovalDialog } from "@/registry/blocks/openlmis/product-approval-dialog/product-approval-dialog"
-import {
-  type Product,
-  productName,
-} from "@/registry/blocks/openlmis/product-general-form/product-form"
-import { ProductGeneralForm } from "@/registry/blocks/openlmis/product-general-form/product-general-form"
+} from "./product-approval-dialog/approval-form"
+import { ProductApprovalDialog } from "./product-approval-dialog/product-approval-dialog"
+import { type Product, productName } from "./product-general-form/product-form"
+import { ProductGeneralForm } from "./product-general-form/product-general-form"
 import type {
   KitChild,
   KitChildValues,
-} from "@/registry/blocks/openlmis/product-kit-unpack-list/kit-form"
-import { ProductKitUnpackList } from "@/registry/blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list"
-import { ProductProgramLinkDialog } from "@/registry/blocks/openlmis/product-program-link-dialog/product-program-link-dialog"
+} from "./product-kit-unpack-list/kit-form"
+import { ProductKitUnpackList } from "./product-kit-unpack-list/product-kit-unpack-list"
+import { ProductProgramLinkDialog } from "./product-program-link-dialog/product-program-link-dialog"
 import {
   type NamedOption,
   type ProgramLink,
   withoutProgramLink,
   withProgramLink,
-} from "@/registry/blocks/openlmis/product-program-link-dialog/program-link-form"
+} from "./product-program-link-dialog/program-link-form"
 import {
   PROGRAM_LINK_HIDEABLE_COLUMNS,
   ProductProgramLinks,
   ProgramLinksToolbar,
-} from "@/registry/blocks/openlmis/product-program-links/product-program-links"
-import { RemoveProgramLinkDialog } from "@/registry/blocks/openlmis/product-program-links/remove-program-link-dialog"
+} from "./product-program-links/product-program-links"
+import { RemoveProgramLinkDialog } from "./product-program-links/remove-program-link-dialog"
 import {
   Workspace,
   WorkspaceContent,

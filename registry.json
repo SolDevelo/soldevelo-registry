@@ -8,13 +8,13 @@
       "title": "Form Actions",
       "description": "Cancel and Save actions for a form, with dirty and pending states, usable inside the form or in a page footer.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
-        "spinner",
         "input",
-        "label"
+        "label",
+        "spinner"
       ],
       "files": [
         {
@@ -59,7 +59,7 @@
       "title": "Settings List",
       "description": "Bordered setting rows with labels, descriptions, badges and editable or read-only values.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "badge"
@@ -108,16 +108,13 @@
       "title": "Date Picker",
       "description": "A calendar date picker with date bounds, a clear button and accessible labels. Values stay in yyyy-MM-dd format.",
       "dependencies": [
-        "lucide-react",
-        "react-day-picker@^10",
-        "date-fns@^4",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
         "calendar",
-        "popover",
-        "label"
+        "popover"
       ],
       "files": [
         {
@@ -168,13 +165,14 @@
       "title": "Password Requirements",
       "description": "A live checklist of password rules with pure validation helpers.",
       "dependencies": [
-        "lucide-react",
+        "lucide-react@^1",
         "zod@^4",
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "input",
-        "label"
+        "label",
+        "utils"
       ],
       "files": [
         {
@@ -226,65 +224,13 @@
       }
     },
     {
-      "name": "openlmis-role-rights-popover",
-      "title": "Role Rights Popover",
-      "description": "A role name with a help button that lists the rights it grants.",
-      "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "popover",
-        "button"
-      ],
-      "files": [
-        {
-          "path": "registry/components/openlmis/role-rights-popover/role-rights-popover.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/role-rights-popover.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "160px"
-      },
-      "categories": [
-        "roles",
-        "users"
-      ],
-      "type": "registry:component",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
       "name": "openlmis-table-selection",
       "title": "Table Selection",
       "description": "A page selection checkbox column and a floating selected-count bar with Clear and actions.",
       "dependencies": [
         "@tanstack/react-table@^9",
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -335,8 +281,8 @@
       "title": "Combobox Filter",
       "description": "A searchable toolbar filter with caller-supplied options, search callbacks, status and empty messages.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "@base-ui/react@^1",
+        "lucide-react@^1"
       ],
       "registryDependencies": [
         "combobox",
@@ -387,11 +333,11 @@
       "title": "Workspace Tabs",
       "description": "Controlled page section tabs that wrap into a column or grid on narrow screens.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "tabs",
-        "button"
+        "utils"
       ],
       "files": [
         {
@@ -437,8 +383,8 @@
       "title": "Pagination",
       "description": "Pager for a server-paged list: rows per page, the range on screen out of the total, and first, previous, next and last page buttons, with a matching loading skeleton. Tightens to fit narrow containers.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -489,8 +435,8 @@
       "title": "Search Input",
       "description": "Search field that reports after a pause in typing, on Enter or when it loses focus, with a clear button, so a list updates once per search rather than on every keystroke.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "input-group"
@@ -544,8 +490,8 @@
       "title": "Select Filter",
       "description": "Toolbar dropdown that narrows a list to one value, reading \"Status: Active\" once picked, with a button to clear it.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -595,8 +541,8 @@
       "title": "Column View Options",
       "description": "View menu that shows or hides a table's columns with checkboxes, and resets them to their defaults.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -646,7 +592,7 @@
       "title": "Status Badge",
       "description": "Badge for a state such as active, unsaved or ignored, in a success, warning, info or destructive tone with an icon of its own, so the state reads without relying on colour.",
       "dependencies": [
-        "lucide-react"
+        "lucide-react@^1"
       ],
       "registryDependencies": [
         "utils"
@@ -694,7 +640,7 @@
       "title": "Page Breadcrumbs",
       "description": "Breadcrumb trail from a list of steps, where a step without a page, such as a menu section, shows as text, and links render through any router.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "breadcrumb"
@@ -743,9 +689,9 @@
       "title": "Form Fields",
       "description": "Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.",
       "dependencies": [
-        "@base-ui/react",
+        "@base-ui/react@^1",
         "@tanstack/react-form@^1",
-        "lucide-react",
+        "lucide-react@^1",
         "zod@^4"
       ],
       "registryDependencies": [
@@ -762,14 +708,15 @@
         "switch",
         "textarea",
         "tooltip",
+        "utils",
         "https://registry.soldevelo.com/r/openlmis-date-picker.json",
         "https://registry.soldevelo.com/r/openlmis-settings-list.json"
       ],
       "files": [
         {
-          "path": "registry/components/openlmis/form-fields/form.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/form-fields/form.tsx"
+          "path": "registry/components/openlmis/form-fields/form-context.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/form-fields/form-context.ts"
         },
         {
           "path": "registry/components/openlmis/form-fields/form-fields.tsx",
@@ -777,14 +724,14 @@
           "target": "components/openlmis/form-fields/form-fields.tsx"
         },
         {
-          "path": "registry/components/openlmis/form-fields/form-context.ts",
-          "type": "registry:lib",
-          "target": "components/openlmis/form-fields/form-context.ts"
-        },
-        {
           "path": "registry/components/openlmis/form-fields/form-messages.tsx",
           "type": "registry:component",
           "target": "components/openlmis/form-fields/form-messages.tsx"
+        },
+        {
+          "path": "registry/components/openlmis/form-fields/form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/form-fields/form.tsx"
         },
         {
           "path": "registry/components/openlmis/form-fields/tags.ts",
@@ -829,13 +776,14 @@
       "title": "Form Dialog",
       "description": "Dialog for a form that stays inside the viewport and scrolls only its body, ignores clicks outside so nothing typed is lost, locks while a save runs, and shows save and load errors in place with a way to try again.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
         "button",
         "dialog",
+        "field",
         "spinner",
         "https://registry.soldevelo.com/r/openlmis-form-fields.json"
       ],
@@ -889,8 +837,8 @@
       "title": "Dashboard Card",
       "description": "Card frame for a dashboard: a title with its count in a badge, a one-line description, placeholders and an error with Try Again for a body whose data is not ready, and a row that sets a wide card beside a narrow one when there is room.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "badge",
@@ -942,7 +890,7 @@
       "title": "Stat Strip",
       "description": "One panel of headline numbers split by hairlines, with as many columns as there are stats, and a placeholder or Try Again for any number that is not ready.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "skeleton",
@@ -993,7 +941,7 @@
       "title": "Discard Changes Dialog",
       "description": "Alert dialog asked before leaving a page with unsaved changes: how many would be lost and whose, Keep Editing, and a destructive Discard whose label says what happens next.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert-dialog",
@@ -1043,9 +991,11 @@
       "title": "Callout",
       "description": "Message box in a warning, info or success tone, tinted border and background with an icon of its own and text in the foreground colours, for the states the stock Alert has no variant for.",
       "dependencies": [
-        "lucide-react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "button",
         "utils"
       ],
       "files": [
@@ -1087,263 +1037,13 @@
       }
     },
     {
-      "name": "openlmis-profile-notification-settings",
-      "title": "Profile Notification Settings",
-      "description": "Choose notification channels and email digest frequency, day, time and schedule with inline validation.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "table",
-        "skeleton",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/profile-notification-settings/profile-notification-settings.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/profile-notification-settings/digest.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/profile-notification-settings/digest.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "510px"
-      },
-      "categories": [
-        "forms",
-        "profile",
-        "data-table"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-profile-basic-information",
-      "title": "Profile Basic Information",
-      "description": "Editable profile settings with email verification, notification consent, and read-only account details.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "alert",
-        "badge",
-        "button",
-        "skeleton",
-        "spinner",
-        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-settings-list.json",
-        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/profile-basic-information/profile-basic-information.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/profile-basic-information/profile-basic-information.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/profile-basic-information/profile.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/profile-basic-information/profile.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "628px"
-      },
-      "categories": [
-        "forms",
-        "profile"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-change-password-dialog",
-      "title": "Change Password Dialog",
-      "description": "Choose and confirm a new password with a shared reveal button and live password requirements.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-password-requirements.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/change-password-dialog/change-password-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/change-password-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "640px"
-      },
-      "categories": [
-        "forms",
-        "profile"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-role-form-dialog",
-      "title": "Role Form Dialog",
-      "description": "Create or edit a role with type tabs, name, description and rights, and confirmation before changing a role in use.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "alert-dialog",
-        "button",
-        "field",
-        "skeleton",
-        "tabs",
-        "https://registry.soldevelo.com/r/openlmis-callout.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/role-form-dialog/role-form-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/role-form-dialog/role-form-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/role-form-dialog/role-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/role-form-dialog/role-form.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "768px"
-      },
-      "categories": [
-        "forms",
-        "administration"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
       "name": "openlmis-data-table",
       "title": "Data Table",
       "description": "Server-paged table on TanStack Table v9: sortable headers, fixed column widths that hold steady from page to page, columns that drop when the table is narrow, a skeleton built from the real columns, empty and error states, and a pagination footer.",
       "dependencies": [
         "@tanstack/react-table@^9",
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -1360,7 +1060,7 @@
         },
         {
           "path": "registry/blocks/openlmis/data-table/responsive-columns.ts",
-          "type": "registry:hook",
+          "type": "registry:lib",
           "target": "components/blocks/openlmis/data-table/responsive-columns.ts"
         }
       ],
@@ -1400,9 +1100,12 @@
       "title": "Workspace",
       "description": "Page frame for an app screen: breadcrumbs, a heading with an icon, title and one-line description, header actions that share the width when the header stacks, a content area, and a bar stuck to the bottom for page-wide actions such as Save.",
       "dependencies": [
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "button",
+        "utils",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json"
       ],
       "files": [
@@ -1448,9 +1151,11 @@
       "title": "List Toolbar",
       "description": "Layout for the controls above a list, installed with the search, filter and View menu it arranges: one row with room, and the search on a row of its own once the toolbar is narrow.",
       "dependencies": [
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "button",
         "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json"
@@ -1495,610 +1200,73 @@
       }
     },
     {
-      "name": "openlmis-user-form-dialog",
-      "title": "User Form Dialog",
-      "description": "Add User and Edit User dialog for OpenLMIS: name, email with its verified state, job title, phone, a searchable home facility, sign-in and notification settings, and removing home facility roles when the facility changes. It takes the user, facilities and save state as props.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-callout.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/user-form-dialog/user-form-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/user-form-dialog/user-form-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/user-form-dialog/user-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/user-form-dialog/user-form.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "768px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "users"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-reset-password-dialog",
-      "title": "Reset Password Dialog",
-      "description": "Reset Password dialog that emails the user a reset link or sets a password by hand, falls back to a typed password when the user has no email, and opens as Set Password for a user just created.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-password-requirements.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reset-password-dialog/reset-password-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/reset-password-dialog/password-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/reset-password-dialog/password-form.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "448px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "users"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-requisitions-by-period",
-      "title": "Requisitions By Period",
-      "description": "Stacked bar chart of sent requisitions over the latest six months, in progress against approved, grouped by the month their period starts, with two-line month ticks, totals on each bar and a table for screen readers.",
-      "dependencies": [
-        "lucide-react",
-        "recharts",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "chart",
-        "empty",
-        "skeleton",
-        "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/requisitions-by-period/requisitions-by-period.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/requisitions-by-period/requisitions-by-period.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/requisitions-by-period/periods.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/requisitions-by-period/periods.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "414px"
-      },
-      "categories": [
-        "dashboard",
-        "charts",
-        "requisitions"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-requisition-status-meter",
-      "title": "Requisition Status Meter",
-      "description": "Where sent requisitions stand, from submitted to released, as one segmented bar in the chart ramp with a legend of counts and shares.",
-      "dependencies": [
-        "recharts",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "chart",
-        "skeleton",
-        "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/requisition-status-meter/requisition-status-meter.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/requisition-status-meter.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "310px"
-      },
-      "categories": [
-        "dashboard",
-        "charts",
-        "requisitions"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-equipment-status",
-      "title": "Equipment Status",
-      "description": "Cold chain equipment by functional status, each with its own icon, count and meter in a success, warning or destructive tone, so the state reads without relying on colour.",
-      "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "skeleton",
-        "utils",
-        "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/equipment-status/equipment-status.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/equipment-status.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "314px"
-      },
-      "categories": [
-        "dashboard",
-        "cold-chain"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-approvals-table",
-      "title": "Approvals Table",
-      "description": "Requisitions waiting on the user, emergencies flagged: a table when the card has room and two lines per requisition on a narrow card, with loading, empty and error states.",
-      "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "badge",
-        "empty",
-        "skeleton",
-        "table",
-        "https://registry.soldevelo.com/r/openlmis-dashboard-card.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/approvals-table/approvals-table.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/approvals-table.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "692px"
-      },
-      "categories": [
-        "dashboard",
-        "requisitions"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-role-assignments-table",
-      "title": "Role Assignments Table",
-      "description": "One role type's assignments for a user: search, sort and paging in the browser, program and supervisory node or facility columns that fold under the role when narrow, Unsaved and Ignored badges, names that show a placeholder until they load, and View Rights and Remove row actions.",
-      "dependencies": [
-        "@tanstack/react-table@^9",
-        "lucide-react",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "dropdown-menu",
-        "skeleton",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-role-rights-popover.json",
-        "https://registry.soldevelo.com/r/openlmis-search-input.json",
-        "https://registry.soldevelo.com/r/openlmis-status-badge.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/role-assignments-table/role-assignments-table.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/role-assignments-table/role-assignments-table.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/role-assignments-table/role-assignments.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/role-assignments-table/role-assignments.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "907px"
-      },
-      "categories": [
-        "data-table",
-        "users",
-        "roles"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-add-role-dialog",
-      "title": "Add Role Dialog",
-      "description": "Dialog that adds one role of a type: searchable programs, supervisory nodes, facilities and roles as the type needs, the rights a role grants once picked, required fields, a refusal of duplicates, and a warning when a home facility role has no home facility to apply at.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-callout.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/add-role-dialog/add-role-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/add-role-dialog/add-role-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/add-role-dialog/role-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/add-role-dialog/role-form.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "528px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "roles"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-import-roles-dialog",
-      "title": "Import Roles Dialog",
-      "description": "Dialog that copies another user's roles into the ones being edited, with a searchable list of users and a preview of how many roles are new before anything is added.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/import-roles-dialog/import-roles-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/import-roles-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "384px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "roles"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-role-rights-dialog",
-      "title": "Role Rights Dialog",
-      "description": "Dialog listing what a role lets its holder do, each right named in words, scrolling inside the viewport when the list is long.",
-      "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "dialog",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/role-rights-dialog/role-rights-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/role-rights-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "384px"
-      },
-      "categories": [
-        "overlay",
-        "roles"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
       "name": "openlmis-profile-page",
       "title": "Profile Page",
       "description": "A mock profile with basic information, read-only role assignments, notification settings and a change password dialog.",
       "dependencies": [
+        "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
         "lucide-react@^1",
         "react-dom@^19",
-        "@base-ui/react"
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "alert",
         "badge",
         "button",
+        "dropdown-menu",
+        "field",
+        "skeleton",
+        "spinner",
+        "table",
         "tabs",
+        "utils",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
-        "https://registry.soldevelo.com/r/openlmis-change-password-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-form-actions.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-label-popover.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-profile-basic-information.json",
-        "https://registry.soldevelo.com/r/openlmis-profile-notification-settings.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
+        "https://registry.soldevelo.com/r/openlmis-password-requirements.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json",
         "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
       ],
       "files": [
         {
-          "path": "registry/templates/openlmis/profile-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/profile-page/page.tsx"
+          "path": "registry/templates/openlmis/profile-page/components/change-password-dialog/change-password-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/change-password-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/mock-profile.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/profile-page/mock-profile.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/profile-basic-information/profile-basic-information.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/profile-basic-information.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/profile-basic-information/profile.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/profile-page/profile.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/profile-notification-settings/digest.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/profile-page/digest.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/profile-page/components/profile-notification-settings/profile-notification-settings.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/profile-notification-settings.tsx"
         },
         {
           "path": "registry/templates/openlmis/profile-page/components/profile-page.tsx",
@@ -2106,9 +1274,24 @@
           "target": "components/openlmis/profile-page/profile-page.tsx"
         },
         {
-          "path": "registry/templates/openlmis/profile-page/components/mock-profile.ts",
+          "path": "registry/templates/openlmis/profile-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/profile-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
           "type": "registry:lib",
-          "target": "components/openlmis/profile-page/mock-profile.ts"
+          "target": "components/openlmis/profile-page/role-assignments.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/role-assignments-table.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/profile-page/role-rights-popover.tsx"
         }
       ],
       "meta": {
@@ -2119,6 +1302,7 @@
         "profile"
       ],
       "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -2147,35 +1331,36 @@
       "title": "Roles Page",
       "description": "Search and filter roles by type, create or edit them, and view their rights using local mock data.",
       "dependencies": [
+        "@tanstack/react-form@^1",
         "@tanstack/react-table@^9",
         "lucide-react@^1",
-        "@base-ui/react"
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "alert-dialog",
         "button",
+        "dialog",
         "dropdown-menu",
+        "field",
+        "skeleton",
+        "tabs",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
-        "https://registry.soldevelo.com/r/openlmis-role-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-role-rights-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
         {
-          "path": "registry/templates/openlmis/roles-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/roles-page/page.tsx"
-        },
-        {
-          "path": "registry/templates/openlmis/roles-page/components/roles-page.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/roles-page/roles-page.tsx"
+          "path": "registry/templates/openlmis/roles-page/components/mock-roles.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/roles-page/mock-roles.ts"
         },
         {
           "path": "registry/templates/openlmis/roles-page/components/role-columns.tsx",
@@ -2183,14 +1368,39 @@
           "target": "components/openlmis/roles-page/role-columns.tsx"
         },
         {
+          "path": "registry/templates/openlmis/roles-page/components/role-form-dialog/role-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/role-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/components/role-form-dialog/role-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/roles-page/role-form.ts"
+        },
+        {
           "path": "registry/templates/openlmis/roles-page/components/roles-list.ts",
           "type": "registry:lib",
           "target": "components/openlmis/roles-page/roles-list.ts"
         },
         {
-          "path": "registry/templates/openlmis/roles-page/components/mock-roles.ts",
+          "path": "registry/templates/openlmis/roles-page/components/roles-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/roles-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/roles-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/roles-page/page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
           "type": "registry:lib",
-          "target": "components/openlmis/roles-page/mock-roles.ts"
+          "target": "components/openlmis/roles-page/role-assignments.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/roles-page/role-rights-dialog.tsx"
         }
       ],
       "meta": {
@@ -2230,30 +1440,31 @@
       "title": "List Page",
       "description": "Complete users list screen on mock data: breadcrumbs and heading, a toolbar with search, a status filter, a View menu and Add User, a table with sorting, paging, empty and no-matches states, and row actions that open Edit User and Reset Password, with Add User going on to Set Password.",
       "dependencies": [
+        "@tanstack/react-form@^1",
         "@tanstack/react-table@^9",
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
+        "badge",
         "button",
         "dropdown-menu",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-reset-password-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-password-requirements.json",
         "https://registry.soldevelo.com/r/openlmis-search-input.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json",
         "https://registry.soldevelo.com/r/openlmis-status-badge.json",
-        "https://registry.soldevelo.com/r/openlmis-user-form-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
-        {
-          "path": "registry/templates/openlmis/list-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/list-page/page.tsx"
-        },
         {
           "path": "registry/templates/openlmis/list-page/components/list-page.tsx",
           "type": "registry:component",
@@ -2265,6 +1476,16 @@
           "target": "components/openlmis/list-page/mock-users.ts"
         },
         {
+          "path": "registry/templates/openlmis/list-page/components/reset-password-dialog/password-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/list-page/password-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/reset-password-dialog/reset-password-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/list-page/reset-password-dialog.tsx"
+        },
+        {
           "path": "registry/templates/openlmis/list-page/components/use-user-list.ts",
           "type": "registry:hook",
           "target": "components/openlmis/list-page/use-user-list.ts"
@@ -2273,6 +1494,21 @@
           "path": "registry/templates/openlmis/list-page/components/user-columns.tsx",
           "type": "registry:component",
           "target": "components/openlmis/list-page/user-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/user-form-dialog/user-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/list-page/user-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/components/user-form-dialog/user-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/list-page/user-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/list-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/list-page/page.tsx"
         }
       ],
       "meta": {
@@ -2313,26 +1549,34 @@
       "title": "Home Dashboard",
       "description": "OpenLMIS home screen on mock data: a greeting with what is waiting, Add User, system notices, a stat strip, requisitions by period and by status, cold chain equipment and the approvals queue, each shown only when the user's rights allow.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "recharts@^3",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
+        "badge",
         "button",
+        "chart",
         "empty",
-        "https://registry.soldevelo.com/r/openlmis-approvals-table.json",
+        "skeleton",
+        "table",
         "https://registry.soldevelo.com/r/openlmis-dashboard-card.json",
-        "https://registry.soldevelo.com/r/openlmis-equipment-status.json",
-        "https://registry.soldevelo.com/r/openlmis-requisition-status-meter.json",
-        "https://registry.soldevelo.com/r/openlmis-requisitions-by-period.json",
+        "https://registry.soldevelo.com/r/openlmis-segmented-meter.json",
         "https://registry.soldevelo.com/r/openlmis-stat-strip.json",
+        "https://registry.soldevelo.com/r/openlmis-status-meter-list.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
         {
-          "path": "registry/templates/openlmis/home-dashboard/page.tsx",
-          "type": "registry:page",
-          "target": "app/home-dashboard/page.tsx"
+          "path": "registry/templates/openlmis/home-dashboard/components/approvals-table/approvals-table.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/home-dashboard/approvals-table.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/home-dashboard/components/equipment-status/equipment-status.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/home-dashboard/equipment-status.tsx"
         },
         {
           "path": "registry/templates/openlmis/home-dashboard/components/home-dashboard.tsx",
@@ -2343,6 +1587,26 @@
           "path": "registry/templates/openlmis/home-dashboard/components/mock-dashboard.ts",
           "type": "registry:lib",
           "target": "components/openlmis/home-dashboard/mock-dashboard.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/home-dashboard/components/requisition-status-meter/requisition-status-meter.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/home-dashboard/requisition-status-meter.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/home-dashboard/components/requisitions-by-period/periods.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/home-dashboard/periods.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/home-dashboard/components/requisitions-by-period/requisitions-by-period.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/home-dashboard/requisitions-by-period.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/home-dashboard/page.tsx",
+          "type": "registry:page",
+          "target": "app/home-dashboard/page.tsx"
         }
       ],
       "meta": {
@@ -2381,31 +1645,46 @@
       "title": "User Roles Page",
       "description": "Edit User Roles on mock data: Supervision, Fulfillment, Reports and Administration tabs with counts over one draft, Add Role, Import Roles and View Rights dialogs, Remove with Undo, and Cancel and Save Changes in a bar at the bottom that asks before discarding unsaved changes.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "badge",
         "button",
+        "dialog",
+        "dropdown-menu",
+        "field",
+        "skeleton",
         "tabs",
-        "https://registry.soldevelo.com/r/openlmis-add-role-dialog.json",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-import-roles-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-label-popover.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-role-assignments-table.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
         {
-          "path": "registry/templates/openlmis/user-roles-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/user-roles-page/page.tsx"
+          "path": "registry/templates/openlmis/user-roles-page/components/add-role-dialog/add-role-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/user-roles-page/add-role-dialog.tsx"
         },
         {
-          "path": "registry/templates/openlmis/user-roles-page/components/user-roles-page.tsx",
+          "path": "registry/templates/openlmis/user-roles-page/components/add-role-dialog/role-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/user-roles-page/role-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/import-roles-dialog/import-roles-dialog.tsx",
           "type": "registry:component",
-          "target": "components/openlmis/user-roles-page/user-roles-page.tsx"
+          "target": "components/openlmis/user-roles-page/import-roles-dialog.tsx"
         },
         {
           "path": "registry/templates/openlmis/user-roles-page/components/mock-roles.ts",
@@ -2413,9 +1692,39 @@
           "target": "components/openlmis/user-roles-page/mock-roles.ts"
         },
         {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments-table.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/user-roles-page/role-assignments-table.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/user-roles-page/role-assignments.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-rights-popover.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/user-roles-page/role-rights-popover.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/role-rights-dialog/role-rights-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/user-roles-page/role-rights-dialog.tsx"
+        },
+        {
           "path": "registry/templates/openlmis/user-roles-page/components/use-role-draft.ts",
           "type": "registry:hook",
           "target": "components/openlmis/user-roles-page/use-role-draft.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/components/user-roles-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/user-roles-page/user-roles-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/user-roles-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/user-roles-page/page.tsx"
         }
       ],
       "meta": {
@@ -2427,6 +1736,7 @@
         "roles"
       ],
       "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -2455,8 +1765,8 @@
       "title": "Not Found Page",
       "description": "A 404 page that shows the address that was asked for, with Go Back and Back Home, ready to render inside an app shell so the navigation stays.",
       "dependencies": [
-        "lucide-react",
-        "@base-ui/react"
+        "lucide-react@^1",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "button",
@@ -2464,14 +1774,14 @@
       ],
       "files": [
         {
-          "path": "registry/templates/openlmis/not-found-page/page.tsx",
-          "type": "registry:page",
-          "target": "app/not-found-page/page.tsx"
-        },
-        {
           "path": "registry/templates/openlmis/not-found-page/components/not-found-page.tsx",
           "type": "registry:component",
           "target": "components/openlmis/not-found-page/not-found-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/not-found-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/not-found-page/page.tsx"
         }
       ],
       "meta": {
@@ -2508,267 +1818,29 @@
       }
     },
     {
-      "name": "openlmis-add-assignment-dialog",
-      "title": "Add Assignment Dialog",
-      "description": "Add a valid source or destination with program, facility type, facility or organization, and geographic level choices.",
+      "name": "openlmis-valid-assignments-page",
+      "title": "Valid Assignments Page",
+      "description": "Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.",
       "dependencies": [
         "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
         "lucide-react@^1",
         "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/add-assignment-dialog/assignment-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/add-assignment-dialog/assignment-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/add-assignment-dialog/add-assignment-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "640px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "assignments"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-delete-assignments-dialog",
-      "title": "Delete Assignments Dialog",
-      "description": "Confirm deletion of one or several assignments, with pending, failed-delete and focus recovery states.",
-      "dependencies": [
-        "lucide-react@^1",
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
         "alert-dialog",
         "button",
-        "spinner",
-        "https://registry.soldevelo.com/r/openlmis-add-assignment-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/delete-assignments-dialog/delete-assignments-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/delete-assignments-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "384px"
-      },
-      "categories": [
-        "overlay",
-        "assignments"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-feature-flags-settings",
-      "title": "Feature Flags Settings",
-      "description": "Searchable feature flag overrides with inherited values, deployment markers, per-flag Reset and dirty settings.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "alert",
-        "button",
-        "popover",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-search-input.json",
-        "https://registry.soldevelo.com/r/openlmis-settings-list.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/feature-flags-settings/feature-flags.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/feature-flags-settings/feature-flags.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/feature-flags-settings/feature-flags-settings.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "378px"
-      },
-      "categories": [
-        "forms",
-        "settings"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-branding-settings",
-      "title": "Branding Settings",
-      "description": "App name, image upload and name visibility settings with validation and live sidebar and sign-in previews.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "lucide-react@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "alert",
-        "button",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-settings-list.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/branding-settings/branding.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/branding-settings/branding.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/branding-settings/branding-preview.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/branding-settings/branding-preview.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/branding-settings/branding-settings.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/branding-settings/branding-settings.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "508px"
-      },
-      "categories": [
-        "forms",
-        "settings"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-valid-assignments-page",
-      "title": "Valid Assignments Page",
-      "description": "Mock valid sources and destinations with paired facility and program filters, responsive tables, selection across pages, Add and partial Delete.",
-      "dependencies": [
-        "@tanstack/react-table@^9",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
         "dropdown-menu",
-        "https://registry.soldevelo.com/r/openlmis-add-assignment-dialog.json",
+        "field",
+        "spinner",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
         "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
         "https://registry.soldevelo.com/r/openlmis-combobox-filter.json",
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-delete-assignments-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
         "https://registry.soldevelo.com/r/openlmis-select-filter.json",
         "https://registry.soldevelo.com/r/openlmis-table-selection.json",
@@ -2776,6 +1848,26 @@
         "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
       ],
       "files": [
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/add-assignment-dialog/add-assignment-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/valid-assignments-page/add-assignment-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/add-assignment-dialog/assignment-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/valid-assignments-page/assignment-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/valid-assignments-page/assignment-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/valid-assignments-page/components/delete-assignments-dialog/delete-assignments-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/valid-assignments-page/delete-assignments-dialog.tsx"
+        },
         {
           "path": "registry/templates/openlmis/valid-assignments-page/components/mock-assignments.ts",
           "type": "registry:lib",
@@ -2785,11 +1877,6 @@
           "path": "registry/templates/openlmis/valid-assignments-page/components/use-assignments.ts",
           "type": "registry:hook",
           "target": "components/openlmis/valid-assignments-page/use-assignments.ts"
-        },
-        {
-          "path": "registry/templates/openlmis/valid-assignments-page/components/assignment-columns.tsx",
-          "type": "registry:component",
-          "target": "components/openlmis/valid-assignments-page/assignment-columns.tsx"
         },
         {
           "path": "registry/templates/openlmis/valid-assignments-page/components/valid-assignments-page.tsx",
@@ -2842,21 +1929,50 @@
       "dependencies": [
         "@tanstack/react-form@^1",
         "lucide-react@^1",
-        "@base-ui/react"
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
         "alert-dialog",
         "button",
+        "popover",
         "spinner",
-        "https://registry.soldevelo.com/r/openlmis-branding-settings.json",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-feature-flags-settings.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-search-input.json",
+        "https://registry.soldevelo.com/r/openlmis-settings-list.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json",
         "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
       ],
       "files": [
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/branding-settings/branding-preview.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/branding-preview.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/branding-settings/branding-settings.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/branding-settings.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/branding-settings/branding.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/system-settings-page/branding.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/feature-flags-settings/feature-flags-settings.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/system-settings-page/feature-flags-settings.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/system-settings-page/components/feature-flags-settings/feature-flags.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/system-settings-page/feature-flags.ts"
+        },
         {
           "path": "registry/templates/openlmis/system-settings-page/components/mock-settings.ts",
           "type": "registry:lib",
@@ -2891,6 +2007,7 @@
         "settings"
       ],
       "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -2920,7 +2037,7 @@
       "description": "Pure number validation for text fields, including whole numbers, bounds and decimal precision.",
       "dependencies": [
         "zod@^4",
-        "@base-ui/react"
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "field",
@@ -2965,195 +2082,16 @@
       }
     },
     {
-      "name": "openlmis-product-general-form",
-      "title": "Product General Form",
-      "description": "Product information with code validation, pack sizes, dispensing units, dirty state and reusable footer actions.",
+      "name": "openlmis-product-editor-page",
+      "title": "Product Editor Page",
+      "description": "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
       "dependencies": [
         "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-number-text.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-general-form/product-form-fields.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-general-form/product-form-fields.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-general-form/product-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/product-general-form/product-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-general-form/product-general-form.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-general-form/product-general-form.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "723px"
-      },
-      "categories": [
-        "forms",
-        "products"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-form-dialog",
-      "title": "Product Form Dialog",
-      "description": "Add Product with required information, pack size and duplicate-code validation.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-product-general-form.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-form-dialog/product-form-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-form-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "832px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "products"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-program-link-dialog",
-      "title": "Product Program Link Dialog",
-      "description": "Add, edit or view a product program link with category, doses, price and Full Supply.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-number-text.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-program-link-dialog/product-program-link-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-program-link-dialog/program-link-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/product-program-link-dialog/program-link-form.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "832px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "products"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-program-links",
-      "title": "Product Program Links",
-      "description": "Responsive product program links with category, supply, price, inactive markers and row actions.",
-      "dependencies": [
         "@tanstack/react-table@^9",
         "lucide-react@^1",
-        "@base-ui/react"
+        "react-dom@^19",
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
@@ -3161,344 +2099,107 @@
         "badge",
         "button",
         "dropdown-menu",
-        "spinner",
-        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
-        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-program-links/product-program-links.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-program-links/product-program-links.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-program-links/remove-program-link-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-program-links/remove-program-link-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "342px"
-      },
-      "categories": [
-        "data-table",
-        "products"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-approval-dialog",
-      "title": "Product Approval Dialog",
-      "description": "Facility type and program approval with stock levels, duplicate checks and locked edit choices.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
         "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-number-text.json",
-        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-approval-dialog/approval-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/product-approval-dialog/approval-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-approval-dialog/product-approval-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "800px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "products"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-facility-approved-products",
-      "title": "Facility Approved Products",
-      "description": "Product approvals grouped by facility type, with responsive stock-level columns and row actions.",
-      "dependencies": [
-        "@tanstack/react-table@^9",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "alert",
-        "alert-dialog",
-        "button",
-        "dropdown-menu",
-        "spinner",
-        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
-        "https://registry.soldevelo.com/r/openlmis-product-approval-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/facility-approved-products/facility-approved-products.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-approved-products/facility-approved-products.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-approved-products/remove-approval-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "438px"
-      },
-      "categories": [
-        "data-table",
-        "products"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-kit-products-dialog",
-      "title": "Kit Products Dialog",
-      "description": "Search and pick products for a kit, excluding existing products and showing limited-search feedback.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/kit-products-dialog/kit-products-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/kit-products-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "480px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "products"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-kit-unpack-list",
-      "title": "Product Kit Unpack List",
-      "description": "Editable kit quantities with Add Products, Remove, dirty state, validation and footer actions.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "lucide-react@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "dropdown-menu",
         "skeleton",
+        "spinner",
         "table",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-form-actions.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-kit-products-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
-        "https://registry.soldevelo.com/r/openlmis-number-text.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/product-kit-unpack-list/kit-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/product-kit-unpack-list/kit-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/product-kit-unpack-list/product-kit-unpack-list.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "418px"
-      },
-      "categories": [
-        "forms",
-        "data-table",
-        "products"
-      ],
-      "type": "registry:block",
-      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-product-editor-page",
-      "title": "Product Editor Page",
-      "description": "Mock product editor with General, Programs, Facility Types and Kit Unpack List tabs, dialogs and discard confirmation.",
-      "dependencies": [
-        "@tanstack/react-table@^9",
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
         "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-facility-approved-products.json",
         "https://registry.soldevelo.com/r/openlmis-form-actions.json",
-        "https://registry.soldevelo.com/r/openlmis-kit-products-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-product-approval-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-product-general-form.json",
-        "https://registry.soldevelo.com/r/openlmis-product-kit-unpack-list.json",
-        "https://registry.soldevelo.com/r/openlmis-product-program-link-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-product-program-links.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-number-text.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json",
         "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
       ],
       "files": [
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/facility-approved-products/facility-approved-products.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/facility-approved-products.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/facility-approved-products/remove-approval-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/remove-approval-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/kit-products-dialog/kit-products-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/kit-products-dialog.tsx"
+        },
         {
           "path": "registry/templates/openlmis/product-editor-page/components/mock-product.ts",
           "type": "registry:lib",
           "target": "components/openlmis/product-editor-page/mock-product.ts"
         },
         {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-approval-dialog/approval-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/product-editor-page/approval-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-approval-dialog/product-approval-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-approval-dialog.tsx"
+        },
+        {
           "path": "registry/templates/openlmis/product-editor-page/components/product-editor-page.tsx",
           "type": "registry:component",
           "target": "components/openlmis/product-editor-page/product-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-form-dialog/product-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-general-form/product-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-form-fields.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-general-form/product-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/product-editor-page/product-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-general-form/product-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-general-form.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-kit-unpack-list/kit-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/product-editor-page/kit-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-kit-unpack-list/product-kit-unpack-list.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-kit-unpack-list.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-program-link-dialog/product-program-link-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-program-link-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-program-link-dialog/program-link-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/product-editor-page/program-link-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-program-links/product-program-links.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/product-program-links.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/product-editor-page/components/product-program-links/remove-program-link-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/product-editor-page/remove-program-link-dialog.tsx"
         },
         {
           "path": "registry/templates/openlmis/product-editor-page/page.tsx",
@@ -3514,476 +2215,7 @@
         "products"
       ],
       "type": "registry:page",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-facility-general-form",
-      "title": "Facility General Form",
-      "description": "Facility information, geographic zone, operational date, status switches, duplicate codes and externally managed fields.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/facility-general-form/facility-form-fields.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-general-form/facility-form-fields.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/facility-general-form/facility-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/facility-general-form/facility-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/facility-general-form/facility-general-form.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-general-form/facility-general-form.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "583px"
-      },
-      "categories": [
-        "forms",
-        "facilities"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-facility-program-dialog",
-      "title": "Facility Program Dialog",
-      "description": "Add a supported program and start date to a facility.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-program-dialog/facility-program-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/facility-program-dialog/facility-program.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/facility-program-dialog/facility-program.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "512px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "facilities"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-facility-programs",
-      "title": "Facility Programs",
-      "description": "Supported programs with start dates, Active and Locally Fulfilled switches and unsaved-row removal.",
-      "dependencies": [
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "empty",
-        "field",
-        "skeleton",
-        "switch",
-        "table",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-date-picker.json",
-        "https://registry.soldevelo.com/r/openlmis-facility-program-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/facility-programs/facility-programs.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-programs.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "345px"
-      },
-      "categories": [
-        "data-table",
-        "facilities"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-facility-form-dialog",
-      "title": "Facility Form Dialog",
-      "description": "Add Facility with shared information fields and validation.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-facility-general-form.json",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/facility-form-dialog/facility-form-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/facility-form-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "896px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "facilities"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-reason-general-form",
-      "title": "Reason General Form",
-      "description": "Stock reason information with tags, category, type, free text and fixed saved choices.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/reason-general-form/reason-form-fields.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reason-general-form/reason-form-fields.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/reason-general-form/reason-form.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/reason-general-form/reason-form.ts"
-        },
-        {
-          "path": "registry/blocks/openlmis/reason-general-form/reason-general-form.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reason-general-form/reason-general-form.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "426px"
-      },
-      "categories": [
-        "forms",
-        "stock"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-reason-assignment-dialog",
-      "title": "Reason Assignment Dialog",
-      "description": "Add a program and facility type pair for a reason, with Show and duplicate validation.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "zod@^4",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reason-assignment-dialog/reason-assignment-dialog.tsx"
-        },
-        {
-          "path": "registry/blocks/openlmis/reason-assignment-dialog/reason-assignment.ts",
-          "type": "registry:lib",
-          "target": "components/blocks/openlmis/reason-assignment-dialog/reason-assignment.ts"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "512px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "stock"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-reason-assignments",
-      "title": "Reason Assignments",
-      "description": "Program and facility type assignments for a reason, with Show switches and row removal.",
-      "dependencies": [
-        "lucide-react@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "empty",
-        "skeleton",
-        "switch",
-        "table",
-        "https://registry.soldevelo.com/r/openlmis-data-table.json",
-        "https://registry.soldevelo.com/r/openlmis-reason-assignment-dialog.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/reason-assignments/reason-assignments.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reason-assignments.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "333px"
-      },
-      "categories": [
-        "data-table",
-        "stock"
-      ],
-      "type": "registry:block",
-      "cssVars": {
-        "light": {
-          "destructive": "oklch(0.577 0.245 27.325)",
-          "destructive-foreground": "oklch(0.985 0 0)",
-          "success": "oklch(0.596 0.145 163.225)",
-          "success-foreground": "oklch(0.985 0 0)",
-          "warning": "oklch(0.666 0.179 58.318)",
-          "warning-foreground": "oklch(0.985 0 0)",
-          "info": "oklch(0.55 0.13 237)",
-          "info-foreground": "oklch(0.985 0 0)"
-        },
-        "dark": {
-          "destructive": "oklch(0.704 0.191 22.216)",
-          "destructive-foreground": "oklch(0.21 0.04 25)",
-          "success": "oklch(0.696 0.17 162.48)",
-          "success-foreground": "oklch(0.21 0.04 163)",
-          "warning": "oklch(0.769 0.188 70.08)",
-          "warning-foreground": "oklch(0.22 0.04 60)",
-          "info": "oklch(0.7 0.14 237)",
-          "info-foreground": "oklch(0.2 0.04 240)"
-        }
-      }
-    },
-    {
-      "name": "openlmis-reason-form-dialog",
-      "title": "Reason Form Dialog",
-      "description": "Add Reason with shared stock-reason fields and validation.",
-      "dependencies": [
-        "@tanstack/react-form@^1",
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "field",
-        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
-        "https://registry.soldevelo.com/r/openlmis-reason-general-form.json"
-      ],
-      "files": [
-        {
-          "path": "registry/blocks/openlmis/reason-form-dialog/reason-form-dialog.tsx",
-          "type": "registry:component",
-          "target": "components/blocks/openlmis/reason-form-dialog.tsx"
-        }
-      ],
-      "meta": {
-        "project": "openlmis",
-        "height": "704px"
-      },
-      "categories": [
-        "forms",
-        "overlay",
-        "stock"
-      ],
-      "type": "registry:block",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",
@@ -4012,20 +2244,28 @@
       "title": "Facility Editor Page",
       "description": "Mock facility editor with Information and Associated Programs tabs, managed fields, combined validation and discard confirmation.",
       "dependencies": [
+        "@tanstack/react-form@^1",
         "lucide-react@^1",
-        "@base-ui/react"
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
         "badge",
         "button",
+        "empty",
+        "field",
+        "skeleton",
         "spinner",
+        "switch",
+        "table",
         "tabs",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-date-picker.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-facility-general-form.json",
-        "https://registry.soldevelo.com/r/openlmis-facility-program-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-facility-programs.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json",
         "https://registry.soldevelo.com/r/openlmis-workspace-tabs.json"
@@ -4035,6 +2275,41 @@
           "path": "registry/templates/openlmis/facility-editor-page/components/facility-editor-page.tsx",
           "type": "registry:component",
           "target": "components/openlmis/facility-editor-page/facility-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-form-dialog/facility-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-general-form/facility-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-form-fields.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-general-form/facility-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/facility-editor-page/facility-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-general-form/facility-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-general-form.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-program-dialog/facility-program-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-program-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-program-dialog/facility-program.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/facility-editor-page/facility-program.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-editor-page/components/facility-programs/facility-programs.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-editor-page/facility-programs.tsx"
         },
         {
           "path": "registry/templates/openlmis/facility-editor-page/components/mock-facility.ts",
@@ -4083,20 +2358,26 @@
       "title": "Reason Editor Page",
       "description": "Mock stock reason editor with assignment pairs, partial-save feedback and discard confirmation.",
       "dependencies": [
+        "@tanstack/react-form@^1",
         "lucide-react@^1",
-        "@base-ui/react"
+        "zod@^4",
+        "@base-ui/react@^1"
       ],
       "registryDependencies": [
         "alert",
         "button",
+        "empty",
         "field",
+        "skeleton",
         "spinner",
+        "switch",
+        "table",
         "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
         "https://registry.soldevelo.com/r/openlmis-discard-changes-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
         "https://registry.soldevelo.com/r/openlmis-page-breadcrumbs.json",
-        "https://registry.soldevelo.com/r/openlmis-reason-assignment-dialog.json",
-        "https://registry.soldevelo.com/r/openlmis-reason-assignments.json",
-        "https://registry.soldevelo.com/r/openlmis-reason-general-form.json",
         "https://registry.soldevelo.com/r/openlmis-workspace.json"
       ],
       "files": [
@@ -4106,9 +2387,44 @@
           "target": "components/openlmis/reason-editor-page/mock-reason.ts"
         },
         {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-assignment-dialog/reason-assignment-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-assignment-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-assignment-dialog/reason-assignment.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/reason-editor-page/reason-assignment.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-assignments/reason-assignments.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-assignments.tsx"
+        },
+        {
           "path": "registry/templates/openlmis/reason-editor-page/components/reason-editor-page.tsx",
           "type": "registry:component",
           "target": "components/openlmis/reason-editor-page/reason-editor-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-form-dialog/reason-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-general-form/reason-form-fields.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-form-fields.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-general-form/reason-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/reason-editor-page/reason-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/reason-editor-page/components/reason-general-form/reason-general-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reason-editor-page/reason-general-form.tsx"
         },
         {
           "path": "registry/templates/openlmis/reason-editor-page/page.tsx",
@@ -4124,6 +2440,921 @@
         "stock"
       ],
       "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-auth-card",
+      "title": "Auth Card",
+      "description": "Composable authentication cards and a page shell with logo, title, form, actions and Powered By footer.",
+      "dependencies": [
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "field",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/auth-card/auth-card.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/auth-card.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "329px"
+      },
+      "categories": [
+        "auth",
+        "forms"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-no-access",
+      "title": "No Access",
+      "description": "No-access empty state with a heading-level choice and optional Back Home link.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "empty"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/no-access/no-access.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/no-access.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "477px"
+      },
+      "categories": [
+        "feedback"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-sign-in-page",
+      "title": "Sign In Page",
+      "description": "Mock sign-in page with credentials, refused feedback and a signed-in result.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-auth-card.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/sign-in-page/components/session-expired-dialog/session-expired-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/sign-in-page/session-expired-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/sign-in-page/components/sign-in-form/sign-in-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/sign-in-page/sign-in-form.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/sign-in-page/components/sign-in-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/sign-in-page/sign-in-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/sign-in-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/sign-in-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "484px"
+      },
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-forgot-password-page",
+      "title": "Forgot Password Page",
+      "description": "Mock email reset request page with a neutral confirmation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "card",
+        "https://registry.soldevelo.com/r/openlmis-auth-card.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/forgot-password-page/components/forgot-password-form/forgot-password-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/forgot-password-page/forgot-password-form.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/forgot-password-page/components/forgot-password-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/forgot-password-page/forgot-password-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/forgot-password-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/forgot-password-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "468px"
+      },
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-reset-password-page",
+      "title": "Reset Password Page",
+      "description": "Mock password reset page with validation and link-status presentation.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "card",
+        "https://registry.soldevelo.com/r/openlmis-auth-card.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-password-requirements.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/reset-password-page/components/reset-password-form/reset-password-form.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reset-password-page/reset-password-form.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reset-password-page/components/reset-password-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/reset-password-page/reset-password-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/reset-password-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/reset-password-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "603px"
+      },
+      "categories": [
+        "auth"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-no-access-page",
+      "title": "No Access Page",
+      "description": "Workspace page for a permission-denied empty state with Back Home.",
+      "dependencies": [
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "https://registry.soldevelo.com/r/openlmis-no-access.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/no-access-page/components/no-access-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/no-access-page/no-access-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/no-access-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/no-access-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "266px"
+      },
+      "categories": [
+        "feedback"
+      ],
+      "type": "registry:page",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-lots-page",
+      "title": "Lots Page",
+      "description": "Mock lot list with product/expiry filters, paging and editable lot dialogs.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-combobox-filter.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-date-picker.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lot-form-dialog/lot-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/lots-page/lot-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lot-form-dialog/lot-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/lots-page/lot-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lots-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/lots-page/lots-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lots-table/lots-table.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/lots-page/lots-table.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lots-table/lots-toolbar.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/lots-page/lots-toolbar.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/lots-table/lots.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/lots-page/lots.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/components/mock-lots.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/lots-page/mock-lots.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/lots-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/lots-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "747px"
+      },
+      "categories": [
+        "administration"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-service-accounts-page",
+      "title": "Service Accounts Page",
+      "description": "Mock service-key list with sorting, paging, add/delete dialogs and copy-state presentation.",
+      "dependencies": [
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "alert",
+        "alert-dialog",
+        "button",
+        "dropdown-menu",
+        "spinner",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-copyable-value.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/components/mock-service-accounts.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/service-accounts-page/mock-service-accounts.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/components/service-account-form-dialog/service-account-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/service-accounts-page/service-account-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/components/service-account.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/service-accounts-page/service-account.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/components/service-accounts-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/service-accounts-page/service-accounts-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/components/service-accounts-table/service-accounts-table.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/service-accounts-page/service-accounts-table.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/service-accounts-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/service-accounts-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "459px"
+      },
+      "categories": [
+        "administration"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-copyable-value",
+      "title": "Copyable Value",
+      "description": "A value display and controlled copy button, with caller-owned copy behavior and feedback.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/copyable-value/copyable-value.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/copyable-value.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "146px"
+      },
+      "categories": [
+        "feedback"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-label-popover",
+      "title": "Label Popover",
+      "description": "A truncated label with an accessible details button and a composable popover panel.",
+      "dependencies": [
+        "lucide-react@^1",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/label-popover/label-popover.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/label-popover.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "124px"
+      },
+      "categories": [
+        "feedback"
+      ],
+      "type": "registry:component",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-segmented-meter",
+      "title": "Segmented Meter",
+      "description": "A stacked meter with a labeled count and percentage legend, locale formatting and right-to-left support.",
+      "dependencies": [
+        "recharts@^3",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "chart",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/segmented-meter/segmented-meter.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/segmented-meter.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "330px"
+      },
+      "categories": [
+        "charts"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-status-meter-list",
+      "title": "Status Meter List",
+      "description": "Composable labeled meters with icons, counts and semantic tones.",
+      "dependencies": [
+        "@base-ui/react@^1",
+        "lucide-react@^1"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/components/openlmis/status-meter-list/status-meter-list.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/status-meter-list.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "220px"
+      },
+      "categories": [
+        "charts"
+      ],
+      "type": "registry:component",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-programs-page",
+      "title": "Programs Page",
+      "description": "Mock program administration with responsive columns, sorting, paging and create/edit forms.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/programs-page/components/mock-programs.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/programs-page/mock-programs.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/programs-page/components/program-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/programs-page/program-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/programs-page/components/program-form-dialog/program-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/programs-page/program-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/programs-page/components/program-form-dialog/program-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/programs-page/program-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/programs-page/components/programs-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/programs-page/programs-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/programs-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/programs-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "507px"
+      },
+      "categories": [
+        "administration"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
+      "cssVars": {
+        "light": {
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "destructive-foreground": "oklch(0.985 0 0)",
+          "success": "oklch(0.596 0.145 163.225)",
+          "success-foreground": "oklch(0.985 0 0)",
+          "warning": "oklch(0.666 0.179 58.318)",
+          "warning-foreground": "oklch(0.985 0 0)",
+          "info": "oklch(0.55 0.13 237)",
+          "info-foreground": "oklch(0.985 0 0)"
+        },
+        "dark": {
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "destructive-foreground": "oklch(0.21 0.04 25)",
+          "success": "oklch(0.696 0.17 162.48)",
+          "success-foreground": "oklch(0.21 0.04 163)",
+          "warning": "oklch(0.769 0.188 70.08)",
+          "warning-foreground": "oklch(0.22 0.04 60)",
+          "info": "oklch(0.7 0.14 237)",
+          "info-foreground": "oklch(0.2 0.04 240)"
+        }
+      }
+    },
+    {
+      "name": "openlmis-facility-types-page",
+      "title": "Facility Types Page",
+      "description": "Mock facility type administration with responsive columns, sorting, paging and create/edit forms.",
+      "dependencies": [
+        "@tanstack/react-form@^1",
+        "@tanstack/react-table@^9",
+        "lucide-react@^1",
+        "zod@^4",
+        "@base-ui/react@^1"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "field",
+        "https://registry.soldevelo.com/r/openlmis-callout.json",
+        "https://registry.soldevelo.com/r/openlmis-column-view-options.json",
+        "https://registry.soldevelo.com/r/openlmis-data-table.json",
+        "https://registry.soldevelo.com/r/openlmis-form-dialog.json",
+        "https://registry.soldevelo.com/r/openlmis-form-fields.json",
+        "https://registry.soldevelo.com/r/openlmis-list-toolbar.json",
+        "https://registry.soldevelo.com/r/openlmis-status-badge.json",
+        "https://registry.soldevelo.com/r/openlmis-workspace.json"
+      ],
+      "files": [
+        {
+          "path": "registry/templates/openlmis/facility-types-page/components/facility-type-columns.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-types-page/facility-type-columns.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-types-page/components/facility-type-form-dialog/facility-type-form-dialog.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-types-page/facility-type-form-dialog.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-types-page/components/facility-type-form-dialog/facility-type-form.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/facility-types-page/facility-type-form.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-types-page/components/facility-types-page.tsx",
+          "type": "registry:component",
+          "target": "components/openlmis/facility-types-page/facility-types-page.tsx"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-types-page/components/mock-facility-types.ts",
+          "type": "registry:lib",
+          "target": "components/openlmis/facility-types-page/mock-facility-types.ts"
+        },
+        {
+          "path": "registry/templates/openlmis/facility-types-page/page.tsx",
+          "type": "registry:page",
+          "target": "app/facility-types-page/page.tsx"
+        }
+      ],
+      "meta": {
+        "project": "openlmis",
+        "height": "411px"
+      },
+      "categories": [
+        "administration"
+      ],
+      "type": "registry:page",
+      "docs": "Requires a `base-*` style in components.json (the `shadcn init` default). Legacy `new-york`/`radix-*` styles install Radix primitives, which reject the `render` prop this item uses.",
       "cssVars": {
         "light": {
           "destructive": "oklch(0.577 0.245 27.325)",

@@ -4,9 +4,9 @@
   "title": "Form Fields",
   "description": "Thirteen TanStack Form controls with stacked, row and inline layouts, accessible hints and errors, password reveal, searchable options, tags, images and dates, compact switch rows and radio cards or tiles.",
   "dependencies": [
-    "@base-ui/react",
+    "@base-ui/react@^1",
     "@tanstack/react-form@^1",
-    "lucide-react",
+    "lucide-react@^1",
     "zod@^4"
   ],
   "registryDependencies": [
@@ -23,15 +23,16 @@
     "switch",
     "textarea",
     "tooltip",
+    "utils",
     "https://registry.soldevelo.com/r/openlmis-date-picker.json",
     "https://registry.soldevelo.com/r/openlmis-settings-list.json"
   ],
   "files": [
     {
-      "path": "registry/components/openlmis/form-fields/form.tsx",
-      "content": "import { createFormHook } from \"@tanstack/react-form\"\n\nimport { fieldContext, formContext } from \"@/components/openlmis/form-fields/form-context\"\nimport {\n  ComboboxField,\n  DateField,\n  DecimalField,\n  ImageField,\n  MultiComboboxField,\n  NumberField,\n  PasswordField,\n  RadioGroupField,\n  SelectField,\n  SwitchField,\n  TagsField,\n  TextareaField,\n  TextField,\n} from \"@/components/openlmis/form-fields/form-fields\"\n\n/** `useForm` with the field components attached, used as `<form.AppField>{(field) => <field.TextField />}`. */\nexport const { useAppForm, withForm } = createFormHook({\n  fieldContext,\n  formContext,\n  fieldComponents: {\n    TextField,\n    NumberField,\n    DecimalField,\n    TextareaField,\n    PasswordField,\n    SwitchField,\n    RadioGroupField,\n    ComboboxField,\n    MultiComboboxField,\n    TagsField,\n    SelectField,\n    ImageField,\n    DateField,\n  },\n  formComponents: {},\n})",
-      "type": "registry:component",
-      "target": "components/openlmis/form-fields/form.tsx"
+      "path": "registry/components/openlmis/form-fields/form-context.ts",
+      "content": "import { createFormHookContexts } from \"@tanstack/react-form\"\n\nexport const { fieldContext, formContext, useFieldContext } =\n  createFormHookContexts()",
+      "type": "registry:lib",
+      "target": "components/openlmis/form-fields/form-context.ts"
     },
     {
       "path": "registry/components/openlmis/form-fields/form-fields.tsx",
@@ -40,16 +41,16 @@
       "target": "components/openlmis/form-fields/form-fields.tsx"
     },
     {
-      "path": "registry/components/openlmis/form-fields/form-context.ts",
-      "content": "import { createFormHookContexts } from \"@tanstack/react-form\"\n\nexport const { fieldContext, formContext, useFieldContext } =\n  createFormHookContexts()",
-      "type": "registry:lib",
-      "target": "components/openlmis/form-fields/form-context.ts"
-    },
-    {
       "path": "registry/components/openlmis/form-fields/form-messages.tsx",
       "content": "\"use client\"\n\nimport { createContext, type ReactNode, use, useMemo } from \"react\"\n\ntype FormMessages = {\n  formatError: (message: string) => string\n  aboutLabel: (label: string) => string\n  requiredLabel: string\n  dateLanguage: string\n}\n\nconst defaultAboutLabel = (label: string) => `About ${label}`\n\nconst FormMessagesContext = createContext<FormMessages>({\n  formatError: (message) => message,\n  aboutLabel: defaultAboutLabel,\n  requiredLabel: \"Required\",\n  dateLanguage: \"en-US\",\n})\n\ntype FormMessagesProviderProps = {\n  /** Turns a validation message into display text, e.g. by translating a message key. */\n  formatError: (message: string) => string\n  /** Names the info button that shows a field's description. */\n  aboutLabel?: (label: string) => string\n  /** Read out with a field that must be filled in but cannot say so itself, such as a date. */\n  requiredLabel?: string\n  /** The language dates are shown in. */\n  dateLanguage?: string\n  children: ReactNode\n}\n\n/** Optional: without it, messages show exactly as written, in English. */\nexport function FormMessagesProvider({\n  formatError,\n  aboutLabel = defaultAboutLabel,\n  requiredLabel = \"Required\",\n  dateLanguage = \"en-US\",\n  children,\n}: FormMessagesProviderProps) {\n  const messages = useMemo(\n    () => ({ formatError, aboutLabel, requiredLabel, dateLanguage }),\n    [formatError, aboutLabel, requiredLabel, dateLanguage]\n  )\n  return <FormMessagesContext value={messages}>{children}</FormMessagesContext>\n}\n\nexport function useFormatError() {\n  return use(FormMessagesContext).formatError\n}\n\nexport function useAboutLabel() {\n  return use(FormMessagesContext).aboutLabel\n}\n\nexport function useDateMessages() {\n  const { requiredLabel, dateLanguage } = use(FormMessagesContext)\n  return { requiredLabel, dateLanguage }\n}",
       "type": "registry:component",
       "target": "components/openlmis/form-fields/form-messages.tsx"
+    },
+    {
+      "path": "registry/components/openlmis/form-fields/form.tsx",
+      "content": "import { createFormHook } from \"@tanstack/react-form\"\n\nimport { fieldContext, formContext } from \"@/components/openlmis/form-fields/form-context\"\nimport {\n  ComboboxField,\n  DateField,\n  DecimalField,\n  ImageField,\n  MultiComboboxField,\n  NumberField,\n  PasswordField,\n  RadioGroupField,\n  SelectField,\n  SwitchField,\n  TagsField,\n  TextareaField,\n  TextField,\n} from \"@/components/openlmis/form-fields/form-fields\"\n\n/** `useForm` with the field components attached, used as `<form.AppField>{(field) => <field.TextField />}`. */\nexport const { useAppForm, withForm } = createFormHook({\n  fieldContext,\n  formContext,\n  fieldComponents: {\n    TextField,\n    NumberField,\n    DecimalField,\n    TextareaField,\n    PasswordField,\n    SwitchField,\n    RadioGroupField,\n    ComboboxField,\n    MultiComboboxField,\n    TagsField,\n    SelectField,\n    ImageField,\n    DateField,\n  },\n  formComponents: {},\n})",
+      "type": "registry:component",
+      "target": "components/openlmis/form-fields/form.tsx"
     },
     {
       "path": "registry/components/openlmis/form-fields/tags.ts",

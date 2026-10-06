@@ -10,16 +10,16 @@ import {
   DEFAULT_BRANDING,
   isBrandingDefault,
   toBrandingValues,
-} from "@/registry/blocks/openlmis/branding-settings/branding"
+} from "./branding-settings/branding"
 import {
   BrandingSettings,
   useBrandingForm,
-} from "@/registry/blocks/openlmis/branding-settings/branding-settings"
-import { toFlagDraft } from "@/registry/blocks/openlmis/feature-flags-settings/feature-flags"
+} from "./branding-settings/branding-settings"
+import { toFlagDraft } from "./feature-flags-settings/feature-flags"
 import {
   FeatureFlagsSettings,
   useFeatureFlagsForm,
-} from "@/registry/blocks/openlmis/feature-flags-settings/feature-flags-settings"
+} from "./feature-flags-settings/feature-flags-settings"
 import {
   Workspace,
   WorkspaceActions,

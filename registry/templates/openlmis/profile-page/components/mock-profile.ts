@@ -1,17 +1,17 @@
 // A mock signed-in user, their roles and notification settings, so the page runs with no backend.
 
-import type { Profile } from "@/registry/blocks/openlmis/profile-basic-information/profile"
+import type { Profile } from "./profile-basic-information/profile"
 import type {
   DigestConfiguration,
   DigestSubscription,
-} from "@/registry/blocks/openlmis/profile-notification-settings/digest"
+} from "./profile-notification-settings/digest"
 import type {
   Facility,
   Program,
   Role,
   RoleAssignment,
   SupervisoryNode,
-} from "@/registry/blocks/openlmis/role-assignments-table/role-assignments"
+} from "@/registry/templates/openlmis/user-roles-page/components/role-assignments-table/role-assignments"
 
 export const MOCK_PROFILE: Profile = {
   user: {

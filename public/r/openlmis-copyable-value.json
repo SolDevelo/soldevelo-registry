@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "openlmis-copyable-value",
+  "title": "Copyable Value",
+  "description": "A value display and controlled copy button, with caller-owned copy behavior and feedback.",
+  "dependencies": [
+    "lucide-react@^1",
+    "@base-ui/react@^1"
+  ],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/components/openlmis/copyable-value/copyable-value.tsx",
+      "content": "\"use client\"\n\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\nimport type { ComponentProps } from \"react\"\n\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\n/** Copy state for a value; the caller does the copying and says when it is done. */\nexport type CopyState = {\n  /** Shows a tick and `copiedLabel` in place of the copy icon. */\n  copied?: boolean\n  /** Called on click; copy `value`, then pass `copied`. */\n  onCopy?: ((value: string) => void) | undefined\n  /** Called with `false` when a copied button loses focus or the pointer, so the tick can reset. */\n  onCopiedChange?: ((copied: boolean) => void) | undefined\n}\n\nexport type CopyButtonProps = CopyState & {\n  value: string\n  /** Accessible name before copying. */\n  copyLabel?: string\n  /** Accessible name once copied. */\n  copiedLabel?: string\n  /** Takes focus as it mounts, e.g. when a dialog opens on a new value. */\n  focusOnMount?: boolean\n}\n\n/** An icon button that asks the caller to copy `value`, showing a tick while `copied` is set. */\nexport function CopyButton({\n  value,\n  copyLabel = \"Copy\",\n  copiedLabel = \"Copied\",\n  focusOnMount = false,\n  copied = false,\n  onCopy,\n  onCopiedChange,\n}: CopyButtonProps) {\n  // Safari does not focus a clicked button, so blur alone may never fire.\n  const reset = () => copied && onCopiedChange?.(false)\n\n  return (\n    <Button\n      aria-label={copied ? copiedLabel : copyLabel}\n      // oxlint-disable-next-line jsx-a11y/no-autofocus -- a caller opts in when the value is what its surface is about\n      autoFocus={focusOnMount}\n      onBlur={reset}\n      onClick={() => onCopy?.(value)}\n      onPointerLeave={reset}\n      size=\"icon-xs\"\n      type=\"button\"\n      variant=\"ghost\"\n    >\n      {copied ? <CheckIcon /> : <CopyIcon />}\n    </Button>\n  )\n}\n\ntype CopyableValueProps = CopyButtonProps &\n  Omit<ComponentProps<\"div\">, \"children\" | \"onCopy\">\n\n/** A value shown in full, monospaced, with its Copy button. */\nexport function CopyableValue({\n  value,\n  copyLabel,\n  copiedLabel,\n  focusOnMount,\n  copied,\n  onCopy,\n  onCopiedChange,\n  className,\n  ...props\n}: CopyableValueProps) {\n  return (\n    <div\n      className={cn(\n        \"flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-2\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"min-w-0 flex-1 font-mono text-sm break-all\" dir=\"ltr\">\n        {value}\n      </span>\n      <CopyButton\n        copied={copied}\n        copiedLabel={copiedLabel}\n        copyLabel={copyLabel}\n        focusOnMount={focusOnMount}\n        onCopiedChange={onCopiedChange}\n        onCopy={onCopy}\n        value={value}\n      />\n    </div>\n  )\n}",
+      "type": "registry:component",
+      "target": "components/openlmis/copyable-value.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "destructive-foreground": "oklch(0.985 0 0)",
+      "success": "oklch(0.596 0.145 163.225)",
+      "success-foreground": "oklch(0.985 0 0)",
+      "warning": "oklch(0.666 0.179 58.318)",
+      "warning-foreground": "oklch(0.985 0 0)",
+      "info": "oklch(0.55 0.13 237)",
+      "info-foreground": "oklch(0.985 0 0)"
+    },
+    "dark": {
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "destructive-foreground": "oklch(0.21 0.04 25)",
+      "success": "oklch(0.696 0.17 162.48)",
+      "success-foreground": "oklch(0.21 0.04 163)",
+      "warning": "oklch(0.769 0.188 70.08)",
+      "warning-foreground": "oklch(0.22 0.04 60)",
+      "info": "oklch(0.7 0.14 237)",
+      "info-foreground": "oklch(0.2 0.04 240)"
+    }
+  },
+  "meta": {
+    "project": "openlmis",
+    "height": "146px"
+  },
+  "categories": [
+    "feedback"
+  ],
+  "type": "registry:component"
+}

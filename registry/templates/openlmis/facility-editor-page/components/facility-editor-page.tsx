@@ -11,13 +11,13 @@ import { TabsContent } from "@/components/ui/tabs"
 import {
   EMPTY_FACILITY,
   type FacilityValues,
-} from "@/registry/blocks/openlmis/facility-general-form/facility-form"
-import { FacilityGeneralForm } from "@/registry/blocks/openlmis/facility-general-form/facility-general-form"
+} from "./facility-general-form/facility-form"
+import { FacilityGeneralForm } from "./facility-general-form/facility-general-form"
 import {
   type FacilityProgram,
   missingStartDate,
-} from "@/registry/blocks/openlmis/facility-program-dialog/facility-program"
-import { FacilityPrograms } from "@/registry/blocks/openlmis/facility-programs/facility-programs"
+} from "./facility-program-dialog/facility-program"
+import { FacilityPrograms } from "./facility-programs/facility-programs"
 import {
   Workspace,
   WorkspaceContent,

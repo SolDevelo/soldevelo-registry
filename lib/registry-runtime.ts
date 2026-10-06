@@ -1,5 +1,5 @@
 // The shadcn Base UI primitives import this runtime but do not declare it, so a fresh install fails without it.
-export const BASE_UI_RUNTIME = "@base-ui/react"
+export const BASE_UI_RUNTIME = "@base-ui/react@^1"
 
 export function withBaseUiRuntime(
   dependencies: string[] | undefined,

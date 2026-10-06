@@ -3,7 +3,7 @@ import type {
   AssignmentKind,
   AssignmentNodeType,
   GeoLevelChoice,
-} from "@/registry/blocks/openlmis/add-assignment-dialog/assignment-form"
+} from "./add-assignment-dialog/assignment-form"
 
 export type MockFacility = AssignmentChoice & {
   code: string
